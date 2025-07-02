@@ -79,17 +79,51 @@ def data_collection_page():
     
     with col1:
         st.subheader("Web Scraping")
-        if st.button("🔍 Scrape Latest Data from Allsvenskan.se", type="primary"):
-            with st.spinner("Scraping data from allsvenskan.se..."):
+        
+        # Year selection
+        st.write("**Select Years to Scrape:**")
+        
+        # Quick selection buttons
+        col_quick1, col_quick2 = st.columns(2)
+        with col_quick1:
+            if st.button("Last 3 Years", type="secondary"):
+                st.session_state.selected_years = [2023, 2024, 2025]
+        with col_quick2:
+            if st.button("Last 10 Years", type="secondary"):
+                st.session_state.selected_years = list(range(2015, 2026))
+        
+        # Initialize selected years if not already set
+        if 'selected_years' not in st.session_state:
+            st.session_state.selected_years = [2025]
+        
+        # Multi-select for years
+        available_years = list(range(2015, 2026))
+        selected_years = st.multiselect(
+            "Custom year selection:",
+            options=available_years,
+            default=st.session_state.selected_years,
+            key="year_selector"
+        )
+        
+        if selected_years:
+            st.session_state.selected_years = selected_years
+        
+        # Display selection info
+        if st.session_state.selected_years:
+            st.info(f"📅 Will scrape: {', '.join(map(str, sorted(st.session_state.selected_years)))}")
+        
+        if st.button("🔍 Scrape Data from Selected Years", type="primary", disabled=not st.session_state.selected_years):
+            with st.spinner(f"Scraping data from {len(st.session_state.selected_years)} years..."):
                 try:
                     scraper = AllsvenskanScraper()
-                    raw_data = scraper.scrape_matches()
+                    raw_data = scraper.scrape_matches(years=st.session_state.selected_years)
                     
                     if raw_data is not None and not raw_data.empty:
                         # Save raw data to files
                         os.makedirs("data/raw", exist_ok=True)
                         raw_data.to_csv("data/raw/fixtures_results_raw.csv", index=False)
-                        st.success(f"✅ Successfully scraped {len(raw_data)} matches!")
+                        years_str = ', '.join(map(str, sorted(st.session_state.selected_years)))
+                        st.success(f"✅ Successfully scraped {len(raw_data)} matches from {len(st.session_state.selected_years)} years ({years_str})!")
                         st.dataframe(raw_data.head())
                         
                         # Clean data automatically

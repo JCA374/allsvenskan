@@ -109,6 +109,7 @@ Changelog:
 - July 02, 2025. Added PostgreSQL database integration with full CRUD operations
 - July 02, 2025. Added Database Management page for monitoring and data viewing
 - July 02, 2025. Added Data Verification page for validating scraped and cleaned data
+- July 02, 2025. Enhanced scraper to support multi-year data collection (2015-2025) with selectable year ranges
 ```
 
 ## User Preferences

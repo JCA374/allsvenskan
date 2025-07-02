@@ -13,15 +13,42 @@ class AllsvenskanScraper:
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
         }
     
-    def scrape_matches(self):
-        """Scrape match data from allsvenskan.se"""
+    def scrape_matches(self, years=None):
+        """Scrape match data from allsvenskan.se for specified years"""
+        if years is None:
+            years = [2025]  # Default to current year
+        
+        all_matches = []
+        
+        for year in years:
+            print(f"Scraping data for year {year}...")
+            year_matches = self._scrape_year(year)
+            if not year_matches.empty:
+                all_matches.append(year_matches)
+            
+            # Add delay between requests to be respectful
+            time.sleep(1)
+        
+        if all_matches:
+            combined_df = pd.concat(all_matches, ignore_index=True)
+            print(f"Successfully scraped {len(combined_df)} matches from {len(years)} years")
+            return combined_df
+        else:
+            print("No data found, returning sample data")
+            return self._create_sample_data()
+    
+    def _scrape_year(self, year):
+        """Scrape match data for a specific year"""
         try:
+            year_url = f"{self.base_url}/{year}/"
+            print(f"Fetching from: {year_url}")
+            
             # Get the main content using trafilatura
-            downloaded = trafilatura.fetch_url(self.base_url)
+            downloaded = trafilatura.fetch_url(year_url)
             
             if not downloaded:
                 # Fallback to requests
-                response = requests.get(self.base_url, headers=self.headers)
+                response = requests.get(year_url, headers=self.headers)
                 response.raise_for_status()
                 downloaded = response.text
             
@@ -38,7 +65,7 @@ class AllsvenskanScraper:
                 
             for element in match_elements:
                 try:
-                    match_data = self._parse_match_element(element)
+                    match_data = self._parse_match_element(element, year)
                     if match_data:
                         matches.append(match_data)
                 except Exception as e:
@@ -47,15 +74,17 @@ class AllsvenskanScraper:
             if not matches:
                 # Fallback: extract text and parse manually
                 text_content = trafilatura.extract(downloaded) if downloaded else ""
-                matches = self._parse_text_content(text_content)
+                matches = self._parse_text_content(text_content, year)
             
-            return pd.DataFrame(matches) if matches else self._create_sample_data()
+            year_df = pd.DataFrame(matches) if matches else pd.DataFrame()
+            print(f"Found {len(year_df)} matches for {year}")
+            return year_df
             
         except Exception as e:
-            print(f"Error scraping data: {e}")
-            return self._create_sample_data()
+            print(f"Error scraping data for year {year}: {e}")
+            return pd.DataFrame()
     
-    def _parse_match_element(self, element):
+    def _parse_match_element(self, element, year=2025):
         """Parse individual match element"""
         try:
             # Extract text content
@@ -77,11 +106,11 @@ class AllsvenskanScraper:
                 date_pattern = r'(\d{1,2})\s+(\w+)'
                 date_match = re.search(date_pattern, text)
                 
-                match_date = "2024-07-01"  # Default date
+                match_date = f"{year}-07-01"  # Default date with correct year
                 if date_match:
                     day = date_match.group(1)
                     month = date_match.group(2)
-                    match_date = self._parse_swedish_date(day, month)
+                    match_date = self._parse_swedish_date(day, month, year)
                 
                 match_data = {
                     'Date': match_date,
@@ -103,7 +132,7 @@ class AllsvenskanScraper:
         
         return None
     
-    def _parse_text_content(self, text_content):
+    def _parse_text_content(self, text_content, year=2025):
         """Parse matches from extracted text content"""
         matches = []
         
@@ -130,7 +159,7 @@ class AllsvenskanScraper:
                         score_match = re.search(score_pattern, line)
                         
                         match_data = {
-                            'Date': '2024-07-01',
+                            'Date': f'{year}-07-01',
                             'Venue': 'Stadium',
                             'Match': f"{home_team} - {away_team}",
                             'HomeGoals': None,
@@ -147,7 +176,7 @@ class AllsvenskanScraper:
         
         return matches
     
-    def _parse_swedish_date(self, day, month_str):
+    def _parse_swedish_date(self, day, month_str, year=2025):
         """Convert Swedish month names to dates"""
         swedish_months = {
             'januari': '01', 'februari': '02', 'mars': '03', 'april': '04',
@@ -156,7 +185,7 @@ class AllsvenskanScraper:
         }
         
         month = swedish_months.get(month_str.lower(), '07')
-        return f"2024-{month}-{day.zfill(2)}"
+        return f"{year}-{month}-{day.zfill(2)}"
     
     def _create_sample_data(self):
         """Create sample data structure when scraping fails"""
