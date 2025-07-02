@@ -1,0 +1,241 @@
+Date,Venue,Match,HomeGoals,AwayGoals,Summary
+2024-03-08,IFK Norrköping Stadium,IFK Norrköping - Halmstads BK,1.0,1.0,Result
+2024-03-08,BK Häcken Stadium,BK Häcken - IF Elfsborg,2.0,2.0,Result
+2024-03-08,Varbergs BoIS Stadium,Varbergs BoIS - Mjällby AIF,2.0,1.0,Result
+2024-03-08,Värnamo Stadium,Värnamo - Kalmar FF,1.0,1.0,Result
+2024-03-08,AIK Stadium,AIK - Djurgårdens IF,3.0,2.0,Result
+2024-03-08,Degerfors IF Stadium,Degerfors IF - Östersunds FK,0.0,1.0,Result
+2024-03-08,IFK Göteborg Stadium,IFK Göteborg - IK Sirius FK,1.0,0.0,Result
+2024-03-08,Malmö FF Stadium,Malmö FF - Hammarby IF,2.0,0.0,Result
+2024-03-15,Östersunds FK Stadium,Östersunds FK - Kalmar FF,2.0,2.0,Result
+2024-03-15,IF Elfsborg Stadium,IF Elfsborg - Djurgårdens IF,0.0,0.0,Result
+2024-03-15,Mjällby AIF Stadium,Mjällby AIF - IK Sirius FK,1.0,0.0,Result
+2024-03-15,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,1.0,0.0,Result
+2024-03-15,IFK Norrköping Stadium,IFK Norrköping - Malmö FF,1.0,1.0,Result
+2024-03-15,IFK Göteborg Stadium,IFK Göteborg - Halmstads BK,1.0,1.0,Result
+2024-03-15,Degerfors IF Stadium,Degerfors IF - BK Häcken,1.0,1.0,Result
+2024-03-15,AIK Stadium,AIK - Värnamo,3.0,1.0,Result
+2024-03-22,Halmstads BK Stadium,Halmstads BK - Mjällby AIF,1.0,0.0,Result
+2024-03-22,Varbergs BoIS Stadium,Varbergs BoIS - AIK,3.0,1.0,Result
+2024-03-22,Malmö FF Stadium,Malmö FF - Degerfors IF,2.0,0.0,Result
+2024-03-22,Östersunds FK Stadium,Östersunds FK - Värnamo,1.0,2.0,Result
+2024-03-22,IFK Göteborg Stadium,IFK Göteborg - IF Elfsborg,2.0,0.0,Result
+2024-03-22,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,0.0,2.0,Result
+2024-03-22,Hammarby IF Stadium,Hammarby IF - IK Sirius FK,1.0,2.0,Result
+2024-03-22,Kalmar FF Stadium,Kalmar FF - BK Häcken,1.0,1.0,Result
+2024-04-01,IFK Göteborg Stadium,IFK Göteborg - Östersunds FK,2.0,1.0,Result
+2024-04-01,IF Elfsborg Stadium,IF Elfsborg - Halmstads BK,1.0,1.0,Result
+2024-04-01,Varbergs BoIS Stadium,Varbergs BoIS - Värnamo,3.0,2.0,Result
+2024-04-01,BK Häcken Stadium,BK Häcken - Degerfors IF,0.0,2.0,Result
+2024-04-01,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,2.0,2.0,Result
+2024-04-01,AIK Stadium,AIK - IFK Norrköping,1.0,1.0,Result
+2024-04-01,Kalmar FF Stadium,Kalmar FF - Djurgårdens IF,0.0,0.0,Result
+2024-04-01,Hammarby IF Stadium,Hammarby IF - IK Sirius FK,2.0,2.0,Result
+2024-04-08,Halmstads BK Stadium,Halmstads BK - Östersunds FK,1.0,0.0,Result
+2024-04-08,IF Elfsborg Stadium,IF Elfsborg - Malmö FF,1.0,4.0,Result
+2024-04-08,IK Sirius FK Stadium,IK Sirius FK - Degerfors IF,2.0,0.0,Result
+2024-04-08,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,1.0,1.0,Result
+2024-04-08,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,0.0,2.0,Result
+2024-04-08,Värnamo Stadium,Värnamo - IFK Göteborg,2.0,3.0,Result
+2024-04-08,Mjällby AIF Stadium,Mjällby AIF - AIK,1.0,0.0,Result
+2024-04-08,Kalmar FF Stadium,Kalmar FF - BK Häcken,2.0,3.0,Result
+2024-04-15,Malmö FF Stadium,Malmö FF - AIK,0.0,0.0,Result
+2024-04-15,IFK Norrköping Stadium,IFK Norrköping - IK Sirius FK,1.0,1.0,Result
+2024-04-15,Djurgårdens IF Stadium,Djurgårdens IF - Östersunds FK,1.0,0.0,Result
+2024-04-15,Värnamo Stadium,Värnamo - Varbergs BoIS,0.0,1.0,Result
+2024-04-15,Mjällby AIF Stadium,Mjällby AIF - Degerfors IF,1.0,3.0,Result
+2024-04-15,Hammarby IF Stadium,Hammarby IF - IF Elfsborg,3.0,0.0,Result
+2024-04-15,Halmstads BK Stadium,Halmstads BK - Kalmar FF,1.0,2.0,Result
+2024-04-15,IFK Göteborg Stadium,IFK Göteborg - BK Häcken,1.0,0.0,Result
+2024-04-22,Kalmar FF Stadium,Kalmar FF - Malmö FF,2.0,4.0,Result
+2024-04-22,Degerfors IF Stadium,Degerfors IF - IFK Göteborg,0.0,1.0,Result
+2024-04-22,BK Häcken Stadium,BK Häcken - Mjällby AIF,1.0,2.0,Result
+2024-04-22,Djurgårdens IF Stadium,Djurgårdens IF - IK Sirius FK,1.0,0.0,Result
+2024-04-22,Halmstads BK Stadium,Halmstads BK - AIK,1.0,1.0,Result
+2024-04-22,Varbergs BoIS Stadium,Varbergs BoIS - IF Elfsborg,1.0,0.0,Result
+2024-04-22,IFK Norrköping Stadium,IFK Norrköping - Värnamo,3.0,1.0,Result
+2024-04-22,Hammarby IF Stadium,Hammarby IF - Östersunds FK,3.0,1.0,Result
+2024-05-01,Halmstads BK Stadium,Halmstads BK - BK Häcken,0.0,1.0,Result
+2024-05-01,IFK Göteborg Stadium,IFK Göteborg - Värnamo,3.0,2.0,Result
+2024-05-01,Degerfors IF Stadium,Degerfors IF - IK Sirius FK,1.0,2.0,Result
+2024-05-01,Varbergs BoIS Stadium,Varbergs BoIS - IFK Norrköping,2.0,2.0,Result
+2024-05-01,IF Elfsborg Stadium,IF Elfsborg - Djurgårdens IF,2.0,1.0,Result
+2024-05-01,Hammarby IF Stadium,Hammarby IF - Östersunds FK,0.0,0.0,Result
+2024-05-01,Malmö FF Stadium,Malmö FF - Kalmar FF,0.0,2.0,Result
+2024-05-01,Mjällby AIF Stadium,Mjällby AIF - AIK,0.0,1.0,Result
+2024-05-08,BK Häcken Stadium,BK Häcken - Hammarby IF,1.0,3.0,Result
+2024-05-08,Mjällby AIF Stadium,Mjällby AIF - IFK Göteborg,2.0,1.0,Result
+2024-05-08,Varbergs BoIS Stadium,Varbergs BoIS - Degerfors IF,0.0,0.0,Result
+2024-05-08,IF Elfsborg Stadium,IF Elfsborg - Östersunds FK,2.0,1.0,Result
+2024-05-08,IK Sirius FK Stadium,IK Sirius FK - Malmö FF,1.0,1.0,Result
+2024-05-08,Djurgårdens IF Stadium,Djurgårdens IF - Värnamo,2.0,1.0,Result
+2024-05-08,Kalmar FF Stadium,Kalmar FF - IFK Norrköping,1.0,0.0,Result
+2024-05-08,Halmstads BK Stadium,Halmstads BK - AIK,2.0,1.0,Result
+2024-05-15,IF Elfsborg Stadium,IF Elfsborg - Degerfors IF,1.0,0.0,Result
+2024-05-15,Varbergs BoIS Stadium,Varbergs BoIS - BK Häcken,2.0,2.0,Result
+2024-05-15,IK Sirius FK Stadium,IK Sirius FK - Östersunds FK,2.0,4.0,Result
+2024-05-15,IFK Göteborg Stadium,IFK Göteborg - Hammarby IF,2.0,0.0,Result
+2024-05-15,Kalmar FF Stadium,Kalmar FF - Mjällby AIF,2.0,1.0,Result
+2024-05-15,AIK Stadium,AIK - Värnamo,2.0,3.0,Result
+2024-05-15,Halmstads BK Stadium,Halmstads BK - IFK Norrköping,0.0,0.0,Result
+2024-05-15,Malmö FF Stadium,Malmö FF - Djurgårdens IF,0.0,1.0,Result
+2024-05-22,IF Elfsborg Stadium,IF Elfsborg - Östersunds FK,0.0,2.0,Result
+2024-05-22,AIK Stadium,AIK - Degerfors IF,2.0,1.0,Result
+2024-05-22,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,2.0,1.0,Result
+2024-05-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,1.0,0.0,Result
+2024-05-22,Varbergs BoIS Stadium,Varbergs BoIS - Värnamo,0.0,2.0,Result
+2024-05-22,BK Häcken Stadium,BK Häcken - IK Sirius FK,3.0,1.0,Result
+2024-05-22,Hammarby IF Stadium,Hammarby IF - Halmstads BK,2.0,1.0,Result
+2024-05-22,IFK Göteborg Stadium,IFK Göteborg - Kalmar FF,0.0,0.0,Result
+2024-06-01,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,4.0,2.0,Result
+2024-06-01,Degerfors IF Stadium,Degerfors IF - Kalmar FF,3.0,0.0,Result
+2024-06-01,Östersunds FK Stadium,Östersunds FK - IFK Göteborg,2.0,1.0,Result
+2024-06-01,IF Elfsborg Stadium,IF Elfsborg - IK Sirius FK,3.0,2.0,Result
+2024-06-01,AIK Stadium,AIK - Mjällby AIF,3.0,2.0,Result
+2024-06-01,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,1.0,2.0,Result
+2024-06-01,Malmö FF Stadium,Malmö FF - Värnamo,0.0,2.0,Result
+2024-06-01,BK Häcken Stadium,BK Häcken - Halmstads BK,3.0,0.0,Result
+2024-06-08,Degerfors IF Stadium,Degerfors IF - Kalmar FF,2.0,2.0,Result
+2024-06-08,AIK Stadium,AIK - Östersunds FK,1.0,0.0,Result
+2024-06-08,Halmstads BK Stadium,Halmstads BK - IFK Norrköping,3.0,1.0,Result
+2024-06-08,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,2.0,4.0,Result
+2024-06-08,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,0.0,1.0,Result
+2024-06-08,IK Sirius FK Stadium,IK Sirius FK - Hammarby IF,1.0,2.0,Result
+2024-06-08,Värnamo Stadium,Värnamo - IFK Göteborg,1.0,4.0,Result
+2024-06-08,BK Häcken Stadium,BK Häcken - Varbergs BoIS,0.0,2.0,Result
+2024-06-15,Varbergs BoIS Stadium,Varbergs BoIS - AIK,2.0,0.0,Result
+2024-06-15,BK Häcken Stadium,BK Häcken - Värnamo,3.0,1.0,Result
+2024-06-15,Mjällby AIF Stadium,Mjällby AIF - IFK Norrköping,2.0,1.0,Result
+2024-06-15,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,2.0,1.0,Result
+2024-06-15,Halmstads BK Stadium,Halmstads BK - Kalmar FF,0.0,2.0,Result
+2024-06-15,Degerfors IF Stadium,Degerfors IF - Östersunds FK,1.0,2.0,Result
+2024-06-15,IK Sirius FK Stadium,IK Sirius FK - Malmö FF,0.0,1.0,Result
+2024-06-15,IFK Göteborg Stadium,IFK Göteborg - IF Elfsborg,1.0,2.0,Result
+2024-06-22,Varbergs BoIS Stadium,Varbergs BoIS - Malmö FF,2.0,1.0,Result
+2024-06-22,Djurgårdens IF Stadium,Djurgårdens IF - Värnamo,2.0,1.0,Result
+2024-06-22,AIK Stadium,AIK - Mjällby AIF,0.0,3.0,Result
+2024-06-22,Degerfors IF Stadium,Degerfors IF - Kalmar FF,1.0,1.0,Result
+2024-06-22,IFK Norrköping Stadium,IFK Norrköping - BK Häcken,2.0,0.0,Result
+2024-06-22,IK Sirius FK Stadium,IK Sirius FK - Östersunds FK,0.0,4.0,Result
+2024-06-22,IF Elfsborg Stadium,IF Elfsborg - Hammarby IF,2.0,2.0,Result
+2024-06-22,IFK Göteborg Stadium,IFK Göteborg - Halmstads BK,1.0,2.0,Result
+2024-11-01,Kalmar FF Stadium,Kalmar FF - IFK Göteborg,,,Fixture
+2024-11-01,BK Häcken Stadium,BK Häcken - AIK,,,Fixture
+2024-11-01,Halmstads BK Stadium,Halmstads BK - Degerfors IF,,,Fixture
+2024-11-01,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,,,Fixture
+2024-11-01,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,,,Fixture
+2024-11-01,Värnamo Stadium,Värnamo - IFK Norrköping,,,Fixture
+2024-11-01,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
+2024-11-01,IK Sirius FK Stadium,IK Sirius FK - IF Elfsborg,,,Fixture
+2024-11-08,Malmö FF Stadium,Malmö FF - Värnamo,,,Fixture
+2024-11-08,Mjällby AIF Stadium,Mjällby AIF - Halmstads BK,,,Fixture
+2024-11-08,IFK Göteborg Stadium,IFK Göteborg - Degerfors IF,,,Fixture
+2024-11-08,IF Elfsborg Stadium,IF Elfsborg - BK Häcken,,,Fixture
+2024-11-08,Varbergs BoIS Stadium,Varbergs BoIS - IK Sirius FK,,,Fixture
+2024-11-08,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
+2024-11-08,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
+2024-11-08,Kalmar FF Stadium,Kalmar FF - AIK,,,Fixture
+2024-11-15,Kalmar FF Stadium,Kalmar FF - IF Elfsborg,,,Fixture
+2024-11-15,Malmö FF Stadium,Malmö FF - Halmstads BK,,,Fixture
+2024-11-15,Djurgårdens IF Stadium,Djurgårdens IF - AIK,,,Fixture
+2024-11-15,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
+2024-11-15,Mjällby AIF Stadium,Mjällby AIF - Hammarby IF,,,Fixture
+2024-11-15,IFK Göteborg Stadium,IFK Göteborg - Värnamo,,,Fixture
+2024-11-15,IFK Norrköping Stadium,IFK Norrköping - Degerfors IF,,,Fixture
+2024-11-15,IK Sirius FK Stadium,IK Sirius FK - BK Häcken,,,Fixture
+2024-11-22,IK Sirius FK Stadium,IK Sirius FK - IF Elfsborg,,,Fixture
+2024-11-22,Malmö FF Stadium,Malmö FF - Varbergs BoIS,,,Fixture
+2024-11-22,Mjällby AIF Stadium,Mjällby AIF - Värnamo,,,Fixture
+2024-11-22,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
+2024-11-22,Halmstads BK Stadium,Halmstads BK - Djurgårdens IF,,,Fixture
+2024-11-22,AIK Stadium,AIK - Kalmar FF,,,Fixture
+2024-11-22,Degerfors IF Stadium,Degerfors IF - BK Häcken,,,Fixture
+2024-11-22,IFK Göteborg Stadium,IFK Göteborg - IFK Norrköping,,,Fixture
+2024-12-01,Djurgårdens IF Stadium,Djurgårdens IF - Varbergs BoIS,,,Fixture
+2024-12-01,AIK Stadium,AIK - Halmstads BK,,,Fixture
+2024-12-01,Mjällby AIF Stadium,Mjällby AIF - IFK Göteborg,,,Fixture
+2024-12-01,Värnamo Stadium,Värnamo - Östersunds FK,,,Fixture
+2024-12-01,IK Sirius FK Stadium,IK Sirius FK - Hammarby IF,,,Fixture
+2024-12-01,Malmö FF Stadium,Malmö FF - IF Elfsborg,,,Fixture
+2024-12-01,IFK Norrköping Stadium,IFK Norrköping - Kalmar FF,,,Fixture
+2024-12-01,BK Häcken Stadium,BK Häcken - Degerfors IF,,,Fixture
+2024-12-08,BK Häcken Stadium,BK Häcken - Östersunds FK,,,Fixture
+2024-12-08,Malmö FF Stadium,Malmö FF - Varbergs BoIS,,,Fixture
+2024-12-08,Halmstads BK Stadium,Halmstads BK - Djurgårdens IF,,,Fixture
+2024-12-08,AIK Stadium,AIK - IFK Norrköping,,,Fixture
+2024-12-08,Hammarby IF Stadium,Hammarby IF - Mjällby AIF,,,Fixture
+2024-12-08,Kalmar FF Stadium,Kalmar FF - Degerfors IF,,,Fixture
+2024-12-08,IF Elfsborg Stadium,IF Elfsborg - Värnamo,,,Fixture
+2024-12-08,IFK Göteborg Stadium,IFK Göteborg - IK Sirius FK,,,Fixture
+2024-12-15,Kalmar FF Stadium,Kalmar FF - AIK,,,Fixture
+2024-12-15,IK Sirius FK Stadium,IK Sirius FK - Halmstads BK,,,Fixture
+2024-12-15,BK Häcken Stadium,BK Häcken - IFK Göteborg,,,Fixture
+2024-12-15,Hammarby IF Stadium,Hammarby IF - Malmö FF,,,Fixture
+2024-12-15,Degerfors IF Stadium,Degerfors IF - IFK Norrköping,,,Fixture
+2024-12-15,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,,,Fixture
+2024-12-15,Värnamo Stadium,Värnamo - Varbergs BoIS,,,Fixture
+2024-12-15,Östersunds FK Stadium,Östersunds FK - Mjällby AIF,,,Fixture
+2024-12-22,IK Sirius FK Stadium,IK Sirius FK - Mjällby AIF,,,Fixture
+2024-12-22,AIK Stadium,AIK - Halmstads BK,,,Fixture
+2024-12-22,Kalmar FF Stadium,Kalmar FF - Värnamo,,,Fixture
+2024-12-22,Varbergs BoIS Stadium,Varbergs BoIS - Hammarby IF,,,Fixture
+2024-12-22,BK Häcken Stadium,BK Häcken - IF Elfsborg,,,Fixture
+2024-12-22,Östersunds FK Stadium,Östersunds FK - Malmö FF,,,Fixture
+2024-12-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
+2024-12-22,Degerfors IF Stadium,Degerfors IF - IFK Göteborg,,,Fixture
+2024-13-01,Varbergs BoIS Stadium,Varbergs BoIS - Djurgårdens IF,,,Fixture
+2024-13-01,Värnamo Stadium,Värnamo - IFK Göteborg,,,Fixture
+2024-13-01,IF Elfsborg Stadium,IF Elfsborg - Halmstads BK,,,Fixture
+2024-13-01,Mjällby AIF Stadium,Mjällby AIF - Hammarby IF,,,Fixture
+2024-13-01,BK Häcken Stadium,BK Häcken - IK Sirius FK,,,Fixture
+2024-13-01,Östersunds FK Stadium,Östersunds FK - Malmö FF,,,Fixture
+2024-13-01,IFK Norrköping Stadium,IFK Norrköping - AIK,,,Fixture
+2024-13-01,Degerfors IF Stadium,Degerfors IF - Kalmar FF,,,Fixture
+2024-13-08,Kalmar FF Stadium,Kalmar FF - Östersunds FK,,,Fixture
+2024-13-08,IFK Göteborg Stadium,IFK Göteborg - Varbergs BoIS,,,Fixture
+2024-13-08,IF Elfsborg Stadium,IF Elfsborg - IK Sirius FK,,,Fixture
+2024-13-08,BK Häcken Stadium,BK Häcken - Mjällby AIF,,,Fixture
+2024-13-08,Värnamo Stadium,Värnamo - AIK,,,Fixture
+2024-13-08,IFK Norrköping Stadium,IFK Norrköping - Degerfors IF,,,Fixture
+2024-13-08,Hammarby IF Stadium,Hammarby IF - Djurgårdens IF,,,Fixture
+2024-13-08,Halmstads BK Stadium,Halmstads BK - Malmö FF,,,Fixture
+2024-13-15,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,,,Fixture
+2024-13-15,Mjällby AIF Stadium,Mjällby AIF - IFK Norrköping,,,Fixture
+2024-13-15,IK Sirius FK Stadium,IK Sirius FK - Degerfors IF,,,Fixture
+2024-13-15,Östersunds FK Stadium,Östersunds FK - Kalmar FF,,,Fixture
+2024-13-15,IF Elfsborg Stadium,IF Elfsborg - Värnamo,,,Fixture
+2024-13-15,Varbergs BoIS Stadium,Varbergs BoIS - Malmö FF,,,Fixture
+2024-13-15,Halmstads BK Stadium,Halmstads BK - AIK,,,Fixture
+2024-13-15,IFK Göteborg Stadium,IFK Göteborg - BK Häcken,,,Fixture
+2024-13-22,Östersunds FK Stadium,Östersunds FK - IFK Norrköping,,,Fixture
+2024-13-22,AIK Stadium,AIK - Degerfors IF,,,Fixture
+2024-13-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Göteborg,,,Fixture
+2024-13-22,IK Sirius FK Stadium,IK Sirius FK - Mjällby AIF,,,Fixture
+2024-13-22,IF Elfsborg Stadium,IF Elfsborg - Kalmar FF,,,Fixture
+2024-13-22,BK Häcken Stadium,BK Häcken - Malmö FF,,,Fixture
+2024-13-22,Varbergs BoIS Stadium,Varbergs BoIS - Halmstads BK,,,Fixture
+2024-13-22,Värnamo Stadium,Värnamo - Hammarby IF,,,Fixture
+2024-14-01,Malmö FF Stadium,Malmö FF - Kalmar FF,,,Fixture
+2024-14-01,AIK Stadium,AIK - Degerfors IF,,,Fixture
+2024-14-01,Östersunds FK Stadium,Östersunds FK - Halmstads BK,,,Fixture
+2024-14-01,IK Sirius FK Stadium,IK Sirius FK - IFK Göteborg,,,Fixture
+2024-14-01,Värnamo Stadium,Värnamo - Varbergs BoIS,,,Fixture
+2024-14-01,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
+2024-14-01,Mjällby AIF Stadium,Mjällby AIF - BK Häcken,,,Fixture
+2024-14-01,IF Elfsborg Stadium,IF Elfsborg - Hammarby IF,,,Fixture
+2024-14-08,IK Sirius FK Stadium,IK Sirius FK - Värnamo,,,Fixture
+2024-14-08,BK Häcken Stadium,BK Häcken - Kalmar FF,,,Fixture
+2024-14-08,Halmstads BK Stadium,Halmstads BK - Malmö FF,,,Fixture
+2024-14-08,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,,,Fixture
+2024-14-08,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
+2024-14-08,IFK Norrköping Stadium,IFK Norrköping - IFK Göteborg,,,Fixture
+2024-14-08,AIK Stadium,AIK - Hammarby IF,,,Fixture
+2024-14-08,Degerfors IF Stadium,Degerfors IF - Mjällby AIF,,,Fixture
+2024-14-15,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
+2024-14-15,Djurgårdens IF Stadium,Djurgårdens IF - IK Sirius FK,,,Fixture
+2024-14-15,IFK Norrköping Stadium,IFK Norrköping - AIK,,,Fixture
+2024-14-15,Kalmar FF Stadium,Kalmar FF - Malmö FF,,,Fixture
+2024-14-15,Mjällby AIF Stadium,Mjällby AIF - Halmstads BK,,,Fixture
+2024-14-15,Degerfors IF Stadium,Degerfors IF - Varbergs BoIS,,,Fixture
+2024-14-15,IFK Göteborg Stadium,IFK Göteborg - Värnamo,,,Fixture
+2024-14-15,BK Häcken Stadium,BK Häcken - IF Elfsborg,,,Fixture

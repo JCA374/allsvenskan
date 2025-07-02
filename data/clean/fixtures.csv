@@ -1,0 +1,121 @@
+Date,HomeTeam,AwayTeam
+2024-11-01 00:00:00,Kalmar FF,IFK Goteborg
+2024-11-01 00:00:00,BK Hacken,AIK
+2024-11-01 00:00:00,Halmstad,Degerfors IF
+2024-11-01 00:00:00,Mjallby AIF,Malmo FF
+2024-11-01 00:00:00,Djurgardens IF,Hammarby IF
+2024-11-01 00:00:00,Varnamo,IFK Norrkoping
+2024-11-01 00:00:00,Ostersunds FK,Varbergs BoIS
+2024-11-01 00:00:00,Sirius,IF Elfsborg
+2024-11-08 00:00:00,Malmo FF,Varnamo
+2024-11-08 00:00:00,Mjallby AIF,Halmstad
+2024-11-08 00:00:00,IFK Goteborg,Degerfors IF
+2024-11-08 00:00:00,IF Elfsborg,BK Hacken
+2024-11-08 00:00:00,Varbergs BoIS,Sirius
+2024-11-08 00:00:00,Djurgardens IF,IFK Norrkoping
+2024-11-08 00:00:00,Ostersunds FK,Hammarby IF
+2024-11-08 00:00:00,Kalmar FF,AIK
+2024-11-15 00:00:00,Kalmar FF,IF Elfsborg
+2024-11-15 00:00:00,Malmo FF,Halmstad
+2024-11-15 00:00:00,Djurgardens IF,AIK
+2024-11-15 00:00:00,Ostersunds FK,Varbergs BoIS
+2024-11-15 00:00:00,Mjallby AIF,Hammarby IF
+2024-11-15 00:00:00,IFK Goteborg,Varnamo
+2024-11-15 00:00:00,IFK Norrkoping,Degerfors IF
+2024-11-15 00:00:00,Sirius,BK Hacken
+2024-11-22 00:00:00,Sirius,IF Elfsborg
+2024-11-22 00:00:00,Malmo FF,Varbergs BoIS
+2024-11-22 00:00:00,Mjallby AIF,Varnamo
+2024-11-22 00:00:00,Ostersunds FK,Hammarby IF
+2024-11-22 00:00:00,Halmstad,Djurgardens IF
+2024-11-22 00:00:00,AIK,Kalmar FF
+2024-11-22 00:00:00,Degerfors IF,BK Hacken
+2024-11-22 00:00:00,IFK Goteborg,IFK Norrkoping
+2024-12-01 00:00:00,Djurgardens IF,Varbergs BoIS
+2024-12-01 00:00:00,AIK,Halmstad
+2024-12-01 00:00:00,Mjallby AIF,IFK Goteborg
+2024-12-01 00:00:00,Varnamo,Ostersunds FK
+2024-12-01 00:00:00,Sirius,Hammarby IF
+2024-12-01 00:00:00,Malmo FF,IF Elfsborg
+2024-12-01 00:00:00,IFK Norrkoping,Kalmar FF
+2024-12-01 00:00:00,BK Hacken,Degerfors IF
+2024-12-08 00:00:00,BK Hacken,Ostersunds FK
+2024-12-08 00:00:00,Malmo FF,Varbergs BoIS
+2024-12-08 00:00:00,Halmstad,Djurgardens IF
+2024-12-08 00:00:00,AIK,IFK Norrkoping
+2024-12-08 00:00:00,Hammarby IF,Mjallby AIF
+2024-12-08 00:00:00,Kalmar FF,Degerfors IF
+2024-12-08 00:00:00,IF Elfsborg,Varnamo
+2024-12-08 00:00:00,IFK Goteborg,Sirius
+2024-12-15 00:00:00,Kalmar FF,AIK
+2024-12-15 00:00:00,Sirius,Halmstad
+2024-12-15 00:00:00,BK Hacken,IFK Goteborg
+2024-12-15 00:00:00,Hammarby IF,Malmo FF
+2024-12-15 00:00:00,Degerfors IF,IFK Norrkoping
+2024-12-15 00:00:00,Djurgardens IF,IF Elfsborg
+2024-12-15 00:00:00,Varnamo,Varbergs BoIS
+2024-12-15 00:00:00,Ostersunds FK,Mjallby AIF
+2024-12-22 00:00:00,Sirius,Mjallby AIF
+2024-12-22 00:00:00,AIK,Halmstad
+2024-12-22 00:00:00,Kalmar FF,Varnamo
+2024-12-22 00:00:00,Varbergs BoIS,Hammarby IF
+2024-12-22 00:00:00,BK Hacken,IF Elfsborg
+2024-12-22 00:00:00,Ostersunds FK,Malmo FF
+2024-12-22 00:00:00,Djurgardens IF,IFK Norrkoping
+2024-12-22 00:00:00,Degerfors IF,IFK Goteborg
+2024-13-01,Varbergs BoIS,Djurgardens IF
+2024-13-01,Varnamo,IFK Goteborg
+2024-13-01,IF Elfsborg,Halmstad
+2024-13-01,Mjallby AIF,Hammarby IF
+2024-13-01,BK Hacken,Sirius
+2024-13-01,Ostersunds FK,Malmo FF
+2024-13-01,IFK Norrkoping,AIK
+2024-13-01,Degerfors IF,Kalmar FF
+2024-13-08,Kalmar FF,Ostersunds FK
+2024-13-08,IFK Goteborg,Varbergs BoIS
+2024-13-08,IF Elfsborg,Sirius
+2024-13-08,BK Hacken,Mjallby AIF
+2024-13-08,Varnamo,AIK
+2024-13-08,IFK Norrkoping,Degerfors IF
+2024-13-08,Hammarby IF,Djurgardens IF
+2024-13-08,Halmstad,Malmo FF
+2024-13-15,Djurgardens IF,Hammarby IF
+2024-13-15,Mjallby AIF,IFK Norrkoping
+2024-13-15,Sirius,Degerfors IF
+2024-13-15,Ostersunds FK,Kalmar FF
+2024-13-15,IF Elfsborg,Varnamo
+2024-13-15,Varbergs BoIS,Malmo FF
+2024-13-15,Halmstad,AIK
+2024-13-15,IFK Goteborg,BK Hacken
+2024-13-22,Ostersunds FK,IFK Norrkoping
+2024-13-22,AIK,Degerfors IF
+2024-13-22,Djurgardens IF,IFK Goteborg
+2024-13-22,Sirius,Mjallby AIF
+2024-13-22,IF Elfsborg,Kalmar FF
+2024-13-22,BK Hacken,Malmo FF
+2024-13-22,Varbergs BoIS,Halmstad
+2024-13-22,Varnamo,Hammarby IF
+2024-14-01,Malmo FF,Kalmar FF
+2024-14-01,AIK,Degerfors IF
+2024-14-01,Ostersunds FK,Halmstad
+2024-14-01,Sirius,IFK Goteborg
+2024-14-01,Varnamo,Varbergs BoIS
+2024-14-01,Djurgardens IF,IFK Norrkoping
+2024-14-01,Mjallby AIF,BK Hacken
+2024-14-01,IF Elfsborg,Hammarby IF
+2024-14-08,Sirius,Varnamo
+2024-14-08,BK Hacken,Kalmar FF
+2024-14-08,Halmstad,Malmo FF
+2024-14-08,Djurgardens IF,IF Elfsborg
+2024-14-08,Ostersunds FK,Varbergs BoIS
+2024-14-08,IFK Norrkoping,IFK Goteborg
+2024-14-08,AIK,Hammarby IF
+2024-14-08,Degerfors IF,Mjallby AIF
+2024-14-15,Ostersunds FK,Hammarby IF
+2024-14-15,Djurgardens IF,Sirius
+2024-14-15,IFK Norrkoping,AIK
+2024-14-15,Kalmar FF,Malmo FF
+2024-14-15,Mjallby AIF,Halmstad
+2024-14-15,Degerfors IF,Varbergs BoIS
+2024-14-15,IFK Goteborg,Varnamo
+2024-14-15,BK Hacken,IF Elfsborg
