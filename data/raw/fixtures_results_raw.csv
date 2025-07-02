@@ -1,4 +1,1940 @@
 Date,Match,HomeTeam,AwayTeam,FTHG,FTAG
+2015-04-04,Hammarby 2-0 Hacken,Hammarby,Hacken,2,0
+2015-04-04,Kalmar 0-0 Helsingborg,Kalmar,Helsingborg,0,0
+2015-04-05,Falkenbergs 0-2 Gefle,Falkenbergs,Gefle,0,2
+2015-04-05,Goteborg 1-0 Atvidabergs,Goteborg,Atvidabergs,1,0
+2015-04-05,Djurgarden 1-2 Elfsborg,Djurgarden,Elfsborg,1,2
+2015-04-05,Norrkoping 1-1 Orebro,Norrkoping,Orebro,1,1
+2015-04-06,AIK 2-1 Halmstad,AIK,Halmstad,2,1
+2015-04-06,Sundsvall 1-4 Malmo FF,Sundsvall,Malmo FF,1,4
+2015-04-08,Gefle 2-0 Kalmar,Gefle,Kalmar,2,0
+2015-04-08,Helsingborg 0-0 Falkenbergs,Helsingborg,Falkenbergs,0,0
+2015-04-08,Orebro 0-2 Goteborg,Orebro,Goteborg,0,2
+2015-04-08,Elfsborg 1-1 Hammarby,Elfsborg,Hammarby,1,1
+2015-04-09,Atvidabergs 2-3 Sundsvall,Atvidabergs,Sundsvall,2,3
+2015-04-09,Hacken 1-1 Djurgarden,Hacken,Djurgarden,1,1
+2015-04-09,Halmstad 0-3 Norrkoping,Halmstad,Norrkoping,0,3
+2015-04-09,Malmo FF 0-0 AIK,Malmo FF,AIK,0,0
+2015-04-12,Falkenbergs 2-0 Orebro,Falkenbergs,Orebro,2,0
+2015-04-12,Halmstad 1-2 Helsingborg,Halmstad,Helsingborg,1,2
+2015-04-12,AIK 3-1 Gefle,AIK,Gefle,3,1
+2015-04-12,Goteborg 0-1 Malmo FF,Goteborg,Malmo FF,0,1
+2015-04-13,Kalmar 2-1 Atvidabergs,Kalmar,Atvidabergs,2,1
+2015-04-13,Norrkoping 0-4 Elfsborg,Norrkoping,Elfsborg,0,4
+2015-04-13,Sundsvall 1-1 Hacken,Sundsvall,Hacken,1,1
+2015-04-13,Hammarby 2-1 Djurgarden,Hammarby,Djurgarden,2,1
+2015-04-17,Djurgarden 1-0 Kalmar,Djurgarden,Kalmar,1,0
+2015-04-18,Gefle 0-0 Halmstad,Gefle,Halmstad,0,0
+2015-04-19,Atvidabergs 3-1 Falkenbergs,Atvidabergs,Falkenbergs,3,1
+2015-04-19,Hacken 1-2 Goteborg,Hacken,Goteborg,1,2
+2015-04-20,Helsingborg 3-1 Norrkoping,Helsingborg,Norrkoping,3,1
+2015-04-20,Orebro 1-3 Sundsvall,Orebro,Sundsvall,1,3
+2015-04-20,Malmo FF 3-1 Hammarby,Malmo FF,Hammarby,3,1
+2015-04-21,Elfsborg 3-2 AIK,Elfsborg,AIK,3,2
+2015-04-24,Falkenbergs 3-3 Malmo FF,Falkenbergs,Malmo FF,3,3
+2015-04-25,Hammarby 2-1 Atvidabergs,Hammarby,Atvidabergs,2,1
+2015-04-26,Halmstad 1-0 Elfsborg,Halmstad,Elfsborg,1,0
+2015-04-26,Sundsvall 0-2 Djurgarden,Sundsvall,Djurgarden,0,2
+2015-04-26,AIK 3-0 Orebro,AIK,Orebro,3,0
+2015-04-26,Kalmar 0-1 Hacken,Kalmar,Hacken,0,1
+2015-04-27,Norrkoping 4-1 Gefle,Norrkoping,Gefle,4,1
+2015-04-27,Goteborg 3-1 Helsingborg,Goteborg,Helsingborg,3,1
+2015-04-29,Djurgarden 3-1 Falkenbergs,Djurgarden,Falkenbergs,3,1
+2015-04-29,Elfsborg 2-1 Kalmar,Elfsborg,Kalmar,2,1
+2015-04-29,Malmo FF 3-1 Halmstad,Malmo FF,Halmstad,3,1
+2015-04-29,Atvidabergs 1-1 AIK,Atvidabergs,AIK,1,1
+2015-04-30,Hacken 0-2 Norrkoping,Hacken,Norrkoping,0,2
+2015-04-30,Gefle 0-0 Goteborg,Gefle,Goteborg,0,0
+2015-04-30,Helsingborg 2-0 Sundsvall,Helsingborg,Sundsvall,2,0
+2015-04-30,Orebro 2-2 Hammarby,Orebro,Hammarby,2,2
+2015-05-03,Norrkoping 2-1 Atvidabergs,Norrkoping,Atvidabergs,2,1
+2015-05-03,Sundsvall 0-1 Elfsborg,Sundsvall,Elfsborg,0,1
+2015-05-03,Djurgarden 5-1 Gefle,Djurgarden,Gefle,5,1
+2015-05-03,Malmo FF 3-1 Helsingborg,Malmo FF,Helsingborg,3,1
+2015-05-04,Goteborg 2-1 Falkenbergs,Goteborg,Falkenbergs,2,1
+2015-05-04,Halmstad 0-2 Hacken,Halmstad,Hacken,0,2
+2015-05-04,Kalmar 3-0 Orebro,Kalmar,Orebro,3,0
+2015-05-04,AIK 2-0 Hammarby,AIK,Hammarby,2,0
+2015-05-08,Kalmar 0-2 Goteborg,Kalmar,Goteborg,0,2
+2015-05-09,Helsingborg 1-2 Gefle,Helsingborg,Gefle,1,2
+2015-05-10,Falkenbergs 1-0 Halmstad,Falkenbergs,Halmstad,1,0
+2015-05-10,AIK 2-2 Norrkoping,AIK,Norrkoping,2,2
+2015-05-10,Hacken 2-0 Orebro,Hacken,Orebro,2,0
+2015-05-11,Atvidabergs 2-3 Djurgarden,Atvidabergs,Djurgarden,2,3
+2015-05-11,Hammarby 1-2 Sundsvall,Hammarby,Sundsvall,1,2
+2015-05-11,Elfsborg 2-2 Malmo FF,Elfsborg,Malmo FF,2,2
+2015-05-18,Halmstad 2-3 Djurgarden,Halmstad,Djurgarden,2,3
+2015-05-19,Falkenbergs 1-3 Kalmar,Falkenbergs,Kalmar,1,3
+2015-05-20,Elfsborg 2-1 Helsingborg,Elfsborg,Helsingborg,2,1
+2015-05-20,Norrkoping 1-0 Hammarby,Norrkoping,Hammarby,1,0
+2015-05-20,Orebro 2-1 Atvidabergs,Orebro,Atvidabergs,2,1
+2015-05-20,Gefle 3-1 Sundsvall,Gefle,Sundsvall,3,1
+2015-05-21,Malmo FF 0-3 Hacken,Malmo FF,Hacken,0,3
+2015-05-21,Goteborg 3-0 AIK,Goteborg,AIK,3,0
+2015-05-24,Halmstad 1-2 Goteborg,Halmstad,Goteborg,1,2
+2015-05-24,Orebro 1-0 Gefle,Orebro,Gefle,1,0
+2015-05-24,Atvidabergs 1-2 Elfsborg,Atvidabergs,Elfsborg,1,2
+2015-05-24,Kalmar 2-1 Malmo FF,Kalmar,Malmo FF,2,1
+2015-05-25,Hacken 0-2 Falkenbergs,Hacken,Falkenbergs,0,2
+2015-05-25,Helsingborg 1-0 Hammarby,Helsingborg,Hammarby,1,0
+2015-05-25,Sundsvall 0-1 Norrkoping,Sundsvall,Norrkoping,0,1
+2015-05-25,Djurgarden 2-2 AIK,Djurgarden,AIK,2,2
+2015-05-29,Gefle 2-0 Hacken,Gefle,Hacken,2,0
+2015-05-30,Falkenbergs 1-1 Sundsvall,Falkenbergs,Sundsvall,1,1
+2015-05-30,Hammarby 2-2 Halmstad,Hammarby,Halmstad,2,2
+2015-05-30,Norrkoping 2-1 Kalmar,Norrkoping,Kalmar,2,1
+2015-05-31,AIK 3-1 Helsingborg,AIK,Helsingborg,3,1
+2015-05-31,Elfsborg 2-2 Orebro,Elfsborg,Orebro,2,2
+2015-05-31,Malmo FF 3-0 Atvidabergs,Malmo FF,Atvidabergs,3,0
+2015-06-01,Goteborg 0-0 Djurgarden,Goteborg,Djurgarden,0,0
+2015-06-03,AIK 4-3 Falkenbergs,AIK,Falkenbergs,4,3
+2015-06-03,Atvidabergs 1-1 Hacken,Atvidabergs,Hacken,1,1
+2015-06-03,Halmstad 1-0 Sundsvall,Halmstad,Sundsvall,1,0
+2015-06-03,Orebro 0-0 Helsingborg,Orebro,Helsingborg,0,0
+2015-06-03,Gefle 1-2 Malmo FF,Gefle,Malmo FF,1,2
+2015-06-04,Djurgarden 1-1 Norrkoping,Djurgarden,Norrkoping,1,1
+2015-06-04,Kalmar 2-2 Hammarby,Kalmar,Hammarby,2,2
+2015-06-04,Goteborg 1-0 Elfsborg,Goteborg,Elfsborg,1,0
+2015-06-06,Hacken 0-0 AIK,Hacken,AIK,0,0
+2015-06-06,Helsingborg 3-0 Atvidabergs,Helsingborg,Atvidabergs,3,0
+2015-06-06,Orebro 1-1 Halmstad,Orebro,Halmstad,1,1
+2015-06-07,Hammarby 0-1 Goteborg,Hammarby,Goteborg,0,1
+2015-06-07,Sundsvall 1-1 Kalmar,Sundsvall,Kalmar,1,1
+2015-06-07,Elfsborg 5-1 Gefle,Elfsborg,Gefle,5,1
+2015-06-07,Malmo FF 1-1 Djurgarden,Malmo FF,Djurgarden,1,1
+2015-06-07,Norrkoping 2-0 Falkenbergs,Norrkoping,Falkenbergs,2,0
+2015-07-04,Atvidabergs 0-0 Halmstad,Atvidabergs,Halmstad,0,0
+2015-07-04,Djurgarden 2-0 Orebro,Djurgarden,Orebro,2,0
+2015-07-04,Norrkoping 3-1 Malmo FF,Norrkoping,Malmo FF,3,1
+2015-07-05,Falkenbergs 2-2 Elfsborg,Falkenbergs,Elfsborg,2,2
+2015-07-05,Hacken 3-2 Helsingborg,Hacken,Helsingborg,3,2
+2015-07-05,Kalmar 0-0 AIK,Kalmar,AIK,0,0
+2015-07-05,Sundsvall 2-2 Goteborg,Sundsvall,Goteborg,2,2
+2015-07-06,Gefle 1-1 Hammarby,Gefle,Hammarby,1,1
+2015-07-11,Atvidabergs 1-1 Gefle,Atvidabergs,Gefle,1,1
+2015-07-11,Halmstad 1-0 Kalmar,Halmstad,Kalmar,1,0
+2015-07-11,Malmo FF 2-2 Orebro,Malmo FF,Orebro,2,2
+2015-07-12,Elfsborg 1-0 Hacken,Elfsborg,Hacken,1,0
+2015-07-12,AIK 4-1 Sundsvall,AIK,Sundsvall,4,1
+2015-07-12,Goteborg 0-0 Norrkoping,Goteborg,Norrkoping,0,0
+2015-07-13,Hammarby 3-0 Falkenbergs,Hammarby,Falkenbergs,3,0
+2015-07-13,Helsingborg 0-1 Djurgarden,Helsingborg,Djurgarden,0,1
+2015-07-18,Kalmar 4-0 Falkenbergs,Kalmar,Falkenbergs,4,0
+2015-07-18,Orebro 1-1 Malmo FF,Orebro,Malmo FF,1,1
+2015-07-18,Sundsvall 0-0 Halmstad,Sundsvall,Halmstad,0,0
+2015-07-19,Norrkoping 2-2 Goteborg,Norrkoping,Goteborg,2,2
+2015-07-19,Helsingborg 3-1 AIK,Helsingborg,AIK,3,1
+2015-07-20,Djurgarden 0-0 Atvidabergs,Djurgarden,Atvidabergs,0,0
+2015-07-20,Hacken 3-3 Hammarby,Hacken,Hammarby,3,3
+2015-07-25,Atvidabergs 1-2 Helsingborg,Atvidabergs,Helsingborg,1,2
+2015-07-25,Hacken 3-0 Kalmar,Hacken,Kalmar,3,0
+2015-07-25,Malmo FF 3-0 Sundsvall,Malmo FF,Sundsvall,3,0
+2015-07-26,Falkenbergs 1-0 Goteborg,Falkenbergs,Goteborg,1,0
+2015-07-26,AIK 4-2 Elfsborg,AIK,Elfsborg,4,2
+2015-07-27,Halmstad 0-1 Gefle,Halmstad,Gefle,0,1
+2015-07-27,Hammarby 0-1 Norrkoping,Hammarby,Norrkoping,0,1
+2015-07-27,Orebro 0-1 Djurgarden,Orebro,Djurgarden,0,1
+2015-07-31,Helsingborg 1-2 Kalmar,Helsingborg,Kalmar,1,2
+2015-08-01,Atvidabergs 2-2 Malmo FF,Atvidabergs,Malmo FF,2,2
+2015-08-01,Djurgarden 2-1 Hacken,Djurgarden,Hacken,2,1
+2015-08-01,Gefle 1-0 Falkenbergs,Gefle,Falkenbergs,1,0
+2015-08-02,Norrkoping 1-2 AIK,Norrkoping,AIK,1,2
+2015-08-02,Elfsborg 2-0 Halmstad,Elfsborg,Halmstad,2,0
+2015-08-02,Goteborg 6-0 Orebro,Goteborg,Orebro,6,0
+2015-08-03,Sundsvall 3-0 Hammarby,Sundsvall,Hammarby,3,0
+2015-08-08,Falkenbergs 2-3 Helsingborg,Falkenbergs,Helsingborg,2,3
+2015-08-08,Hacken 1-1 Gefle,Hacken,Gefle,1,1
+2015-08-09,Malmo FF 2-1 Goteborg,Malmo FF,Goteborg,2,1
+2015-08-09,Orebro 1-3 Norrkoping,Orebro,Norrkoping,1,3
+2015-08-09,Halmstad 0-0 Atvidabergs,Halmstad,Atvidabergs,0,0
+2015-08-09,Hammarby 0-0 Elfsborg,Hammarby,Elfsborg,0,0
+2015-08-10,Kalmar 0-2 Sundsvall,Kalmar,Sundsvall,0,2
+2015-08-10,AIK 1-0 Djurgarden,AIK,Djurgarden,1,0
+2015-08-12,Gefle 2-3 Elfsborg,Gefle,Elfsborg,2,3
+2015-08-15,Malmo FF 2-0 Gefle,Malmo FF,Gefle,2,0
+2015-08-15,Sundsvall 1-0 Orebro,Sundsvall,Orebro,1,0
+2015-08-16,AIK 2-1 Kalmar,AIK,Kalmar,2,1
+2015-08-16,Goteborg 4-0 Hacken,Goteborg,Hacken,4,0
+2015-08-16,Elfsborg 2-0 Djurgarden,Elfsborg,Djurgarden,2,0
+2015-08-17,Falkenbergs 0-1 Hammarby,Falkenbergs,Hammarby,0,1
+2015-08-17,Helsingborg 2-0 Halmstad,Helsingborg,Halmstad,2,0
+2015-08-17,Atvidabergs 1-1 Norrkoping,Atvidabergs,Norrkoping,1,1
+2015-08-22,Hacken 1-0 Malmo FF,Hacken,Malmo FF,1,0
+2015-08-23,Atvidabergs 0-1 Goteborg,Atvidabergs,Goteborg,0,1
+2015-08-23,Gefle 1-2 AIK,Gefle,AIK,1,2
+2015-08-23,Halmstad 2-2 Orebro,Halmstad,Orebro,2,2
+2015-08-23,Kalmar 0-3 Elfsborg,Kalmar,Elfsborg,0,3
+2015-08-24,Norrkoping 3-2 Helsingborg,Norrkoping,Helsingborg,3,2
+2015-08-24,Sundsvall 0-1 Falkenbergs,Sundsvall,Falkenbergs,0,1
+2015-08-24,Djurgarden 2-2 Hammarby,Djurgarden,Hammarby,2,2
+2015-08-28,Hammarby 0-0 Kalmar,Hammarby,Kalmar,0,0
+2015-08-29,Djurgarden 4-2 Halmstad,Djurgarden,Halmstad,4,2
+2015-08-29,Falkenbergs 0-1 Norrkoping,Falkenbergs,Norrkoping,0,1
+2015-08-29,Orebro 2-0 Hacken,Orebro,Hacken,2,0
+2015-08-30,AIK 1-0 Atvidabergs,AIK,Atvidabergs,1,0
+2015-08-30,Goteborg 3-0 Gefle,Goteborg,Gefle,3,0
+2015-08-30,Elfsborg 1-2 Sundsvall,Elfsborg,Sundsvall,1,2
+2015-08-30,Helsingborg 0-3 Malmo FF,Helsingborg,Malmo FF,0,3
+2015-09-11,Kalmar 1-2 Norrkoping,Kalmar,Norrkoping,1,2
+2015-09-12,Falkenbergs 2-4 AIK,Falkenbergs,AIK,2,4
+2015-09-12,Malmo FF 1-1 Elfsborg,Malmo FF,Elfsborg,1,1
+2015-09-13,Hammarby 1-2 Orebro,Hammarby,Orebro,1,2
+2015-09-13,Helsingborg 1-2 Goteborg,Helsingborg,Goteborg,1,2
+2015-09-14,Hacken 4-1 Halmstad,Hacken,Halmstad,4,1
+2015-09-14,Sundsvall 0-1 Atvidabergs,Sundsvall,Atvidabergs,0,1
+2015-09-14,Gefle 2-1 Djurgarden,Gefle,Djurgarden,2,1
+2015-09-18,Halmstad 0-1 Falkenbergs,Halmstad,Falkenbergs,0,1
+2015-09-19,AIK 2-1 Hacken,AIK,Hacken,2,1
+2015-09-20,Atvidabergs 1-1 Kalmar,Atvidabergs,Kalmar,1,1
+2015-09-20,Djurgarden 0-2 Malmo FF,Djurgarden,Malmo FF,0,2
+2015-09-20,Gefle 2-1 Helsingborg,Gefle,Helsingborg,2,1
+2015-09-20,Goteborg 1-0 Hammarby,Goteborg,Hammarby,1,0
+2015-09-20,Norrkoping 5-1 Sundsvall,Norrkoping,Sundsvall,5,1
+2015-09-21,Orebro 4-2 Elfsborg,Orebro,Elfsborg,4,2
+2015-09-23,Hammarby 3-0 Gefle,Hammarby,Gefle,3,0
+2015-09-23,Kalmar 1-0 Halmstad,Kalmar,Halmstad,1,0
+2015-09-23,Malmo FF 4-3 Falkenbergs,Malmo FF,Falkenbergs,4,3
+2015-09-23,Norrkoping 4-2 Djurgarden,Norrkoping,Djurgarden,4,2
+2015-09-23,Sundsvall 0-2 AIK,Sundsvall,AIK,0,2
+2015-09-24,Hacken 3-0 Atvidabergs,Hacken,Atvidabergs,3,0
+2015-09-24,Helsingborg 0-2 Orebro,Helsingborg,Orebro,0,2
+2015-09-24,Elfsborg 1-1 Goteborg,Elfsborg,Goteborg,1,1
+2015-09-26,Halmstad 0-0 Malmo FF,Halmstad,Malmo FF,0,0
+2015-09-27,Falkenbergs 1-2 Hacken,Falkenbergs,Hacken,1,2
+2015-09-27,Hammarby 1-0 AIK,Hammarby,AIK,1,0
+2015-09-27,Gefle 1-2 Norrkoping,Gefle,Norrkoping,1,2
+2015-09-28,Djurgarden 2-2 Helsingborg,Djurgarden,Helsingborg,2,2
+2015-09-28,Elfsborg 3-1 Atvidabergs,Elfsborg,Atvidabergs,3,1
+2015-09-28,Orebro 2-1 Kalmar,Orebro,Kalmar,2,1
+2015-09-28,Goteborg 3-2 Sundsvall,Goteborg,Sundsvall,3,2
+2015-10-02,Atvidabergs 0-3 Hammarby,Atvidabergs,Hammarby,0,3
+2015-10-03,Orebro 2-1 Falkenbergs,Orebro,Falkenbergs,2,1
+2015-10-03,Sundsvall 2-1 Gefle,Sundsvall,Gefle,2,1
+2015-10-04,Goteborg 1-1 Halmstad,Goteborg,Halmstad,1,1
+2015-10-04,Helsingborg 2-1 Elfsborg,Helsingborg,Elfsborg,2,1
+2015-10-04,Kalmar 0-3 Djurgarden,Kalmar,Djurgarden,0,3
+2015-10-04,AIK 2-1 Malmo FF,AIK,Malmo FF,2,1
+2015-10-04,Norrkoping 3-1 Hacken,Norrkoping,Hacken,3,1
+2015-10-17,Malmo FF 3-0 Kalmar,Malmo FF,Kalmar,3,0
+2015-10-18,Halmstad 0-1 AIK,Halmstad,AIK,0,1
+2015-10-18,Falkenbergs 6-0 Atvidabergs,Falkenbergs,Atvidabergs,6,0
+2015-10-18,Hammarby 1-4 Helsingborg,Hammarby,Helsingborg,1,4
+2015-10-19,Djurgarden 2-2 Goteborg,Djurgarden,Goteborg,2,2
+2015-10-19,Gefle 2-2 Orebro,Gefle,Orebro,2,2
+2015-10-19,Hacken 3-1 Sundsvall,Hacken,Sundsvall,3,1
+2015-10-19,Elfsborg 3-2 Norrkoping,Elfsborg,Norrkoping,3,2
+2015-10-24,Falkenbergs 0-2 Djurgarden,Falkenbergs,Djurgarden,0,2
+2015-10-25,Hammarby 0-1 Malmo FF,Hammarby,Malmo FF,0,1
+2015-10-25,Sundsvall 2-1 Helsingborg,Sundsvall,Helsingborg,2,1
+2015-10-25,Hacken 5-2 Elfsborg,Hacken,Elfsborg,5,2
+2015-10-25,Norrkoping 3-1 Halmstad,Norrkoping,Halmstad,3,1
+2015-10-26,Atvidabergs 2-3 Orebro,Atvidabergs,Orebro,2,3
+2015-10-26,Kalmar 3-1 Gefle,Kalmar,Gefle,3,1
+2015-10-26,AIK 1-2 Goteborg,AIK,Goteborg,1,2
+2015-10-31,Djurgarden 4-2 Sundsvall,Djurgarden,Sundsvall,4,2
+2015-10-31,Elfsborg 4-2 Falkenbergs,Elfsborg,Falkenbergs,4,2
+2015-10-31,Gefle 2-1 Atvidabergs,Gefle,Atvidabergs,2,1
+2015-10-31,Goteborg 2-2 Kalmar,Goteborg,Kalmar,2,2
+2015-10-31,Halmstad 2-1 Hammarby,Halmstad,Hammarby,2,1
+2015-10-31,Helsingborg 1-2 Hacken,Helsingborg,Hacken,1,2
+2015-10-31,Malmo FF 0-2 Norrkoping,Malmo FF,Norrkoping,0,2
+2015-10-31,Orebro 1-1 AIK,Orebro,AIK,1,1
+2015-11-05,Sirius 2-2 Falkenbergs,Sirius,Falkenbergs,2,2
+2015-11-08,Falkenbergs 1-1 Sirius,Falkenbergs,Sirius,1,1
+2016-04-02,Malmo FF 3-1 Norrkoping,Malmo FF,Norrkoping,3,1
+2016-04-02,Kalmar 0-1 Jonkopings,Kalmar,Jonkopings,0,1
+2016-04-03,AIK 1-1 Sundsvall,AIK,Sundsvall,1,1
+2016-04-03,Gefle 1-1 Helsingborg,Gefle,Helsingborg,1,1
+2016-04-03,Hacken 2-1 Elfsborg,Hacken,Elfsborg,2,1
+2016-04-03,Falkenbergs 0-2 Goteborg,Falkenbergs,Goteborg,0,2
+2016-04-03,Orebro 0-2 Djurgarden,Orebro,Djurgarden,0,2
+2016-04-04,Hammarby 1-1 Ostersunds,Hammarby,Ostersunds,1,1
+2016-04-06,Goteborg 1-0 Hacken,Goteborg,Hacken,1,0
+2016-04-06,Jonkopings 3-2 Malmo FF,Jonkopings,Malmo FF,3,2
+2016-04-06,Norrkoping 4-1 Kalmar,Norrkoping,Kalmar,4,1
+2016-04-07,Djurgarden 5-0 Falkenbergs,Djurgarden,Falkenbergs,5,0
+2016-04-07,Elfsborg 4-1 Hammarby,Elfsborg,Hammarby,4,1
+2016-04-07,Helsingborg 1-3 Orebro,Helsingborg,Orebro,1,3
+2016-04-07,Ostersunds 0-2 AIK,Ostersunds,AIK,0,2
+2016-04-07,Sundsvall 1-2 Gefle,Sundsvall,Gefle,1,2
+2016-04-09,Hacken 1-2 Norrkoping,Hacken,Norrkoping,1,2
+2016-04-10,Gefle 1-2 Djurgarden,Gefle,Djurgarden,1,2
+2016-04-10,Hammarby 5-1 Helsingborg,Hammarby,Helsingborg,5,1
+2016-04-10,Falkenbergs 1-2 Ostersunds,Falkenbergs,Ostersunds,1,2
+2016-04-10,Kalmar 3-2 Elfsborg,Kalmar,Elfsborg,3,2
+2016-04-11,AIK 3-3 Goteborg,AIK,Goteborg,3,3
+2016-04-11,Malmo FF 1-2 Sundsvall,Malmo FF,Sundsvall,1,2
+2016-04-11,Orebro 2-1 Jonkopings,Orebro,Jonkopings,2,1
+2016-04-15,Ostersunds 2-1 Hacken,Ostersunds,Hacken,2,1
+2016-04-16,Helsingborg 3-1 Falkenbergs,Helsingborg,Falkenbergs,3,1
+2016-04-17,Jonkopings 1-0 Gefle,Jonkopings,Gefle,1,0
+2016-04-17,Norrkoping 4-1 AIK,Norrkoping,AIK,4,1
+2016-04-17,Goteborg 1-1 Kalmar,Goteborg,Kalmar,1,1
+2016-04-18,Elfsborg 0-1 Malmo FF,Elfsborg,Malmo FF,0,1
+2016-04-18,Sundsvall 3-1 Orebro,Sundsvall,Orebro,3,1
+2016-04-19,Djurgarden 1-3 Hammarby,Djurgarden,Hammarby,1,3
+2016-04-22,Falkenbergs 2-1 Norrkoping,Falkenbergs,Norrkoping,2,1
+2016-04-23,Gefle 0-0 Ostersunds,Gefle,Ostersunds,0,0
+2016-04-23,Hammarby 1-1 Jonkopings,Hammarby,Jonkopings,1,1
+2016-04-24,Hacken 0-1 Sundsvall,Hacken,Sundsvall,0,1
+2016-04-24,Malmo FF 1-0 Djurgarden,Malmo FF,Djurgarden,1,0
+2016-04-24,Orebro 3-2 Goteborg,Orebro,Goteborg,3,2
+2016-04-25,AIK 2-1 Elfsborg,AIK,Elfsborg,2,1
+2016-04-25,Kalmar 2-3 Helsingborg,Kalmar,Helsingborg,2,3
+2016-04-26,Norrkoping 3-1 Hammarby,Norrkoping,Hammarby,3,1
+2016-04-27,Goteborg 0-3 Malmo FF,Goteborg,Malmo FF,0,3
+2016-04-27,Jonkopings 1-1 Falkenbergs,Jonkopings,Falkenbergs,1,1
+2016-04-27,Ostersunds 2-4 Orebro,Ostersunds,Orebro,2,4
+2016-04-28,Elfsborg 3-0 Djurgarden,Elfsborg,Djurgarden,3,0
+2016-04-28,Hacken 6-1 Gefle,Hacken,Gefle,6,1
+2016-04-28,Helsingborg 2-1 AIK,Helsingborg,AIK,2,1
+2016-04-28,Sundsvall 1-1 Kalmar,Sundsvall,Kalmar,1,1
+2016-05-01,Falkenbergs 1-2 Elfsborg,Falkenbergs,Elfsborg,1,2
+2016-05-01,Hammarby 1-1 Sundsvall,Hammarby,Sundsvall,1,1
+2016-05-01,Malmo FF 3-0 Hacken,Malmo FF,Hacken,3,0
+2016-05-02,AIK 0-0 Jonkopings,AIK,Jonkopings,0,0
+2016-05-02,Djurgarden 3-0 Ostersunds,Djurgarden,Ostersunds,3,0
+2016-05-02,Gefle 2-6 Goteborg,Gefle,Goteborg,2,6
+2016-05-02,Kalmar 3-2 Orebro,Kalmar,Orebro,3,2
+2016-05-02,Norrkoping 3-0 Helsingborg,Norrkoping,Helsingborg,3,0
+2016-05-07,Elfsborg 2-0 Gefle,Elfsborg,Gefle,2,0
+2016-05-07,Ostersunds 1-0 Kalmar,Ostersunds,Kalmar,1,0
+2016-05-08,Helsingborg 2-1 Malmo FF,Helsingborg,Malmo FF,2,1
+2016-05-08,Jonkopings 0-2 Norrkoping,Jonkopings,Norrkoping,0,2
+2016-05-08,Hacken 2-3 AIK,Hacken,AIK,2,3
+2016-05-09,Goteborg 2-1 Djurgarden,Goteborg,Djurgarden,2,1
+2016-05-09,Orebro 3-2 Hammarby,Orebro,Hammarby,3,2
+2016-05-09,Sundsvall 2-1 Falkenbergs,Sundsvall,Falkenbergs,2,1
+2016-05-13,Jonkopings 1-1 Helsingborg,Jonkopings,Helsingborg,1,1
+2016-05-14,Kalmar 1-1 Hammarby,Kalmar,Hammarby,1,1
+2016-05-14,Malmo FF 3-0 Gefle,Malmo FF,Gefle,3,0
+2016-05-15,Norrkoping 3-1 Sundsvall,Norrkoping,Sundsvall,3,1
+2016-05-15,Orebro 1-0 Elfsborg,Orebro,Elfsborg,1,0
+2016-05-15,Falkenbergs 1-4 Hacken,Falkenbergs,Hacken,1,4
+2016-05-15,Ostersunds 2-0 Goteborg,Ostersunds,Goteborg,2,0
+2016-05-16,AIK 2-0 Djurgarden,AIK,Djurgarden,2,0
+2016-05-18,Hacken 3-1 Jonkopings,Hacken,Jonkopings,3,1
+2016-05-18,Hammarby 2-3 Malmo FF,Hammarby,Malmo FF,2,3
+2016-05-18,Helsingborg 1-1 Ostersunds,Helsingborg,Ostersunds,1,1
+2016-05-18,Sundsvall 1-3 Elfsborg,Sundsvall,Elfsborg,1,3
+2016-05-19,Djurgarden 0-3 Kalmar,Djurgarden,Kalmar,0,3
+2016-05-19,Gefle 0-4 Orebro,Gefle,Orebro,0,4
+2016-05-19,Goteborg 1-1 Norrkoping,Goteborg,Norrkoping,1,1
+2016-05-20,Falkenbergs 2-3 AIK,Falkenbergs,AIK,2,3
+2016-05-21,Sundsvall 5-0 Ostersunds,Sundsvall,Ostersunds,5,0
+2016-05-22,Kalmar 1-1 Hacken,Kalmar,Hacken,1,1
+2016-05-22,Orebro 2-2 Norrkoping,Orebro,Norrkoping,2,2
+2016-05-22,Djurgarden 3-0 Helsingborg,Djurgarden,Helsingborg,3,0
+2016-05-22,Elfsborg 3-3 Jonkopings,Elfsborg,Jonkopings,3,3
+2016-05-23,Gefle 0-1 AIK,Gefle,AIK,0,1
+2016-05-23,Goteborg 2-1 Hammarby,Goteborg,Hammarby,2,1
+2016-05-23,Malmo FF 2-0 Falkenbergs,Malmo FF,Falkenbergs,2,0
+2016-05-28,AIK 0-0 Orebro,AIK,Orebro,0,0
+2016-05-28,Jonkopings 1-1 Sundsvall,Jonkopings,Sundsvall,1,1
+2016-05-28,Ostersunds 1-4 Malmo FF,Ostersunds,Malmo FF,1,4
+2016-05-29,Falkenbergs 1-2 Kalmar,Falkenbergs,Kalmar,1,2
+2016-05-29,Hammarby 2-1 Gefle,Hammarby,Gefle,2,1
+2016-05-29,Helsingborg 1-3 Goteborg,Helsingborg,Goteborg,1,3
+2016-05-29,Hacken 3-1 Djurgarden,Hacken,Djurgarden,3,1
+2016-05-29,Norrkoping 0-0 Elfsborg,Norrkoping,Elfsborg,0,0
+2016-07-09,Djurgarden 0-1 Norrkoping,Djurgarden,Norrkoping,0,1
+2016-07-09,Gefle 1-2 Falkenbergs,Gefle,Falkenbergs,1,2
+2016-07-09,Hacken 4-2 Hammarby,Hacken,Hammarby,4,2
+2016-07-10,Goteborg 4-1 Sundsvall,Goteborg,Sundsvall,4,1
+2016-07-10,Ostersunds 1-0 Jonkopings,Ostersunds,Jonkopings,1,0
+2016-07-10,Helsingborg 2-4 Elfsborg,Helsingborg,Elfsborg,2,4
+2016-07-10,Kalmar 1-1 AIK,Kalmar,AIK,1,1
+2016-07-11,Malmo FF 1-0 Orebro,Malmo FF,Orebro,1,0
+2016-07-16,Norrkoping 3-3 Ostersunds,Norrkoping,Ostersunds,3,3
+2016-07-16,Sundsvall 0-2 Helsingborg,Sundsvall,Helsingborg,0,2
+2016-07-17,Elfsborg 1-1 Goteborg,Elfsborg,Goteborg,1,1
+2016-07-17,AIK 1-1 Malmo FF,AIK,Malmo FF,1,1
+2016-07-17,Hammarby 3-3 Falkenbergs,Hammarby,Falkenbergs,3,3
+2016-07-17,Orebro 0-0 Hacken,Orebro,Hacken,0,0
+2016-07-18,Gefle 4-2 Kalmar,Gefle,Kalmar,4,2
+2016-07-18,Jonkopings 1-0 Djurgarden,Jonkopings,Djurgarden,1,0
+2016-07-23,Falkenbergs 1-3 Orebro,Falkenbergs,Orebro,1,3
+2016-07-23,Malmo FF 1-1 Kalmar,Malmo FF,Kalmar,1,1
+2016-07-23,Norrkoping 2-0 Gefle,Norrkoping,Gefle,2,0
+2016-07-24,Hammarby 0-3 AIK,Hammarby,AIK,0,3
+2016-07-24,Goteborg 2-1 Jonkopings,Goteborg,Jonkopings,2,1
+2016-07-24,Helsingborg 0-2 Hacken,Helsingborg,Hacken,0,2
+2016-07-25,Djurgarden 1-3 Sundsvall,Djurgarden,Sundsvall,1,3
+2016-07-25,Elfsborg 3-1 Ostersunds,Elfsborg,Ostersunds,3,1
+2016-07-30,Gefle 0-2 Hammarby,Gefle,Hammarby,0,2
+2016-07-30,Ostersunds 0-0 Elfsborg,Ostersunds,Elfsborg,0,0
+2016-07-30,Sundsvall 1-2 Norrkoping,Sundsvall,Norrkoping,1,2
+2016-07-31,Jonkopings 1-1 Goteborg,Jonkopings,Goteborg,1,1
+2016-07-31,AIK 2-0 Falkenbergs,AIK,Falkenbergs,2,0
+2016-07-31,Hacken 1-1 Helsingborg,Hacken,Helsingborg,1,1
+2016-08-01,Kalmar 2-1 Djurgarden,Kalmar,Djurgarden,2,1
+2016-08-01,Orebro 0-3 Malmo FF,Orebro,Malmo FF,0,3
+2016-08-05,Helsingborg 2-3 Gefle,Helsingborg,Gefle,2,3
+2016-08-06,Falkenbergs 0-5 Jonkopings,Falkenbergs,Jonkopings,0,5
+2016-08-06,Ostersunds 4-0 Sundsvall,Ostersunds,Sundsvall,4,0
+2016-08-07,Malmo FF 2-0 AIK,Malmo FF,AIK,2,0
+2016-08-07,Elfsborg 2-4 Hacken,Elfsborg,Hacken,2,4
+2016-08-07,Hammarby 2-1 Kalmar,Hammarby,Kalmar,2,1
+2016-08-07,Norrkoping 3-1 Orebro,Norrkoping,Orebro,3,1
+2016-08-08,Djurgarden 3-1 Goteborg,Djurgarden,Goteborg,3,1
+2016-08-10,Norrkoping 3-1 Hacken,Norrkoping,Hacken,3,1
+2016-08-12,Goteborg 2-0 Falkenbergs,Goteborg,Falkenbergs,2,0
+2016-08-13,AIK 2-1 Helsingborg,AIK,Helsingborg,2,1
+2016-08-13,Gefle 0-0 Norrkoping,Gefle,Norrkoping,0,0
+2016-08-14,Kalmar 1-1 Malmo FF,Kalmar,Malmo FF,1,1
+2016-08-14,Djurgarden 2-2 Elfsborg,Djurgarden,Elfsborg,2,2
+2016-08-14,Hacken 0-1 Orebro,Hacken,Orebro,0,1
+2016-08-15,Jonkopings 1-1 Ostersunds,Jonkopings,Ostersunds,1,1
+2016-08-15,Sundsvall 0-0 Hammarby,Sundsvall,Hammarby,0,0
+2016-08-20,Helsingborg 0-1 Kalmar,Helsingborg,Kalmar,0,1
+2016-08-20,Ostersunds 1-0 Djurgarden,Ostersunds,Djurgarden,1,0
+2016-08-21,Hammarby 2-0 Goteborg,Hammarby,Goteborg,2,0
+2016-08-21,Falkenbergs 1-1 Gefle,Falkenbergs,Gefle,1,1
+2016-08-21,Orebro 0-2 AIK,Orebro,AIK,0,2
+2016-08-22,Elfsborg 4-0 Sundsvall,Elfsborg,Sundsvall,4,0
+2016-08-22,Malmo FF 4-1 Jonkopings,Malmo FF,Jonkopings,4,1
+2016-08-27,Djurgarden 2-1 Gefle,Djurgarden,Gefle,2,1
+2016-08-27,Kalmar 0-1 Norrkoping,Kalmar,Norrkoping,0,1
+2016-08-28,AIK 0-0 Hammarby,AIK,Hammarby,0,0
+2016-08-28,Hacken 3-1 Ostersunds,Hacken,Ostersunds,3,1
+2016-08-28,Jonkopings 1-0 Elfsborg,Jonkopings,Elfsborg,1,0
+2016-08-28,Goteborg 2-0 Helsingborg,Goteborg,Helsingborg,2,0
+2016-08-28,Orebro 3-2 Falkenbergs,Orebro,Falkenbergs,3,2
+2016-08-28,Sundsvall 0-1 Malmo FF,Sundsvall,Malmo FF,0,1
+2016-09-10,Elfsborg 1-1 Kalmar,Elfsborg,Kalmar,1,1
+2016-09-11,Falkenbergs 1-2 Djurgarden,Falkenbergs,Djurgarden,1,2
+2016-09-11,Sundsvall 1-3 AIK,Sundsvall,AIK,1,3
+2016-09-11,Norrkoping 5-1 Jonkopings,Norrkoping,Jonkopings,5,1
+2016-09-11,Ostersunds 2-0 Helsingborg,Ostersunds,Helsingborg,2,0
+2016-09-12,Gefle 2-2 Hacken,Gefle,Hacken,2,2
+2016-09-12,Hammarby 1-1 Orebro,Hammarby,Orebro,1,1
+2016-09-12,Malmo FF 3-1 Goteborg,Malmo FF,Goteborg,3,1
+2016-09-16,Jonkopings 0-1 Hammarby,Jonkopings,Hammarby,0,1
+2016-09-16,Orebro 3-3 Sundsvall,Orebro,Sundsvall,3,3
+2016-09-17,Kalmar 2-0 Ostersunds,Kalmar,Ostersunds,2,0
+2016-09-18,AIK 1-0 Gefle,AIK,Gefle,1,0
+2016-09-18,Elfsborg 5-0 Falkenbergs,Elfsborg,Falkenbergs,5,0
+2016-09-18,Helsingborg 1-2 Norrkoping,Helsingborg,Norrkoping,1,2
+2016-09-18,Djurgarden 3-1 Malmo FF,Djurgarden,Malmo FF,3,1
+2016-09-19,Hacken 2-2 Goteborg,Hacken,Goteborg,2,2
+2016-09-21,Djurgarden 0-3 AIK,Djurgarden,AIK,0,3
+2016-09-21,Gefle 0-1 Jonkopings,Gefle,Jonkopings,0,1
+2016-09-21,Helsingborg 2-1 Sundsvall,Helsingborg,Sundsvall,2,1
+2016-09-21,Kalmar 3-0 Falkenbergs,Kalmar,Falkenbergs,3,0
+2016-09-21,Ostersunds 0-2 Norrkoping,Ostersunds,Norrkoping,0,2
+2016-09-22,Goteborg 3-2 Orebro,Goteborg,Orebro,3,2
+2016-09-22,Hammarby 2-3 Hacken,Hammarby,Hacken,2,3
+2016-09-22,Malmo FF 1-0 Elfsborg,Malmo FF,Elfsborg,1,0
+2016-09-24,Jonkopings 0-1 Kalmar,Jonkopings,Kalmar,0,1
+2016-09-25,Elfsborg 2-2 AIK,Elfsborg,AIK,2,2
+2016-09-25,Malmo FF 2-0 Helsingborg,Malmo FF,Helsingborg,2,0
+2016-09-26,Falkenbergs 0-2 Hammarby,Falkenbergs,Hammarby,0,2
+2016-09-26,Goteborg 2-0 Ostersunds,Goteborg,Ostersunds,2,0
+2016-09-26,Norrkoping 1-3 Djurgarden,Norrkoping,Djurgarden,1,3
+2016-09-26,Orebro 2-2 Gefle,Orebro,Gefle,2,2
+2016-09-26,Sundsvall 0-0 Hacken,Sundsvall,Hacken,0,0
+2016-09-30,Helsingborg 0-1 Hammarby,Helsingborg,Hammarby,0,1
+2016-10-01,Sundsvall 3-1 Jonkopings,Sundsvall,Jonkopings,3,1
+2016-10-01,Hacken 2-4 Malmo FF,Hacken,Malmo FF,2,4
+2016-10-01,Ostersunds 6-1 Falkenbergs,Ostersunds,Falkenbergs,6,1
+2016-10-02,Gefle 2-2 Elfsborg,Gefle,Elfsborg,2,2
+2016-10-02,Kalmar 4-2 Goteborg,Kalmar,Goteborg,4,2
+2016-10-02,AIK 6-0 Norrkoping,AIK,Norrkoping,6,0
+2016-10-02,Djurgarden 3-2 Orebro,Djurgarden,Orebro,3,2
+2016-10-15,Falkenbergs 1-1 Sundsvall,Falkenbergs,Sundsvall,1,1
+2016-10-16,AIK 2-0 Ostersunds,AIK,Ostersunds,2,0
+2016-10-16,Norrkoping 1-2 Malmo FF,Norrkoping,Malmo FF,1,2
+2016-10-16,Orebro 2-1 Kalmar,Orebro,Kalmar,2,1
+2016-10-16,Elfsborg 1-0 Helsingborg,Elfsborg,Helsingborg,1,0
+2016-10-16,Jonkopings 1-1 Hacken,Jonkopings,Hacken,1,1
+2016-10-17,Goteborg 3-3 Gefle,Goteborg,Gefle,3,3
+2016-10-17,Hammarby 4-2 Djurgarden,Hammarby,Djurgarden,4,2
+2016-10-21,Gefle 1-1 Sundsvall,Gefle,Sundsvall,1,1
+2016-10-22,Malmo FF 0-3 Ostersunds,Malmo FF,Ostersunds,0,3
+2016-10-23,Norrkoping 2-1 Falkenbergs,Norrkoping,Falkenbergs,2,1
+2016-10-23,Orebro 0-0 Helsingborg,Orebro,Helsingborg,0,0
+2016-10-23,Hacken 2-3 Kalmar,Hacken,Kalmar,2,3
+2016-10-23,Hammarby 2-4 Elfsborg,Hammarby,Elfsborg,2,4
+2016-10-24,Djurgarden 0-2 Jonkopings,Djurgarden,Jonkopings,0,2
+2016-10-24,Goteborg 1-0 AIK,Goteborg,AIK,1,0
+2016-10-26,Elfsborg 2-1 Norrkoping,Elfsborg,Norrkoping,2,1
+2016-10-26,Falkenbergs 0-3 Malmo FF,Falkenbergs,Malmo FF,0,3
+2016-10-26,Kalmar 0-1 Gefle,Kalmar,Gefle,0,1
+2016-10-26,Ostersunds 2-0 Hammarby,Ostersunds,Hammarby,2,0
+2016-10-27,AIK 2-1 Hacken,AIK,Hacken,2,1
+2016-10-27,Helsingborg 1-2 Djurgarden,Helsingborg,Djurgarden,1,2
+2016-10-27,Jonkopings 1-1 Orebro,Jonkopings,Orebro,1,1
+2016-10-27,Sundsvall 1-3 Goteborg,Sundsvall,Goteborg,1,3
+2016-10-30,Hammarby 1-1 Norrkoping,Hammarby,Norrkoping,1,1
+2016-10-30,Kalmar 2-0 Sundsvall,Kalmar,Sundsvall,2,0
+2016-10-30,Falkenbergs 1-4 Helsingborg,Falkenbergs,Helsingborg,1,4
+2016-10-30,Gefle 1-0 Malmo FF,Gefle,Malmo FF,1,0
+2016-10-31,Djurgarden 1-0 Hacken,Djurgarden,Hacken,1,0
+2016-10-31,Goteborg 2-2 Elfsborg,Goteborg,Elfsborg,2,2
+2016-10-31,Jonkopings 0-0 AIK,Jonkopings,AIK,0,0
+2016-10-31,Orebro 1-5 Ostersunds,Orebro,Ostersunds,1,5
+2016-11-06,AIK 3-1 Kalmar,AIK,Kalmar,3,1
+2016-11-06,Elfsborg 2-1 Orebro,Elfsborg,Orebro,2,1
+2016-11-06,Hacken 7-0 Falkenbergs,Hacken,Falkenbergs,7,0
+2016-11-06,Helsingborg 2-0 Jonkopings,Helsingborg,Jonkopings,2,0
+2016-11-06,Malmo FF 3-0 Hammarby,Malmo FF,Hammarby,3,0
+2016-11-06,Norrkoping 3-1 Goteborg,Norrkoping,Goteborg,3,1
+2016-11-06,Ostersunds 2-4 Gefle,Ostersunds,Gefle,2,4
+2016-11-06,Sundsvall 2-5 Djurgarden,Sundsvall,Djurgarden,2,5
+2016-11-17,Halmstad 1-1 Helsingborg,Halmstad,Helsingborg,1,1
+2016-11-20,Helsingborg 1-2 Halmstad,Helsingborg,Halmstad,1,2
+2017-04-01,Goteborg 1-1 Malmo FF,Goteborg,Malmo FF,1,1
+2017-04-01,Halmstad 1-0 Ostersunds,Halmstad,Ostersunds,1,0
+2017-04-02,AIK 0-0 Hacken,AIK,Hacken,0,0
+2017-04-02,Sundsvall 3-1 AFC Eskilstuna,Sundsvall,AFC Eskilstuna,3,1
+2017-04-02,Norrkoping 2-1 Hammarby,Norrkoping,Hammarby,2,1
+2017-04-03,Djurgarden 0-2 Sirius,Djurgarden,Sirius,0,2
+2017-04-03,Kalmar 1-5 Elfsborg,Kalmar,Elfsborg,1,5
+2017-04-03,Orebro 2-1 Jonkopings,Orebro,Jonkopings,2,1
+2017-04-08,AFC Eskilstuna 2-2 Orebro,AFC Eskilstuna,Orebro,2,2
+2017-04-09,Hammarby 1-1 Kalmar,Hammarby,Kalmar,1,1
+2017-04-09,Ostersunds 1-0 Norrkoping,Ostersunds,Norrkoping,1,0
+2017-04-09,Hacken 0-0 Djurgarden,Hacken,Djurgarden,0,0
+2017-04-09,Jonkopings 2-2 Halmstad,Jonkopings,Halmstad,2,2
+2017-04-09,Sirius 0-2 Goteborg,Sirius,Goteborg,0,2
+2017-04-10,Elfsborg 1-2 AIK,Elfsborg,AIK,1,2
+2017-04-11,Malmo FF 2-0 Sundsvall,Malmo FF,Sundsvall,2,0
+2017-04-16,Halmstad 0-3 Malmo FF,Halmstad,Malmo FF,0,3
+2017-04-16,Orebro 2-1 Ostersunds,Orebro,Ostersunds,2,1
+2017-04-16,Djurgarden 3-0 Elfsborg,Djurgarden,Elfsborg,3,0
+2017-04-16,Sundsvall 1-2 Hacken,Sundsvall,Hacken,1,2
+2017-04-17,AIK 1-2 Hammarby,AIK,Hammarby,1,2
+2017-04-17,Kalmar 1-3 Jonkopings,Kalmar,Jonkopings,1,3
+2017-04-17,Goteborg 1-1 AFC Eskilstuna,Goteborg,AFC Eskilstuna,1,1
+2017-04-17,Norrkoping 0-2 Sirius,Norrkoping,Sirius,0,2
+2017-04-20,Elfsborg 3-0 Orebro,Elfsborg,Orebro,3,0
+2017-04-22,Jonkopings 2-1 AIK,Jonkopings,AIK,2,1
+2017-04-23,Hacken 1-2 Norrkoping,Hacken,Norrkoping,1,2
+2017-04-23,Hammarby 0-0 Sundsvall,Hammarby,Sundsvall,0,0
+2017-04-23,AFC Eskilstuna 0-0 Halmstad,AFC Eskilstuna,Halmstad,0,0
+2017-04-23,Ostersunds 1-1 Goteborg,Ostersunds,Goteborg,1,1
+2017-04-24,Malmo FF 3-2 Djurgarden,Malmo FF,Djurgarden,3,2
+2017-04-24,Sirius 3-0 Kalmar,Sirius,Kalmar,3,0
+2017-04-26,AFC Eskilstuna 1-3 Ostersunds,AFC Eskilstuna,Ostersunds,1,3
+2017-04-26,Goteborg 1-1 Hammarby,Goteborg,Hammarby,1,1
+2017-04-26,Orebro 0-0 Hacken,Orebro,Hacken,0,0
+2017-04-26,Sundsvall 1-1 Elfsborg,Sundsvall,Elfsborg,1,1
+2017-04-27,AIK 1-0 Sirius,AIK,Sirius,1,0
+2017-04-27,Halmstad 0-1 Djurgarden,Halmstad,Djurgarden,0,1
+2017-04-27,Kalmar 0-0 Malmo FF,Kalmar,Malmo FF,0,0
+2017-04-27,Norrkoping 3-0 Jonkopings,Norrkoping,Jonkopings,3,0
+2017-04-29,Hammarby 4-0 AFC Eskilstuna,Hammarby,AFC Eskilstuna,4,0
+2017-04-30,AIK 0-0 Sundsvall,AIK,Sundsvall,0,0
+2017-05-01,Kalmar 2-0 Halmstad,Kalmar,Halmstad,2,0
+2017-05-01,Malmo FF 2-1 Orebro,Malmo FF,Orebro,2,1
+2017-05-01,Djurgarden 3-3 Norrkoping,Djurgarden,Norrkoping,3,3
+2017-05-01,Sirius 1-1 Jonkopings,Sirius,Jonkopings,1,1
+2017-05-02,Elfsborg 4-4 Ostersunds,Elfsborg,Ostersunds,4,4
+2017-05-02,Hacken 4-0 Goteborg,Hacken,Goteborg,4,0
+2017-05-05,Hacken 2-2 Sirius,Hacken,Sirius,2,2
+2017-05-06,Halmstad 0-1 AIK,Halmstad,AIK,0,1
+2017-05-07,Goteborg 3-0 Kalmar,Goteborg,Kalmar,3,0
+2017-05-07,Ostersunds 2-1 Hammarby,Ostersunds,Hammarby,2,1
+2017-05-07,Jonkopings 1-0 AFC Eskilstuna,Jonkopings,AFC Eskilstuna,1,0
+2017-05-07,Orebro 0-4 Djurgarden,Orebro,Djurgarden,0,4
+2017-05-08,Elfsborg 1-2 Malmo FF,Elfsborg,Malmo FF,1,2
+2017-05-08,Norrkoping 0-0 Sundsvall,Norrkoping,Sundsvall,0,0
+2017-05-12,AFC Eskilstuna 1-2 Norrkoping,AFC Eskilstuna,Norrkoping,1,2
+2017-05-13,AIK 1-0 Orebro,AIK,Orebro,1,0
+2017-05-13,Kalmar 0-1 Hacken,Kalmar,Hacken,0,1
+2017-05-14,Halmstad 1-2 Hammarby,Halmstad,Hammarby,1,2
+2017-05-14,Sundsvall 0-0 Jonkopings,Sundsvall,Jonkopings,0,0
+2017-05-14,Malmo FF 2-1 Ostersunds,Malmo FF,Ostersunds,2,1
+2017-05-14,Sirius 4-1 Elfsborg,Sirius,Elfsborg,4,1
+2017-05-15,Djurgarden 1-0 Goteborg,Djurgarden,Goteborg,1,0
+2017-05-16,Norrkoping 2-0 Kalmar,Norrkoping,Kalmar,2,0
+2017-05-17,Hacken 2-1 Halmstad,Hacken,Halmstad,2,1
+2017-05-17,Hammarby 1-1 Malmo FF,Hammarby,Malmo FF,1,1
+2017-05-17,Orebro 0-2 Sundsvall,Orebro,Sundsvall,0,2
+2017-05-17,Ostersunds 0-0 Sirius,Ostersunds,Sirius,0,0
+2017-05-18,Elfsborg 2-1 AFC Eskilstuna,Elfsborg,AFC Eskilstuna,2,1
+2017-05-18,Jonkopings 1-1 Djurgarden,Jonkopings,Djurgarden,1,1
+2017-05-20,Ostersunds 2-1 Kalmar,Ostersunds,Kalmar,2,1
+2017-05-20,Halmstad 0-0 Orebro,Halmstad,Orebro,0,0
+2017-05-21,AFC Eskilstuna 0-0 Hacken,AFC Eskilstuna,Hacken,0,0
+2017-05-21,Sirius 1-1 Hammarby,Sirius,Hammarby,1,1
+2017-05-21,Malmo FF 1-2 Norrkoping,Malmo FF,Norrkoping,1,2
+2017-05-22,Djurgarden 0-1 AIK,Djurgarden,AIK,0,1
+2017-05-22,Elfsborg 3-0 Jonkopings,Elfsborg,Jonkopings,3,0
+2017-05-22,Sundsvall 0-4 Goteborg,Sundsvall,Goteborg,0,4
+2017-05-27,Djurgarden 4-1 AFC Eskilstuna,Djurgarden,AFC Eskilstuna,4,1
+2017-05-27,Kalmar 3-0 Sundsvall,Kalmar,Sundsvall,3,0
+2017-05-27,Norrkoping 3-2 Halmstad,Norrkoping,Halmstad,3,2
+2017-05-28,Hammarby 2-2 Jonkopings,Hammarby,Jonkopings,2,2
+2017-05-28,Goteborg 1-1 Elfsborg,Goteborg,Elfsborg,1,1
+2017-05-29,AIK 0-1 Malmo FF,AIK,Malmo FF,0,1
+2017-05-29,Hacken 0-1 Ostersunds,Hacken,Ostersunds,0,1
+2017-05-29,Orebro 2-1 Sirius,Orebro,Sirius,2,1
+2017-06-01,Norrkoping 0-0 AIK,Norrkoping,AIK,0,0
+2017-06-02,Elfsborg 2-0 Hacken,Elfsborg,Hacken,2,0
+2017-06-03,Kalmar 0-1 Orebro,Kalmar,Orebro,0,1
+2017-06-03,Ostersunds 3-1 Sundsvall,Ostersunds,Sundsvall,3,1
+2017-06-03,Jonkopings 1-2 Malmo FF,Jonkopings,Malmo FF,1,2
+2017-06-04,AFC Eskilstuna 1-3 AIK,AFC Eskilstuna,AIK,1,3
+2017-06-04,Hammarby 3-1 Djurgarden,Hammarby,Djurgarden,3,1
+2017-06-04,Norrkoping 2-0 Goteborg,Norrkoping,Goteborg,2,0
+2017-06-04,Sirius 2-1 Halmstad,Sirius,Halmstad,2,1
+2017-07-01,Malmo FF 3-2 AFC Eskilstuna,Malmo FF,AFC Eskilstuna,3,2
+2017-07-01,Sundsvall 1-2 Sirius,Sundsvall,Sirius,1,2
+2017-07-01,Halmstad 1-1 Elfsborg,Halmstad,Elfsborg,1,1
+2017-07-02,Jonkopings 0-2 Goteborg,Jonkopings,Goteborg,0,2
+2017-07-02,AIK 2-2 Ostersunds,AIK,Ostersunds,2,2
+2017-07-02,Orebro 4-2 Norrkoping,Orebro,Norrkoping,4,2
+2017-07-03,Djurgarden 4-1 Kalmar,Djurgarden,Kalmar,4,1
+2017-07-03,Hacken 2-0 Hammarby,Hacken,Hammarby,2,0
+2017-07-08,Hammarby 3-1 Orebro,Hammarby,Orebro,3,1
+2017-07-08,Sirius 1-0 AFC Eskilstuna,Sirius,AFC Eskilstuna,1,0
+2017-07-08,Hacken 0-1 Malmo FF,Hacken,Malmo FF,0,1
+2017-07-09,Norrkoping 1-3 Elfsborg,Norrkoping,Elfsborg,1,3
+2017-07-09,Kalmar 0-1 AIK,Kalmar,AIK,0,1
+2017-07-09,Ostersunds 1-1 Jonkopings,Ostersunds,Jonkopings,1,1
+2017-07-10,Djurgarden 2-1 Sundsvall,Djurgarden,Sundsvall,2,1
+2017-07-10,Goteborg 1-1 Halmstad,Goteborg,Halmstad,1,1
+2017-07-15,AFC Eskilstuna 2-1 Kalmar,AFC Eskilstuna,Kalmar,2,1
+2017-07-15,Malmo FF 3-3 Sirius,Malmo FF,Sirius,3,3
+2017-07-15,Sundsvall 1-0 Halmstad,Sundsvall,Halmstad,1,0
+2017-07-16,Orebro 4-2 Goteborg,Orebro,Goteborg,4,2
+2017-07-16,AIK 1-0 Norrkoping,AIK,Norrkoping,1,0
+2017-07-16,Ostersunds 2-1 Djurgarden,Ostersunds,Djurgarden,2,1
+2017-07-17,Elfsborg 3-0 Hammarby,Elfsborg,Hammarby,3,0
+2017-07-17,Jonkopings 0-1 Hacken,Jonkopings,Hacken,0,1
+2017-07-22,Halmstad 2-2 Sundsvall,Halmstad,Sundsvall,2,2
+2017-07-22,Malmo FF 2-0 Jonkopings,Malmo FF,Jonkopings,2,0
+2017-07-22,Sirius 2-2 Hacken,Sirius,Hacken,2,2
+2017-07-23,Djurgarden 3-0 Ostersunds,Djurgarden,Ostersunds,3,0
+2017-07-23,Goteborg 2-2 Orebro,Goteborg,Orebro,2,2
+2017-07-23,Kalmar 2-0 AFC Eskilstuna,Kalmar,AFC Eskilstuna,2,0
+2017-07-24,Hammarby 2-1 Elfsborg,Hammarby,Elfsborg,2,1
+2017-07-29,Elfsborg 0-2 Sirius,Elfsborg,Sirius,0,2
+2017-07-29,Jonkopings 1-0 Hammarby,Jonkopings,Hammarby,1,0
+2017-07-29,Sundsvall 0-1 Malmo FF,Sundsvall,Malmo FF,0,1
+2017-07-30,Goteborg 4-1 Norrkoping,Goteborg,Norrkoping,4,1
+2017-07-30,Ostersunds 0-0 Halmstad,Ostersunds,Halmstad,0,0
+2017-07-30,AIK 0-1 Kalmar,AIK,Kalmar,0,1
+2017-07-31,AFC Eskilstuna 1-2 Djurgarden,AFC Eskilstuna,Djurgarden,1,2
+2017-07-31,Hacken 1-1 Orebro,Hacken,Orebro,1,1
+2017-08-05,Halmstad 6-1 Jonkopings,Halmstad,Jonkopings,6,1
+2017-08-05,Orebro 2-2 Elfsborg,Orebro,Elfsborg,2,2
+2017-08-06,Hammarby 1-2 Hacken,Hammarby,Hacken,1,2
+2017-08-06,Kalmar 1-0 Goteborg,Kalmar,Goteborg,1,0
+2017-08-06,Sundsvall 1-1 Ostersunds,Sundsvall,Ostersunds,1,1
+2017-08-06,Sirius 1-4 AIK,Sirius,AIK,1,4
+2017-08-07,Djurgarden 0-1 Malmo FF,Djurgarden,Malmo FF,0,1
+2017-08-07,Norrkoping 1-0 AFC Eskilstuna,Norrkoping,AFC Eskilstuna,1,0
+2017-08-10,Goteborg 2-1 AIK,Goteborg,AIK,2,1
+2017-08-11,Malmo FF 6-0 Kalmar,Malmo FF,Kalmar,6,0
+2017-08-12,Halmstad 0-3 Sirius,Halmstad,Sirius,0,3
+2017-08-13,AIK 1-1 AFC Eskilstuna,AIK,AFC Eskilstuna,1,1
+2017-08-13,Hammarby 2-2 Ostersunds,Hammarby,Ostersunds,2,2
+2017-08-13,Jonkopings 1-2 Orebro,Jonkopings,Orebro,1,2
+2017-08-13,Norrkoping 0-1 Djurgarden,Norrkoping,Djurgarden,0,1
+2017-08-14,Elfsborg 1-2 Goteborg,Elfsborg,Goteborg,1,2
+2017-08-14,Hacken 2-0 Sundsvall,Hacken,Sundsvall,2,0
+2017-08-18,Jonkopings 2-2 Elfsborg,Jonkopings,Elfsborg,2,2
+2017-08-19,AFC Eskilstuna 3-1 Malmo FF,AFC Eskilstuna,Malmo FF,3,1
+2017-08-20,Djurgarden 2-1 Halmstad,Djurgarden,Halmstad,2,1
+2017-08-20,Ostersunds 0-3 AIK,Ostersunds,AIK,0,3
+2017-08-20,Goteborg 1-1 Hacken,Goteborg,Hacken,1,1
+2017-08-20,Sirius 0-1 Norrkoping,Sirius,Norrkoping,0,1
+2017-08-21,Orebro 0-3 Hammarby,Orebro,Hammarby,0,3
+2017-08-21,Sundsvall 1-3 Kalmar,Sundsvall,Kalmar,1,3
+2017-08-26,AFC Eskilstuna 0-0 Hammarby,AFC Eskilstuna,Hammarby,0,0
+2017-08-27,AIK 1-1 Djurgarden,AIK,Djurgarden,1,1
+2017-08-27,Hacken 3-1 Jonkopings,Hacken,Jonkopings,3,1
+2017-08-27,Kalmar 4-2 Sirius,Kalmar,Sirius,4,2
+2017-08-27,Norrkoping 0-2 Ostersunds,Norrkoping,Ostersunds,0,2
+2017-08-27,Elfsborg 1-0 Halmstad,Elfsborg,Halmstad,1,0
+2017-08-27,Malmo FF 2-2 Goteborg,Malmo FF,Goteborg,2,2
+2017-08-27,Sundsvall 2-1 Orebro,Sundsvall,Orebro,2,1
+2017-09-09,Ostersunds 3-0 AFC Eskilstuna,Ostersunds,AFC Eskilstuna,3,0
+2017-09-10,Elfsborg 2-2 Kalmar,Elfsborg,Kalmar,2,2
+2017-09-10,Halmstad 0-3 Hacken,Halmstad,Hacken,0,3
+2017-09-10,Hammarby 1-1 AIK,Hammarby,AIK,1,1
+2017-09-10,Orebro 2-1 Malmo FF,Orebro,Malmo FF,2,1
+2017-09-10,Jonkopings 1-2 Norrkoping,Jonkopings,Norrkoping,1,2
+2017-09-10,Sirius 0-1 Sundsvall,Sirius,Sundsvall,0,1
+2017-09-11,Goteborg 1-3 Djurgarden,Goteborg,Djurgarden,1,3
+2017-09-15,Kalmar 1-1 Norrkoping,Kalmar,Norrkoping,1,1
+2017-09-16,Goteborg 1-1 Jonkopings,Goteborg,Jonkopings,1,1
+2017-09-16,Djurgarden 4-1 Orebro,Djurgarden,Orebro,4,1
+2017-09-16,Hacken 3-0 Elfsborg,Hacken,Elfsborg,3,0
+2017-09-17,AIK 4-1 Halmstad,AIK,Halmstad,4,1
+2017-09-17,Sirius 0-5 Ostersunds,Sirius,Ostersunds,0,5
+2017-09-17,Malmo FF 4-0 Hammarby,Malmo FF,Hammarby,4,0
+2017-09-18,AFC Eskilstuna 1-2 Sundsvall,AFC Eskilstuna,Sundsvall,1,2
+2017-09-19,Elfsborg 2-2 Djurgarden,Elfsborg,Djurgarden,2,2
+2017-09-19,Norrkoping 4-1 Hacken,Norrkoping,Hacken,4,1
+2017-09-20,Halmstad 1-1 Kalmar,Halmstad,Kalmar,1,1
+2017-09-20,Hammarby 2-1 Goteborg,Hammarby,Goteborg,2,1
+2017-09-20,Jonkopings 3-1 Sirius,Jonkopings,Sirius,3,1
+2017-09-20,Ostersunds 2-2 Malmo FF,Ostersunds,Malmo FF,2,2
+2017-09-21,Orebro 2-3 AFC Eskilstuna,Orebro,AFC Eskilstuna,2,3
+2017-09-21,Sundsvall 0-0 AIK,Sundsvall,AIK,0,0
+2017-09-23,Halmstad 2-1 Norrkoping,Halmstad,Norrkoping,2,1
+2017-09-24,Djurgarden 1-1 Hammarby,Djurgarden,Hammarby,1,1
+2017-09-24,Kalmar 2-1 Ostersunds,Kalmar,Ostersunds,2,1
+2017-09-24,Hacken 1-6 AIK,Hacken,AIK,1,6
+2017-09-24,Jonkopings 2-2 Sundsvall,Jonkopings,Sundsvall,2,2
+2017-09-25,AFC Eskilstuna 1-0 Goteborg,AFC Eskilstuna,Goteborg,1,0
+2017-09-25,Malmo FF 6-0 Elfsborg,Malmo FF,Elfsborg,6,0
+2017-09-25,Sirius 3-4 Orebro,Sirius,Orebro,3,4
+2017-09-29,Goteborg 4-0 Sirius,Goteborg,Sirius,4,0
+2017-09-30,AFC Eskilstuna 1-1 Jonkopings,AFC Eskilstuna,Jonkopings,1,1
+2017-10-01,Malmo FF 2-0 Halmstad,Malmo FF,Halmstad,2,0
+2017-10-01,Ostersunds 0-0 Hacken,Ostersunds,Hacken,0,0
+2017-10-01,Sundsvall 0-5 Djurgarden,Sundsvall,Djurgarden,0,5
+2017-10-01,AIK 5-2 Elfsborg,AIK,Elfsborg,5,2
+2017-10-01,Hammarby 0-2 Norrkoping,Hammarby,Norrkoping,0,2
+2017-10-01,Orebro 1-0 Kalmar,Orebro,Kalmar,1,0
+2017-10-14,Halmstad 1-2 Goteborg,Halmstad,Goteborg,1,2
+2017-10-14,Hacken 3-0 AFC Eskilstuna,Hacken,AFC Eskilstuna,3,0
+2017-10-14,Ostersunds 3-0 Orebro,Ostersunds,Orebro,3,0
+2017-10-15,AIK 2-0 Jonkopings,AIK,Jonkopings,2,0
+2017-10-15,Elfsborg 2-1 Sundsvall,Elfsborg,Sundsvall,2,1
+2017-10-15,Sirius 2-0 Djurgarden,Sirius,Djurgarden,2,0
+2017-10-16,Kalmar 2-0 Hammarby,Kalmar,Hammarby,2,0
+2017-10-16,Norrkoping 1-3 Malmo FF,Norrkoping,Malmo FF,1,3
+2017-10-20,Orebro 0-1 Halmstad,Orebro,Halmstad,0,1
+2017-10-21,AFC Eskilstuna 2-3 Elfsborg,AFC Eskilstuna,Elfsborg,2,3
+2017-10-22,Goteborg 0-1 Ostersunds,Goteborg,Ostersunds,0,1
+2017-10-22,Sundsvall 2-2 Norrkoping,Sundsvall,Norrkoping,2,2
+2017-10-22,Djurgarden 1-1 Hacken,Djurgarden,Hacken,1,1
+2017-10-23,Hammarby 3-3 Sirius,Hammarby,Sirius,3,3
+2017-10-23,Jonkopings 2-0 Kalmar,Jonkopings,Kalmar,2,0
+2017-10-23,Malmo FF 0-0 AIK,Malmo FF,AIK,0,0
+2017-10-28,Ostersunds 4-1 Elfsborg,Ostersunds,Elfsborg,4,1
+2017-10-28,Halmstad 1-1 AFC Eskilstuna,Halmstad,AFC Eskilstuna,1,1
+2017-10-29,Sirius 0-4 Malmo FF,Sirius,Malmo FF,0,4
+2017-10-29,Sundsvall 1-4 Hammarby,Sundsvall,Hammarby,1,4
+2017-10-29,Djurgarden 0-0 Jonkopings,Djurgarden,Jonkopings,0,0
+2017-10-29,Hacken 2-0 Kalmar,Hacken,Kalmar,2,0
+2017-10-30,AIK 2-1 Goteborg,AIK,Goteborg,2,1
+2017-10-30,Norrkoping 2-0 Orebro,Norrkoping,Orebro,2,0
+2017-11-05,AFC Eskilstuna 1-3 Sirius,AFC Eskilstuna,Sirius,1,3
+2017-11-05,Elfsborg 3-3 Norrkoping,Elfsborg,Norrkoping,3,3
+2017-11-05,Goteborg 0-3 Sundsvall,Goteborg,Sundsvall,0,3
+2017-11-05,Hammarby 1-3 Halmstad,Hammarby,Halmstad,1,3
+2017-11-05,Jonkopings 0-0 Ostersunds,Jonkopings,Ostersunds,0,0
+2017-11-05,Kalmar 0-2 Djurgarden,Kalmar,Djurgarden,0,2
+2017-11-05,Malmo FF 1-2 Hacken,Malmo FF,Hacken,1,2
+2017-11-05,Orebro 1-2 AIK,Orebro,AIK,1,2
+2017-11-15,Trelleborgs 2-0 Jonkopings,Trelleborgs,Jonkopings,2,0
+2017-11-19,Jonkopings 1-1 Trelleborgs,Jonkopings,Trelleborgs,1,1
+2018-04-01,Hacken 1-0 Kalmar,Hacken,Kalmar,1,0
+2018-04-01,Hammarby 3-1 Sirius,Hammarby,Sirius,3,1
+2018-04-01,Ostersunds 0-1 Djurgarden,Ostersunds,Djurgarden,0,1
+2018-04-01,Trelleborgs 1-3 Goteborg,Trelleborgs,Goteborg,1,3
+2018-04-02,AIK 2-0 Dalkurd,AIK,Dalkurd,2,0
+2018-04-02,Norrkoping 2-1 Brommapojkarna,Norrkoping,Brommapojkarna,2,1
+2018-04-02,Elfsborg 1-2 Malmo FF,Elfsborg,Malmo FF,1,2
+2018-04-02,Sundsvall 0-0 Orebro,Sundsvall,Orebro,0,0
+2018-04-07,Orebro 1-1 Norrkoping,Orebro,Norrkoping,1,1
+2018-04-08,Djurgarden 1-1 Trelleborgs,Djurgarden,Trelleborgs,1,1
+2018-04-08,Kalmar 1-0 Elfsborg,Kalmar,Elfsborg,1,0
+2018-04-08,Dalkurd 3-0 Ostersunds,Dalkurd,Ostersunds,3,0
+2018-04-09,Brommapojkarna 2-0 Hacken,Brommapojkarna,Hacken,2,0
+2018-04-09,Malmo FF 1-1 AIK,Malmo FF,AIK,1,1
+2018-04-10,Goteborg 1-2 Hammarby,Goteborg,Hammarby,1,2
+2018-04-13,Sundsvall 2-2 Malmo FF,Sundsvall,Malmo FF,2,2
+2018-04-13,Trelleborgs 1-2 Orebro,Trelleborgs,Orebro,1,2
+2018-04-14,Elfsborg 0-1 Sirius,Elfsborg,Sirius,0,1
+2018-04-14,Hacken 3-0 Dalkurd,Hacken,Dalkurd,3,0
+2018-04-15,AIK 2-0 Djurgarden,AIK,Djurgarden,2,0
+2018-04-15,Norrkoping 3-1 Kalmar,Norrkoping,Kalmar,3,1
+2018-04-15,Ostersunds 2-1 Goteborg,Ostersunds,Goteborg,2,1
+2018-04-16,Hammarby 4-0 Brommapojkarna,Hammarby,Brommapojkarna,4,0
+2018-04-17,Sundsvall 1-0 Trelleborgs,Sundsvall,Trelleborgs,1,0
+2018-04-18,Djurgarden 3-0 Malmo FF,Djurgarden,Malmo FF,3,0
+2018-04-18,Kalmar 1-1 Ostersunds,Kalmar,Ostersunds,1,1
+2018-04-18,Orebro 1-1 AIK,Orebro,AIK,1,1
+2018-04-18,Sirius 0-0 Hacken,Sirius,Hacken,0,0
+2018-04-19,Brommapojkarna 0-2 Elfsborg,Brommapojkarna,Elfsborg,0,2
+2018-04-19,Goteborg 1-0 Dalkurd,Goteborg,Dalkurd,1,0
+2018-04-19,Hammarby 2-1 Norrkoping,Hammarby,Norrkoping,2,1
+2018-04-21,Ostersunds 0-2 Orebro,Ostersunds,Orebro,0,2
+2018-04-22,Dalkurd 2-2 Sundsvall,Dalkurd,Sundsvall,2,2
+2018-04-22,Hacken 2-2 Hammarby,Hacken,Hammarby,2,2
+2018-04-22,AIK 2-0 Goteborg,AIK,Goteborg,2,0
+2018-04-22,Trelleborgs 0-1 Kalmar,Trelleborgs,Kalmar,0,1
+2018-04-23,Elfsborg 2-2 Djurgarden,Elfsborg,Djurgarden,2,2
+2018-04-23,Malmo FF 3-1 Brommapojkarna,Malmo FF,Brommapojkarna,3,1
+2018-04-23,Norrkoping 1-0 Sirius,Norrkoping,Sirius,1,0
+2018-04-27,AIK 2-0 Sirius,AIK,Sirius,2,0
+2018-04-28,Goteborg 2-1 Hacken,Goteborg,Hacken,2,1
+2018-04-29,Djurgarden 1-2 Hammarby,Djurgarden,Hammarby,1,2
+2018-04-29,Sundsvall 2-1 Elfsborg,Sundsvall,Elfsborg,2,1
+2018-04-29,Kalmar 3-0 Malmo FF,Kalmar,Malmo FF,3,0
+2018-04-29,Norrkoping 1-2 Trelleborgs,Norrkoping,Trelleborgs,1,2
+2018-04-30,Brommapojkarna 0-4 Ostersunds,Brommapojkarna,Ostersunds,0,4
+2018-04-30,Orebro 3-2 Dalkurd,Orebro,Dalkurd,3,2
+2018-05-02,Sirius 2-3 AIK,Sirius,AIK,2,3
+2018-05-03,Malmo FF 1-0 Djurgarden,Malmo FF,Djurgarden,1,0
+2018-05-05,Hammarby 4-3 Sundsvall,Hammarby,Sundsvall,4,3
+2018-05-05,Ostersunds 0-2 Norrkoping,Ostersunds,Norrkoping,0,2
+2018-05-06,Brommapojkarna 1-0 Djurgarden,Brommapojkarna,Djurgarden,1,0
+2018-05-06,Dalkurd 1-2 Kalmar,Dalkurd,Kalmar,1,2
+2018-05-06,Elfsborg 0-0 AIK,Elfsborg,AIK,0,0
+2018-05-06,Trelleborgs 0-3 Hacken,Trelleborgs,Hacken,0,3
+2018-05-07,Malmo FF 1-2 Goteborg,Malmo FF,Goteborg,1,2
+2018-05-07,Sirius 2-4 Orebro,Sirius,Orebro,2,4
+2018-05-12,Sundsvall 3-0 Brommapojkarna,Sundsvall,Brommapojkarna,3,0
+2018-05-13,Djurgarden 1-0 Dalkurd,Djurgarden,Dalkurd,1,0
+2018-05-13,Goteborg 0-2 Norrkoping,Goteborg,Norrkoping,0,2
+2018-05-13,Orebro 1-2 Hammarby,Orebro,Hammarby,1,2
+2018-05-13,Trelleborgs 1-0 Malmo FF,Trelleborgs,Malmo FF,1,0
+2018-05-14,AIK 1-1 Ostersunds,AIK,Ostersunds,1,1
+2018-05-14,Hacken 5-0 Elfsborg,Hacken,Elfsborg,5,0
+2018-05-14,Kalmar 1-0 Sirius,Kalmar,Sirius,1,0
+2018-05-16,Hammarby 3-2 Malmo FF,Hammarby,Malmo FF,3,2
+2018-05-17,Djurgarden 2-0 Orebro,Djurgarden,Orebro,2,0
+2018-05-18,Brommapojkarna 2-1 Kalmar,Brommapojkarna,Kalmar,2,1
+2018-05-19,Sirius 1-1 Trelleborgs,Sirius,Trelleborgs,1,1
+2018-05-19,Sundsvall 2-3 Ostersunds,Sundsvall,Ostersunds,2,3
+2018-05-19,Norrkoping 4-2 Dalkurd,Norrkoping,Dalkurd,4,2
+2018-05-20,Hammarby 0-1 AIK,Hammarby,AIK,0,1
+2018-05-20,Malmo FF 2-0 Hacken,Malmo FF,Hacken,2,0
+2018-05-21,Elfsborg 1-1 Goteborg,Elfsborg,Goteborg,1,1
+2018-05-22,Orebro 2-1 Kalmar,Orebro,Kalmar,2,1
+2018-05-23,Hacken 1-1 AIK,Hacken,AIK,1,1
+2018-05-23,Norrkoping 1-0 Sundsvall,Norrkoping,Sundsvall,1,0
+2018-05-23,Ostersunds 5-2 Sirius,Ostersunds,Sirius,5,2
+2018-05-24,Dalkurd 1-4 Elfsborg,Dalkurd,Elfsborg,1,4
+2018-05-24,Goteborg 1-3 Djurgarden,Goteborg,Djurgarden,1,3
+2018-05-24,Trelleborgs 2-1 Brommapojkarna,Trelleborgs,Brommapojkarna,2,1
+2018-05-26,AIK 3-3 Norrkoping,AIK,Norrkoping,3,3
+2018-05-26,Ostersunds 2-0 Hacken,Ostersunds,Hacken,2,0
+2018-05-27,Kalmar 1-1 Hammarby,Kalmar,Hammarby,1,1
+2018-05-27,Malmo FF 1-1 Dalkurd,Malmo FF,Dalkurd,1,1
+2018-05-27,Sundsvall 2-0 Goteborg,Sundsvall,Goteborg,2,0
+2018-05-27,Brommapojkarna 0-0 Orebro,Brommapojkarna,Orebro,0,0
+2018-05-27,Elfsborg 2-1 Trelleborgs,Elfsborg,Trelleborgs,2,1
+2018-05-27,Sirius 1-5 Djurgarden,Sirius,Djurgarden,1,5
+2018-07-03,Sirius 1-3 Sundsvall,Sirius,Sundsvall,1,3
+2018-07-07,Sirius 0-4 Malmo FF,Sirius,Malmo FF,0,4
+2018-07-07,Dalkurd 3-0 Brommapojkarna,Dalkurd,Brommapojkarna,3,0
+2018-07-07,Hacken 3-0 Sundsvall,Hacken,Sundsvall,3,0
+2018-07-07,Trelleborgs 1-4 AIK,Trelleborgs,AIK,1,4
+2018-07-08,Goteborg 1-3 Kalmar,Goteborg,Kalmar,1,3
+2018-07-08,Djurgarden 1-1 Norrkoping,Djurgarden,Norrkoping,1,1
+2018-07-08,Orebro 1-2 Elfsborg,Orebro,Elfsborg,1,2
+2018-07-09,Hammarby 1-2 Ostersunds,Hammarby,Ostersunds,1,2
+2018-07-14,Brommapojkarna 0-1 Sirius,Brommapojkarna,Sirius,0,1
+2018-07-14,Dalkurd 2-2 Trelleborgs,Dalkurd,Trelleborgs,2,2
+2018-07-14,Malmo FF 1-1 Ostersunds,Malmo FF,Ostersunds,1,1
+2018-07-14,Goteborg 2-0 Orebro,Goteborg,Orebro,2,0
+2018-07-15,Kalmar 0-1 Djurgarden,Kalmar,Djurgarden,0,1
+2018-07-15,Norrkoping 2-1 Hacken,Norrkoping,Hacken,2,1
+2018-07-15,Sundsvall 0-1 AIK,Sundsvall,AIK,0,1
+2018-07-16,Elfsborg 0-0 Hammarby,Elfsborg,Hammarby,0,0
+2018-07-21,Orebro 1-2 Malmo FF,Orebro,Malmo FF,1,2
+2018-07-21,Ostersunds 4-1 Trelleborgs,Ostersunds,Trelleborgs,4,1
+2018-07-21,Kalmar 0-2 Sundsvall,Kalmar,Sundsvall,0,2
+2018-07-22,AIK 5-1 Brommapojkarna,AIK,Brommapojkarna,5,1
+2018-07-22,Djurgarden 2-1 Hacken,Djurgarden,Hacken,2,1
+2018-07-22,Sirius 3-2 Goteborg,Sirius,Goteborg,3,2
+2018-07-23,Hammarby 4-1 Dalkurd,Hammarby,Dalkurd,4,1
+2018-07-23,Norrkoping 1-0 Elfsborg,Norrkoping,Elfsborg,1,0
+2018-07-28,Goteborg 3-0 Brommapojkarna,Goteborg,Brommapojkarna,3,0
+2018-07-28,Ostersunds 1-0 Elfsborg,Ostersunds,Elfsborg,1,0
+2018-07-28,Dalkurd 1-3 Sirius,Dalkurd,Sirius,1,3
+2018-07-28,Malmo FF 2-1 Norrkoping,Malmo FF,Norrkoping,2,1
+2018-07-29,AIK 1-0 Kalmar,AIK,Kalmar,1,0
+2018-07-29,Djurgarden 1-1 Sundsvall,Djurgarden,Sundsvall,1,1
+2018-07-29,Hacken 1-1 Orebro,Hacken,Orebro,1,1
+2018-07-30,Trelleborgs 1-3 Hammarby,Trelleborgs,Hammarby,1,3
+2018-08-04,Brommapojkarna 2-1 Dalkurd,Brommapojkarna,Dalkurd,2,1
+2018-08-04,Kalmar 2-1 Goteborg,Kalmar,Goteborg,2,1
+2018-08-05,Hammarby 1-0 Trelleborgs,Hammarby,Trelleborgs,1,0
+2018-08-05,Orebro 1-2 Hacken,Orebro,Hacken,1,2
+2018-08-06,Elfsborg 0-2 Ostersunds,Elfsborg,Ostersunds,0,2
+2018-08-06,Sundsvall 1-1 Norrkoping,Sundsvall,Norrkoping,1,1
+2018-08-10,Dalkurd 0-1 Malmo FF,Dalkurd,Malmo FF,0,1
+2018-08-10,Goteborg 2-3 Sirius,Goteborg,Sirius,2,3
+2018-08-11,Orebro 0-1 Brommapojkarna,Orebro,Brommapojkarna,0,1
+2018-08-12,Hacken 5-0 Djurgarden,Hacken,Djurgarden,5,0
+2018-08-12,Ostersunds 2-0 Kalmar,Ostersunds,Kalmar,2,0
+2018-08-12,AIK 1-0 Elfsborg,AIK,Elfsborg,1,0
+2018-08-13,Norrkoping 0-0 Hammarby,Norrkoping,Hammarby,0,0
+2018-08-13,Trelleborgs 1-6 Sundsvall,Trelleborgs,Sundsvall,1,6
+2018-08-17,Sirius 2-3 Dalkurd,Sirius,Dalkurd,2,3
+2018-08-18,Malmo FF 3-0 Trelleborgs,Malmo FF,Trelleborgs,3,0
+2018-08-19,Elfsborg 0-1 Norrkoping,Elfsborg,Norrkoping,0,1
+2018-08-19,Sundsvall 0-2 Hacken,Sundsvall,Hacken,0,2
+2018-08-19,Brommapojkarna 0-2 AIK,Brommapojkarna,AIK,0,2
+2018-08-19,Djurgarden 0-2 Kalmar,Djurgarden,Kalmar,0,2
+2018-08-20,Goteborg 2-1 Ostersunds,Goteborg,Ostersunds,2,1
+2018-08-20,Hammarby 2-0 Orebro,Hammarby,Orebro,2,0
+2018-08-26,Hacken 6-0 Brommapojkarna,Hacken,Brommapojkarna,6,0
+2018-08-26,Malmo FF 5-0 Sirius,Malmo FF,Sirius,5,0
+2018-08-26,Ostersunds 1-2 Sundsvall,Ostersunds,Sundsvall,1,2
+2018-08-26,AIK 2-0 Trelleborgs,AIK,Trelleborgs,2,0
+2018-08-26,Djurgarden 2-2 Elfsborg,Djurgarden,Elfsborg,2,2
+2018-08-27,Dalkurd 2-3 Hammarby,Dalkurd,Hammarby,2,3
+2018-08-27,Kalmar 0-1 Orebro,Kalmar,Orebro,0,1
+2018-08-27,Norrkoping 2-1 Goteborg,Norrkoping,Goteborg,2,1
+2018-08-31,Trelleborgs 1-1 Norrkoping,Trelleborgs,Norrkoping,1,1
+2018-09-01,AIK 3-0 Hacken,AIK,Hacken,3,0
+2018-09-01,Orebro 2-1 Ostersunds,Orebro,Ostersunds,2,1
+2018-09-02,Brommapojkarna 0-3 Malmo FF,Brommapojkarna,Malmo FF,0,3
+2018-09-02,Dalkurd 1-1 Goteborg,Dalkurd,Goteborg,1,1
+2018-09-02,Hammarby 1-3 Djurgarden,Hammarby,Djurgarden,1,3
+2018-09-02,Elfsborg 1-1 Kalmar,Elfsborg,Kalmar,1,1
+2018-09-02,Sundsvall 4-0 Sirius,Sundsvall,Sirius,4,0
+2018-09-15,Orebro 2-1 Sundsvall,Orebro,Sundsvall,2,1
+2018-09-15,Ostersunds 2-3 Malmo FF,Ostersunds,Malmo FF,2,3
+2018-09-16,Norrkoping 2-0 AIK,Norrkoping,AIK,2,0
+2018-09-16,Djurgarden 0-1 Brommapojkarna,Djurgarden,Brommapojkarna,0,1
+2018-09-16,Goteborg 2-2 Elfsborg,Goteborg,Elfsborg,2,2
+2018-09-17,Hacken 2-1 Trelleborgs,Hacken,Trelleborgs,2,1
+2018-09-17,Kalmar 0-0 Dalkurd,Kalmar,Dalkurd,0,0
+2018-09-17,Sirius 1-1 Hammarby,Sirius,Hammarby,1,1
+2018-09-21,Brommapojkarna 1-3 Sundsvall,Brommapojkarna,Sundsvall,1,3
+2018-09-22,Elfsborg 1-0 Orebro,Elfsborg,Orebro,1,0
+2018-09-22,Sirius 0-1 Ostersunds,Sirius,Ostersunds,0,1
+2018-09-22,Trelleborgs 0-3 Djurgarden,Trelleborgs,Djurgarden,0,3
+2018-09-22,Dalkurd 0-2 Norrkoping,Dalkurd,Norrkoping,0,2
+2018-09-23,AIK 1-0 Hammarby,AIK,Hammarby,1,0
+2018-09-23,Malmo FF 4-0 Kalmar,Malmo FF,Kalmar,4,0
+2018-09-24,Hacken 4-1 Goteborg,Hacken,Goteborg,4,1
+2018-09-25,Orebro 0-0 Sirius,Orebro,Sirius,0,0
+2018-09-26,Hammarby 0-1 Elfsborg,Hammarby,Elfsborg,0,1
+2018-09-26,Norrkoping 3-1 Malmo FF,Norrkoping,Malmo FF,3,1
+2018-09-26,Ostersunds 3-1 Brommapojkarna,Ostersunds,Brommapojkarna,3,1
+2018-09-26,Sundsvall 1-1 Djurgarden,Sundsvall,Djurgarden,1,1
+2018-09-26,Trelleborgs 0-1 Dalkurd,Trelleborgs,Dalkurd,0,1
+2018-09-27,Goteborg 0-2 AIK,Goteborg,AIK,0,2
+2018-09-27,Kalmar 1-2 Hacken,Kalmar,Hacken,1,2
+2018-09-29,Sirius 1-1 Norrkoping,Sirius,Norrkoping,1,1
+2018-09-30,Dalkurd 0-4 AIK,Dalkurd,AIK,0,4
+2018-09-30,Kalmar 1-1 Brommapojkarna,Kalmar,Brommapojkarna,1,1
+2018-09-30,Djurgarden 0-2 Ostersunds,Djurgarden,Ostersunds,0,2
+2018-09-30,Malmo FF 0-0 Sundsvall,Malmo FF,Sundsvall,0,0
+2018-10-01,Elfsborg 0-3 Hacken,Elfsborg,Hacken,0,3
+2018-10-01,Hammarby 3-0 Goteborg,Hammarby,Goteborg,3,0
+2018-10-01,Orebro 4-0 Trelleborgs,Orebro,Trelleborgs,4,0
+2018-10-05,Ostersunds 3-0 Dalkurd,Ostersunds,Dalkurd,3,0
+2018-10-06,Sirius 4-2 Elfsborg,Sirius,Elfsborg,4,2
+2018-10-06,Goteborg 2-2 Trelleborgs,Goteborg,Trelleborgs,2,2
+2018-10-07,Hacken 1-1 Malmo FF,Hacken,Malmo FF,1,1
+2018-10-07,AIK 1-1 Orebro,AIK,Orebro,1,1
+2018-10-07,Brommapojkarna 2-4 Hammarby,Brommapojkarna,Hammarby,2,4
+2018-10-07,Norrkoping 1-1 Djurgarden,Norrkoping,Djurgarden,1,1
+2018-10-08,Sundsvall 2-0 Kalmar,Sundsvall,Kalmar,2,0
+2018-10-20,Malmo FF 2-1 Hammarby,Malmo FF,Hammarby,2,1
+2018-10-20,Dalkurd 1-0 Orebro,Dalkurd,Orebro,1,0
+2018-10-21,Djurgarden 0-0 AIK,Djurgarden,AIK,0,0
+2018-10-21,Hacken 2-0 Ostersunds,Hacken,Ostersunds,2,0
+2018-10-21,Elfsborg 2-0 Sundsvall,Elfsborg,Sundsvall,2,0
+2018-10-21,Kalmar 1-2 Norrkoping,Kalmar,Norrkoping,1,2
+2018-10-21,Trelleborgs 1-2 Sirius,Trelleborgs,Sirius,1,2
+2018-10-22,Brommapojkarna 0-2 Goteborg,Brommapojkarna,Goteborg,0,2
+2018-10-26,Goteborg 1-2 Sundsvall,Goteborg,Sundsvall,1,2
+2018-10-26,Trelleborgs 2-2 Elfsborg,Trelleborgs,Elfsborg,2,2
+2018-10-27,Dalkurd 0-5 Hacken,Dalkurd,Hacken,0,5
+2018-10-28,Hammarby 0-0 Kalmar,Hammarby,Kalmar,0,0
+2018-10-28,Orebro 1-1 Djurgarden,Orebro,Djurgarden,1,1
+2018-10-28,Norrkoping 4-2 Ostersunds,Norrkoping,Ostersunds,4,2
+2018-10-28,Sirius 4-2 Brommapojkarna,Sirius,Brommapojkarna,4,2
+2018-10-29,AIK 1-1 Malmo FF,AIK,Malmo FF,1,1
+2018-10-30,Elfsborg 0-0 Dalkurd,Elfsborg,Dalkurd,0,0
+2018-10-31,Brommapojkarna 0-1 Norrkoping,Brommapojkarna,Norrkoping,0,1
+2018-10-31,Djurgarden 2-0 Goteborg,Djurgarden,Goteborg,2,0
+2018-10-31,Hacken 2-1 Sirius,Hacken,Sirius,2,1
+2018-10-31,Kalmar 2-1 Trelleborgs,Kalmar,Trelleborgs,2,1
+2018-10-31,Sundsvall 2-3 Hammarby,Sundsvall,Hammarby,2,3
+2018-11-01,Malmo FF 4-0 Orebro,Malmo FF,Orebro,4,0
+2018-11-01,Ostersunds 1-2 AIK,Ostersunds,AIK,1,2
+2018-11-04,Goteborg 0-3 Malmo FF,Goteborg,Malmo FF,0,3
+2018-11-04,Norrkoping 3-2 Orebro,Norrkoping,Orebro,3,2
+2018-11-04,AIK 0-0 Sundsvall,AIK,Sundsvall,0,0
+2018-11-04,Hammarby 1-0 Hacken,Hammarby,Hacken,1,0
+2018-11-05,Dalkurd 1-2 Djurgarden,Dalkurd,Djurgarden,1,2
+2018-11-05,Elfsborg 1-2 Brommapojkarna,Elfsborg,Brommapojkarna,1,2
+2018-11-05,Sirius 1-1 Kalmar,Sirius,Kalmar,1,1
+2018-11-05,Trelleborgs 0-1 Ostersunds,Trelleborgs,Ostersunds,0,1
+2018-11-11,Brommapojkarna 3-0 Trelleborgs,Brommapojkarna,Trelleborgs,3,0
+2018-11-11,Djurgarden 1-0 Sirius,Djurgarden,Sirius,1,0
+2018-11-11,Hacken 0-1 Norrkoping,Hacken,Norrkoping,0,1
+2018-11-11,Kalmar 0-1 AIK,Kalmar,AIK,0,1
+2018-11-11,Malmo FF 2-0 Elfsborg,Malmo FF,Elfsborg,2,0
+2018-11-11,Orebro 1-3 Goteborg,Orebro,Goteborg,1,3
+2018-11-11,Ostersunds 3-3 Hammarby,Ostersunds,Hammarby,3,3
+2018-11-11,Sundsvall 0-1 Dalkurd,Sundsvall,Dalkurd,0,1
+2018-11-22,AFC Eskilstuna 0-1 Brommapojkarna,AFC Eskilstuna,Brommapojkarna,0,1
+2018-11-25,Brommapojkarna 1-2 AFC Eskilstuna,Brommapojkarna,AFC Eskilstuna,1,2
+2019-03-31,AIK 0-0 Ostersunds,AIK,Ostersunds,0,0
+2019-03-31,Falkenbergs 1-0 Orebro,Falkenbergs,Orebro,1,0
+2019-03-31,Kalmar 0-2 Sirius,Kalmar,Sirius,0,2
+2019-03-31,AFC Eskilstuna 3-1 Goteborg,AFC Eskilstuna,Goteborg,3,1
+2019-03-31,Helsingborg 3-1 Norrkoping,Helsingborg,Norrkoping,3,1
+2019-04-01,Djurgarden 2-2 Sundsvall,Djurgarden,Sundsvall,2,2
+2019-04-01,Elfsborg 1-1 Hammarby,Elfsborg,Hammarby,1,1
+2019-04-01,Malmo FF 1-1 Hacken,Malmo FF,Hacken,1,1
+2019-04-06,Hacken 2-1 Helsingborg,Hacken,Helsingborg,2,1
+2019-04-06,Sundsvall 3-1 Malmo FF,Sundsvall,Malmo FF,3,1
+2019-04-07,Goteborg 3-0 Elfsborg,Goteborg,Elfsborg,3,0
+2019-04-07,Ostersunds 3-2 Falkenbergs,Ostersunds,Falkenbergs,3,2
+2019-04-07,Hammarby 1-1 Kalmar,Hammarby,Kalmar,1,1
+2019-04-08,Norrkoping 0-0 AIK,Norrkoping,AIK,0,0
+2019-04-08,Orebro 0-3 Djurgarden,Orebro,Djurgarden,0,3
+2019-04-08,Sirius 3-2 AFC Eskilstuna,Sirius,AFC Eskilstuna,3,2
+2019-04-12,AFC Eskilstuna 1-1 Orebro,AFC Eskilstuna,Orebro,1,1
+2019-04-13,Falkenbergs 0-3 Hacken,Falkenbergs,Hacken,0,3
+2019-04-13,Kalmar 2-2 Norrkoping,Kalmar,Norrkoping,2,2
+2019-04-14,AIK 2-1 Sirius,AIK,Sirius,2,1
+2019-04-14,Elfsborg 3-1 Sundsvall,Elfsborg,Sundsvall,3,1
+2019-04-14,Malmo FF 2-0 Ostersunds,Malmo FF,Ostersunds,2,0
+2019-04-15,Djurgarden 2-1 Goteborg,Djurgarden,Goteborg,2,1
+2019-04-15,Helsingborg 2-1 Hammarby,Helsingborg,Hammarby,2,1
+2019-04-19,Ostersunds 1-1 Elfsborg,Ostersunds,Elfsborg,1,1
+2019-04-19,Norrkoping 4-3 Falkenbergs,Norrkoping,Falkenbergs,4,3
+2019-04-19,Orebro 2-1 AIK,Orebro,AIK,2,1
+2019-04-20,Sundsvall 1-2 Kalmar,Sundsvall,Kalmar,1,2
+2019-04-20,Sirius 0-1 Malmo FF,Sirius,Malmo FF,0,1
+2019-04-21,Hacken 0-1 Djurgarden,Hacken,Djurgarden,0,1
+2019-04-21,Hammarby 3-1 AFC Eskilstuna,Hammarby,AFC Eskilstuna,3,1
+2019-04-22,Goteborg 3-1 Helsingborg,Goteborg,Helsingborg,3,1
+2019-04-24,AFC Eskilstuna 0-1 Ostersunds,AFC Eskilstuna,Ostersunds,0,1
+2019-04-24,AIK 1-0 Hacken,AIK,Hacken,1,0
+2019-04-24,Elfsborg 4-2 Orebro,Elfsborg,Orebro,4,2
+2019-04-24,Falkenbergs 0-0 Sirius,Falkenbergs,Sirius,0,0
+2019-04-24,Malmo FF 4-1 Hammarby,Malmo FF,Hammarby,4,1
+2019-04-25,Djurgarden 1-1 Norrkoping,Djurgarden,Norrkoping,1,1
+2019-04-25,Helsingborg 1-1 Sundsvall,Helsingborg,Sundsvall,1,1
+2019-04-25,Kalmar 1-1 Goteborg,Kalmar,Goteborg,1,1
+2019-04-27,Sirius 2-4 Elfsborg,Sirius,Elfsborg,2,4
+2019-04-28,Hacken 3-0 AFC Eskilstuna,Hacken,AFC Eskilstuna,3,0
+2019-04-28,Hammarby 2-1 Djurgarden,Hammarby,Djurgarden,2,1
+2019-04-28,Norrkoping 1-1 Malmo FF,Norrkoping,Malmo FF,1,1
+2019-04-29,Goteborg 3-0 AIK,Goteborg,AIK,3,0
+2019-04-29,Orebro 1-1 Kalmar,Orebro,Kalmar,1,1
+2019-04-29,Ostersunds 3-0 Helsingborg,Ostersunds,Helsingborg,3,0
+2019-04-29,Sundsvall 3-1 Falkenbergs,Sundsvall,Falkenbergs,3,1
+2019-05-04,AIK 2-1 AFC Eskilstuna,AIK,AFC Eskilstuna,2,1
+2019-05-04,Sirius 2-4 Goteborg,Sirius,Goteborg,2,4
+2019-05-05,Falkenbergs 1-2 Malmo FF,Falkenbergs,Malmo FF,1,2
+2019-05-05,Hacken 1-0 Sundsvall,Hacken,Sundsvall,1,0
+2019-05-05,Kalmar 1-1 Ostersunds,Kalmar,Ostersunds,1,1
+2019-05-05,Orebro 2-3 Hammarby,Orebro,Hammarby,2,3
+2019-05-06,Elfsborg 0-0 Norrkoping,Elfsborg,Norrkoping,0,0
+2019-05-06,Helsingborg 1-1 Djurgarden,Helsingborg,Djurgarden,1,1
+2019-05-10,Hammarby 2-0 Sirius,Hammarby,Sirius,2,0
+2019-05-11,Ostersunds 1-1 Hacken,Ostersunds,Hacken,1,1
+2019-05-11,AFC Eskilstuna 0-0 Falkenbergs,AFC Eskilstuna,Falkenbergs,0,0
+2019-05-11,Kalmar 1-0 Helsingborg,Kalmar,Helsingborg,1,0
+2019-05-11,Sundsvall 1-2 Orebro,Sundsvall,Orebro,1,2
+2019-05-12,Djurgarden 0-2 AIK,Djurgarden,AIK,0,2
+2019-05-12,Malmo FF 4-1 Elfsborg,Malmo FF,Elfsborg,4,1
+2019-05-13,Norrkoping 1-2 Goteborg,Norrkoping,Goteborg,1,2
+2019-05-14,Hammarby 4-0 Ostersunds,Hammarby,Ostersunds,4,0
+2019-05-15,Elfsborg 1-0 AFC Eskilstuna,Elfsborg,AFC Eskilstuna,1,0
+2019-05-15,Falkenbergs 0-3 Djurgarden,Falkenbergs,Djurgarden,0,3
+2019-05-15,Hacken 1-0 Kalmar,Hacken,Kalmar,1,0
+2019-05-15,Helsingborg 1-3 AIK,Helsingborg,AIK,1,3
+2019-05-15,Sirius 1-0 Sundsvall,Sirius,Sundsvall,1,0
+2019-05-16,Goteborg 0-0 Malmo FF,Goteborg,Malmo FF,0,0
+2019-05-16,Orebro 1-2 Norrkoping,Orebro,Norrkoping,1,2
+2019-05-18,AFC Eskilstuna 1-1 Helsingborg,AFC Eskilstuna,Helsingborg,1,1
+2019-05-19,Malmo FF 1-0 Kalmar,Malmo FF,Kalmar,1,0
+2019-05-19,Sirius 3-4 Hacken,Sirius,Hacken,3,4
+2019-05-19,Djurgarden 2-0 Elfsborg,Djurgarden,Elfsborg,2,0
+2019-05-20,AIK 2-0 Falkenbergs,AIK,Falkenbergs,2,0
+2019-05-20,Goteborg 0-0 Hammarby,Goteborg,Hammarby,0,0
+2019-05-20,Norrkoping 2-0 Sundsvall,Norrkoping,Sundsvall,2,0
+2019-05-20,Ostersunds 1-3 Orebro,Ostersunds,Orebro,1,3
+2019-05-24,Sundsvall 1-1 AIK,Sundsvall,AIK,1,1
+2019-05-25,Hacken 1-2 Goteborg,Hacken,Goteborg,1,2
+2019-05-25,Malmo FF 5-0 AFC Eskilstuna,Malmo FF,AFC Eskilstuna,5,0
+2019-05-25,Helsingborg 1-1 Falkenbergs,Helsingborg,Falkenbergs,1,1
+2019-05-26,Djurgarden 3-1 Ostersunds,Djurgarden,Ostersunds,3,1
+2019-05-26,Kalmar 1-1 Elfsborg,Kalmar,Elfsborg,1,1
+2019-05-27,Hammarby 2-2 Norrkoping,Hammarby,Norrkoping,2,2
+2019-05-27,Orebro 0-2 Sirius,Orebro,Sirius,0,2
+2019-05-28,Malmo FF 2-1 Sundsvall,Malmo FF,Sundsvall,2,1
+2019-06-01,Goteborg 0-1 Orebro,Goteborg,Orebro,0,1
+2019-06-01,Sirius 0-2 Djurgarden,Sirius,Djurgarden,0,2
+2019-06-01,Falkenbergs 0-0 Kalmar,Falkenbergs,Kalmar,0,0
+2019-06-01,Ostersunds 1-1 Sundsvall,Ostersunds,Sundsvall,1,1
+2019-06-02,AFC Eskilstuna 0-2 Norrkoping,AFC Eskilstuna,Norrkoping,0,2
+2019-06-02,AIK 2-0 Hammarby,AIK,Hammarby,2,0
+2019-06-02,Elfsborg 0-0 Hacken,Elfsborg,Hacken,0,0
+2019-06-02,Helsingborg 0-1 Malmo FF,Helsingborg,Malmo FF,0,1
+2019-06-25,AIK 0-2 Norrkoping,AIK,Norrkoping,0,2
+2019-06-28,Orebro 0-1 Helsingborg,Orebro,Helsingborg,0,1
+2019-06-29,Ostersunds 0-0 Goteborg,Ostersunds,Goteborg,0,0
+2019-06-29,Falkenbergs 2-1 Elfsborg,Falkenbergs,Elfsborg,2,1
+2019-06-29,Sundsvall 0-0 AFC Eskilstuna,Sundsvall,AFC Eskilstuna,0,0
+2019-06-30,AIK 0-0 Malmo FF,AIK,Malmo FF,0,0
+2019-06-30,Norrkoping 0-1 Sirius,Norrkoping,Sirius,0,1
+2019-07-01,Djurgarden 2-0 Kalmar,Djurgarden,Kalmar,2,0
+2019-07-01,Hacken 2-0 Hammarby,Hacken,Hammarby,2,0
+2019-07-06,Kalmar 0-1 AIK,Kalmar,AIK,0,1
+2019-07-06,Sirius 1-1 Ostersunds,Sirius,Ostersunds,1,1
+2019-07-06,Goteborg 2-1 Sundsvall,Goteborg,Sundsvall,2,1
+2019-07-06,Malmo FF 2-1 Orebro,Malmo FF,Orebro,2,1
+2019-07-07,Hammarby 6-2 Falkenbergs,Hammarby,Falkenbergs,6,2
+2019-07-07,Norrkoping 2-1 Hacken,Norrkoping,Hacken,2,1
+2019-07-08,AFC Eskilstuna 1-1 Djurgarden,AFC Eskilstuna,Djurgarden,1,1
+2019-07-08,Elfsborg 1-1 Helsingborg,Elfsborg,Helsingborg,1,1
+2019-07-13,AIK 3-0 Elfsborg,AIK,Elfsborg,3,0
+2019-07-13,Falkenbergs 1-1 Goteborg,Falkenbergs,Goteborg,1,1
+2019-07-13,AFC Eskilstuna 3-1 Kalmar,AFC Eskilstuna,Kalmar,3,1
+2019-07-14,Hacken 3-0 Orebro,Hacken,Orebro,3,0
+2019-07-14,Ostersunds 2-1 Norrkoping,Ostersunds,Norrkoping,2,1
+2019-07-14,Djurgarden 1-1 Malmo FF,Djurgarden,Malmo FF,1,1
+2019-07-15,Helsingborg 1-0 Sirius,Helsingborg,Sirius,1,0
+2019-07-15,Sundsvall 2-3 Hammarby,Sundsvall,Hammarby,2,3
+2019-07-20,AIK 2-0 Helsingborg,AIK,Helsingborg,2,0
+2019-07-20,Orebro 4-0 Falkenbergs,Orebro,Falkenbergs,4,0
+2019-07-20,Sundsvall 0-1 Hacken,Sundsvall,Hacken,0,1
+2019-07-21,Goteborg 1-0 AFC Eskilstuna,Goteborg,AFC Eskilstuna,1,0
+2019-07-21,Malmo FF 1-1 Sirius,Malmo FF,Sirius,1,1
+2019-07-21,Norrkoping 3-0 Ostersunds,Norrkoping,Ostersunds,3,0
+2019-07-22,Hammarby 5-2 Elfsborg,Hammarby,Elfsborg,5,2
+2019-07-22,Kalmar 0-1 Djurgarden,Kalmar,Djurgarden,0,1
+2019-07-27,Falkenbergs 2-0 Sundsvall,Falkenbergs,Sundsvall,2,0
+2019-07-27,Sirius 0-2 AIK,Sirius,AIK,0,2
+2019-07-27,AFC Eskilstuna 1-6 Hammarby,AFC Eskilstuna,Hammarby,1,6
+2019-07-28,Djurgarden 2-0 Hacken,Djurgarden,Hacken,2,0
+2019-07-28,Ostersunds 0-0 Malmo FF,Ostersunds,Malmo FF,0,0
+2019-07-28,Goteborg 0-0 Norrkoping,Goteborg,Norrkoping,0,0
+2019-07-29,Elfsborg 2-1 Kalmar,Elfsborg,Kalmar,2,1
+2019-07-29,Helsingborg 1-4 Orebro,Helsingborg,Orebro,1,4
+2019-08-03,Ostersunds 1-2 AFC Eskilstuna,Ostersunds,AFC Eskilstuna,1,2
+2019-08-03,Falkenbergs 1-1 Helsingborg,Falkenbergs,Helsingborg,1,1
+2019-08-04,Kalmar 2-2 Hammarby,Kalmar,Hammarby,2,2
+2019-08-04,Hacken 4-1 Sirius,Hacken,Sirius,4,1
+2019-08-05,Elfsborg 0-1 Djurgarden,Elfsborg,Djurgarden,0,1
+2019-08-05,Orebro 2-2 Goteborg,Orebro,Goteborg,2,2
+2019-08-10,Djurgarden 4-0 Sirius,Djurgarden,Sirius,4,0
+2019-08-10,Sundsvall 1-1 Ostersunds,Sundsvall,Ostersunds,1,1
+2019-08-11,AFC Eskilstuna 2-4 AIK,AFC Eskilstuna,AIK,2,4
+2019-08-11,Hacken 1-1 Malmo FF,Hacken,Malmo FF,1,1
+2019-08-11,Hammarby 2-1 Helsingborg,Hammarby,Helsingborg,2,1
+2019-08-11,Norrkoping 2-0 Elfsborg,Norrkoping,Elfsborg,2,0
+2019-08-12,Goteborg 1-1 Falkenbergs,Goteborg,Falkenbergs,1,1
+2019-08-12,Kalmar 1-1 Orebro,Kalmar,Orebro,1,1
+2019-08-17,Hammarby 3-0 Sundsvall,Hammarby,Sundsvall,3,0
+2019-08-18,AIK 1-2 Kalmar,AIK,Kalmar,1,2
+2019-08-18,Orebro 1-2 Hacken,Orebro,Hacken,1,2
+2019-08-18,Sirius 0-2 Norrkoping,Sirius,Norrkoping,0,2
+2019-08-18,Malmo FF 5-0 Falkenbergs,Malmo FF,Falkenbergs,5,0
+2019-08-19,Djurgarden 3-0 AFC Eskilstuna,Djurgarden,AFC Eskilstuna,3,0
+2019-08-19,Elfsborg 4-1 Ostersunds,Elfsborg,Ostersunds,4,1
+2019-08-19,Helsingborg 1-2 Goteborg,Helsingborg,Goteborg,1,2
+2019-08-24,Sirius 3-4 Orebro,Sirius,Orebro,3,4
+2019-08-25,AFC Eskilstuna 0-2 Hacken,AFC Eskilstuna,Hacken,0,2
+2019-08-25,Norrkoping 5-0 Helsingborg,Norrkoping,Helsingborg,5,0
+2019-08-25,Ostersunds 1-3 AIK,Ostersunds,AIK,1,3
+2019-08-25,Malmo FF 0-1 Djurgarden,Malmo FF,Djurgarden,0,1
+2019-08-26,Falkenbergs 0-2 Hammarby,Falkenbergs,Hammarby,0,2
+2019-08-26,Goteborg 4-0 Kalmar,Goteborg,Kalmar,4,0
+2019-08-26,Sundsvall 1-2 Elfsborg,Sundsvall,Elfsborg,1,2
+2019-08-30,Helsingborg 2-0 Ostersunds,Helsingborg,Ostersunds,2,0
+2019-08-31,Elfsborg 1-1 Sirius,Elfsborg,Sirius,1,1
+2019-08-31,Orebro 3-1 AFC Eskilstuna,Orebro,AFC Eskilstuna,3,1
+2019-09-01,AIK 1-0 Djurgarden,AIK,Djurgarden,1,0
+2019-09-01,Kalmar 0-5 Malmo FF,Kalmar,Malmo FF,0,5
+2019-09-01,Sundsvall 0-2 Goteborg,Sundsvall,Goteborg,0,2
+2019-09-01,Hacken 4-1 Falkenbergs,Hacken,Falkenbergs,4,1
+2019-09-01,Norrkoping 2-0 Hammarby,Norrkoping,Hammarby,2,0
+2019-09-13,Sirius 2-0 Falkenbergs,Sirius,Falkenbergs,2,0
+2019-09-14,Orebro 0-0 Sundsvall,Orebro,Sundsvall,0,0
+2019-09-14,Ostersunds 1-2 Kalmar,Ostersunds,Kalmar,1,2
+2019-09-15,Hacken 1-2 AIK,Hacken,AIK,1,2
+2019-09-15,Hammarby 6-2 Goteborg,Hammarby,Goteborg,6,2
+2019-09-15,Malmo FF 1-0 Norrkoping,Malmo FF,Norrkoping,1,0
+2019-09-16,AFC Eskilstuna 2-2 Elfsborg,AFC Eskilstuna,Elfsborg,2,2
+2019-09-16,Djurgarden 2-0 Helsingborg,Djurgarden,Helsingborg,2,0
+2019-09-20,Sundsvall 1-4 Djurgarden,Sundsvall,Djurgarden,1,4
+2019-09-21,Falkenbergs 1-0 Ostersunds,Falkenbergs,Ostersunds,1,0
+2019-09-21,Kalmar 1-1 Hacken,Kalmar,Hacken,1,1
+2019-09-21,Norrkoping 3-0 Orebro,Norrkoping,Orebro,3,0
+2019-09-21,Goteborg 2-1 Sirius,Goteborg,Sirius,2,1
+2019-09-22,Hammarby 2-1 AIK,Hammarby,AIK,2,1
+2019-09-22,Elfsborg 0-3 Malmo FF,Elfsborg,Malmo FF,0,3
+2019-09-22,Helsingborg 2-1 AFC Eskilstuna,Helsingborg,AFC Eskilstuna,2,1
+2019-09-24,Djurgarden 1-0 Falkenbergs,Djurgarden,Falkenbergs,1,0
+2019-09-24,Kalmar 0-2 Sundsvall,Kalmar,Sundsvall,0,2
+2019-09-25,AIK 1-0 Goteborg,AIK,Goteborg,1,0
+2019-09-25,Hacken 1-2 Elfsborg,Hacken,Elfsborg,1,2
+2019-09-25,Orebro 2-0 Ostersunds,Orebro,Ostersunds,2,0
+2019-09-25,Sirius 1-3 Hammarby,Sirius,Hammarby,1,3
+2019-09-26,Malmo FF 3-0 Helsingborg,Malmo FF,Helsingborg,3,0
+2019-09-26,Norrkoping 4-0 AFC Eskilstuna,Norrkoping,AFC Eskilstuna,4,0
+2019-09-29,Elfsborg 1-1 AIK,Elfsborg,AIK,1,1
+2019-09-29,Goteborg 0-0 Hacken,Goteborg,Hacken,0,0
+2019-09-29,Sundsvall 2-1 Sirius,Sundsvall,Sirius,2,1
+2019-09-29,AFC Eskilstuna 0-1 Malmo FF,AFC Eskilstuna,Malmo FF,0,1
+2019-09-29,Falkenbergs 0-2 Norrkoping,Falkenbergs,Norrkoping,0,2
+2019-09-30,Hammarby 5-1 Orebro,Hammarby,Orebro,5,1
+2019-09-30,Helsingborg 2-0 Kalmar,Helsingborg,Kalmar,2,0
+2019-09-30,Ostersunds 1-2 Djurgarden,Ostersunds,Djurgarden,1,2
+2019-10-05,Sundsvall 4-4 Norrkoping,Sundsvall,Norrkoping,4,4
+2019-10-05,AIK 2-0 Orebro,AIK,Orebro,2,0
+2019-10-05,Sirius 2-1 Helsingborg,Sirius,Helsingborg,2,1
+2019-10-06,Djurgarden 1-2 Hammarby,Djurgarden,Hammarby,1,2
+2019-10-06,Hacken 1-1 Ostersunds,Hacken,Ostersunds,1,1
+2019-10-06,Kalmar 0-0 AFC Eskilstuna,Kalmar,AFC Eskilstuna,0,0
+2019-10-06,Elfsborg 4-0 Falkenbergs,Elfsborg,Falkenbergs,4,0
+2019-10-06,Malmo FF 1-0 Goteborg,Malmo FF,Goteborg,1,0
+2019-10-18,AFC Eskilstuna 1-0 Sundsvall,AFC Eskilstuna,Sundsvall,1,0
+2019-10-19,Helsingborg 0-2 Hacken,Helsingborg,Hacken,0,2
+2019-10-19,Ostersunds 2-0 Sirius,Ostersunds,Sirius,2,0
+2019-10-20,Falkenbergs 1-5 AIK,Falkenbergs,AIK,1,5
+2019-10-20,Hammarby 2-0 Malmo FF,Hammarby,Malmo FF,2,0
+2019-10-20,Norrkoping 1-0 Kalmar,Norrkoping,Kalmar,1,0
+2019-10-21,Goteborg 0-1 Djurgarden,Goteborg,Djurgarden,0,1
+2019-10-21,Orebro 2-2 Elfsborg,Orebro,Elfsborg,2,2
+2019-10-26,Sundsvall 1-2 Helsingborg,Sundsvall,Helsingborg,1,2
+2019-10-26,Kalmar 2-3 Falkenbergs,Kalmar,Falkenbergs,2,3
+2019-10-27,AFC Eskilstuna 0-0 Sirius,AFC Eskilstuna,Sirius,0,0
+2019-10-27,Hacken 0-1 Norrkoping,Hacken,Norrkoping,0,1
+2019-10-27,Ostersunds 1-2 Hammarby,Ostersunds,Hammarby,1,2
+2019-10-28,Djurgarden 3-0 Orebro,Djurgarden,Orebro,3,0
+2019-10-28,Elfsborg 2-0 Goteborg,Elfsborg,Goteborg,2,0
+2019-10-28,Malmo FF 2-0 AIK,Malmo FF,AIK,2,0
+2019-11-02,AIK 2-1 Sundsvall,AIK,Sundsvall,2,1
+2019-11-02,Falkenbergs 1-0 AFC Eskilstuna,Falkenbergs,AFC Eskilstuna,1,0
+2019-11-02,Goteborg 7-1 Ostersunds,Goteborg,Ostersunds,7,1
+2019-11-02,Hammarby 4-1 Hacken,Hammarby,Hacken,4,1
+2019-11-02,Helsingborg 1-2 Elfsborg,Helsingborg,Elfsborg,1,2
+2019-11-02,Norrkoping 2-2 Djurgarden,Norrkoping,Djurgarden,2,2
+2019-11-02,Orebro 0-5 Malmo FF,Orebro,Malmo FF,0,5
+2019-11-02,Sirius 3-0 Kalmar,Sirius,Kalmar,3,0
+2019-11-06,Brage 0-2 Kalmar,Brage,Kalmar,0,2
+2019-11-10,Kalmar 2-2 Brage,Kalmar,Brage,2,2
+2020-06-14,Sirius 0-2 Djurgarden,Sirius,Djurgarden,0,2
+2020-06-14,Goteborg 0-1 Elfsborg,Goteborg,Elfsborg,0,1
+2020-06-14,Norrkoping 2-1 Kalmar,Norrkoping,Kalmar,2,1
+2020-06-14,Hammarby 2-0 Ostersunds,Hammarby,Ostersunds,2,0
+2020-06-14,Orebro 0-2 AIK,Orebro,AIK,0,2
+2020-06-15,Falkenbergs 1-1 Hacken,Falkenbergs,Hacken,1,1
+2020-06-15,Helsingborg 0-3 Varberg,Helsingborg,Varberg,0,3
+2020-06-15,Malmo FF 2-0 Mjallby,Malmo FF,Mjallby,2,0
+2020-06-17,AIK 1-4 Norrkoping,AIK,Norrkoping,1,4
+2020-06-17,Djurgarden 1-2 Orebro,Djurgarden,Orebro,1,2
+2020-06-17,Elfsborg 2-2 Hammarby,Elfsborg,Hammarby,2,2
+2020-06-18,Hacken 1-1 Malmo FF,Hacken,Malmo FF,1,1
+2020-06-18,Kalmar 4-0 Helsingborg,Kalmar,Helsingborg,4,0
+2020-06-18,Mjallby 0-1 Falkenbergs,Mjallby,Falkenbergs,0,1
+2020-06-18,Ostersunds 0-2 Sirius,Ostersunds,Sirius,0,2
+2020-06-18,Varberg 1-2 Goteborg,Varberg,Goteborg,1,2
+2020-06-21,Falkenbergs 0-2 Kalmar,Falkenbergs,Kalmar,0,2
+2020-06-21,Malmo FF 2-2 Varberg,Malmo FF,Varberg,2,2
+2020-06-21,Norrkoping 3-0 Djurgarden,Norrkoping,Djurgarden,3,0
+2020-06-21,Hammarby 0-2 AIK,Hammarby,AIK,0,2
+2020-06-21,Orebro 0-0 Ostersunds,Orebro,Ostersunds,0,0
+2020-06-22,Goteborg 2-2 Mjallby,Goteborg,Mjallby,2,2
+2020-06-22,Helsingborg 0-0 Elfsborg,Helsingborg,Elfsborg,0,0
+2020-06-22,Sirius 2-2 Hacken,Sirius,Hacken,2,2
+2020-06-27,Ostersunds 2-4 Norrkoping,Ostersunds,Norrkoping,2,4
+2020-06-28,Djurgarden 5-0 Kalmar,Djurgarden,Kalmar,5,0
+2020-06-28,Mjallby 2-1 Hammarby,Mjallby,Hammarby,2,1
+2020-06-28,Sirius 2-2 Goteborg,Sirius,Goteborg,2,2
+2020-06-28,AIK 2-2 Malmo FF,AIK,Malmo FF,2,2
+2020-06-28,Elfsborg 1-1 Orebro,Elfsborg,Orebro,1,1
+2020-06-29,Hacken 1-0 Helsingborg,Hacken,Helsingborg,1,0
+2020-06-29,Varberg 3-1 Falkenbergs,Varberg,Falkenbergs,3,1
+2020-07-01,Kalmar 1-2 Ostersunds,Kalmar,Ostersunds,1,2
+2020-07-01,Malmo FF 1-0 Djurgarden,Malmo FF,Djurgarden,1,0
+2020-07-01,Norrkoping 1-1 Elfsborg,Norrkoping,Elfsborg,1,1
+2020-07-02,Falkenbergs 1-2 Sirius,Falkenbergs,Sirius,1,2
+2020-07-02,Goteborg 1-0 AIK,Goteborg,AIK,1,0
+2020-07-02,Hammarby 1-0 Varberg,Hammarby,Varberg,1,0
+2020-07-02,Helsingborg 0-1 Mjallby,Helsingborg,Mjallby,0,1
+2020-07-02,Orebro 0-0 Hacken,Orebro,Hacken,0,0
+2020-07-05,AIK 1-1 Falkenbergs,AIK,Falkenbergs,1,1
+2020-07-05,Elfsborg 1-0 Malmo FF,Elfsborg,Malmo FF,1,0
+2020-07-05,Hacken 3-0 Hammarby,Hacken,Hammarby,3,0
+2020-07-05,Sirius 2-1 Orebro,Sirius,Orebro,2,1
+2020-07-06,Djurgarden 2-2 Helsingborg,Djurgarden,Helsingborg,2,2
+2020-07-06,Norrkoping 3-1 Goteborg,Norrkoping,Goteborg,3,1
+2020-07-06,Ostersunds 0-1 Mjallby,Ostersunds,Mjallby,0,1
+2020-07-06,Varberg 1-0 Kalmar,Varberg,Kalmar,1,0
+2020-07-11,Falkenbergs 0-1 Ostersunds,Falkenbergs,Ostersunds,0,1
+2020-07-11,Hammarby 0-0 Sirius,Hammarby,Sirius,0,0
+2020-07-12,Helsingborg 2-0 AIK,Helsingborg,AIK,2,0
+2020-07-12,Orebro 1-0 Varberg,Orebro,Varberg,1,0
+2020-07-12,Goteborg 1-2 Djurgarden,Goteborg,Djurgarden,1,2
+2020-07-12,Mjallby 3-1 Hacken,Mjallby,Hacken,3,1
+2020-07-13,Kalmar 1-2 Elfsborg,Kalmar,Elfsborg,1,2
+2020-07-13,Malmo FF 1-1 Norrkoping,Malmo FF,Norrkoping,1,1
+2020-07-15,AIK 1-0 Sirius,AIK,Sirius,1,0
+2020-07-15,Djurgarden 1-0 Falkenbergs,Djurgarden,Falkenbergs,1,0
+2020-07-15,Goteborg 1-1 Helsingborg,Goteborg,Helsingborg,1,1
+2020-07-16,Hacken 6-0 Elfsborg,Hacken,Elfsborg,6,0
+2020-07-16,Kalmar 1-2 Hammarby,Kalmar,Hammarby,1,2
+2020-07-16,Norrkoping 2-0 Orebro,Norrkoping,Orebro,2,0
+2020-07-16,Ostersunds 1-2 Malmo FF,Ostersunds,Malmo FF,1,2
+2020-07-16,Varberg 1-0 Mjallby,Varberg,Mjallby,1,0
+2020-07-19,Malmo FF 2-1 Kalmar,Malmo FF,Kalmar,2,1
+2020-07-19,Sirius 4-2 Norrkoping,Sirius,Norrkoping,4,2
+2020-07-19,Varberg 2-2 AIK,Varberg,AIK,2,2
+2020-07-19,Elfsborg 1-0 Djurgarden,Elfsborg,Djurgarden,1,0
+2020-07-19,Falkenbergs 2-2 Helsingborg,Falkenbergs,Helsingborg,2,2
+2020-07-19,Ostersunds 2-2 Hacken,Ostersunds,Hacken,2,2
+2020-07-20,Hammarby 1-1 Goteborg,Hammarby,Goteborg,1,1
+2020-07-20,Orebro 3-1 Mjallby,Orebro,Mjallby,3,1
+2020-07-22,Djurgarden 0-0 Ostersunds,Djurgarden,Ostersunds,0,0
+2020-07-22,Hacken 4-0 AIK,Hacken,AIK,4,0
+2020-07-22,Norrkoping 2-0 Varberg,Norrkoping,Varberg,2,0
+2020-07-23,Goteborg 2-2 Falkenbergs,Goteborg,Falkenbergs,2,2
+2020-07-23,Helsingborg 1-1 Orebro,Helsingborg,Orebro,1,1
+2020-07-23,Kalmar 1-1 Sirius,Kalmar,Sirius,1,1
+2020-07-23,Malmo FF 3-0 Hammarby,Malmo FF,Hammarby,3,0
+2020-07-23,Mjallby 0-5 Elfsborg,Mjallby,Elfsborg,0,5
+2020-07-26,Elfsborg 3-3 Varberg,Elfsborg,Varberg,3,3
+2020-07-26,Falkenbergs 3-3 Norrkoping,Falkenbergs,Norrkoping,3,3
+2020-07-26,Hacken 0-0 Goteborg,Hacken,Goteborg,0,0
+2020-07-26,AIK 0-1 Djurgarden,AIK,Djurgarden,0,1
+2020-07-26,Sirius 2-5 Malmo FF,Sirius,Malmo FF,2,5
+2020-07-27,Hammarby 3-0 Orebro,Hammarby,Orebro,3,0
+2020-07-27,Mjallby 2-2 Kalmar,Mjallby,Kalmar,2,2
+2020-07-27,Ostersunds 0-0 Helsingborg,Ostersunds,Helsingborg,0,0
+2020-08-01,Djurgarden 3-1 Hacken,Djurgarden,Hacken,3,1
+2020-08-01,Orebro 1-2 Falkenbergs,Orebro,Falkenbergs,1,2
+2020-08-02,Helsingborg 1-1 Hammarby,Helsingborg,Hammarby,1,1
+2020-08-02,Goteborg 0-3 Malmo FF,Goteborg,Malmo FF,0,3
+2020-08-02,Varberg 1-1 Ostersunds,Varberg,Ostersunds,1,1
+2020-08-02,Kalmar 0-0 AIK,Kalmar,AIK,0,0
+2020-08-03,Elfsborg 3-3 Sirius,Elfsborg,Sirius,3,3
+2020-08-03,Norrkoping 1-1 Mjallby,Norrkoping,Mjallby,1,1
+2020-08-05,Hammarby 1-1 Falkenbergs,Hammarby,Falkenbergs,1,1
+2020-08-05,Malmo FF 4-1 Helsingborg,Malmo FF,Helsingborg,4,1
+2020-08-05,Varberg 1-2 Djurgarden,Varberg,Djurgarden,1,2
+2020-08-06,AIK 1-2 Elfsborg,AIK,Elfsborg,1,2
+2020-08-06,Goteborg 2-2 Ostersunds,Goteborg,Ostersunds,2,2
+2020-08-06,Hacken 2-1 Norrkoping,Hacken,Norrkoping,2,1
+2020-08-06,Kalmar 0-3 Orebro,Kalmar,Orebro,0,3
+2020-08-06,Mjallby 1-1 Sirius,Mjallby,Sirius,1,1
+2020-08-09,Falkenbergs 0-1 Malmo FF,Falkenbergs,Malmo FF,0,1
+2020-08-09,Hacken 0-2 Kalmar,Hacken,Kalmar,0,2
+2020-08-09,Orebro 1-1 Goteborg,Orebro,Goteborg,1,1
+2020-08-09,Djurgarden 1-2 Hammarby,Djurgarden,Hammarby,1,2
+2020-08-09,Mjallby 3-1 AIK,Mjallby,AIK,3,1
+2020-08-09,Ostersunds 0-1 Elfsborg,Ostersunds,Elfsborg,0,1
+2020-08-10,Helsingborg 3-2 Norrkoping,Helsingborg,Norrkoping,3,2
+2020-08-10,Sirius 3-3 Varberg,Sirius,Varberg,3,3
+2020-08-12,Djurgarden 2-1 Mjallby,Djurgarden,Mjallby,2,1
+2020-08-12,Malmo FF 2-1 Orebro,Malmo FF,Orebro,2,1
+2020-08-13,AIK 0-1 Ostersunds,AIK,Ostersunds,0,1
+2020-08-13,Elfsborg 4-2 Falkenbergs,Elfsborg,Falkenbergs,4,2
+2020-08-13,Kalmar 1-1 Goteborg,Kalmar,Goteborg,1,1
+2020-08-13,Norrkoping 1-2 Hammarby,Norrkoping,Hammarby,1,2
+2020-08-13,Sirius 3-1 Helsingborg,Sirius,Helsingborg,3,1
+2020-08-13,Varberg 1-3 Hacken,Varberg,Hacken,1,3
+2020-08-15,Orebro 0-3 Djurgarden,Orebro,Djurgarden,0,3
+2020-08-16,Falkenbergs 1-1 AIK,Falkenbergs,AIK,1,1
+2020-08-16,Hammarby 2-2 Elfsborg,Hammarby,Elfsborg,2,2
+2020-08-16,Mjallby 2-2 Malmo FF,Mjallby,Malmo FF,2,2
+2020-08-17,Goteborg 1-3 Norrkoping,Goteborg,Norrkoping,1,3
+2020-08-17,Hacken 2-1 Varberg,Hacken,Varberg,2,1
+2020-08-17,Helsingborg 1-2 Sirius,Helsingborg,Sirius,1,2
+2020-08-17,Ostersunds 2-0 Kalmar,Ostersunds,Kalmar,2,0
+2020-08-22,Djurgarden 2-2 Goteborg,Djurgarden,Goteborg,2,2
+2020-08-22,Sirius 3-1 Hammarby,Sirius,Hammarby,3,1
+2020-08-23,Elfsborg 0-1 Ostersunds,Elfsborg,Ostersunds,0,1
+2020-08-23,Malmo FF 2-1 Falkenbergs,Malmo FF,Falkenbergs,2,1
+2020-08-23,AIK 2-0 Helsingborg,AIK,Helsingborg,2,0
+2020-08-23,Varberg 2-1 Orebro,Varberg,Orebro,2,1
+2020-08-24,Kalmar 1-4 Mjallby,Kalmar,Mjallby,1,4
+2020-08-24,Norrkoping 0-1 Hacken,Norrkoping,Hacken,0,1
+2020-08-29,Ostersunds 2-1 Falkenbergs,Ostersunds,Falkenbergs,2,1
+2020-08-29,Varberg 2-0 Sirius,Varberg,Sirius,2,0
+2020-08-30,AIK 0-1 Hacken,AIK,Hacken,0,1
+2020-08-30,Helsingborg 3-1 Djurgarden,Helsingborg,Djurgarden,3,1
+2020-08-30,Mjallby 1-1 Goteborg,Mjallby,Goteborg,1,1
+2020-08-30,Hammarby 3-3 Kalmar,Hammarby,Kalmar,3,3
+2020-08-30,Malmo FF 1-1 Elfsborg,Malmo FF,Elfsborg,1,1
+2020-08-30,Orebro 4-3 Norrkoping,Orebro,Norrkoping,4,3
+2020-09-09,Helsingborg 1-1 Kalmar,Helsingborg,Kalmar,1,1
+2020-09-10,Goteborg 0-4 Hammarby,Goteborg,Hammarby,0,4
+2020-09-10,Norrkoping 2-2 Ostersunds,Norrkoping,Ostersunds,2,2
+2020-09-10,Orebro 3-2 Malmo FF,Orebro,Malmo FF,3,2
+2020-09-12,Djurgarden 1-1 Elfsborg,Djurgarden,Elfsborg,1,1
+2020-09-13,Falkenbergs 0-3 Goteborg,Falkenbergs,Goteborg,0,3
+2020-09-13,Hammarby 2-2 Helsingborg,Hammarby,Helsingborg,2,2
+2020-09-13,Malmo FF 0-0 AIK,Malmo FF,AIK,0,0
+2020-09-13,Mjallby 2-3 Varberg,Mjallby,Varberg,2,3
+2020-09-14,Hacken 1-1 Sirius,Hacken,Sirius,1,1
+2020-09-14,Kalmar 0-2 Norrkoping,Kalmar,Norrkoping,0,2
+2020-09-14,Ostersunds 0-0 Orebro,Ostersunds,Orebro,0,0
+2020-09-17,Elfsborg 2-2 Mjallby,Elfsborg,Mjallby,2,2
+2020-09-17,Falkenbergs 2-0 Varberg,Falkenbergs,Varberg,2,0
+2020-09-20,AIK 3-0 Hammarby,AIK,Hammarby,3,0
+2020-09-20,Ostersunds 1-1 Djurgarden,Ostersunds,Djurgarden,1,1
+2020-09-20,Goteborg 1-2 Kalmar,Goteborg,Kalmar,1,2
+2020-09-20,Norrkoping 1-1 Malmo FF,Norrkoping,Malmo FF,1,1
+2020-09-21,Elfsborg 1-1 Hacken,Elfsborg,Hacken,1,1
+2020-09-21,Mjallby 1-0 Orebro,Mjallby,Orebro,1,0
+2020-09-21,Sirius 2-1 Falkenbergs,Sirius,Falkenbergs,2,1
+2020-09-21,Varberg 1-3 Helsingborg,Varberg,Helsingborg,1,3
+2020-09-26,Orebro 2-1 Sirius,Orebro,Sirius,2,1
+2020-09-27,Falkenbergs 1-3 Hammarby,Falkenbergs,Hammarby,1,3
+2020-09-27,Helsingborg 0-1 Ostersunds,Helsingborg,Ostersunds,0,1
+2020-09-27,Malmo FF 3-0 Hacken,Malmo FF,Hacken,3,0
+2020-09-27,Djurgarden 1-2 Norrkoping,Djurgarden,Norrkoping,1,2
+2020-09-27,Elfsborg 0-0 Goteborg,Elfsborg,Goteborg,0,0
+2020-09-28,AIK 1-0 Mjallby,AIK,Mjallby,1,0
+2020-09-28,Kalmar 1-1 Varberg,Kalmar,Varberg,1,1
+2020-10-03,Hacken 3-0 Falkenbergs,Hacken,Falkenbergs,3,0
+2020-10-03,Orebro 3-2 Elfsborg,Orebro,Elfsborg,3,2
+2020-10-04,Hammarby 1-1 Djurgarden,Hammarby,Djurgarden,1,1
+2020-10-04,Mjallby 3-2 Helsingborg,Mjallby,Helsingborg,3,2
+2020-10-04,Ostersunds 1-2 AIK,Ostersunds,AIK,1,2
+2020-10-04,Goteborg 1-0 Varberg,Goteborg,Varberg,1,0
+2020-10-04,Kalmar 0-4 Malmo FF,Kalmar,Malmo FF,0,4
+2020-10-04,Norrkoping 1-2 Sirius,Norrkoping,Sirius,1,2
+2020-10-17,Falkenbergs 2-1 Orebro,Falkenbergs,Orebro,2,1
+2020-10-18,Elfsborg 3-1 Kalmar,Elfsborg,Kalmar,3,1
+2020-10-18,Hammarby 4-2 Mjallby,Hammarby,Mjallby,4,2
+2020-10-18,Sirius 2-3 Ostersunds,Sirius,Ostersunds,2,3
+2020-10-18,AIK 2-0 Goteborg,AIK,Goteborg,2,0
+2020-10-18,Varberg 1-3 Norrkoping,Varberg,Norrkoping,1,3
+2020-10-19,Djurgarden 3-2 Malmo FF,Djurgarden,Malmo FF,3,2
+2020-10-19,Helsingborg 0-0 Hacken,Helsingborg,Hacken,0,0
+2020-10-24,Djurgarden 4-0 Sirius,Djurgarden,Sirius,4,0
+2020-10-24,Hacken 2-2 Mjallby,Hacken,Mjallby,2,2
+2020-10-25,Kalmar 0-0 Falkenbergs,Kalmar,Falkenbergs,0,0
+2020-10-25,Ostersunds 1-3 Hammarby,Ostersunds,Hammarby,1,3
+2020-10-25,Malmo FF 3-1 Goteborg,Malmo FF,Goteborg,3,1
+2020-10-25,Orebro 3-2 Helsingborg,Orebro,Helsingborg,3,2
+2020-10-26,Norrkoping 2-2 AIK,Norrkoping,AIK,2,2
+2020-10-26,Varberg 0-0 Elfsborg,Varberg,Elfsborg,0,0
+2020-10-28,Hacken 0-2 Djurgarden,Hacken,Djurgarden,0,2
+2020-10-29,Sirius 0-0 AIK,Sirius,AIK,0,0
+2020-11-01,Elfsborg 2-1 Norrkoping,Elfsborg,Norrkoping,2,1
+2020-11-01,Mjallby 3-0 Ostersunds,Mjallby,Ostersunds,3,0
+2020-11-01,Sirius 2-2 Kalmar,Sirius,Kalmar,2,2
+2020-11-01,Falkenbergs 3-2 Djurgarden,Falkenbergs,Djurgarden,3,2
+2020-11-01,Goteborg 0-1 Orebro,Goteborg,Orebro,0,1
+2020-11-01,Hammarby 1-1 Hacken,Hammarby,Hacken,1,1
+2020-11-02,AIK 1-0 Varberg,AIK,Varberg,1,0
+2020-11-02,Helsingborg 0-1 Malmo FF,Helsingborg,Malmo FF,0,1
+2020-11-07,Falkenbergs 1-3 Elfsborg,Falkenbergs,Elfsborg,1,3
+2020-11-07,Hacken 2-1 Ostersunds,Hacken,Ostersunds,2,1
+2020-11-07,Mjallby 2-0 Norrkoping,Mjallby,Norrkoping,2,0
+2020-11-08,Djurgarden 0-1 AIK,Djurgarden,AIK,0,1
+2020-11-08,Orebro 0-1 Kalmar,Orebro,Kalmar,0,1
+2020-11-08,Varberg 5-2 Hammarby,Varberg,Hammarby,5,2
+2020-11-08,Helsingborg 0-1 Goteborg,Helsingborg,Goteborg,0,1
+2020-11-08,Malmo FF 4-0 Sirius,Malmo FF,Sirius,4,0
+2020-11-22,AIK 0-2 Orebro,AIK,Orebro,0,2
+2020-11-22,Elfsborg 2-1 Helsingborg,Elfsborg,Helsingborg,2,1
+2020-11-22,Kalmar 0-3 Djurgarden,Kalmar,Djurgarden,0,3
+2020-11-22,Hammarby 2-2 Malmo FF,Hammarby,Malmo FF,2,2
+2020-11-22,Ostersunds 0-4 Varberg,Ostersunds,Varberg,0,4
+2020-11-23,Goteborg 1-1 Hacken,Goteborg,Hacken,1,1
+2020-11-23,Norrkoping 4-1 Falkenbergs,Norrkoping,Falkenbergs,4,1
+2020-11-23,Sirius 0-1 Mjallby,Sirius,Mjallby,0,1
+2020-11-29,Helsingborg 0-0 Falkenbergs,Helsingborg,Falkenbergs,0,0
+2020-11-29,Ostersunds 0-4 Goteborg,Ostersunds,Goteborg,0,4
+2020-11-29,Varberg 3-2 Malmo FF,Varberg,Malmo FF,3,2
+2020-11-29,Hacken 3-0 Orebro,Hacken,Orebro,3,0
+2020-11-29,Mjallby 2-1 Djurgarden,Mjallby,Djurgarden,2,1
+2020-11-29,Sirius 1-1 Elfsborg,Sirius,Elfsborg,1,1
+2020-11-30,AIK 0-1 Kalmar,AIK,Kalmar,0,1
+2020-11-30,Hammarby 0-1 Norrkoping,Hammarby,Norrkoping,0,1
+2020-12-06,Djurgarden 1-0 Varberg,Djurgarden,Varberg,1,0
+2020-12-06,Elfsborg 2-2 AIK,Elfsborg,AIK,2,2
+2020-12-06,Falkenbergs 2-3 Mjallby,Falkenbergs,Mjallby,2,3
+2020-12-06,Goteborg 2-0 Sirius,Goteborg,Sirius,2,0
+2020-12-06,Kalmar 0-0 Hacken,Kalmar,Hacken,0,0
+2020-12-06,Malmo FF 4-0 Ostersunds,Malmo FF,Ostersunds,4,0
+2020-12-06,Norrkoping 3-4 Helsingborg,Norrkoping,Helsingborg,3,4
+2020-12-06,Orebro 2-1 Hammarby,Orebro,Hammarby,2,1
+2020-12-09,Jonkopings 1-3 Kalmar,Jonkopings,Kalmar,1,3
+2020-12-13,Kalmar 1-0 Jonkopings,Kalmar,Jonkopings,1,0
+2021-04-10,Malmo FF 3-2 Hammarby,Malmo FF,Hammarby,3,2
+2021-04-10,Orebro 0-0 Goteborg,Orebro,Goteborg,0,0
+2021-04-11,Halmstad 1-0 Hacken,Halmstad,Hacken,1,0
+2021-04-11,Mjallby 0-0 Varberg,Mjallby,Varberg,0,0
+2021-04-11,Elfsborg 0-2 Djurgarden,Elfsborg,Djurgarden,0,2
+2021-04-11,Norrkoping 1-1 Sirius,Norrkoping,Sirius,1,1
+2021-04-12,AIK 2-0 Degerfors,AIK,Degerfors,2,0
+2021-04-12,Kalmar 0-0 Ostersunds,Kalmar,Ostersunds,0,0
+2021-04-17,Hammarby 2-0 Mjallby,Hammarby,Mjallby,2,0
+2021-04-18,Degerfors 0-1 Kalmar,Degerfors,Kalmar,0,1
+2021-04-18,Hacken 1-2 Malmo FF,Hacken,Malmo FF,1,2
+2021-04-18,Ostersunds 5-0 Orebro,Ostersunds,Orebro,5,0
+2021-04-18,Djurgarden 1-0 Norrkoping,Djurgarden,Norrkoping,1,0
+2021-04-18,Sirius 1-0 Halmstad,Sirius,Halmstad,1,0
+2021-04-19,Goteborg 2-0 AIK,Goteborg,AIK,2,0
+2021-04-19,Varberg 1-3 Elfsborg,Varberg,Elfsborg,1,3
+2021-04-24,Hacken 1-2 Sirius,Hacken,Sirius,1,2
+2021-04-25,Kalmar 1-0 Orebro,Kalmar,Orebro,1,0
+2021-04-25,Norrkoping 2-1 Halmstad,Norrkoping,Halmstad,2,1
+2021-04-25,Varberg 1-3 Djurgarden,Varberg,Djurgarden,1,3
+2021-04-25,AIK 2-0 Hammarby,AIK,Hammarby,2,0
+2021-04-25,Malmo FF 1-1 Ostersunds,Malmo FF,Ostersunds,1,1
+2021-04-26,Elfsborg 1-0 Mjallby,Elfsborg,Mjallby,1,0
+2021-04-26,Goteborg 2-3 Degerfors,Goteborg,Degerfors,2,3
+2021-05-01,Sirius 1-1 Kalmar,Sirius,Kalmar,1,1
+2021-05-01,Hammarby 1-1 Hacken,Hammarby,Hacken,1,1
+2021-05-02,Halmstad 1-1 Goteborg,Halmstad,Goteborg,1,1
+2021-05-02,Orebro 0-3 Norrkoping,Orebro,Norrkoping,0,3
+2021-05-02,Ostersunds 1-2 Varberg,Ostersunds,Varberg,1,2
+2021-05-02,AIK 1-0 Elfsborg,AIK,Elfsborg,1,0
+2021-05-03,Djurgarden 3-1 Malmo FF,Djurgarden,Malmo FF,3,1
+2021-05-03,Mjallby 1-0 Degerfors,Mjallby,Degerfors,1,0
+2021-05-08,Goteborg 1-1 Hacken,Goteborg,Hacken,1,1
+2021-05-08,Hammarby 3-2 Sirius,Hammarby,Sirius,3,2
+2021-05-08,Elfsborg 2-2 Kalmar,Elfsborg,Kalmar,2,2
+2021-05-08,Orebro 1-0 Halmstad,Orebro,Halmstad,1,0
+2021-05-09,Degerfors 2-0 Djurgarden,Degerfors,Djurgarden,2,0
+2021-05-09,Mjallby 1-0 Ostersunds,Mjallby,Ostersunds,1,0
+2021-05-09,Malmo FF 3-2 Varberg,Malmo FF,Varberg,3,2
+2021-05-10,Norrkoping 2-0 AIK,Norrkoping,AIK,2,0
+2021-05-12,Djurgarden 2-0 Ostersunds,Djurgarden,Ostersunds,2,0
+2021-05-12,Hacken 2-3 Orebro,Hacken,Orebro,2,3
+2021-05-12,Kalmar 0-0 Goteborg,Kalmar,Goteborg,0,0
+2021-05-12,Sirius 0-2 Elfsborg,Sirius,Elfsborg,0,2
+2021-05-12,Varberg 1-3 Hammarby,Varberg,Hammarby,1,3
+2021-05-13,Halmstad 1-1 Mjallby,Halmstad,Mjallby,1,1
+2021-05-13,AIK 1-1 Malmo FF,AIK,Malmo FF,1,1
+2021-05-13,Norrkoping 1-1 Degerfors,Norrkoping,Degerfors,1,1
+2021-05-16,Hammarby 2-2 Djurgarden,Hammarby,Djurgarden,2,2
+2021-05-17,Elfsborg 2-3 Halmstad,Elfsborg,Halmstad,2,3
+2021-05-17,Goteborg 2-2 Sirius,Goteborg,Sirius,2,2
+2021-05-17,Malmo FF 3-1 Kalmar,Malmo FF,Kalmar,3,1
+2021-05-17,Mjallby 1-1 Hacken,Mjallby,Hacken,1,1
+2021-05-17,Ostersunds 1-2 AIK,Ostersunds,AIK,1,2
+2021-05-17,Varberg 2-1 Norrkoping,Varberg,Norrkoping,2,1
+2021-05-18,Degerfors 3-0 Orebro,Degerfors,Orebro,3,0
+2021-05-20,Malmo FF 2-1 Elfsborg,Malmo FF,Elfsborg,2,1
+2021-05-22,AIK 2-2 Mjallby,AIK,Mjallby,2,2
+2021-05-22,Ostersunds 3-0 Sirius,Ostersunds,Sirius,3,0
+2021-05-23,Halmstad 0-0 Degerfors,Halmstad,Degerfors,0,0
+2021-05-23,Kalmar 2-1 Hammarby,Kalmar,Hammarby,2,1
+2021-05-23,Djurgarden 0-0 Goteborg,Djurgarden,Goteborg,0,0
+2021-05-23,Hacken 3-1 Varberg,Hacken,Varberg,3,1
+2021-05-24,Elfsborg 1-0 Norrkoping,Elfsborg,Norrkoping,1,0
+2021-05-24,Orebro 1-2 Malmo FF,Orebro,Malmo FF,1,2
+2021-07-03,Norrkoping 3-2 Malmo FF,Norrkoping,Malmo FF,3,2
+2021-07-03,Degerfors 3-1 Ostersunds,Degerfors,Ostersunds,3,1
+2021-07-04,Hacken 2-1 AIK,Hacken,AIK,2,1
+2021-07-04,Varberg 1-1 Kalmar,Varberg,Kalmar,1,1
+2021-07-04,Hammarby 1-1 Halmstad,Hammarby,Halmstad,1,1
+2021-07-04,Sirius 2-1 Mjallby,Sirius,Mjallby,2,1
+2021-07-05,Djurgarden 3-0 Orebro,Djurgarden,Orebro,3,0
+2021-07-05,Goteborg 0-1 Elfsborg,Goteborg,Elfsborg,0,1
+2021-07-10,Malmo FF 4-0 Sirius,Malmo FF,Sirius,4,0
+2021-07-10,AIK 2-1 Varberg,AIK,Varberg,2,1
+2021-07-11,Hammarby 5-1 Degerfors,Hammarby,Degerfors,5,1
+2021-07-11,Mjallby 0-1 Norrkoping,Mjallby,Norrkoping,0,1
+2021-07-11,Elfsborg 2-1 Orebro,Elfsborg,Orebro,2,1
+2021-07-11,Ostersunds 2-3 Goteborg,Ostersunds,Goteborg,2,3
+2021-07-12,Halmstad 0-0 Djurgarden,Halmstad,Djurgarden,0,0
+2021-07-12,Kalmar 2-3 Hacken,Kalmar,Hacken,2,3
+2021-07-17,Degerfors 0-5 Malmo FF,Degerfors,Malmo FF,0,5
+2021-07-17,Elfsborg 3-0 Ostersunds,Elfsborg,Ostersunds,3,0
+2021-07-18,Norrkoping 0-1 Hacken,Norrkoping,Hacken,0,1
+2021-07-18,Orebro 0-2 Hammarby,Orebro,Hammarby,0,2
+2021-07-18,AIK 2-0 Kalmar,AIK,Kalmar,2,0
+2021-07-18,Goteborg 3-2 Mjallby,Goteborg,Mjallby,3,2
+2021-07-19,Djurgarden 5-1 Sirius,Djurgarden,Sirius,5,1
+2021-07-19,Halmstad 1-1 Varberg,Halmstad,Varberg,1,1
+2021-07-24,Mjallby 0-2 Malmo FF,Mjallby,Malmo FF,0,2
+2021-07-24,Sirius 2-0 Degerfors,Sirius,Degerfors,2,0
+2021-07-25,Kalmar 0-1 Djurgarden,Kalmar,Djurgarden,0,1
+2021-07-25,Hacken 1-1 Elfsborg,Hacken,Elfsborg,1,1
+2021-07-25,Hammarby 2-1 Norrkoping,Hammarby,Norrkoping,2,1
+2021-07-26,Orebro 1-1 AIK,Orebro,AIK,1,1
+2021-07-26,Ostersunds 0-1 Halmstad,Ostersunds,Halmstad,0,1
+2021-07-26,Varberg 2-0 Goteborg,Varberg,Goteborg,2,0
+2021-07-31,Degerfors 1-1 Varberg,Degerfors,Varberg,1,1
+2021-08-01,Djurgarden 2-1 Hacken,Djurgarden,Hacken,2,1
+2021-08-01,Kalmar 1-0 Mjallby,Kalmar,Mjallby,1,0
+2021-08-01,Ostersunds 1-1 Hammarby,Ostersunds,Hammarby,1,1
+2021-08-02,AIK 1-0 Halmstad,AIK,Halmstad,1,0
+2021-08-02,Goteborg 1-2 Norrkoping,Goteborg,Norrkoping,1,2
+2021-08-02,Sirius 1-2 Orebro,Sirius,Orebro,1,2
+2021-08-07,Halmstad 0-0 Malmo FF,Halmstad,Malmo FF,0,0
+2021-08-07,Orebro 2-2 Mjallby,Orebro,Mjallby,2,2
+2021-08-08,Djurgarden 1-4 AIK,Djurgarden,AIK,1,4
+2021-08-08,Hacken 5-0 Ostersunds,Hacken,Ostersunds,5,0
+2021-08-08,Elfsborg 3-0 Degerfors,Elfsborg,Degerfors,3,0
+2021-08-08,Goteborg 0-0 Hammarby,Goteborg,Hammarby,0,0
+2021-08-09,Norrkoping 1-2 Kalmar,Norrkoping,Kalmar,1,2
+2021-08-09,Varberg 0-0 Sirius,Varberg,Sirius,0,0
+2021-08-14,Malmo FF 2-3 Goteborg,Malmo FF,Goteborg,2,3
+2021-08-14,Kalmar 1-1 Halmstad,Kalmar,Halmstad,1,1
+2021-08-15,Degerfors 3-0 Hacken,Degerfors,Hacken,3,0
+2021-08-15,Mjallby 0-1 Djurgarden,Mjallby,Djurgarden,0,1
+2021-08-15,Hammarby 0-2 Elfsborg,Hammarby,Elfsborg,0,2
+2021-08-15,Ostersunds 1-2 Norrkoping,Ostersunds,Norrkoping,1,2
+2021-08-16,Sirius 0-1 AIK,Sirius,AIK,0,1
+2021-08-16,Varberg 1-0 Orebro,Varberg,Orebro,1,0
+2021-08-21,Malmo FF 3-0 Degerfors,Malmo FF,Degerfors,3,0
+2021-08-22,Elfsborg 2-2 Hammarby,Elfsborg,Hammarby,2,2
+2021-08-22,Halmstad 2-1 Norrkoping,Halmstad,Norrkoping,2,1
+2021-08-22,AIK 2-1 Hacken,AIK,Hacken,2,1
+2021-08-22,Orebro 1-1 Sirius,Orebro,Sirius,1,1
+2021-08-23,Djurgarden 0-0 Mjallby,Djurgarden,Mjallby,0,0
+2021-08-23,Goteborg 1-2 Varberg,Goteborg,Varberg,1,2
+2021-08-23,Ostersunds 0-1 Kalmar,Ostersunds,Kalmar,0,1
+2021-08-28,AIK 2-0 Orebro,AIK,Orebro,2,0
+2021-08-28,Degerfors 0-2 Mjallby,Degerfors,Mjallby,0,2
+2021-08-28,Varberg 1-0 Halmstad,Varberg,Halmstad,1,0
+2021-08-29,Hacken 3-2 Goteborg,Hacken,Goteborg,3,2
+2021-08-29,Norrkoping 3-0 Ostersunds,Norrkoping,Ostersunds,3,0
+2021-08-29,Sirius 1-0 Djurgarden,Sirius,Djurgarden,1,0
+2021-08-29,Hammarby 2-1 Malmo FF,Hammarby,Malmo FF,2,1
+2021-08-29,Kalmar 0-3 Elfsborg,Kalmar,Elfsborg,0,3
+2021-09-11,Malmo FF 1-1 Norrkoping,Malmo FF,Norrkoping,1,1
+2021-09-11,Sirius 1-0 Ostersunds,Sirius,Ostersunds,1,0
+2021-09-12,Djurgarden 4-1 Hammarby,Djurgarden,Hammarby,4,1
+2021-09-12,Kalmar 4-1 Degerfors,Kalmar,Degerfors,4,1
+2021-09-12,Goteborg 2-0 Halmstad,Goteborg,Halmstad,2,0
+2021-09-13,Elfsborg 4-2 Hacken,Elfsborg,Hacken,4,2
+2021-09-13,Mjallby 0-0 AIK,Mjallby,AIK,0,0
+2021-09-13,Orebro 0-3 Varberg,Orebro,Varberg,0,3
+2021-09-18,Degerfors 1-2 Sirius,Degerfors,Sirius,1,2
+2021-09-18,Malmo FF 1-1 Djurgarden,Malmo FF,Djurgarden,1,1
+2021-09-18,Hacken 0-0 Mjallby,Hacken,Mjallby,0,0
+2021-09-19,Norrkoping 3-0 Orebro,Norrkoping,Orebro,3,0
+2021-09-19,Ostersunds 3-1 Elfsborg,Ostersunds,Elfsborg,3,1
+2021-09-19,Halmstad 0-1 Kalmar,Halmstad,Kalmar,0,1
+2021-09-20,AIK 3-1 Goteborg,AIK,Goteborg,3,1
+2021-09-20,Hammarby 1-0 Varberg,Hammarby,Varberg,1,0
+2021-09-22,Djurgarden 3-2 Degerfors,Djurgarden,Degerfors,3,2
+2021-09-22,Elfsborg 0-1 Malmo FF,Elfsborg,Malmo FF,0,1
+2021-09-22,Orebro 2-0 Ostersunds,Orebro,Ostersunds,2,0
+2021-09-22,Sirius 2-4 Norrkoping,Sirius,Norrkoping,2,4
+2021-09-23,Hammarby 3-0 Goteborg,Hammarby,Goteborg,3,0
+2021-09-23,Kalmar 1-1 AIK,Kalmar,AIK,1,1
+2021-09-23,Mjallby 0-0 Halmstad,Mjallby,Halmstad,0,0
+2021-09-23,Varberg 1-1 Hacken,Varberg,Hacken,1,1
+2021-09-25,Malmo FF 5-1 Orebro,Malmo FF,Orebro,5,1
+2021-09-26,Mjallby 4-0 Elfsborg,Mjallby,Elfsborg,4,0
+2021-09-26,Ostersunds 0-3 Djurgarden,Ostersunds,Djurgarden,0,3
+2021-09-26,Hacken 1-1 Hammarby,Hacken,Hammarby,1,1
+2021-09-26,Norrkoping 2-1 Varberg,Norrkoping,Varberg,2,1
+2021-09-27,Degerfors 2-1 AIK,Degerfors,AIK,2,1
+2021-09-27,Goteborg 0-2 Kalmar,Goteborg,Kalmar,0,2
+2021-09-27,Halmstad 1-1 Sirius,Halmstad,Sirius,1,1
+2021-10-01,Elfsborg 1-0 Goteborg,Elfsborg,Goteborg,1,0
+2021-10-02,Varberg 0-0 Degerfors,Varberg,Degerfors,0,0
+2021-10-02,Halmstad 1-1 Ostersunds,Halmstad,Ostersunds,1,1
+2021-10-03,AIK 1-0 Djurgarden,AIK,Djurgarden,1,0
+2021-10-03,Kalmar 3-1 Sirius,Kalmar,Sirius,3,1
+2021-10-03,Orebro 1-2 Hacken,Orebro,Hacken,1,2
+2021-10-03,Malmo FF 0-1 Mjallby,Malmo FF,Mjallby,0,1
+2021-10-03,Norrkoping 3-1 Hammarby,Norrkoping,Hammarby,3,1
+2021-10-16,Degerfors 2-1 Halmstad,Degerfors,Halmstad,2,1
+2021-10-16,Ostersunds 0-3 Malmo FF,Ostersunds,Malmo FF,0,3
+2021-10-16,Sirius 2-1 Varberg,Sirius,Varberg,2,1
+2021-10-17,Hammarby 1-0 AIK,Hammarby,AIK,1,0
+2021-10-17,Mjallby 4-0 Kalmar,Mjallby,Kalmar,4,0
+2021-10-17,Goteborg 2-0 Orebro,Goteborg,Orebro,2,0
+2021-10-18,Hacken 5-0 Norrkoping,Hacken,Norrkoping,5,0
+2021-10-18,Djurgarden 0-3 Elfsborg,Djurgarden,Elfsborg,0,3
+2021-10-23,Djurgarden 3-2 Kalmar,Djurgarden,Kalmar,3,2
+2021-10-23,Hacken 2-3 Halmstad,Hacken,Halmstad,2,3
+2021-10-24,Elfsborg 3-0 Sirius,Elfsborg,Sirius,3,0
+2021-10-24,Hammarby 4-3 Ostersunds,Hammarby,Ostersunds,4,3
+2021-10-24,Mjallby 1-3 Goteborg,Mjallby,Goteborg,1,3
+2021-10-24,AIK 1-0 Norrkoping,AIK,Norrkoping,1,0
+2021-10-24,Varberg 1-1 Malmo FF,Varberg,Malmo FF,1,1
+2021-10-25,Orebro 1-2 Degerfors,Orebro,Degerfors,1,2
+2021-10-27,Kalmar 2-2 Varberg,Kalmar,Varberg,2,2
+2021-10-27,Malmo FF 1-0 AIK,Malmo FF,AIK,1,0
+2021-10-27,Ostersunds 1-1 Hacken,Ostersunds,Hacken,1,1
+2021-10-27,Sirius 0-1 Hammarby,Sirius,Hammarby,0,1
+2021-10-28,Degerfors 1-2 Elfsborg,Degerfors,Elfsborg,1,2
+2021-10-28,Goteborg 3-0 Djurgarden,Goteborg,Djurgarden,3,0
+2021-10-28,Halmstad 1-1 Orebro,Halmstad,Orebro,1,1
+2021-10-28,Norrkoping 2-2 Mjallby,Norrkoping,Mjallby,2,2
+2021-10-30,Sirius 2-3 Malmo FF,Sirius,Malmo FF,2,3
+2021-10-30,Varberg 3-0 Ostersunds,Varberg,Ostersunds,3,0
+2021-10-30,Hacken 1-4 Kalmar,Hacken,Kalmar,1,4
+2021-10-31,Norrkoping 3-2 Elfsborg,Norrkoping,Elfsborg,3,2
+2021-10-31,Orebro 0-1 Djurgarden,Orebro,Djurgarden,0,1
+2021-11-01,Degerfors 0-1 Goteborg,Degerfors,Goteborg,0,1
+2021-11-01,Halmstad 1-0 AIK,Halmstad,AIK,1,0
+2021-11-01,Mjallby 2-0 Hammarby,Mjallby,Hammarby,2,0
+2021-11-06,Elfsborg 0-0 Varberg,Elfsborg,Varberg,0,0
+2021-11-06,Djurgarden 1-0 Halmstad,Djurgarden,Halmstad,1,0
+2021-11-06,Mjallby 2-3 Sirius,Mjallby,Sirius,2,3
+2021-11-07,AIK 3-0 Ostersunds,AIK,Ostersunds,3,0
+2021-11-07,Hacken 2-0 Degerfors,Hacken,Degerfors,2,0
+2021-11-07,Hammarby 3-2 Orebro,Hammarby,Orebro,3,2
+2021-11-07,Goteborg 0-2 Malmo FF,Goteborg,Malmo FF,0,2
+2021-11-07,Kalmar 1-0 Norrkoping,Kalmar,Norrkoping,1,0
+2021-11-20,Malmo FF 2-2 Hacken,Malmo FF,Hacken,2,2
+2021-11-21,Degerfors 1-4 Hammarby,Degerfors,Hammarby,1,4
+2021-11-21,Halmstad 0-1 Elfsborg,Halmstad,Elfsborg,0,1
+2021-11-21,Sirius 3-3 Goteborg,Sirius,Goteborg,3,3
+2021-11-21,Varberg 0-1 AIK,Varberg,AIK,0,1
+2021-11-22,Norrkoping 1-1 Djurgarden,Norrkoping,Djurgarden,1,1
+2021-11-22,Orebro 1-2 Kalmar,Orebro,Kalmar,1,2
+2021-11-22,Ostersunds 0-2 Mjallby,Ostersunds,Mjallby,0,2
+2021-11-28,Degerfors 4-1 Norrkoping,Degerfors,Norrkoping,4,1
+2021-11-28,Djurgarden 2-3 Varberg,Djurgarden,Varberg,2,3
+2021-11-28,Goteborg 4-0 Ostersunds,Goteborg,Ostersunds,4,0
+2021-11-28,Halmstad 0-0 Hammarby,Halmstad,Hammarby,0,0
+2021-11-28,Kalmar 0-1 Malmo FF,Kalmar,Malmo FF,0,1
+2021-11-29,Elfsborg 2-4 AIK,Elfsborg,AIK,2,4
+2021-11-29,Mjallby 0-0 Orebro,Mjallby,Orebro,0,0
+2021-11-29,Sirius 3-0 Hacken,Sirius,Hacken,3,0
+2021-12-04,AIK 4-2 Sirius,AIK,Sirius,4,2
+2021-12-04,Hacken 0-1 Djurgarden,Hacken,Djurgarden,0,1
+2021-12-04,Hammarby 5-3 Kalmar,Hammarby,Kalmar,5,3
+2021-12-04,Malmo FF 0-0 Halmstad,Malmo FF,Halmstad,0,0
+2021-12-04,Norrkoping 1-2 Goteborg,Norrkoping,Goteborg,1,2
+2021-12-04,Orebro 2-3 Elfsborg,Orebro,Elfsborg,2,3
+2021-12-04,Ostersunds 0-1 Degerfors,Ostersunds,Degerfors,0,1
+2021-12-04,Varberg 0-3 Mjallby,Varberg,Mjallby,0,3
+2021-12-11,Helsingborg 0-1 Halmstad,Helsingborg,Halmstad,0,1
+2021-12-14,Halmstad 1-3 Helsingborg,Halmstad,Helsingborg,1,3
+2022-04-02,Hammarby 2-1 Helsingborg,Hammarby,Helsingborg,2,1
+2022-04-02,Hacken 4-2 AIK,Hacken,AIK,4,2
+2022-04-03,Goteborg 2-1 Varnamo,Goteborg,Varnamo,2,1
+2022-04-03,Sirius 2-1 Sundsvall,Sirius,Sundsvall,2,1
+2022-04-03,Kalmar 0-1 Malmo FF,Kalmar,Malmo FF,0,1
+2022-04-03,Norrkoping 0-1 Varberg,Norrkoping,Varberg,0,1
+2022-04-04,Elfsborg 0-2 Mjallby,Elfsborg,Mjallby,0,2
+2022-04-04,Djurgarden 3-1 Degerfors,Djurgarden,Degerfors,3,1
+2022-04-09,Sundsvall 1-5 Hammarby,Sundsvall,Hammarby,1,5
+2022-04-09,Degerfors 1-2 Hacken,Degerfors,Hacken,1,2
+2022-04-10,Helsingborg 0-1 Goteborg,Helsingborg,Goteborg,0,1
+2022-04-10,Varberg 0-3 Kalmar,Varberg,Kalmar,0,3
+2022-04-10,AIK 1-0 Norrkoping,AIK,Norrkoping,1,0
+2022-04-10,Mjallby 1-0 Djurgarden,Mjallby,Djurgarden,1,0
+2022-04-11,Varnamo 0-0 Sirius,Varnamo,Sirius,0,0
+2022-04-11,Malmo FF 1-1 Elfsborg,Malmo FF,Elfsborg,1,1
+2022-04-15,Hammarby 2-0 Mjallby,Hammarby,Mjallby,2,0
+2022-04-16,Djurgarden 2-1 Norrkoping,Djurgarden,Norrkoping,2,1
+2022-04-16,Varberg 2-0 Sundsvall,Varberg,Sundsvall,2,0
+2022-04-17,Kalmar 2-0 Degerfors,Kalmar,Degerfors,2,0
+2022-04-17,Malmo FF 3-0 AIK,Malmo FF,AIK,3,0
+2022-04-17,Elfsborg 4-1 Varnamo,Elfsborg,Varnamo,4,1
+2022-04-17,Hacken 0-2 Goteborg,Hacken,Goteborg,0,2
+2022-04-17,Sirius 1-0 Helsingborg,Sirius,Helsingborg,1,0
+2022-04-20,AIK 1-0 Varberg,AIK,Varberg,1,0
+2022-04-20,Goteborg 1-1 Djurgarden,Goteborg,Djurgarden,1,1
+2022-04-20,Mjallby 3-0 Sirius,Mjallby,Sirius,3,0
+2022-04-20,Norrkoping 1-1 Hacken,Norrkoping,Hacken,1,1
+2022-04-20,Sundsvall 1-0 Kalmar,Sundsvall,Kalmar,1,0
+2022-04-21,Degerfors 0-1 Hammarby,Degerfors,Hammarby,0,1
+2022-04-21,Helsingborg 1-0 Elfsborg,Helsingborg,Elfsborg,1,0
+2022-04-21,Varnamo 0-0 Malmo FF,Varnamo,Malmo FF,0,0
+2022-04-24,AIK 1-0 Djurgarden,AIK,Djurgarden,1,0
+2022-04-24,Varberg 0-0 Mjallby,Varberg,Mjallby,0,0
+2022-04-24,Helsingborg 1-1 Hacken,Helsingborg,Hacken,1,1
+2022-04-25,Elfsborg 3-1 Sundsvall,Elfsborg,Sundsvall,3,1
+2022-04-25,Sirius 0-3 Hammarby,Sirius,Hammarby,0,3
+2022-04-25,Varnamo 2-0 Degerfors,Varnamo,Degerfors,2,0
+2022-04-25,Malmo FF 1-0 Goteborg,Malmo FF,Goteborg,1,0
+2022-04-26,Kalmar 1-2 Norrkoping,Kalmar,Norrkoping,1,2
+2022-04-30,Djurgarden 4-0 Sirius,Djurgarden,Sirius,4,0
+2022-05-01,Degerfors 0-6 Elfsborg,Degerfors,Elfsborg,0,6
+2022-05-01,Mjallby 2-1 Helsingborg,Mjallby,Helsingborg,2,1
+2022-05-01,Hacken 3-1 Varberg,Hacken,Varberg,3,1
+2022-05-01,Sundsvall 0-2 AIK,Sundsvall,AIK,0,2
+2022-05-02,Goteborg 1-2 Kalmar,Goteborg,Kalmar,1,2
+2022-05-02,Norrkoping 2-0 Varnamo,Norrkoping,Varnamo,2,0
+2022-05-02,Hammarby 0-0 Malmo FF,Hammarby,Malmo FF,0,0
+2022-05-05,Djurgarden 2-2 Helsingborg,Djurgarden,Helsingborg,2,2
+2022-05-07,AIK 1-0 Goteborg,AIK,Goteborg,1,0
+2022-05-07,Malmo FF 2-0 Mjallby,Malmo FF,Mjallby,2,0
+2022-05-08,Kalmar 2-0 Hammarby,Kalmar,Hammarby,2,0
+2022-05-08,Varberg 0-2 Sirius,Varberg,Sirius,0,2
+2022-05-09,Helsingborg 0-1 Norrkoping,Helsingborg,Norrkoping,0,1
+2022-05-09,Sundsvall 2-3 Degerfors,Sundsvall,Degerfors,2,3
+2022-05-09,Varnamo 1-2 Hacken,Varnamo,Hacken,1,2
+2022-05-09,Elfsborg 0-0 Djurgarden,Elfsborg,Djurgarden,0,0
+2022-05-11,AIK 2-0 Malmo FF,AIK,Malmo FF,2,0
+2022-05-14,Mjallby 1-1 Varnamo,Mjallby,Varnamo,1,1
+2022-05-14,Sirius 2-0 Elfsborg,Sirius,Elfsborg,2,0
+2022-05-15,Hacken 3-1 Kalmar,Hacken,Kalmar,3,1
+2022-05-15,Hammarby 3-3 AIK,Hammarby,AIK,3,3
+2022-05-15,Degerfors 2-1 Helsingborg,Degerfors,Helsingborg,2,1
+2022-05-15,Goteborg 1-1 Varberg,Goteborg,Varberg,1,1
+2022-05-15,Norrkoping 5-1 Sundsvall,Norrkoping,Sundsvall,5,1
+2022-05-16,Djurgarden 4-0 Malmo FF,Djurgarden,Malmo FF,4,0
+2022-05-21,AIK 2-2 Sirius,AIK,Sirius,2,2
+2022-05-21,Helsingborg 1-4 Varnamo,Helsingborg,Varnamo,1,4
+2022-05-22,Elfsborg 3-1 Goteborg,Elfsborg,Goteborg,3,1
+2022-05-22,Hammarby 3-0 Norrkoping,Hammarby,Norrkoping,3,0
+2022-05-22,Varberg 2-1 Degerfors,Varberg,Degerfors,2,1
+2022-05-22,Kalmar 1-0 Djurgarden,Kalmar,Djurgarden,1,0
+2022-05-22,Malmo FF 1-2 Hacken,Malmo FF,Hacken,1,2
+2022-05-23,Sundsvall 2-0 Mjallby,Sundsvall,Mjallby,2,0
+2022-05-28,Goteborg 2-0 Sundsvall,Goteborg,Sundsvall,2,0
+2022-05-28,Mjallby 1-1 Kalmar,Mjallby,Kalmar,1,1
+2022-05-28,Hacken 4-3 Sirius,Hacken,Sirius,4,3
+2022-05-29,Degerfors 0-2 Malmo FF,Degerfors,Malmo FF,0,2
+2022-05-29,Djurgarden 4-0 Varberg,Djurgarden,Varberg,4,0
+2022-05-29,Norrkoping 2-2 Elfsborg,Norrkoping,Elfsborg,2,2
+2022-05-29,Helsingborg 1-2 AIK,Helsingborg,AIK,1,2
+2022-05-29,Varnamo 1-0 Hammarby,Varnamo,Hammarby,1,0
+2022-06-26,Degerfors 1-1 AIK,Degerfors,AIK,1,1
+2022-06-26,Hammarby 2-2 Hacken,Hammarby,Hacken,2,2
+2022-06-26,Mjallby 1-1 Norrkoping,Mjallby,Norrkoping,1,1
+2022-06-26,Sundsvall 2-5 Djurgarden,Sundsvall,Djurgarden,2,5
+2022-06-27,Elfsborg 4-1 Varberg,Elfsborg,Varberg,4,1
+2022-06-27,Kalmar 1-0 Varnamo,Kalmar,Varnamo,1,0
+2022-06-27,Sirius 1-2 Goteborg,Sirius,Goteborg,1,2
+2022-06-27,Malmo FF 2-1 Helsingborg,Malmo FF,Helsingborg,2,1
+2022-07-01,Sundsvall 2-1 Malmo FF,Sundsvall,Malmo FF,2,1
+2022-07-02,AIK 0-1 Mjallby,AIK,Mjallby,0,1
+2022-07-02,Helsingborg 1-1 Kalmar,Helsingborg,Kalmar,1,1
+2022-07-03,Djurgarden 1-0 Hammarby,Djurgarden,Hammarby,1,0
+2022-07-03,Varberg 3-0 Varnamo,Varberg,Varnamo,3,0
+2022-07-03,Hacken 1-1 Elfsborg,Hacken,Elfsborg,1,1
+2022-07-03,Norrkoping 0-1 Sirius,Norrkoping,Sirius,0,1
+2022-07-04,Goteborg 2-0 Degerfors,Goteborg,Degerfors,2,0
+2022-07-09,Malmo FF 3-0 Varberg,Malmo FF,Varberg,3,0
+2022-07-09,Degerfors 1-1 Norrkoping,Degerfors,Norrkoping,1,1
+2022-07-10,Elfsborg 2-2 AIK,Elfsborg,AIK,2,2
+2022-07-10,Mjallby 1-2 Hacken,Mjallby,Hacken,1,2
+2022-07-10,Kalmar 1-1 Sirius,Kalmar,Sirius,1,1
+2022-07-11,Hammarby 3-0 Goteborg,Hammarby,Goteborg,3,0
+2022-07-11,Helsingborg 0-2 Djurgarden,Helsingborg,Djurgarden,0,2
+2022-07-11,Varnamo 1-1 Sundsvall,Varnamo,Sundsvall,1,1
+2022-07-16,Norrkoping 0-2 Malmo FF,Norrkoping,Malmo FF,0,2
+2022-07-16,Djurgarden 5-0 Varnamo,Djurgarden,Varnamo,5,0
+2022-07-17,AIK 1-0 Kalmar,AIK,Kalmar,1,0
+2022-07-17,Goteborg 1-1 Mjallby,Goteborg,Mjallby,1,1
+2022-07-17,Hammarby 3-0 Elfsborg,Hammarby,Elfsborg,3,0
+2022-07-17,Sirius 2-0 Degerfors,Sirius,Degerfors,2,0
+2022-07-18,Sundsvall 1-5 Hacken,Sundsvall,Hacken,1,5
+2022-07-18,Varberg 0-0 Helsingborg,Varberg,Helsingborg,0,0
+2022-07-23,Malmo FF 3-1 Sirius,Malmo FF,Sirius,3,1
+2022-07-23,Mjallby 2-1 Degerfors,Mjallby,Degerfors,2,1
+2022-07-24,Helsingborg 1-0 Sundsvall,Helsingborg,Sundsvall,1,0
+2022-07-24,Varnamo 2-3 AIK,Varnamo,AIK,2,3
+2022-07-24,Hacken 1-2 Djurgarden,Hacken,Djurgarden,1,2
+2022-07-24,Kalmar 1-0 Elfsborg,Kalmar,Elfsborg,1,0
+2022-07-25,Norrkoping 0-2 Goteborg,Norrkoping,Goteborg,0,2
+2022-07-25,Varberg 0-3 Hammarby,Varberg,Hammarby,0,3
+2022-07-30,Degerfors 2-1 Kalmar,Degerfors,Kalmar,2,1
+2022-07-30,Sundsvall 1-3 Varberg,Sundsvall,Varberg,1,3
+2022-07-31,Elfsborg 4-4 Hacken,Elfsborg,Hacken,4,4
+2022-07-31,Hammarby 1-2 Varnamo,Hammarby,Varnamo,1,2
+2022-07-31,Sirius 0-1 Mjallby,Sirius,Mjallby,0,1
+2022-08-01,Goteborg 2-0 Norrkoping,Goteborg,Norrkoping,2,0
+2022-08-06,Norrkoping 2-0 Degerfors,Norrkoping,Degerfors,2,0
+2022-08-07,Hammarby 3-0 Sundsvall,Hammarby,Sundsvall,3,0
+2022-08-07,Kalmar 1-0 AIK,Kalmar,AIK,1,0
+2022-08-07,Sirius 2-1 Malmo FF,Sirius,Malmo FF,2,1
+2022-08-07,Mjallby 1-1 Elfsborg,Mjallby,Elfsborg,1,1
+2022-08-07,Varnamo 0-0 Djurgarden,Varnamo,Djurgarden,0,0
+2022-08-08,Hacken 5-0 Helsingborg,Hacken,Helsingborg,5,0
+2022-08-08,Varberg 0-4 Goteborg,Varberg,Goteborg,0,4
+2022-08-13,Helsingborg 0-0 Sirius,Helsingborg,Sirius,0,0
+2022-08-14,AIK 2-2 Varnamo,AIK,Varnamo,2,2
+2022-08-14,Djurgarden 3-2 Kalmar,Djurgarden,Kalmar,3,2
+2022-08-14,Malmo FF 3-1 Sundsvall,Malmo FF,Sundsvall,3,1
+2022-08-14,Degerfors 1-1 Varberg,Degerfors,Varberg,1,1
+2022-08-14,Elfsborg 1-1 Norrkoping,Elfsborg,Norrkoping,1,1
+2022-08-15,Hacken 1-0 Mjallby,Hacken,Mjallby,1,0
+2022-08-15,Goteborg 0-1 Hammarby,Goteborg,Hammarby,0,1
+2022-08-20,Varberg 2-2 Djurgarden,Varberg,Djurgarden,2,2
+2022-08-21,Mjallby 1-1 Malmo FF,Mjallby,Malmo FF,1,1
+2022-08-21,Varnamo 1-1 Elfsborg,Varnamo,Elfsborg,1,1
+2022-08-21,Norrkoping 2-4 AIK,Norrkoping,AIK,2,4
+2022-08-21,Sundsvall 1-2 Helsingborg,Sundsvall,Helsingborg,1,2
+2022-08-22,Kalmar 1-0 Goteborg,Kalmar,Goteborg,1,0
+2022-08-22,Sirius 0-1 Hacken,Sirius,Hacken,0,1
+2022-08-22,Hammarby 5-1 Degerfors,Hammarby,Degerfors,5,1
+2022-08-27,Hacken 4-1 Varnamo,Hacken,Varnamo,4,1
+2022-08-27,Degerfors 3-1 Sundsvall,Degerfors,Sundsvall,3,1
+2022-08-28,AIK 2-2 Hammarby,AIK,Hammarby,2,2
+2022-08-28,Goteborg 2-0 Sirius,Goteborg,Sirius,2,0
+2022-08-28,Varberg 1-1 Norrkoping,Varberg,Norrkoping,1,1
+2022-08-28,Helsingborg 0-1 Mjallby,Helsingborg,Mjallby,0,1
+2022-08-28,Malmo FF 0-1 Kalmar,Malmo FF,Kalmar,0,1
+2022-08-29,Djurgarden 2-1 Elfsborg,Djurgarden,Elfsborg,2,1
+2022-09-04,Hacken 2-2 Degerfors,Hacken,Degerfors,2,2
+2022-09-04,Sirius 0-1 Djurgarden,Sirius,Djurgarden,0,1
+2022-09-04,AIK 4-0 Sundsvall,AIK,Sundsvall,4,0
+2022-09-04,Elfsborg 3-2 Malmo FF,Elfsborg,Malmo FF,3,2
+2022-09-05,Kalmar 1-0 Varberg,Kalmar,Varberg,1,0
+2022-09-05,Mjallby 1-4 Goteborg,Mjallby,Goteborg,1,4
+2022-09-05,Varnamo 3-2 Helsingborg,Varnamo,Helsingborg,3,2
+2022-09-05,Norrkoping 4-1 Hammarby,Norrkoping,Hammarby,4,1
+2022-09-10,Sirius 2-3 Varnamo,Sirius,Varnamo,2,3
+2022-09-10,Degerfors 0-0 Mjallby,Degerfors,Mjallby,0,0
+2022-09-11,Hammarby 0-0 Djurgarden,Hammarby,Djurgarden,0,0
+2022-09-11,Sundsvall 0-2 Elfsborg,Sundsvall,Elfsborg,0,2
+2022-09-11,Malmo FF 2-1 Norrkoping,Malmo FF,Norrkoping,2,1
+2022-09-11,Varberg 2-0 AIK,Varberg,AIK,2,0
+2022-09-12,Kalmar 1-1 Hacken,Kalmar,Hacken,1,1
+2022-09-12,Goteborg 1-3 Helsingborg,Goteborg,Helsingborg,1,3
+2022-09-17,Hacken 1-1 Hammarby,Hacken,Hammarby,1,1
+2022-09-17,Norrkoping 2-2 Kalmar,Norrkoping,Kalmar,2,2
+2022-09-17,Varnamo 1-0 Varberg,Varnamo,Varberg,1,0
+2022-09-18,Elfsborg 3-0 Sirius,Elfsborg,Sirius,3,0
+2022-09-18,Helsingborg 1-2 Malmo FF,Helsingborg,Malmo FF,1,2
+2022-09-18,Mjallby 1-1 Sundsvall,Mjallby,Sundsvall,1,1
+2022-09-18,AIK 1-1 Degerfors,AIK,Degerfors,1,1
+2022-09-18,Djurgarden 3-0 Goteborg,Djurgarden,Goteborg,3,0
+2022-10-01,Malmo FF 0-0 Hammarby,Malmo FF,Hammarby,0,0
+2022-10-01,Degerfors 3-0 Djurgarden,Degerfors,Djurgarden,3,0
+2022-10-02,Sundsvall 1-3 Norrkoping,Sundsvall,Norrkoping,1,3
+2022-10-02,Varberg 1-1 Hacken,Varberg,Hacken,1,1
+2022-10-02,Kalmar 2-0 Helsingborg,Kalmar,Helsingborg,2,0
+2022-10-02,Sirius 1-1 AIK,Sirius,AIK,1,1
+2022-10-03,Varnamo 2-1 Mjallby,Varnamo,Mjallby,2,1
+2022-10-03,Goteborg 1-3 Elfsborg,Goteborg,Elfsborg,1,3
+2022-10-08,Degerfors 0-0 Sirius,Degerfors,Sirius,0,0
+2022-10-09,Elfsborg 0-2 Kalmar,Elfsborg,Kalmar,0,2
+2022-10-09,Malmo FF 0-0 Varnamo,Malmo FF,Varnamo,0,0
+2022-10-09,Sundsvall 3-2 Goteborg,Sundsvall,Goteborg,3,2
+2022-10-09,AIK 2-0 Helsingborg,AIK,Helsingborg,2,0
+2022-10-09,Djurgarden 0-1 Hacken,Djurgarden,Hacken,0,1
+2022-10-10,Norrkoping 2-2 Mjallby,Norrkoping,Mjallby,2,2
+2022-10-10,Hammarby 5-1 Varberg,Hammarby,Varberg,5,1
+2022-10-14,Elfsborg 1-1 Degerfors,Elfsborg,Degerfors,1,1
+2022-10-15,Hacken 4-1 Sundsvall,Hacken,Sundsvall,4,1
+2022-10-15,Helsingborg 1-3 Varberg,Helsingborg,Varberg,1,3
+2022-10-15,Varnamo 1-3 Kalmar,Varnamo,Kalmar,1,3
+2022-10-15,Sirius 2-0 Norrkoping,Sirius,Norrkoping,2,0
+2022-10-16,Djurgarden 1-2 AIK,Djurgarden,AIK,1,2
+2022-10-16,Mjallby 0-3 Hammarby,Mjallby,Hammarby,0,3
+2022-10-17,Goteborg 2-1 Malmo FF,Goteborg,Malmo FF,2,1
+2022-10-19,Varberg 0-3 Elfsborg,Varberg,Elfsborg,0,3
+2022-10-19,AIK 1-2 Hacken,AIK,Hacken,1,2
+2022-10-19,Norrkoping 2-0 Helsingborg,Norrkoping,Helsingborg,2,0
+2022-10-19,Sundsvall 1-2 Varnamo,Sundsvall,Varnamo,1,2
+2022-10-20,Malmo FF 2-3 Djurgarden,Malmo FF,Djurgarden,2,3
+2022-10-20,Degerfors 3-1 Goteborg,Degerfors,Goteborg,3,1
+2022-10-20,Kalmar 1-2 Mjallby,Kalmar,Mjallby,1,2
+2022-10-20,Hammarby 1-1 Sirius,Hammarby,Sirius,1,1
+2022-10-23,Elfsborg 2-1 Hammarby,Elfsborg,Hammarby,2,1
+2022-10-23,Helsingborg 1-2 Degerfors,Helsingborg,Degerfors,1,2
+2022-10-23,Hacken 2-1 Malmo FF,Hacken,Malmo FF,2,1
+2022-10-24,Mjallby 4-1 Varberg,Mjallby,Varberg,4,1
+2022-10-24,Sirius 0-0 Kalmar,Sirius,Kalmar,0,0
+2022-10-24,Varnamo 1-1 Norrkoping,Varnamo,Norrkoping,1,1
+2022-10-24,Djurgarden 4-0 Sundsvall,Djurgarden,Sundsvall,4,0
+2022-10-24,Goteborg 1-0 AIK,Goteborg,AIK,1,0
+2022-10-29,Degerfors 0-0 Varnamo,Degerfors,Varnamo,0,0
+2022-10-30,Goteborg 0-4 Hacken,Goteborg,Hacken,0,4
+2022-10-30,Mjallby 1-2 AIK,Mjallby,AIK,1,2
+2022-10-30,Sundsvall 2-3 Sirius,Sundsvall,Sirius,2,3
+2022-10-30,Hammarby 4-2 Kalmar,Hammarby,Kalmar,4,2
+2022-10-30,Varberg 2-5 Malmo FF,Varberg,Malmo FF,2,5
+2022-10-31,Elfsborg 3-0 Helsingborg,Elfsborg,Helsingborg,3,0
+2022-10-31,Norrkoping 0-1 Djurgarden,Norrkoping,Djurgarden,0,1
+2022-11-06,AIK 0-1 Elfsborg,AIK,Elfsborg,0,1
+2022-11-06,Djurgarden 0-1 Mjallby,Djurgarden,Mjallby,0,1
+2022-11-06,Hacken 3-3 Norrkoping,Hacken,Norrkoping,3,3
+2022-11-06,Helsingborg 0-2 Hammarby,Helsingborg,Hammarby,0,2
+2022-11-06,Kalmar 4-0 Sundsvall,Kalmar,Sundsvall,4,0
+2022-11-06,Malmo FF 2-2 Degerfors,Malmo FF,Degerfors,2,2
+2022-11-06,Sirius 2-3 Varberg,Sirius,Varberg,2,3
+2022-11-06,Varnamo 1-4 Goteborg,Varnamo,Goteborg,1,4
+2022-11-10,Oster 1-2 Varberg,Oster,Varberg,1,2
+2022-11-13,Varberg 2-1 Oster,Varberg,Oster,2,1
 2023-04-01,Malmo FF 1-0 Kalmar,Malmo FF,Kalmar,1,0
 2023-04-01,Djurgarden 3-1 Brommapojkarna,Djurgarden,Brommapojkarna,3,1
 2023-04-02,Hammarby 3-1 Degerfors,Hammarby,Degerfors,3,1

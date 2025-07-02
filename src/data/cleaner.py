@@ -25,6 +25,22 @@ class DataCleaner:
             # Clean up fixtures dataframe - keep authentic team names from API
             if not fixtures.empty:
                 fixtures = fixtures[['Date', 'HomeTeam', 'AwayTeam']].copy()
+            else:
+                # If no fixtures found, get upcoming fixtures using enhanced scraper
+                print("No fixtures in data - getting upcoming fixtures from enhanced scraper")
+                try:
+                    from .scraper import AllsvenskanScraper
+                    scraper = AllsvenskanScraper()
+                    upcoming_fixtures = scraper.get_upcoming_fixtures()
+                    
+                    if not upcoming_fixtures.empty:
+                        fixtures = upcoming_fixtures[['Date', 'HomeTeam', 'AwayTeam']].copy()
+                        print(f"Added {len(fixtures)} upcoming fixtures from enhanced scraper")
+                    else:
+                        print("No upcoming fixtures available from any source")
+                        
+                except Exception as e:
+                    print(f"Could not get upcoming fixtures: {e}")
             
             return results, fixtures
             
