@@ -502,16 +502,35 @@ def simulation_page():
         results_df = pd.read_csv("data/clean/results.csv", parse_dates=['Date'])
         fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
         
-        # Calculate current standings
-        from src.utils.helpers import calculate_current_standings, get_current_points_table
+        # Calculate current standings from live data
+        from src.utils.helpers import calculate_current_standings_from_url, calculate_current_standings, get_current_points_table
         
-        current_standings_full = calculate_current_standings(results_df)
-        current_points = get_current_points_table(current_standings_full)
+        # Try to get live standings first, fallback to local data
+        current_standings_df = calculate_current_standings_from_url()
+        
+        if current_standings_df.empty:
+            st.warning("Using local data for standings calculation")
+            current_standings_full = calculate_current_standings(results_df)
+            current_points = get_current_points_table(current_standings_full)
+        else:
+            st.info("Using live Football-Data for current standings")
+            # Convert DataFrame to points dictionary for simulation
+            current_points = dict(zip(current_standings_df['Team'], current_standings_df['Pts']))
         
         # Display current standings
         st.subheader("📊 Current League Table")
         
-        if current_standings_full:
+        if not current_standings_df.empty:
+            # Use live data format
+            standings_df = current_standings_df.copy()
+            standings_df.index = range(1, len(standings_df) + 1)
+            
+            st.dataframe(
+                standings_df[['Team', 'MP', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'Pts']],
+                use_container_width=True
+            )
+        elif 'current_standings_full' in locals() and current_standings_full:
+            # Use local data format (fallback)
             standings_df = pd.DataFrame.from_dict(current_standings_full, orient='index')
             standings_df = standings_df.sort_values(['points', 'goal_diff', 'goals_for'], 
                                                   ascending=False)
@@ -524,6 +543,8 @@ def simulation_page():
                              'goals_for', 'goals_against', 'goal_diff', 'points']],
                 use_container_width=True
             )
+        else:
+            st.warning("No standings data available")
         
         st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} fixtures remaining")
         
@@ -608,11 +629,29 @@ def simulation_page():
             st.metric("Simulations Completed", len(sim_results))
             st.metric("Teams Analyzed", len(sim_results.columns))
             
-            # Show expected final table
+            # Show expected final table (combining current + simulated points)
             expected_points = sim_results.mean().sort_values(ascending=False)
-            st.write("**Expected Final Table:**")
-            for i, (team, points) in enumerate(expected_points.head(10).items()):
-                st.write(f"{i+1}. {team}: {points:.1f} pts")
+            st.write("**Expected Final Season Table:**")
+            for i, (team, points) in enumerate(expected_points.head(len(expected_points)).items()):
+                current_pts = current_points.get(team, 0)
+                simulated_pts = points - current_pts if points >= current_pts else points
+                st.write(f"{i+1}. {team}: {points:.1f} pts (Current: {current_pts}, +{simulated_pts:.1f} from remaining fixtures)")
+            
+            # Show current vs projected standings comparison
+            if not current_standings_df.empty and len(current_standings_df) > 0:
+                st.subheader("📈 Standings Projection")
+                
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write("**Current Position**")
+                    for i, row in current_standings_df.head(10).iterrows():
+                        st.write(f"{i+1}. {row['Team']}: {row['Pts']} pts")
+                
+                with col2:
+                    st.write("**Projected Final Position**")
+                    for i, (team, points) in enumerate(expected_points.head(10).items()):
+                        st.write(f"{i+1}. {team}: {points:.1f} pts")
         
     except Exception as e:
         st.error(f"❌ Error loading data: {str(e)}")

@@ -236,8 +236,83 @@ def load_data_safely(filepath, format='csv'):
         print(f"Error loading data from {filepath}: {e}")
         return None
 
+def calculate_current_standings_from_url():
+    """Calculate current league standings from live Football-Data URL"""
+    try:
+        # Load data from Football-Data URL
+        url = "https://www.football-data.co.uk/new/SWE.csv"
+        df = pd.read_csv(url)
+        df['Date'] = pd.to_datetime(df['Date'], dayfirst=True, errors='coerce')
+        
+        # Filter for 2025 season (current season)
+        df_2025 = df[df['Date'].dt.year == 2025].reset_index(drop=True)
+        
+        if df_2025.empty:
+            print("No 2025 data found, trying 2024...")
+            df_2025 = df[df['Date'].dt.year == 2024].reset_index(drop=True)
+        
+        # Auto-detect column names
+        home_col = 'HomeTeam' if 'HomeTeam' in df_2025.columns else 'Home'
+        away_col = 'AwayTeam' if 'AwayTeam' in df_2025.columns else 'Away'
+        gh_col = 'FTHG' if 'FTHG' in df_2025.columns else 'HG'
+        ga_col = 'FTAG' if 'FTAG' in df_2025.columns else 'AG'
+        res_col = 'FTR' if 'FTR' in df_2025.columns else 'Res'
+        
+        # Initialize league table
+        teams = pd.unique(df_2025[[home_col, away_col]].values.ravel())
+        cols = ['MP', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'Pts']
+        table = pd.DataFrame(0, index=teams, columns=cols)
+        
+        # Populate table from match results
+        for _, row in df_2025.iterrows():
+            h, a = row[home_col], row[away_col]
+            gh, ga = row[gh_col], row[ga_col]
+            res = row[res_col]
+            
+            # Skip rows with missing data
+            if pd.isna(gh) or pd.isna(ga) or pd.isna(res):
+                continue
+            
+            # Update matches played & goals
+            table.at[h, 'MP'] += 1
+            table.at[a, 'MP'] += 1
+            table.at[h, 'GF'] += gh
+            table.at[h, 'GA'] += ga
+            table.at[a, 'GF'] += ga
+            table.at[a, 'GA'] += gh
+            
+            # Update results & points
+            if res == 'H':
+                table.at[h, 'W'] += 1
+                table.at[a, 'L'] += 1
+                table.at[h, 'Pts'] += 3
+            elif res == 'A':
+                table.at[a, 'W'] += 1
+                table.at[h, 'L'] += 1
+                table.at[a, 'Pts'] += 3
+            else:  # Draw
+                table.at[h, 'D'] += 1
+                table.at[a, 'D'] += 1
+                table.at[h, 'Pts'] += 1
+                table.at[a, 'Pts'] += 1
+        
+        # Compute goal difference and sort
+        table['GD'] = table['GF'] - table['GA']
+        df_table = (
+            table
+            .sort_values(['Pts', 'GD', 'GF'], ascending=False)
+            .reset_index()
+            .rename(columns={'index': 'Team'})
+        )
+        
+        return df_table
+        
+    except Exception as e:
+        print(f"Error calculating standings from URL: {e}")
+        return pd.DataFrame()
+
 def calculate_current_standings(results_df):
-    """Calculate current league standings from completed matches"""
+    """Calculate current league standings from completed matches (fallback)"""
     try:
         if results_df.empty:
             return {}
