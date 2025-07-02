@@ -404,3 +404,30 @@ class AllsvenskanScraper:
         
         logger.info(f"Validation passed: {len(match_data)} matches with required columns")
         return True
+
+    def separate_results_and_fixtures(self, df):
+        """Separate completed matches from upcoming fixtures"""
+        try:
+            # Completed matches have scores
+            results = df[
+                df['FTHG'].notna() & 
+                df['FTAG'].notna() & 
+                (df['FTHG'] != '') & 
+                (df['FTAG'] != '')
+            ].copy()
+            
+            # Fixtures don't have scores yet
+            fixtures = df[
+                df['FTHG'].isna() | 
+                df['FTAG'].isna() | 
+                (df['FTHG'] == '') | 
+                (df['FTAG'] == '')
+            ].copy()
+            
+            logger.info(f"Separated {len(results)} completed matches and {len(fixtures)} fixtures")
+            
+            return results, fixtures
+            
+        except Exception as e:
+            logger.error(f"Error separating results and fixtures: {e}")
+            return df[df['FTHG'].notna()], df[df['FTHG'].isna()]

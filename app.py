@@ -48,7 +48,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a section:",
-        ["Data Collection", "Data Verification", "Model Training", "Monte Carlo Simulation", "Results Analysis", "Dashboard", "Database Management"]
+        ["Data Collection", "Data Verification", "Model Training", "Monte Carlo Simulation", "Fixture Predictions", "Results Analysis", "Dashboard", "Database Management"]
     )
     
     if page == "Data Collection":
@@ -59,6 +59,8 @@ def main():
         model_training_page()
     elif page == "Monte Carlo Simulation":
         simulation_page()
+    elif page == "Fixture Predictions":
+        fixture_results_page()
     elif page == "Results Analysis":
         analysis_page()
     elif page == "Dashboard":
@@ -493,107 +495,216 @@ def model_training_page():
                     st.error(f"❌ Error training model: {str(e)}")
 
 def simulation_page():
-    st.header("🎲 Monte Carlo Simulation")
+    st.header("🎲 Season Simulation")
     
-    if not st.session_state.model_trained and not os.path.exists("models/poisson_params.pkl"):
-        st.warning("⚠️ Please train the model first in the Model Training section.")
-        return
-    
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("Simulation Parameters")
+    # Load data
+    try:
+        results_df = pd.read_csv("data/clean/results.csv", parse_dates=['Date'])
+        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
         
-        n_simulations = st.slider("Number of Simulations", 1000, 50000, 10000, step=1000)
-        random_seed = st.number_input("Random Seed", value=42, step=1)
+        # Calculate current standings
+        from src.utils.helpers import calculate_current_standings, get_current_points_table
         
-        if st.button("🎯 Run Monte Carlo Simulation", type="primary"):
-            with st.spinner(f"Running {n_simulations:,} simulations..."):
-                try:
-                    fixtures = pd.read_csv("data/clean/fixtures.csv")
-                    
-                    # Check if we have any fixtures to simulate
-                    if len(fixtures) == 0:
-                        st.info("📅 No upcoming fixtures found in data sources. Creating realistic remaining season fixtures...")
-                        
-                        # Get current teams and create realistic remaining fixtures
-                        results = pd.read_csv("data/clean/results.csv")
-                        teams = sorted(set(results['HomeTeam'].unique()).union(set(results['AwayTeam'].unique())))
-                        
-                        # Create realistic remaining season fixtures
-                        from datetime import datetime, timedelta
-                        import itertools
-                        
-                        sample_fixtures = []
-                        start_date = datetime.now() + timedelta(days=7)
-                        
-                        # Create round-robin style fixtures (more realistic)
-                        fixture_count = 0
-                        for i, (home, away) in enumerate(itertools.combinations(teams, 2)):
-                            if fixture_count >= 30:  # Limit to reasonable number
-                                break
-                            
-                            # Add home and away fixtures
-                            sample_fixtures.append({
-                                'Date': start_date + timedelta(days=fixture_count * 3),  # Every 3 days
-                                'HomeTeam': home,
-                                'AwayTeam': away
-                            })
-                            fixture_count += 1
-                            
-                            if fixture_count < 30:
-                                sample_fixtures.append({
-                                    'Date': start_date + timedelta(days=fixture_count * 3),
-                                    'HomeTeam': away,
-                                    'AwayTeam': home
-                                })
-                                fixture_count += 1
-                        
-                        fixtures = pd.DataFrame(sample_fixtures)
-                        st.success(f"✅ Created {len(fixtures)} realistic remaining season fixtures for {len(teams)} teams")
-                    
-                    model = PoissonModel()
-                    model.load("models/poisson_params.pkl")
-                    
-                    simulator = MonteCarloSimulator(fixtures, model, seed=random_seed)
-                    simulation_results = simulator.run(n_simulations)
-                    
-                    os.makedirs("reports/simulations", exist_ok=True)
-                    simulation_results.to_csv("reports/simulations/sim_results.csv", index=False)
-                    
-                    st.session_state.simulation_complete = True
-                    st.success(f"✅ Completed {n_simulations:,} simulations!")
-                    
-                    # Show progress summary
-                    aggregator = ResultsAggregator()
-                    summary = aggregator.analyze_results(simulation_results)
-                    
-                    st.subheader("Simulation Summary")
-                    st.dataframe(summary.head(10))
-                    
-                except Exception as e:
-                    st.error(f"❌ Error running simulation: {str(e)}")
-    
-    with col2:
-        st.subheader("Simulation Status")
+        current_standings_full = calculate_current_standings(results_df)
+        current_points = get_current_points_table(current_standings_full)
         
-        if os.path.exists("reports/simulations/sim_results.csv"):
-            st.success("✅ Simulation results available")
+        # Display current standings
+        st.subheader("📊 Current League Table")
+        
+        if current_standings_full:
+            standings_df = pd.DataFrame.from_dict(current_standings_full, orient='index')
+            standings_df = standings_df.sort_values(['points', 'goal_diff', 'goals_for'], 
+                                                  ascending=False)
+            standings_df.reset_index(inplace=True)
+            standings_df.rename(columns={'index': 'Team'}, inplace=True)
+            standings_df.index = range(1, len(standings_df) + 1)
             
+            st.dataframe(
+                standings_df[['Team', 'played', 'won', 'drawn', 'lost', 
+                             'goals_for', 'goals_against', 'goal_diff', 'points']],
+                use_container_width=True
+            )
+        
+        st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} fixtures remaining")
+        
+        # Simulation settings
+        st.subheader("⚙️ Simulation Settings")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            use_current_standings = st.checkbox(
+                "Start from current standings", 
+                value=True,
+                help="If checked, simulations will start from current league positions"
+            )
+            
+            n_simulations = st.slider(
+                "Number of Simulations",
+                min_value=100,
+                max_value=50000,
+                value=10000,
+                step=100
+            )
+        
+        with col2:
+            if st.button("🚀 Run Simulation", type="primary"):
+                try:
+                    with st.spinner(f"Running {n_simulations:,} simulations..."):
+                        progress_bar = st.progress(0)
+                        
+                        # Initialize model and simulator
+                        from src.models.poisson_model import PoissonModel
+                        from src.simulation.simulator import MonteCarloSimulator
+                        
+                        model = PoissonModel()
+                        if os.path.exists("models/poisson_params.pkl"):
+                            model.load("models/poisson_params.pkl")
+                        else:
+                            st.warning("Model not found, training new one...")
+                            team_stats = pd.read_csv("data/processed/team_statistics.csv")
+                            model.fit(results_df, team_stats)
+                            os.makedirs("models", exist_ok=True)
+                            model.save("models/poisson_params.pkl")
+                        
+                        simulator = MonteCarloSimulator(
+                            fixtures_df, model, seed=42
+                        )
+                        
+                        # Run simulations
+                        if use_current_standings:
+                            simulation_results = simulator.run_monte_carlo_with_standings(
+                                n_simulations=n_simulations,
+                                current_standings=current_points,
+                                progress_callback=lambda p: progress_bar.progress(p / 100)
+                            )
+                        else:
+                            simulation_results = simulator.run(
+                                n_simulations=n_simulations,
+                                progress_callback=lambda p: progress_bar.progress(p / 100)
+                            )
+                        
+                        # Save results
+                        os.makedirs("reports/simulations", exist_ok=True)
+                        simulation_results.to_csv("reports/simulations/sim_results.csv", index=False)
+                        
+                        # Also save fixture predictions
+                        fixture_predictions = simulator.simulate_remaining_fixtures_detailed(
+                            n_simulations=min(1000, n_simulations)
+                        )
+                        fixture_predictions.to_csv("reports/simulations/fixture_predictions.csv", 
+                                                 index=False)
+                        
+                        st.success("✅ Simulation completed!")
+                        st.session_state.simulation_complete = True
+                        
+                except Exception as e:
+                    st.error(f"❌ Error: {str(e)}")
+        
+        # Show simulation status
+        if os.path.exists("reports/simulations/sim_results.csv"):
+            st.subheader("📈 Simulation Results")
             sim_results = pd.read_csv("reports/simulations/sim_results.csv")
             st.metric("Simulations Completed", len(sim_results))
             st.metric("Teams Analyzed", len(sim_results.columns))
             
-            # Show sample simulation outcomes
-            st.subheader("Sample Final Tables (First 3 Simulations)")
-            for i in range(min(3, len(sim_results))):
-                st.write(f"**Simulation {i+1}:**")
-                sim_table = sim_results.iloc[i].sort_values(ascending=False)
-                for j, (team, points) in enumerate(sim_table.head(5).items()):
-                    st.write(f"{j+1}. {team}: {points} pts")
-                st.write("---")
+            # Show expected final table
+            expected_points = sim_results.mean().sort_values(ascending=False)
+            st.write("**Expected Final Table:**")
+            for i, (team, points) in enumerate(expected_points.head(10).items()):
+                st.write(f"{i+1}. {team}: {points:.1f} pts")
+        
+    except Exception as e:
+        st.error(f"❌ Error loading data: {str(e)}")
+
+def fixture_results_page():
+    st.header("⚽ Fixture Predictions")
+    
+    if not os.path.exists("reports/simulations/fixture_predictions.csv"):
+        st.warning("⚠️ Please run simulations first.")
+        return
+    
+    try:
+        # Load fixture predictions
+        predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv")
+        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+        
+        # Group by match
+        fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
+            'home_win': 'mean',
+            'draw': 'mean',
+            'away_win': 'mean',
+            'home_goals': 'mean',
+            'away_goals': 'mean'
+        }).reset_index()
+        
+        # Merge with fixture dates
+        fixture_summary = fixture_summary.merge(
+            fixtures_df[['HomeTeam', 'AwayTeam', 'Date']],
+            left_on=['home_team', 'away_team'],
+            right_on=['HomeTeam', 'AwayTeam'],
+            how='left'
+        )
+        
+        # Sort by date
+        fixture_summary = fixture_summary.sort_values('Date')
+        
+        # Display fixtures by date
+        st.subheader("📅 Upcoming Fixtures with Predictions")
+        
+        # Date filter
+        unique_dates = fixture_summary['Date'].dt.date.unique()
+        selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
+        
+        if selected_date != 'All':
+            display_df = fixture_summary[fixture_summary['Date'].dt.date == selected_date]
         else:
-            st.info("ℹ️ No simulation results found. Run simulation above.")
+            display_df = fixture_summary
+        
+        # Format for display
+        for _, match in display_df.iterrows():
+            col1, col2, col3 = st.columns([2, 3, 2])
+            
+            with col1:
+                st.write(f"**{match['Date'].strftime('%Y-%m-%d')}**")
+            
+            with col2:
+                st.write(f"{match['home_team']} vs {match['away_team']}")
+                
+                # Probability bars
+                probs = {
+                    'Home Win': match['home_win'] * 100,
+                    'Draw': match['draw'] * 100,
+                    'Away Win': match['away_win'] * 100
+                }
+                
+                # Create mini bar chart
+                import plotly.graph_objects as go
+                fig = go.Figure(data=[
+                    go.Bar(x=list(probs.keys()), y=list(probs.values()),
+                          text=[f"{v:.1f}%" for v in probs.values()],
+                          textposition='auto')
+                ])
+                fig.update_layout(height=200, showlegend=False, 
+                                margin=dict(l=0, r=0, t=0, b=0))
+                st.plotly_chart(fig, use_container_width=True)
+            
+            with col3:
+                st.metric("Expected Score", 
+                         f"{match['home_goals']:.1f} - {match['away_goals']:.1f}")
+                
+                # Most likely result
+                if match['home_win'] > max(match['draw'], match['away_win']):
+                    st.success("Home Win")
+                elif match['away_win'] > max(match['draw'], match['home_win']):
+                    st.info("Away Win")
+                else:
+                    st.warning("Draw")
+            
+            st.divider()
+        
+    except Exception as e:
+        st.error(f"❌ Error displaying fixture predictions: {str(e)}")
 
 def analysis_page():
     st.header("📈 Results Analysis")

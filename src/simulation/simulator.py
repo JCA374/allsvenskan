@@ -197,3 +197,112 @@ class MonteCarloSimulator:
             validation_issues.append(f"Validation error: {e}")
         
         return validation_issues
+
+    def simulate_season_with_current_standings(self, current_standings):
+        """Simulate a season starting from current standings"""
+        try:
+            # Start with current points
+            points_table = current_standings.copy()
+            
+            # Ensure all teams are in the table
+            for team in self.teams:
+                if team not in points_table:
+                    points_table[team] = 0
+            
+            # Simulate only remaining fixtures
+            for _, fixture in self.fixtures.iterrows():
+                home_team = fixture['HomeTeam']
+                away_team = fixture['AwayTeam']
+                
+                # Skip if teams don't exist in our model
+                if home_team not in self.teams or away_team not in self.teams:
+                    continue
+                
+                mu_home, mu_away = self.model.predict_match(home_team, away_team)
+                
+                home_goals = self.rng.poisson(mu_home)
+                away_goals = self.rng.poisson(mu_away)
+                
+                if home_goals > away_goals:
+                    points_table[home_team] += 3
+                elif home_goals == away_goals:
+                    points_table[home_team] += 1
+                    points_table[away_team] += 1
+                else:
+                    points_table[away_team] += 3
+            
+            return points_table
+        
+        except Exception as e:
+            print(f"Error simulating with current standings: {e}")
+            return current_standings
+
+    def simulate_remaining_fixtures_detailed(self, n_simulations=1000):
+        """Simulate remaining fixtures and return detailed results"""
+        try:
+            fixture_results = []
+            
+            for sim_idx in range(n_simulations):
+                sim_fixtures = []
+                
+                for _, fixture in self.fixtures.iterrows():
+                    home_team = fixture['HomeTeam']
+                    away_team = fixture['AwayTeam']
+                    
+                    if home_team not in self.teams or away_team not in self.teams:
+                        continue
+                    
+                    mu_home, mu_away = self.model.predict_match(home_team, away_team)
+                    
+                    home_goals = self.rng.poisson(mu_home)
+                    away_goals = self.rng.poisson(mu_away)
+                    
+                    sim_fixtures.append({
+                        'simulation': sim_idx,
+                        'date': fixture.get('Date', ''),
+                        'home_team': home_team,
+                        'away_team': away_team,
+                        'home_goals': home_goals,
+                        'away_goals': away_goals,
+                        'home_win': 1 if home_goals > away_goals else 0,
+                        'draw': 1 if home_goals == away_goals else 0,
+                        'away_win': 1 if home_goals < away_goals else 0
+                    })
+                
+                fixture_results.extend(sim_fixtures)
+            
+            return pd.DataFrame(fixture_results)
+        
+        except Exception as e:
+            print(f"Error simulating fixtures: {e}")
+            return pd.DataFrame()
+
+    def run_monte_carlo_with_standings(self, n_simulations, current_standings, progress_callback=None):
+        """Run Monte Carlo simulations starting from current standings"""
+        try:
+            print(f"Starting {n_simulations:,} simulations with current standings...")
+            simulation_results = []
+            
+            batch_size = min(1000, n_simulations // 10)
+            
+            for i in range(n_simulations):
+                if i % batch_size == 0 and progress_callback:
+                    progress = (i / n_simulations) * 100
+                    progress_callback(progress)
+                
+                season_result = self.simulate_season_with_current_standings(current_standings)
+                simulation_results.append(season_result)
+            
+            results_df = pd.DataFrame(simulation_results)
+            
+            # Ensure all teams are present
+            for team in self.teams:
+                if team not in results_df.columns:
+                    results_df[team] = current_standings.get(team, 0)
+            
+            print(f"Completed {n_simulations:,} simulations with current standings!")
+            return results_df
+            
+        except Exception as e:
+            print(f"Error running simulations with standings: {e}")
+            return pd.DataFrame()

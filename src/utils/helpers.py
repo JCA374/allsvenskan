@@ -235,3 +235,74 @@ def load_data_safely(filepath, format='csv'):
     except Exception as e:
         print(f"Error loading data from {filepath}: {e}")
         return None
+
+def calculate_current_standings(results_df):
+    """Calculate current league standings from completed matches"""
+    try:
+        if results_df.empty:
+            return {}
+        
+        # Get all teams
+        home_teams = set(results_df['HomeTeam'].unique())
+        away_teams = set(results_df['AwayTeam'].unique())
+        all_teams = list(home_teams | away_teams)
+        
+        # Initialize standings
+        standings = {}
+        for team in all_teams:
+            standings[team] = {
+                'played': 0,
+                'won': 0,
+                'drawn': 0,
+                'lost': 0,
+                'goals_for': 0,
+                'goals_against': 0,
+                'goal_diff': 0,
+                'points': 0
+            }
+        
+        # Process each match
+        for _, match in results_df.iterrows():
+            home_team = match['HomeTeam']
+            away_team = match['AwayTeam']
+            home_goals = int(match['FTHG']) if pd.notna(match['FTHG']) else 0
+            away_goals = int(match['FTAG']) if pd.notna(match['FTAG']) else 0
+            
+            # Update games played
+            standings[home_team]['played'] += 1
+            standings[away_team]['played'] += 1
+            
+            # Update goals
+            standings[home_team]['goals_for'] += home_goals
+            standings[home_team]['goals_against'] += away_goals
+            standings[away_team]['goals_for'] += away_goals
+            standings[away_team]['goals_against'] += home_goals
+            
+            # Update results and points
+            if home_goals > away_goals:
+                standings[home_team]['won'] += 1
+                standings[home_team]['points'] += 3
+                standings[away_team]['lost'] += 1
+            elif home_goals < away_goals:
+                standings[away_team]['won'] += 1
+                standings[away_team]['points'] += 3
+                standings[home_team]['lost'] += 1
+            else:
+                standings[home_team]['drawn'] += 1
+                standings[away_team]['drawn'] += 1
+                standings[home_team]['points'] += 1
+                standings[away_team]['points'] += 1
+        
+        # Calculate goal difference
+        for team in standings:
+            standings[team]['goal_diff'] = standings[team]['goals_for'] - standings[team]['goals_against']
+        
+        return standings
+        
+    except Exception as e:
+        print(f"Error calculating standings: {e}")
+        return {}
+
+def get_current_points_table(standings):
+    """Extract just team:points from full standings"""
+    return {team: data['points'] for team, data in standings.items()}
