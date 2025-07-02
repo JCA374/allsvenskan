@@ -512,6 +512,30 @@ def simulation_page():
                 try:
                     fixtures = pd.read_csv("data/clean/fixtures.csv")
                     
+                    # Check if we have any fixtures to simulate
+                    if len(fixtures) == 0:
+                        st.warning("⚠️ No upcoming fixtures found in data. Creating sample fixtures for demonstration...")
+                        # Create sample fixtures using current teams
+                        results = pd.read_csv("data/clean/results.csv")
+                        teams = sorted(set(results['HomeTeam'].unique()).union(set(results['AwayTeam'].unique())))
+                        
+                        sample_fixtures = []
+                        from datetime import datetime, timedelta
+                        
+                        # Create some sample upcoming matches
+                        start_date = datetime.now() + timedelta(days=7)
+                        for i in range(min(20, len(teams))):
+                            home_team = teams[i % len(teams)]
+                            away_team = teams[(i + 1) % len(teams)]
+                            sample_fixtures.append({
+                                'Date': start_date + timedelta(days=i),
+                                'HomeTeam': home_team,
+                                'AwayTeam': away_team
+                            })
+                        
+                        fixtures = pd.DataFrame(sample_fixtures)
+                        st.info(f"Created {len(fixtures)} sample fixtures for simulation")
+                    
                     model = PoissonModel()
                     model.load("models/poisson_params.pkl")
                     
