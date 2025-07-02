@@ -106,6 +106,9 @@ The system is built with Python and Streamlit, featuring a modular architecture 
 ```
 Changelog:
 - July 02, 2025. Initial setup
+- July 02, 2025. Added PostgreSQL database integration with full CRUD operations
+- July 02, 2025. Added Database Management page for monitoring and data viewing
+- July 02, 2025. Added Data Verification page for validating scraped and cleaned data
 ```
 
 ## User Preferences

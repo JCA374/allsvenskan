@@ -48,11 +48,13 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a section:",
-        ["Data Collection", "Model Training", "Monte Carlo Simulation", "Results Analysis", "Dashboard", "Database Management"]
+        ["Data Collection", "Data Verification", "Model Training", "Monte Carlo Simulation", "Results Analysis", "Dashboard", "Database Management"]
     )
     
     if page == "Data Collection":
         data_collection_page()
+    elif page == "Data Verification":
+        data_verification_page()
     elif page == "Model Training":
         model_training_page()
     elif page == "Monte Carlo Simulation":
@@ -169,6 +171,213 @@ def data_collection_page():
                         st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
             else:
                 st.warning("⚠️ No data found. Please scrape data first.")
+
+def data_verification_page():
+    st.header("🔍 Data Verification")
+    
+    if not st.session_state.data_loaded:
+        st.warning("⚠️ Please load data first in the Data Collection section.")
+        return
+    
+    st.markdown("Verify that your data has been loaded and cleaned correctly by examining specific matches.")
+    
+    # Load data from database or files
+    try:
+        # Try database first
+        all_matches = None
+        if st.session_state.get('db_connected', False):
+            try:
+                all_matches = st.session_state.db_manager.load_matches()
+                data_source = "Database"
+            except Exception as e:
+                st.warning(f"Database load failed: {str(e)}")
+        
+        # Fallback to files
+        if all_matches is None or all_matches.empty:
+            results_file = "data/clean/results.csv"
+            fixtures_file = "data/clean/fixtures.csv"
+            
+            if os.path.exists(results_file) and os.path.exists(fixtures_file):
+                results = pd.read_csv(results_file)
+                fixtures = pd.read_csv(fixtures_file)
+                all_matches = pd.concat([results, fixtures], ignore_index=True)
+                data_source = "Files"
+            else:
+                st.error("❌ No data found. Please collect data first.")
+                return
+        
+        if all_matches.empty:
+            st.error("❌ No match data available.")
+            return
+        
+        st.success(f"✅ Data loaded from {data_source}")
+        
+        # Parse dates to extract years
+        try:
+            all_matches['Date'] = pd.to_datetime(all_matches['Date'], errors='coerce')
+            all_matches['Year'] = all_matches['Date'].dt.year
+        except:
+            # If date parsing fails, try to extract year from string
+            all_matches['Year'] = all_matches['Date'].astype(str).str.extract(r'(\d{4})').astype(float)
+        
+        # Get available teams and years
+        all_teams = sorted(set(all_matches['HomeTeam'].dropna().unique()) | 
+                          set(all_matches['AwayTeam'].dropna().unique()))
+        available_years = sorted(all_matches['Year'].dropna().unique(), reverse=True)
+        
+        # Create verification interface
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            selected_home_team = st.selectbox(
+                "Select Home Team:",
+                options=all_teams,
+                index=0 if all_teams else None
+            )
+        
+        with col2:
+            selected_away_team = st.selectbox(
+                "Select Away Team:",
+                options=all_teams,
+                index=1 if len(all_teams) > 1 else 0
+            )
+        
+        with col3:
+            selected_year = st.selectbox(
+                "Select Year:",
+                options=available_years,
+                index=0 if available_years else None
+            )
+        
+        # Filter and display results
+        if st.button("🔍 Search Matches", type="primary"):
+            # Filter matches based on selection
+            filtered_matches = all_matches[
+                (
+                    ((all_matches['HomeTeam'] == selected_home_team) & 
+                     (all_matches['AwayTeam'] == selected_away_team)) |
+                    ((all_matches['HomeTeam'] == selected_away_team) & 
+                     (all_matches['AwayTeam'] == selected_home_team))
+                ) &
+                (all_matches['Year'] == selected_year)
+            ].copy()
+            
+            if not filtered_matches.empty:
+                st.subheader(f"📋 Matches: {selected_home_team} vs {selected_away_team} in {int(selected_year)}")
+                
+                # Separate results and fixtures
+                results = filtered_matches[filtered_matches['FTHG'].notna() & filtered_matches['FTAG'].notna()]
+                fixtures = filtered_matches[filtered_matches['FTHG'].isna() | filtered_matches['FTAG'].isna()]
+                
+                # Display results
+                if not results.empty:
+                    st.write(f"**Completed Matches ({len(results)}):**")
+                    
+                    display_results = results[['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']].copy()
+                    display_results['Score'] = display_results['FTHG'].astype(int).astype(str) + " - " + display_results['FTAG'].astype(int).astype(str)
+                    display_results['Result'] = display_results.apply(
+                        lambda x: f"{x['HomeTeam']} {x['Score']} {x['AwayTeam']}", axis=1
+                    )
+                    
+                    for _, match in display_results.iterrows():
+                        st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['Result']}")
+                
+                # Display fixtures
+                if not fixtures.empty:
+                    st.write(f"**Upcoming Fixtures ({len(fixtures)}):**")
+                    
+                    display_fixtures = fixtures[['Date', 'HomeTeam', 'AwayTeam']].copy()
+                    
+                    for _, match in display_fixtures.iterrows():
+                        st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['HomeTeam']} vs {match['AwayTeam']}")
+                
+                # Show data quality summary
+                st.subheader("📊 Data Quality Summary")
+                
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    st.metric("Total Matches Found", len(filtered_matches))
+                
+                with col2:
+                    st.metric("Completed Results", len(results))
+                
+                with col3:
+                    st.metric("Upcoming Fixtures", len(fixtures))
+                
+                with col4:
+                    missing_dates = filtered_matches['Date'].isna().sum()
+                    st.metric("Missing Dates", missing_dates)
+                
+                # Show raw data for verification
+                if st.checkbox("Show Raw Data"):
+                    st.subheader("Raw Match Data")
+                    st.dataframe(filtered_matches)
+                
+            else:
+                st.info(f"ℹ️ No matches found between {selected_home_team} and {selected_away_team} in {int(selected_year)}")
+                
+                # Show alternative suggestions
+                st.subheader("💡 Suggestions")
+                
+                # Show matches involving either team in that year
+                team_matches = all_matches[
+                    ((all_matches['HomeTeam'] == selected_home_team) | 
+                     (all_matches['AwayTeam'] == selected_home_team) |
+                     (all_matches['HomeTeam'] == selected_away_team) | 
+                     (all_matches['AwayTeam'] == selected_away_team)) &
+                    (all_matches['Year'] == selected_year)
+                ]
+                
+                if not team_matches.empty:
+                    st.write(f"Found {len(team_matches)} matches involving these teams in {int(selected_year)}:")
+                    
+                    # Show unique opponents
+                    opponents_home = set(team_matches[team_matches['HomeTeam'] == selected_home_team]['AwayTeam'].dropna())
+                    opponents_away = set(team_matches[team_matches['AwayTeam'] == selected_home_team]['HomeTeam'].dropna())
+                    opponents_home2 = set(team_matches[team_matches['HomeTeam'] == selected_away_team]['AwayTeam'].dropna())
+                    opponents_away2 = set(team_matches[team_matches['AwayTeam'] == selected_away_team]['HomeTeam'].dropna())
+                    
+                    all_opponents = (opponents_home | opponents_away | opponents_home2 | opponents_away2) - {selected_home_team, selected_away_team}
+                    
+                    if all_opponents:
+                        st.write("Teams they played against:")
+                        for opponent in sorted(all_opponents):
+                            st.write(f"• {opponent}")
+        
+        # Overall data summary
+        st.subheader("📈 Overall Data Summary")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            total_matches = len(all_matches)
+            completed_matches = len(all_matches[all_matches['FTHG'].notna() & all_matches['FTAG'].notna()])
+            st.metric("Total Matches in Dataset", total_matches)
+            st.metric("Completed Matches", completed_matches)
+        
+        with col2:
+            st.metric("Total Teams", len(all_teams))
+            st.metric("Years Covered", len(available_years))
+        
+        with col3:
+            if available_years:
+                st.metric("Earliest Year", int(min(available_years)))
+                st.metric("Latest Year", int(max(available_years)))
+        
+        # Show team list
+        if st.checkbox("Show All Teams"):
+            st.subheader("All Teams in Dataset")
+            teams_per_row = 3
+            for i in range(0, len(all_teams), teams_per_row):
+                cols = st.columns(teams_per_row)
+                for j, team in enumerate(all_teams[i:i+teams_per_row]):
+                    with cols[j]:
+                        st.write(f"• {team}")
+    
+    except Exception as e:
+        st.error(f"❌ Error during data verification: {str(e)}")
+        st.info("Please check that your data has been collected and cleaned properly.")
 
 def model_training_page():
     st.header("🧠 Model Training")
