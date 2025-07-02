@@ -1,0 +1,78 @@
+The reason you’re getting a 404 is simply that there is no server‐side HTML at
+
+```text
+https://allsvenskan.se/matcher/2025/
+```
+
+– “/matcher” is a purely client-side view that the React/JS in `main.js` populates, so hitting that URL directly always fails .
+
+You have two straightforward fixes:
+
+---
+
+## 1) Hit the JSON API directly
+
+If you load the `/matcher` page in your browser and open DevTools ▶️ Network ▶️ XHR, you’ll see it calling something like:
+
+```
+https://allsvenskan.se/wp-json/sef-leagues/v1/matches?league=allsvenskan&season=2025
+```
+
+Once you have that, you can bypass all HTML and do:
+
+```python
+import requests
+
+API = "https://allsvenskan.se/wp-json/sef-leagues/v1/matches"
+params = {"league": "allsvenskan", "season": 2025}
+headers = {"User-Agent": "my-scraper/1.0"}  # mimic a real browser
+
+resp = requests.get(API, params=params, headers=headers)
+resp.raise_for_status()
+
+data = resp.json()
+# for example:
+import pandas as pd
+matches = pd.json_normalize(data["matches"])
+print(matches.head())
+```
+
+No Selenium required, and you’ll get a clean JSON payload of every fixture.
+
+---
+
+## 2) Render the page with a headless browser
+
+If you still want to scrape the rendered HTML (e.g. for some tiny bits the API doesn’t cover), drive Chrome or Firefox:
+
+```python
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+
+def fetch_matches(year: int):
+    url = "https://allsvenskan.se/matcher"
+    opts = webdriver.ChromeOptions()
+    opts.add_argument("--headless")
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=opts)
+
+    driver.get(f"{url}")          # no /year in the path
+    # if you want a different season, you can inject JS:
+    driver.execute_script(f"window.pageData.data.season = '{year}';")
+    driver.refresh()
+    time.sleep(2)                 # wait for JS to fetch and render
+    html = driver.page_source
+    driver.quit()
+    return html
+
+html = fetch_matches(2025)
+# then pass html into BeautifulSoup(...)
+```
+
+Either way, **don’t** `GET /matcher/2025/` –
+
+* if you want raw data, call the WP-REST JSON endpoint
+* if you want the rendered page, GET `/matcher` and let the JS run.
+
+Let me know if you hit any more snags!
