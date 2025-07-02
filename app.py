@@ -259,26 +259,28 @@ def analysis_page():
         
         with col1:
             st.subheader("🏆 Championship Probabilities")
-            champ_df = pd.DataFrame(list(championship_odds.items()), 
-                                  columns=['Team', 'Championship %'])
-            champ_df['Championship %'] = champ_df['Championship %'] * 100
+            champ_df = pd.DataFrame({
+                'Team': [team for team, prob in championship_odds.items()],
+                'Championship %': [prob * 100 for team, prob in championship_odds.items()]
+            })
             champ_df = champ_df.sort_values('Championship %', ascending=False)
             
             fig_champ = px.bar(champ_df.head(8), x='Team', y='Championship %',
                               title="Top 8 Championship Contenders")
-            fig_champ.update_xaxis(tickangle=45)
+            fig_champ.update_xaxes(tickangle=45)
             st.plotly_chart(fig_champ, use_container_width=True)
             
         with col2:
             st.subheader("⬇️ Relegation Probabilities")
-            releg_df = pd.DataFrame(list(relegation_odds.items()), 
-                                  columns=['Team', 'Relegation %'])
-            releg_df['Relegation %'] = releg_df['Relegation %'] * 100
+            releg_df = pd.DataFrame({
+                'Team': [team for team, prob in relegation_odds.items()],
+                'Relegation %': [prob * 100 for team, prob in relegation_odds.items()]
+            })
             releg_df = releg_df.sort_values('Relegation %', ascending=False)
             
             fig_releg = px.bar(releg_df.head(8), x='Team', y='Relegation %',
                               title="Top 8 Relegation Candidates", color_discrete_sequence=['red'])
-            fig_releg.update_xaxis(tickangle=45)
+            fig_releg.update_xaxes(tickangle=45)
             st.plotly_chart(fig_releg, use_container_width=True)
         
         # Position probability heatmap
@@ -298,8 +300,10 @@ def analysis_page():
         
         # Expected points comparison
         st.subheader("📏 Expected Final Points")
-        points_df = pd.DataFrame(list(expected_points.items()), 
-                               columns=['Team', 'Expected Points'])
+        points_df = pd.DataFrame({
+            'Team': [team for team, points in expected_points.items()],
+            'Expected Points': [points for team, points in expected_points.items()]
+        })
         points_df = points_df.sort_values('Expected Points', ascending=True)
         
         fig_points = px.bar(points_df, x='Expected Points', y='Team', 

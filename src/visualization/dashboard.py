@@ -154,7 +154,7 @@ class Dashboard:
                 title="Expected Final Points",
                 labels={'Mean_Points': 'Expected Points', 'Team': 'Team'}
             )
-            fig_points.update_xaxis(tickangle=45)
+            fig_points.update_xaxes(tickangle=45)
             st.plotly_chart(fig_points, use_container_width=True)
         
         with col2:
