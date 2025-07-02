@@ -110,6 +110,7 @@ Changelog:
 - July 02, 2025. Added Database Management page for monitoring and data viewing
 - July 02, 2025. Added Data Verification page for validating scraped and cleaned data
 - July 02, 2025. Enhanced scraper to support multi-year data collection (2015-2025) with selectable year ranges
+- July 02, 2025. Improved scraper to properly parse Swedish match format (OMGÅNG, dates, venues, scores) and handle 403 errors with better headers and retry logic
 ```
 
 ## User Preferences

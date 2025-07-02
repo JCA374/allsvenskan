@@ -10,7 +10,17 @@ class AllsvenskanScraper:
     def __init__(self):
         self.base_url = "https://allsvenskan.se/matcher"
         self.headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+            'Accept-Language': 'sv-SE,sv;q=0.9,en;q=0.8',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'DNT': '1',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Cache-Control': 'max-age=0'
         }
     
     def scrape_matches(self, years=None):
@@ -38,43 +48,56 @@ class AllsvenskanScraper:
             return self._create_sample_data()
     
     def _scrape_year(self, year):
-        """Scrape match data for a specific year"""
+        """Scrape match data for a specific year with better error handling"""
         try:
             year_url = f"{self.base_url}/{year}/"
             print(f"Fetching from: {year_url}")
             
-            # Get the main content using trafilatura
-            downloaded = trafilatura.fetch_url(year_url)
+            # Try trafilatura first (bypasses some blocking)
+            downloaded = None
+            try:
+                downloaded = trafilatura.fetch_url(year_url, include_comments=False, include_tables=True)
+                if downloaded:
+                    print(f"Successfully fetched content using trafilatura for {year}")
+            except Exception as e:
+                print(f"Trafilatura failed for {year}: {e}")
+            
+            # Fallback to requests with retry logic
+            if not downloaded:
+                for attempt in range(3):
+                    try:
+                        print(f"Attempt {attempt + 1} with requests for {year}")
+                        session = requests.Session()
+                        session.headers.update(self.headers)
+                        response = session.get(year_url, timeout=30)
+                        
+                        if response.status_code == 200:
+                            downloaded = response.text
+                            print(f"Successfully fetched content using requests for {year}")
+                            break
+                        else:
+                            print(f"HTTP {response.status_code} for {year}")
+                            
+                    except Exception as e:
+                        print(f"Request attempt {attempt + 1} failed for {year}: {e}")
+                        if attempt < 2:
+                            time.sleep(2 ** attempt)  # Exponential backoff
             
             if not downloaded:
-                # Fallback to requests
-                response = requests.get(year_url, headers=self.headers)
-                response.raise_for_status()
-                downloaded = response.text
+                print(f"Failed to download content for {year}")
+                return pd.DataFrame()
             
-            soup = BeautifulSoup(downloaded, 'html.parser')
+            # Extract text content and parse
+            text_content = trafilatura.extract(downloaded, include_comments=False, include_tables=True)
+            if not text_content:
+                # Fallback to BeautifulSoup extraction
+                soup = BeautifulSoup(downloaded, 'html.parser')
+                text_content = soup.get_text()
             
-            matches = []
+            print(f"Extracted {len(text_content)} characters of text for {year}")
             
-            # Look for match containers - adapt selectors based on actual site structure
-            match_elements = soup.find_all(['div', 'li', 'tr'], class_=re.compile(r'match|fixture|game', re.I))
-            
-            if not match_elements:
-                # Try alternative selectors
-                match_elements = soup.find_all(text=re.compile(r'\d+\s*-\s*\d+'))
-                
-            for element in match_elements:
-                try:
-                    match_data = self._parse_match_element(element, year)
-                    if match_data:
-                        matches.append(match_data)
-                except Exception as e:
-                    continue  # Skip problematic matches
-            
-            if not matches:
-                # Fallback: extract text and parse manually
-                text_content = trafilatura.extract(downloaded) if downloaded else ""
-                matches = self._parse_text_content(text_content, year)
+            # Parse the Swedish format content
+            matches = self._parse_text_content(text_content, year)
             
             year_df = pd.DataFrame(matches) if matches else pd.DataFrame()
             print(f"Found {len(year_df)} matches for {year}")
@@ -133,46 +156,108 @@ class AllsvenskanScraper:
         return None
     
     def _parse_text_content(self, text_content, year=2025):
-        """Parse matches from extracted text content"""
+        """Parse matches from extracted text content in Swedish format"""
         matches = []
         
-        # Common Swedish team names for matching
-        teams = [
-            "AIK", "BK Häcken", "Djurgårdens IF", "Elfsborg", "Göteborg", 
-            "Hammarby", "Halmstad", "Kalmar FF", "Malmö FF", "Mjällby", 
-            "Norrköping", "Sirius", "Värnamo", "Degerfors", "Varberg", "Östersund"
-        ]
+        if not text_content:
+            return matches
         
-        lines = text_content.split('\n') if text_content else []
+        lines = text_content.split('\n')
+        current_round = None
+        current_date = None
+        current_venue = None
         
-        for line in lines:
-            line = line.strip()
+        # Swedish month mapping
+        swedish_months = {
+            'januari': '01', 'februari': '02', 'mars': '03', 'april': '04',
+            'maj': '05', 'juni': '06', 'juli': '07', 'augusti': '08',
+            'september': '09', 'oktober': '10', 'november': '11', 'december': '12'
+        }
+        
+        i = 0
+        while i < len(lines):
+            line = lines[i].strip()
+            
+            # Skip empty lines
             if not line:
+                i += 1
                 continue
+            
+            # Check for round header (OMGÅNG X)
+            round_match = re.search(r'OMGÅNG\s+(\d+)', line, re.IGNORECASE)
+            if round_match:
+                current_round = round_match.group(1)
+                i += 1
+                continue
+            
+            # Check for date (MÅNDAG 31 MARS, SÖNDAG 2 JUNI, etc.)
+            date_match = re.search(r'(MÅNDAG|TISDAG|ONSDAG|TORSDAG|FREDAG|LÖRDAG|SÖNDAG)\s+(\d+)\s+(\w+)', line, re.IGNORECASE)
+            if date_match:
+                day = date_match.group(2)
+                month_str = date_match.group(3).lower()
+                month = swedish_months.get(month_str, '07')
+                current_date = f"{year}-{month}-{day.zfill(2)}"
+                i += 1
+                continue
+            
+            # Check for venue (simple text line before match)
+            if line and not re.search(r'\d', line) and '-' not in line and len(line) < 50:
+                current_venue = line
+                i += 1
+                continue
+            
+            # Check for match line with teams and score
+            # Format: "Team1 - Team2" followed by score on next lines
+            if ' - ' in line and not line.startswith('http'):
+                teams_line = line
                 
-            # Look for patterns that might contain match info
-            for home_team in teams:
-                for away_team in teams:
-                    if home_team != away_team and home_team in line and away_team in line:
-                        # Check if this looks like a match result
-                        score_pattern = r'(\d+)\s*-\s*(\d+)'
-                        score_match = re.search(score_pattern, line)
+                # Extract teams
+                teams_parts = teams_line.split(' - ')
+                if len(teams_parts) == 2:
+                    home_team = teams_parts[0].strip()
+                    away_team = teams_parts[1].strip()
+                    
+                    # Look for scores in next few lines
+                    home_goals = None
+                    away_goals = None
+                    
+                    # Check next few lines for score pattern
+                    for j in range(i + 1, min(i + 4, len(lines))):
+                        score_line = lines[j].strip()
                         
-                        match_data = {
-                            'Date': f'{year}-07-01',
-                            'Venue': 'Stadium',
-                            'Match': f"{home_team} - {away_team}",
-                            'HomeGoals': None,
-                            'AwayGoals': None,
-                            'Summary': 'Match'
-                        }
+                        # Look for two separate numbers (home and away goals)
+                        if re.match(r'^\d+$', score_line):
+                            if home_goals is None:
+                                home_goals = int(score_line)
+                            elif away_goals is None:
+                                away_goals = int(score_line)
+                                break
                         
+                        # Look for "X Y" pattern on same line
+                        score_match = re.search(r'^(\d+)\s+(\d+)$', score_line)
                         if score_match:
-                            match_data['HomeGoals'] = int(score_match.group(1))
-                            match_data['AwayGoals'] = int(score_match.group(2))
-                        
-                        matches.append(match_data)
-                        break
+                            home_goals = int(score_match.group(1))
+                            away_goals = int(score_match.group(2))
+                            break
+                    
+                    # Create match data
+                    match_data = {
+                        'Date': current_date or f'{year}-07-01',
+                        'Venue': current_venue or 'Stadium',
+                        'Match': f"{home_team} - {away_team}",
+                        'HomeTeam': home_team,
+                        'AwayTeam': away_team,
+                        'HomeGoals': home_goals,
+                        'AwayGoals': away_goals,
+                        'FTHG': home_goals,
+                        'FTAG': away_goals,
+                        'Round': current_round,
+                        'Summary': 'Match' if home_goals is not None else 'Fixture'
+                    }
+                    
+                    matches.append(match_data)
+            
+            i += 1
         
         return matches
     
