@@ -5,6 +5,7 @@ import os
 from datetime import datetime, timedelta
 import plotly.express as px
 import plotly.graph_objects as go
+from sqlalchemy import text
 
 # Import custom modules
 from src.data.scraper import AllsvenskanScraper
@@ -14,6 +15,7 @@ from src.models.poisson_model import PoissonModel
 from src.simulation.simulator import MonteCarloSimulator
 from src.analysis.aggregator import ResultsAggregator
 from src.visualization.dashboard import Dashboard
+from src.database.db_manager import DatabaseManager
 
 # Page configuration
 st.set_page_config(
@@ -30,6 +32,13 @@ if 'model_trained' not in st.session_state:
     st.session_state.model_trained = False
 if 'simulation_complete' not in st.session_state:
     st.session_state.simulation_complete = False
+if 'db_manager' not in st.session_state:
+    try:
+        st.session_state.db_manager = DatabaseManager()
+        st.session_state.db_connected = st.session_state.db_manager.test_connection()
+    except Exception as e:
+        st.session_state.db_manager = None
+        st.session_state.db_connected = False
 
 def main():
     st.title("⚽ Allsvenskan Monte Carlo Forecast")
@@ -39,7 +48,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a section:",
-        ["Data Collection", "Model Training", "Monte Carlo Simulation", "Results Analysis", "Dashboard"]
+        ["Data Collection", "Model Training", "Monte Carlo Simulation", "Results Analysis", "Dashboard", "Database Management"]
     )
     
     if page == "Data Collection":
@@ -52,9 +61,17 @@ def main():
         analysis_page()
     elif page == "Dashboard":
         dashboard_page()
+    elif page == "Database Management":
+        database_management_page()
 
 def data_collection_page():
     st.header("📊 Data Collection & Processing")
+    
+    # Database status indicator
+    if st.session_state.get('db_connected', False):
+        st.success("🗄️ Database connected and ready")
+    else:
+        st.warning("⚠️ Database not connected - using file storage only")
     
     col1, col2 = st.columns(2)
     
@@ -67,7 +84,7 @@ def data_collection_page():
                     raw_data = scraper.scrape_matches()
                     
                     if raw_data is not None and not raw_data.empty:
-                        # Save raw data
+                        # Save raw data to files
                         os.makedirs("data/raw", exist_ok=True)
                         raw_data.to_csv("data/raw/fixtures_results_raw.csv", index=False)
                         st.success(f"✅ Successfully scraped {len(raw_data)} matches!")
@@ -77,9 +94,22 @@ def data_collection_page():
                         cleaner = DataCleaner()
                         results, fixtures = cleaner.clean_data(raw_data)
                         
+                        # Save to files
                         os.makedirs("data/clean", exist_ok=True)
                         results.to_csv("data/clean/results.csv", index=False)
                         fixtures.to_csv("data/clean/fixtures.csv", index=False)
+                        
+                        # Save to database if connected
+                        if st.session_state.get('db_connected', False):
+                            try:
+                                # Combine results and fixtures for database storage
+                                combined_data = pd.concat([results, fixtures], ignore_index=True)
+                                if st.session_state.db_manager.save_matches(combined_data):
+                                    st.success("✅ Data saved to database")
+                                else:
+                                    st.warning("⚠️ Could not save to database - using file storage")
+                            except Exception as e:
+                                st.warning(f"⚠️ Database save failed: {str(e)}")
                         
                         st.session_state.data_loaded = True
                         st.success(f"✅ Data cleaned: {len(results)} completed matches, {len(fixtures)} upcoming fixtures")
@@ -93,28 +123,52 @@ def data_collection_page():
     with col2:
         st.subheader("Data Status")
         
-        # Check for existing data
-        results_exist = os.path.exists("data/clean/results.csv")
-        fixtures_exist = os.path.exists("data/clean/fixtures.csv")
+        # Check database first, then files
+        db_data_available = False
+        if st.session_state.get('db_connected', False):
+            try:
+                db_results = st.session_state.db_manager.load_matches('result')
+                db_fixtures = st.session_state.db_manager.load_matches('fixture')
+                
+                if not db_results.empty or not db_fixtures.empty:
+                    st.success("✅ Data available in database")
+                    st.metric("Completed Matches (DB)", len(db_results))
+                    st.metric("Upcoming Fixtures (DB)", len(db_fixtures))
+                    db_data_available = True
+                    st.session_state.data_loaded = True
+                    
+                    # Show recent results from database
+                    if len(db_results) > 0:
+                        st.subheader("Recent Results (Database)")
+                        recent = db_results.tail(5)
+                        for _, match in recent.iterrows():
+                            st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
+            except Exception as e:
+                st.warning(f"⚠️ Database error: {str(e)}")
         
-        if results_exist and fixtures_exist:
-            st.success("✅ Clean data files found")
-            results = pd.read_csv("data/clean/results.csv")
-            fixtures = pd.read_csv("data/clean/fixtures.csv")
+        # Fallback to file data if database not available
+        if not db_data_available:
+            results_exist = os.path.exists("data/clean/results.csv")
+            fixtures_exist = os.path.exists("data/clean/fixtures.csv")
             
-            st.metric("Completed Matches", len(results))
-            st.metric("Upcoming Fixtures", len(fixtures))
-            
-            st.session_state.data_loaded = True
-            
-            # Show recent results
-            if len(results) > 0:
-                st.subheader("Recent Results")
-                recent = results.tail(5)
-                for _, match in recent.iterrows():
-                    st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
-        else:
-            st.warning("⚠️ No clean data found. Please scrape data first.")
+            if results_exist and fixtures_exist:
+                st.success("✅ Clean data files found")
+                results = pd.read_csv("data/clean/results.csv")
+                fixtures = pd.read_csv("data/clean/fixtures.csv")
+                
+                st.metric("Completed Matches (Files)", len(results))
+                st.metric("Upcoming Fixtures (Files)", len(fixtures))
+                
+                st.session_state.data_loaded = True
+                
+                # Show recent results
+                if len(results) > 0:
+                    st.subheader("Recent Results (Files)")
+                    recent = results.tail(5)
+                    for _, match in recent.iterrows():
+                        st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
+            else:
+                st.warning("⚠️ No data found. Please scrape data first.")
 
 def model_training_page():
     st.header("🧠 Model Training")
@@ -131,13 +185,33 @@ def model_training_page():
         if st.button("📈 Calculate Team Strengths", type="primary"):
             with st.spinner("Calculating team strengths..."):
                 try:
-                    results = pd.read_csv("data/clean/results.csv")
+                    # Load results from database first, then files
+                    results = None
+                    if st.session_state.get('db_connected', False):
+                        try:
+                            results = st.session_state.db_manager.load_matches('result')
+                            st.info("📊 Using data from database")
+                        except Exception as e:
+                            st.warning(f"⚠️ Database load failed: {str(e)}")
+                    
+                    if results is None or results.empty:
+                        results = pd.read_csv("data/clean/results.csv")
+                        st.info("📁 Using data from files")
                     
                     strength_calc = TeamStrengthCalculator()
                     team_stats = strength_calc.calculate_strengths(results)
                     
+                    # Save to files
                     os.makedirs("data/processed", exist_ok=True)
                     team_stats.to_csv("data/processed/team_stats.csv")
+                    
+                    # Save to database if connected
+                    if st.session_state.get('db_connected', False):
+                        try:
+                            if st.session_state.db_manager.save_team_statistics(team_stats):
+                                st.success("✅ Team strengths saved to database")
+                        except Exception as e:
+                            st.warning(f"⚠️ Database save failed: {str(e)}")
                     
                     st.success("✅ Team strengths calculated!")
                     st.dataframe(team_stats)
@@ -326,6 +400,98 @@ def dashboard_page():
         
     except Exception as e:
         st.error(f"❌ Error loading dashboard: {str(e)}")
+
+def database_management_page():
+    st.header("🗄️ Database Management")
+    
+    if not st.session_state.get('db_connected', False):
+        st.error("❌ Database not connected")
+        st.info("Database functionality requires a PostgreSQL connection. Please check your environment variables.")
+        return
+    
+    st.success("✅ Database connected successfully")
+    
+    # Database status overview
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.subheader("📊 Database Overview")
+        
+        try:
+            # Check table counts
+            with st.session_state.db_manager.engine.connect() as conn:
+                matches_count = conn.execute(text("SELECT COUNT(*) FROM matches")).scalar()
+                team_stats_count = conn.execute(text("SELECT COUNT(*) FROM team_statistics")).scalar()
+                model_params_count = conn.execute(text("SELECT COUNT(*) FROM model_parameters")).scalar()
+                sim_results_count = conn.execute(text("SELECT COUNT(DISTINCT simulation_id) FROM simulation_results")).scalar()
+            
+            st.metric("Total Matches", matches_count)
+            st.metric("Team Statistics Records", team_stats_count)
+            st.metric("Model Parameters", model_params_count)
+            st.metric("Simulation Runs", sim_results_count)
+            
+        except Exception as e:
+            st.error(f"Error querying database: {str(e)}")
+    
+    with col2:
+        st.subheader("🔧 Database Operations")
+        
+        if st.button("📋 View Recent Matches"):
+            try:
+                recent_matches = st.session_state.db_manager.load_matches()
+                if not recent_matches.empty:
+                    st.dataframe(recent_matches.head(10))
+                else:
+                    st.info("No matches found in database")
+            except Exception as e:
+                st.error(f"Error loading matches: {str(e)}")
+        
+        if st.button("📈 View Team Statistics"):
+            try:
+                team_stats = st.session_state.db_manager.load_team_statistics()
+                if not team_stats.empty:
+                    st.dataframe(team_stats)
+                else:
+                    st.info("No team statistics found in database")
+            except Exception as e:
+                st.error(f"Error loading team statistics: {str(e)}")
+        
+        if st.button("🎲 View Simulation History"):
+            try:
+                sim_history = st.session_state.db_manager.get_simulation_history()
+                if not sim_history.empty:
+                    st.dataframe(sim_history)
+                else:
+                    st.info("No simulation history found")
+            except Exception as e:
+                st.error(f"Error loading simulation history: {str(e)}")
+    
+    # Advanced operations
+    st.subheader("⚠️ Advanced Operations")
+    st.warning("Use these operations carefully as they may affect stored data")
+    
+    col3, col4 = st.columns(2)
+    
+    with col3:
+        if st.button("🔄 Test Database Connection", type="secondary"):
+            if st.session_state.db_manager.test_connection():
+                st.success("✅ Database connection successful")
+            else:
+                st.error("❌ Database connection failed")
+    
+    with col4:
+        if st.button("📊 Show Database Schema", type="secondary"):
+            st.subheader("Database Tables")
+            tables_info = [
+                ("matches", "Stores match data (results and fixtures)"),
+                ("team_statistics", "Team performance statistics"),
+                ("model_parameters", "Poisson model parameters"),
+                ("simulation_results", "Monte Carlo simulation results"),
+                ("analysis_results", "Aggregated analysis results")
+            ]
+            
+            for table_name, description in tables_info:
+                st.write(f"**{table_name}**: {description}")
 
 if __name__ == "__main__":
     main()

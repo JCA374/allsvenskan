@@ -56,11 +56,12 @@ The system is built with Python and Streamlit, featuring a modular architecture 
 
 1. **Scraping**: Raw match data extracted from allsvenskan.se
 2. **Cleaning**: Data normalized and split into completed matches (results) and upcoming matches (fixtures)
-3. **Strength Calculation**: Team performance metrics calculated from historical results
-4. **Model Training**: Poisson model fitted using team strengths and match outcomes
-5. **Simulation**: Monte Carlo process simulates remaining fixtures thousands of times
-6. **Aggregation**: Results processed to generate statistics and probabilities
-7. **Visualization**: Interactive dashboard displays predictions and analysis
+3. **Storage**: Data persisted in PostgreSQL database with file system fallback
+4. **Strength Calculation**: Team performance metrics calculated from historical results
+5. **Model Training**: Poisson model fitted using team strengths and match outcomes
+6. **Simulation**: Monte Carlo process simulates remaining fixtures thousands of times
+7. **Aggregation**: Results processed to generate statistics and probabilities
+8. **Visualization**: Interactive dashboard displays predictions and analysis
 
 ## External Dependencies
 
@@ -89,7 +90,9 @@ The system is built with Python and Streamlit, featuring a modular architecture 
 - Modular structure allows for easy testing of individual components
 
 ### Data Storage
-- CSV-based data storage for simplicity and transparency
+- **Primary**: PostgreSQL database for persistent, reliable storage
+- **Fallback**: CSV-based file storage for compatibility and backup
+- Database tables: matches, team_statistics, model_parameters, simulation_results, analysis_results
 - Directory structure separates raw, cleaned, and processed data
 - Results stored in reports directory for persistence
 
