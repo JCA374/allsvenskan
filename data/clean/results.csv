@@ -1,121 +1,589 @@
 Date,HomeTeam,AwayTeam,FTHG,FTAG
-2024-03-08 00:00:00,IFK Norrkoping,Halmstad,1,1
-2024-03-08 00:00:00,BK Hacken,IF Elfsborg,2,2
-2024-03-08 00:00:00,Varbergs BoIS,Mjallby AIF,2,1
-2024-03-08 00:00:00,Varnamo,Kalmar FF,1,1
-2024-03-08 00:00:00,AIK,Djurgardens IF,3,2
-2024-03-08 00:00:00,Degerfors IF,Ostersunds FK,0,1
-2024-03-08 00:00:00,IFK Goteborg,Sirius,1,0
-2024-03-08 00:00:00,Malmo FF,Hammarby IF,2,0
-2024-03-15 00:00:00,Ostersunds FK,Kalmar FF,2,2
-2024-03-15 00:00:00,IF Elfsborg,Djurgardens IF,0,0
-2024-03-15 00:00:00,Mjallby AIF,Sirius,1,0
-2024-03-15 00:00:00,Hammarby IF,Varbergs BoIS,1,0
-2024-03-15 00:00:00,IFK Norrkoping,Malmo FF,1,1
-2024-03-15 00:00:00,IFK Goteborg,Halmstad,1,1
-2024-03-15 00:00:00,Degerfors IF,BK Hacken,1,1
-2024-03-15 00:00:00,AIK,Varnamo,3,1
-2024-03-22 00:00:00,Halmstad,Mjallby AIF,1,0
-2024-03-22 00:00:00,Varbergs BoIS,AIK,3,1
-2024-03-22 00:00:00,Malmo FF,Degerfors IF,2,0
-2024-03-22 00:00:00,Ostersunds FK,Varnamo,1,2
-2024-03-22 00:00:00,IFK Goteborg,IF Elfsborg,2,0
-2024-03-22 00:00:00,IFK Norrkoping,Djurgardens IF,0,2
-2024-03-22 00:00:00,Hammarby IF,Sirius,1,2
-2024-03-22 00:00:00,Kalmar FF,BK Hacken,1,1
-2024-04-01 00:00:00,IFK Goteborg,Ostersunds FK,2,1
-2024-04-01 00:00:00,IF Elfsborg,Halmstad,1,1
-2024-04-01 00:00:00,Varbergs BoIS,Varnamo,3,2
-2024-04-01 00:00:00,BK Hacken,Degerfors IF,0,2
-2024-04-01 00:00:00,Mjallby AIF,Malmo FF,2,2
-2024-04-01 00:00:00,AIK,IFK Norrkoping,1,1
-2024-04-01 00:00:00,Kalmar FF,Djurgardens IF,0,0
-2024-04-01 00:00:00,Hammarby IF,Sirius,2,2
-2024-04-08 00:00:00,Halmstad,Ostersunds FK,1,0
-2024-04-08 00:00:00,IF Elfsborg,Malmo FF,1,4
-2024-04-08 00:00:00,Sirius,Degerfors IF,2,0
-2024-04-08 00:00:00,IFK Norrkoping,Djurgardens IF,1,1
-2024-04-08 00:00:00,Hammarby IF,Varbergs BoIS,0,2
-2024-04-08 00:00:00,Varnamo,IFK Goteborg,2,3
-2024-04-08 00:00:00,Mjallby AIF,AIK,1,0
-2024-04-08 00:00:00,Kalmar FF,BK Hacken,2,3
-2024-04-15 00:00:00,Malmo FF,AIK,0,0
-2024-04-15 00:00:00,IFK Norrkoping,Sirius,1,1
-2024-04-15 00:00:00,Djurgardens IF,Ostersunds FK,1,0
-2024-04-15 00:00:00,Varnamo,Varbergs BoIS,0,1
-2024-04-15 00:00:00,Mjallby AIF,Degerfors IF,1,3
-2024-04-15 00:00:00,Hammarby IF,IF Elfsborg,3,0
-2024-04-15 00:00:00,Halmstad,Kalmar FF,1,2
-2024-04-15 00:00:00,IFK Goteborg,BK Hacken,1,0
-2024-04-22 00:00:00,Kalmar FF,Malmo FF,2,4
-2024-04-22 00:00:00,Degerfors IF,IFK Goteborg,0,1
-2024-04-22 00:00:00,BK Hacken,Mjallby AIF,1,2
-2024-04-22 00:00:00,Djurgardens IF,Sirius,1,0
-2024-04-22 00:00:00,Halmstad,AIK,1,1
-2024-04-22 00:00:00,Varbergs BoIS,IF Elfsborg,1,0
-2024-04-22 00:00:00,IFK Norrkoping,Varnamo,3,1
-2024-04-22 00:00:00,Hammarby IF,Ostersunds FK,3,1
-2024-05-01 00:00:00,Halmstad,BK Hacken,0,1
-2024-05-01 00:00:00,IFK Goteborg,Varnamo,3,2
-2024-05-01 00:00:00,Degerfors IF,Sirius,1,2
-2024-05-01 00:00:00,Varbergs BoIS,IFK Norrkoping,2,2
-2024-05-01 00:00:00,IF Elfsborg,Djurgardens IF,2,1
-2024-05-01 00:00:00,Hammarby IF,Ostersunds FK,0,0
-2024-05-01 00:00:00,Malmo FF,Kalmar FF,0,2
-2024-05-01 00:00:00,Mjallby AIF,AIK,0,1
-2024-05-08 00:00:00,BK Hacken,Hammarby IF,1,3
-2024-05-08 00:00:00,Mjallby AIF,IFK Goteborg,2,1
-2024-05-08 00:00:00,Varbergs BoIS,Degerfors IF,0,0
-2024-05-08 00:00:00,IF Elfsborg,Ostersunds FK,2,1
-2024-05-08 00:00:00,Sirius,Malmo FF,1,1
-2024-05-08 00:00:00,Djurgardens IF,Varnamo,2,1
-2024-05-08 00:00:00,Kalmar FF,IFK Norrkoping,1,0
-2024-05-08 00:00:00,Halmstad,AIK,2,1
-2024-05-15 00:00:00,IF Elfsborg,Degerfors IF,1,0
-2024-05-15 00:00:00,Varbergs BoIS,BK Hacken,2,2
-2024-05-15 00:00:00,Sirius,Ostersunds FK,2,4
-2024-05-15 00:00:00,IFK Goteborg,Hammarby IF,2,0
-2024-05-15 00:00:00,Kalmar FF,Mjallby AIF,2,1
-2024-05-15 00:00:00,AIK,Varnamo,2,3
-2024-05-15 00:00:00,Halmstad,IFK Norrkoping,0,0
-2024-05-15 00:00:00,Malmo FF,Djurgardens IF,0,1
-2024-05-22 00:00:00,IF Elfsborg,Ostersunds FK,0,2
-2024-05-22 00:00:00,AIK,Degerfors IF,2,1
-2024-05-22 00:00:00,Mjallby AIF,Malmo FF,2,1
-2024-05-22 00:00:00,Djurgardens IF,IFK Norrkoping,1,0
-2024-05-22 00:00:00,Varbergs BoIS,Varnamo,0,2
-2024-05-22 00:00:00,BK Hacken,Sirius,3,1
-2024-05-22 00:00:00,Hammarby IF,Halmstad,2,1
-2024-05-22 00:00:00,IFK Goteborg,Kalmar FF,0,0
-2024-06-01 00:00:00,IFK Norrkoping,Djurgardens IF,4,2
-2024-06-01 00:00:00,Degerfors IF,Kalmar FF,3,0
-2024-06-01 00:00:00,Ostersunds FK,IFK Goteborg,2,1
-2024-06-01 00:00:00,IF Elfsborg,Sirius,3,2
-2024-06-01 00:00:00,AIK,Mjallby AIF,3,2
-2024-06-01 00:00:00,Hammarby IF,Varbergs BoIS,1,2
-2024-06-01 00:00:00,Malmo FF,Varnamo,0,2
-2024-06-01 00:00:00,BK Hacken,Halmstad,3,0
-2024-06-08 00:00:00,Degerfors IF,Kalmar FF,2,2
-2024-06-08 00:00:00,AIK,Ostersunds FK,1,0
-2024-06-08 00:00:00,Halmstad,IFK Norrkoping,3,1
-2024-06-08 00:00:00,Djurgardens IF,IF Elfsborg,2,4
-2024-06-08 00:00:00,Mjallby AIF,Malmo FF,0,1
-2024-06-08 00:00:00,Sirius,Hammarby IF,1,2
-2024-06-08 00:00:00,Varnamo,IFK Goteborg,1,4
-2024-06-08 00:00:00,BK Hacken,Varbergs BoIS,0,2
-2024-06-15 00:00:00,Varbergs BoIS,AIK,2,0
-2024-06-15 00:00:00,BK Hacken,Varnamo,3,1
-2024-06-15 00:00:00,Mjallby AIF,IFK Norrkoping,2,1
-2024-06-15 00:00:00,Djurgardens IF,Hammarby IF,2,1
-2024-06-15 00:00:00,Halmstad,Kalmar FF,0,2
-2024-06-15 00:00:00,Degerfors IF,Ostersunds FK,1,2
-2024-06-15 00:00:00,Sirius,Malmo FF,0,1
-2024-06-15 00:00:00,IFK Goteborg,IF Elfsborg,1,2
-2024-06-22 00:00:00,Varbergs BoIS,Malmo FF,2,1
-2024-06-22 00:00:00,Djurgardens IF,Varnamo,2,1
-2024-06-22 00:00:00,AIK,Mjallby AIF,0,3
-2024-06-22 00:00:00,Degerfors IF,Kalmar FF,1,1
-2024-06-22 00:00:00,IFK Norrkoping,BK Hacken,2,0
-2024-06-22 00:00:00,Sirius,Ostersunds FK,0,4
-2024-06-22 00:00:00,IF Elfsborg,Hammarby IF,2,2
-2024-06-22 00:00:00,IFK Goteborg,Halmstad,1,2
+2023-04-01,Malmo FF,Kalmar,1,0
+2023-04-01,Djurgarden,Brommapojkarna,3,1
+2023-04-02,Hammarby,Degerfors,3,1
+2023-04-02,Norrkoping,Sirius,1,1
+2023-04-02,Goteborg,Varnamo,0,1
+2023-04-02,Halmstad,AIK,2,1
+2023-04-03,Mjallby,Varberg,2,2
+2023-04-03,Elfsborg,Hacken,0,2
+2023-04-08,Brommapojkarna,Malmo FF,1,2
+2023-04-08,Degerfors,Halmstad,3,1
+2023-04-09,Hacken,Hammarby,3,1
+2023-04-09,Kalmar,Goteborg,2,0
+2023-04-09,Sirius,Djurgarden,0,0
+2023-04-10,Varnamo,Mjallby,0,1
+2023-04-10,AIK,Norrkoping,0,3
+2023-04-10,Varberg,Elfsborg,0,0
+2023-04-15,Elfsborg,Brommapojkarna,5,0
+2023-04-15,Hacken,Kalmar,1,3
+2023-04-16,AIK,Hammarby,2,0
+2023-04-16,Norrkoping,Varnamo,2,1
+2023-04-16,Halmstad,Djurgarden,2,0
+2023-04-16,Mjallby,Degerfors,2,0
+2023-04-17,Varberg,Sirius,1,1
+2023-04-17,Goteborg,Malmo FF,0,1
+2023-04-22,Hammarby,Varberg,2,0
+2023-04-22,Degerfors,Elfsborg,1,2
+2023-04-23,Djurgarden,Goteborg,1,0
+2023-04-23,Kalmar,Halmstad,2,0
+2023-04-23,Sirius,Hacken,1,4
+2023-04-24,Brommapojkarna,Mjallby,2,0
+2023-04-24,Varnamo,AIK,1,0
+2023-04-24,Malmo FF,Norrkoping,3,0
+2023-04-29,AIK,Sirius,0,0
+2023-04-29,Mjallby,Elfsborg,0,1
+2023-04-29,Hacken,Varnamo,3,1
+2023-04-29,Halmstad,Brommapojkarna,0,2
+2023-04-30,Malmo FF,Hammarby,4,2
+2023-04-30,Varberg,Kalmar,0,0
+2023-04-30,Degerfors,Djurgarden,2,1
+2023-05-01,Goteborg,Norrkoping,1,1
+2023-05-03,Elfsborg,Halmstad,6,1
+2023-05-03,Hacken,Djurgarden,4,1
+2023-05-03,Kalmar,Sirius,2,2
+2023-05-03,Mjallby,AIK,0,0
+2023-05-04,Goteborg,Degerfors,6,0
+2023-05-04,Norrkoping,Hammarby,2,0
+2023-05-04,Varberg,Malmo FF,0,6
+2023-05-04,Varnamo,Brommapojkarna,0,1
+2023-05-07,Malmo FF,AIK,3,1
+2023-05-07,Halmstad,Hacken,1,0
+2023-05-08,Brommapojkarna,Goteborg,0,0
+2023-05-08,Degerfors,Norrkoping,0,2
+2023-05-08,Sirius,Elfsborg,3,4
+2023-05-08,Djurgarden,Kalmar,3,1
+2023-05-09,Hammarby,Mjallby,0,0
+2023-05-09,Varnamo,Varberg,3,1
+2023-05-13,Hacken,Degerfors,6,1
+2023-05-13,Varberg,Norrkoping,1,3
+2023-05-14,Elfsborg,Varnamo,2,0
+2023-05-14,Hammarby,Djurgarden,4,3
+2023-05-14,Mjallby,Sirius,3,0
+2023-05-14,Halmstad,Malmo FF,0,1
+2023-05-14,Kalmar,Brommapojkarna,1,3
+2023-05-15,AIK,Goteborg,2,2
+2023-05-20,Degerfors,AIK,2,1
+2023-05-21,Brommapojkarna,Varberg,2,1
+2023-05-21,Djurgarden,Mjallby,2,0
+2023-05-21,Malmo FF,Hacken,2,2
+2023-05-21,Goteborg,Hammarby,1,1
+2023-05-21,Sirius,Halmstad,1,2
+2023-05-22,Varnamo,Kalmar,0,1
+2023-05-22,Norrkoping,Elfsborg,1,2
+2023-05-24,Djurgarden,Hacken,1,0
+2023-05-25,Degerfors,Hammarby,2,2
+2023-05-27,Mjallby,Halmstad,0,2
+2023-05-27,Brommapojkarna,Sirius,1,2
+2023-05-28,Djurgarden,AIK,1,0
+2023-05-28,Kalmar,Norrkoping,2,1
+2023-05-28,Elfsborg,Malmo FF,3,0
+2023-05-29,Degerfors,Varberg,1,1
+2023-05-29,Hammarby,Varnamo,0,2
+2023-05-29,Hacken,Goteborg,4,1
+2023-06-03,Goteborg,Mjallby,0,1
+2023-06-03,Norrkoping,Brommapojkarna,0,2
+2023-06-04,AIK,Kalmar,1,1
+2023-06-04,Halmstad,Hammarby,0,0
+2023-06-04,Elfsborg,Djurgarden,1,1
+2023-06-04,Sirius,Varnamo,2,0
+2023-06-05,Varberg,Hacken,0,2
+2023-06-05,Malmo FF,Degerfors,5,0
+2023-06-09,Hammarby,Brommapojkarna,2,1
+2023-06-10,Kalmar,Degerfors,2,1
+2023-06-10,Varnamo,Malmo FF,1,3
+2023-06-10,Varberg,Halmstad,1,2
+2023-06-11,AIK,Elfsborg,1,2
+2023-06-11,Sirius,Goteborg,2,0
+2023-06-11,Djurgarden,Norrkoping,2,2
+2023-06-11,Hacken,Mjallby,3,0
+2023-07-01,Brommapojkarna,AIK,0,2
+2023-07-01,Degerfors,Varnamo,0,2
+2023-07-01,Malmo FF,Sirius,3,0
+2023-07-02,Halmstad,Goteborg,0,0
+2023-07-02,Norrkoping,Hacken,2,2
+2023-07-02,Djurgarden,Varberg,2,0
+2023-07-03,Elfsborg,Hammarby,2,0
+2023-07-03,Mjallby,Kalmar,1,1
+2023-07-08,AIK,Hacken,1,2
+2023-07-08,Varnamo,Djurgarden,1,2
+2023-07-08,Brommapojkarna,Degerfors,1,2
+2023-07-09,Malmo FF,Mjallby,1,2
+2023-07-09,Sirius,Hammarby,1,2
+2023-07-09,Kalmar,Elfsborg,0,4
+2023-07-10,Goteborg,Varberg,1,2
+2023-07-10,Norrkoping,Halmstad,1,2
+2023-07-15,Halmstad,Varnamo,2,2
+2023-07-15,Degerfors,Sirius,0,3
+2023-07-15,Hacken,Brommapojkarna,4,2
+2023-07-16,Elfsborg,Goteborg,1,1
+2023-07-16,Hammarby,Kalmar,3,1
+2023-07-16,Mjallby,Norrkoping,1,2
+2023-07-17,Djurgarden,Malmo FF,2,0
+2023-07-17,Varberg,AIK,1,2
+2023-07-21,Brommapojkarna,Hammarby,1,0
+2023-07-22,Djurgarden,Elfsborg,0,4
+2023-07-22,Varnamo,Hacken,1,0
+2023-07-23,AIK,Malmo FF,0,0
+2023-07-23,Norrkoping,Degerfors,1,0
+2023-07-23,Goteborg,Halmstad,0,0
+2023-07-23,Kalmar,Varberg,1,0
+2023-07-24,Sirius,Mjallby,2,3
+2023-07-29,Hacken,Elfsborg,3,1
+2023-07-29,Degerfors,Brommapojkarna,2,0
+2023-07-29,Halmstad,Varberg,0,5
+2023-07-30,Hammarby,Norrkoping,2,1
+2023-07-30,Mjallby,Djurgarden,0,1
+2023-07-30,Goteborg,Kalmar,2,0
+2023-07-31,Malmo FF,Varnamo,3,1
+2023-07-31,Sirius,AIK,0,1
+2023-08-05,Brommapojkarna,Varnamo,0,2
+2023-08-06,Elfsborg,Sirius,1,0
+2023-08-06,Kalmar,AIK,1,1
+2023-08-07,Malmo FF,Halmstad,3,0
+2023-08-07,Norrkoping,Goteborg,3,0
+2023-08-07,Varberg,Mjallby,0,3
+2023-08-12,AIK,Brommapojkarna,2,2
+2023-08-13,Goteborg,Djurgarden,2,1
+2023-08-13,Sirius,Kalmar,3,0
+2023-08-13,Hacken,Varberg,2,0
+2023-08-13,Halmstad,Norrkoping,1,3
+2023-08-13,Hammarby,Elfsborg,1,0
+2023-08-14,Mjallby,Malmo FF,1,0
+2023-08-14,Varnamo,Degerfors,0,1
+2023-08-19,Brommapojkarna,Halmstad,3,1
+2023-08-19,Degerfors,Goteborg,1,2
+2023-08-19,Varberg,Varnamo,0,3
+2023-08-20,Hacken,Sirius,3,2
+2023-08-20,Malmo FF,Djurgarden,0,0
+2023-08-20,Elfsborg,Mjallby,2,0
+2023-08-20,Kalmar,Hammarby,0,0
+2023-08-21,Norrkoping,AIK,3,1
+2023-08-27,Brommapojkarna,Kalmar,2,3
+2023-08-27,Mjallby,Hammarby,0,3
+2023-08-27,Varnamo,Halmstad,0,0
+2023-08-27,Djurgarden,Degerfors,4,1
+2023-08-27,Goteborg,Hacken,4,2
+2023-08-28,AIK,Varberg,3,0
+2023-08-28,Elfsborg,Norrkoping,3,2
+2023-08-28,Sirius,Malmo FF,1,3
+2023-09-02,Halmstad,Sirius,2,1
+2023-09-02,Varnamo,Elfsborg,1,0
+2023-09-03,Degerfors,Hacken,1,0
+2023-09-03,Hammarby,AIK,4,2
+2023-09-03,Kalmar,Mjallby,0,2
+2023-09-03,Malmo FF,Goteborg,2,2
+2023-09-03,Norrkoping,Djurgarden,0,2
+2023-09-03,Varberg,Brommapojkarna,4,3
+2023-09-16,Goteborg,Brommapojkarna,1,0
+2023-09-16,Sirius,Varberg,7,0
+2023-09-16,Djurgarden,Varnamo,1,2
+2023-09-17,Hammarby,Malmo FF,1,3
+2023-09-17,Elfsborg,Kalmar,0,3
+2023-09-17,Hacken,Halmstad,3,2
+2023-09-18,Norrkoping,Mjallby,0,2
+2023-09-18,AIK,Degerfors,2,0
+2023-09-23,Degerfors,Malmo FF,1,2
+2023-09-23,Brommapojkarna,Norrkoping,2,2
+2023-09-24,AIK,Djurgarden,2,0
+2023-09-24,Mjallby,Goteborg,0,1
+2023-09-24,Kalmar,Hacken,1,0
+2023-09-24,Varberg,Hammarby,0,1
+2023-09-25,Halmstad,Elfsborg,0,1
+2023-09-25,Varnamo,Sirius,0,1
+2023-09-30,Djurgarden,Halmstad,1,0
+2023-09-30,Norrkoping,Kalmar,1,0
+2023-10-01,Hacken,AIK,2,0
+2023-10-01,Sirius,Degerfors,3,2
+2023-10-01,Hammarby,Goteborg,1,1
+2023-10-01,Mjallby,Varnamo,2,3
+2023-10-02,Elfsborg,Varberg,2,1
+2023-10-02,Malmo FF,Brommapojkarna,2,1
+2023-10-07,AIK,Mjallby,1,0
+2023-10-07,Halmstad,Degerfors,0,0
+2023-10-07,Goteborg,Sirius,0,1
+2023-10-08,Brommapojkarna,Elfsborg,0,3
+2023-10-08,Kalmar,Malmo FF,1,0
+2023-10-08,Varnamo,Norrkoping,2,1
+2023-10-08,Hammarby,Hacken,2,2
+2023-10-08,Varberg,Djurgarden,0,1
+2023-10-21,Degerfors,Kalmar,1,3
+2023-10-21,Sirius,Brommapojkarna,3,2
+2023-10-22,Djurgarden,Hammarby,0,0
+2023-10-22,Halmstad,Mjallby,1,1
+2023-10-22,Hacken,Norrkoping,4,1
+2023-10-22,Malmo FF,Varberg,5,0
+2023-10-23,Varnamo,Goteborg,3,1
+2023-10-23,Elfsborg,AIK,3,0
+2023-10-28,Brommapojkarna,Djurgarden,1,2
+2023-10-28,Varberg,Degerfors,1,1
+2023-10-29,Kalmar,Varnamo,1,3
+2023-10-29,Mjallby,Hacken,2,1
+2023-10-29,Norrkoping,Malmo FF,0,1
+2023-10-29,AIK,Halmstad,1,1
+2023-10-30,Hammarby,Sirius,2,2
+2023-10-30,Goteborg,Elfsborg,1,2
+2023-11-04,Varnamo,Hammarby,0,0
+2023-11-04,Djurgarden,Sirius,2,4
+2023-11-05,Hacken,Malmo FF,4,2
+2023-11-05,Halmstad,Kalmar,3,0
+2023-11-05,Elfsborg,Degerfors,2,2
+2023-11-05,Mjallby,Brommapojkarna,1,2
+2023-11-06,Norrkoping,Varberg,4,3
+2023-11-06,Goteborg,AIK,1,1
+2023-11-12,AIK,Varnamo,3,1
+2023-11-12,Brommapojkarna,Hacken,2,1
+2023-11-12,Degerfors,Mjallby,1,2
+2023-11-12,Hammarby,Halmstad,2,2
+2023-11-12,Kalmar,Djurgarden,2,1
+2023-11-12,Malmo FF,Elfsborg,1,0
+2023-11-12,Sirius,Norrkoping,2,0
+2023-11-12,Varberg,Goteborg,1,2
+2024-03-30,Norrkoping,Malmo FF,1,5
+2024-03-31,GAIS,Brommapojkarna,0,4
+2024-03-31,Hammarby,Kalmar,3,1
+2024-03-31,Hacken,Mjallby,0,1
+2024-04-01,Goteborg,Djurgarden,1,4
+2024-04-01,Sirius,Halmstad,3,0
+2024-04-01,AIK,Vasteras SK,1,0
+2024-04-01,Elfsborg,Varnamo,2,2
+2024-04-06,Brommapojkarna,AIK,2,2
+2024-04-06,Mjallby,Norrkoping,3,0
+2024-04-07,Halmstad,Goteborg,1,0
+2024-04-07,Malmo FF,Hammarby,2,0
+2024-04-07,Vasteras SK,Elfsborg,0,1
+2024-04-08,Kalmar,Sirius,1,2
+2024-04-08,Varnamo,GAIS,1,2
+2024-04-08,Djurgarden,Hacken,3,3
+2024-04-13,Mjallby,AIK,1,1
+2024-04-13,Vasteras SK,Halmstad,0,1
+2024-04-14,Kalmar,Goteborg,0,1
+2024-04-14,Norrkoping,GAIS,1,0
+2024-04-14,Djurgarden,Sirius,2,0
+2024-04-15,Hacken,Brommapojkarna,4,3
+2024-04-15,Varnamo,Malmo FF,0,4
+2024-04-15,Hammarby,Elfsborg,3,0
+2024-04-20,Goteborg,Norrkoping,1,1
+2024-04-20,Sirius,Varnamo,0,1
+2024-04-20,Malmo FF,Vasteras SK,1,0
+2024-04-21,AIK,Djurgarden,2,0
+2024-04-21,GAIS,Mjallby,2,1
+2024-04-21,Hacken,Hammarby,2,1
+2024-04-21,Halmstad,Brommapojkarna,0,2
+2024-04-22,Elfsborg,Kalmar,1,2
+2024-04-24,AIK,Varnamo,2,0
+2024-04-24,Brommapojkarna,Sirius,1,1
+2024-04-24,Goteborg,Hacken,0,1
+2024-04-25,Djurgarden,Malmo FF,0,1
+2024-04-25,Halmstad,Hammarby,2,1
+2024-04-25,Kalmar,GAIS,2,3
+2024-04-25,Norrkoping,Elfsborg,4,2
+2024-04-25,Vasteras SK,Mjallby,2,1
+2024-04-28,Malmo FF,AIK,5,0
+2024-04-28,Varnamo,Halmstad,1,3
+2024-04-28,Djurgarden,GAIS,1,0
+2024-04-28,Hacken,Norrkoping,1,2
+2024-04-29,Brommapojkarna,Goteborg,0,3
+2024-04-29,Elfsborg,Sirius,2,0
+2024-04-29,Mjallby,Kalmar,3,2
+2024-04-29,Hammarby,Vasteras SK,2,1
+2024-05-04,Kalmar,Halmstad,5,2
+2024-05-04,Mjallby,Brommapojkarna,1,1
+2024-05-04,Sirius,Hacken,0,3
+2024-05-05,Elfsborg,Malmo FF,3,1
+2024-05-05,Vasteras SK,Djurgarden,0,2
+2024-05-05,AIK,Norrkoping,6,2
+2024-05-05,Hammarby,Varnamo,1,2
+2024-05-06,GAIS,Goteborg,2,1
+2024-05-11,AIK,Sirius,1,3
+2024-05-11,Halmstad,Mjallby,1,3
+2024-05-11,GAIS,Vasteras SK,2,0
+2024-05-12,Hacken,Kalmar,3,1
+2024-05-12,Norrkoping,Hammarby,1,2
+2024-05-12,Djurgarden,Elfsborg,2,0
+2024-05-12,Varnamo,Brommapojkarna,1,1
+2024-05-13,Goteborg,Malmo FF,0,3
+2024-05-15,Elfsborg,AIK,6,1
+2024-05-15,Halmstad,Hacken,3,0
+2024-05-15,Mjallby,Hammarby,3,0
+2024-05-15,Vasteras SK,Varnamo,0,2
+2024-05-16,Brommapojkarna,Djurgarden,0,5
+2024-05-16,Kalmar,Norrkoping,1,1
+2024-05-16,Malmo FF,GAIS,1,0
+2024-05-16,Sirius,Goteborg,2,2
+2024-05-19,Brommapojkarna,Norrkoping,2,1
+2024-05-19,Hammarby,AIK,2,1
+2024-05-19,GAIS,Elfsborg,2,1
+2024-05-19,Varnamo,Kalmar,0,2
+2024-05-20,Djurgarden,Halmstad,2,0
+2024-05-20,Sirius,Vasteras SK,0,0
+2024-05-20,Hacken,Malmo FF,2,2
+2024-05-21,Goteborg,Mjallby,1,0
+2024-05-24,Elfsborg,Halmstad,2,0
+2024-05-24,Malmo FF,Kalmar,5,0
+2024-05-25,GAIS,Hacken,3,0
+2024-05-25,Mjallby,Djurgarden,1,3
+2024-05-26,Hammarby,Sirius,3,0
+2024-05-26,Vasteras SK,Brommapojkarna,1,1
+2024-05-27,Norrkoping,Varnamo,0,4
+2024-05-27,AIK,Goteborg,5,2
+2024-05-28,Malmo FF,Elfsborg,2,1
+2024-05-29,Mjallby,Hacken,2,1
+2024-06-01,Brommapojkarna,Malmo FF,2,2
+2024-06-01,Goteborg,Elfsborg,1,0
+2024-06-01,Halmstad,GAIS,4,0
+2024-06-01,Sirius,Norrkoping,5,1
+2024-06-02,Djurgarden,Hammarby,0,3
+2024-06-02,Kalmar,Vasteras SK,0,4
+2024-06-02,Hacken,AIK,4,1
+2024-06-02,Varnamo,Mjallby,1,2
+2024-07-06,Elfsborg,Brommapojkarna,3,0
+2024-07-06,Mjallby,Sirius,3,2
+2024-07-07,AIK,Kalmar,1,2
+2024-07-07,Varnamo,Goteborg,2,0
+2024-07-07,GAIS,Hammarby,0,0
+2024-07-07,Malmo FF,Halmstad,5,1
+2024-07-08,Norrkoping,Djurgarden,1,3
+2024-07-08,Vasteras SK,Hacken,1,2
+2024-07-13,Mjallby,Malmo FF,2,1
+2024-07-13,Sirius,GAIS,3,1
+2024-07-14,Djurgarden,Varnamo,1,0
+2024-07-14,Hacken,Elfsborg,3,5
+2024-07-14,Kalmar,Brommapojkarna,0,1
+2024-07-14,Vasteras SK,Norrkoping,2,1
+2024-07-15,Halmstad,AIK,1,2
+2024-07-15,Hammarby,Goteborg,0,1
+2024-07-19,Sirius,Malmo FF,3,4
+2024-07-20,Kalmar,Djurgarden,2,1
+2024-07-20,Varnamo,Hacken,2,2
+2024-07-20,Brommapojkarna,Hammarby,0,2
+2024-07-21,Norrkoping,Halmstad,1,0
+2024-07-21,Elfsborg,Mjallby,3,1
+2024-07-21,Goteborg,Vasteras SK,1,1
+2024-07-22,GAIS,AIK,2,0
+2024-07-27,Norrkoping,Kalmar,2,0
+2024-07-27,Goteborg,Brommapojkarna,3,4
+2024-07-27,Malmo FF,Sirius,0,1
+2024-07-27,Halmstad,Varnamo,1,0
+2024-07-28,Elfsborg,Djurgarden,1,2
+2024-07-28,Hacken,Vasteras SK,4,0
+2024-07-28,Hammarby,Mjallby,3,0
+2024-07-29,AIK,GAIS,0,1
+2024-08-03,GAIS,Norrkoping,0,1
+2024-08-03,Vasteras SK,AIK,1,2
+2024-08-03,Brommapojkarna,Halmstad,4,1
+2024-08-04,Djurgarden,Goteborg,1,1
+2024-08-04,Varnamo,Sirius,2,4
+2024-08-04,Kalmar,Hammarby,1,4
+2024-08-10,Halmstad,Malmo FF,0,1
+2024-08-10,Norrkoping,Vasteras SK,2,1
+2024-08-10,Goteborg,Varnamo,0,0
+2024-08-11,AIK,Mjallby,1,0
+2024-08-11,Elfsborg,GAIS,2,1
+2024-08-11,Sirius,Kalmar,3,1
+2024-08-12,Hammarby,Brommapojkarna,3,3
+2024-08-17,Goteborg,Sirius,1,1
+2024-08-17,Malmo FF,Norrkoping,2,1
+2024-08-17,Varnamo,Hammarby,0,3
+2024-08-17,Vasteras SK,Kalmar,2,1
+2024-08-18,Brommapojkarna,Hacken,1,3
+2024-08-18,Djurgarden,AIK,0,2
+2024-08-18,Mjallby,Elfsborg,1,1
+2024-08-18,GAIS,Halmstad,3,1
+2024-08-24,Kalmar,Malmo FF,2,2
+2024-08-25,Elfsborg,Goteborg,3,1
+2024-08-25,Sirius,Djurgarden,0,1
+2024-08-25,AIK,Brommapojkarna,2,1
+2024-08-25,Hacken,Varnamo,1,1
+2024-08-26,Halmstad,Vasteras SK,0,1
+2024-08-26,Hammarby,GAIS,0,0
+2024-08-26,Norrkoping,Mjallby,1,2
+2024-08-31,GAIS,Kalmar,1,1
+2024-08-31,Varnamo,AIK,0,1
+2024-08-31,Mjallby,Halmstad,3,1
+2024-08-31,Vasteras SK,Sirius,1,2
+2024-09-01,Brommapojkarna,Elfsborg,3,3
+2024-09-01,Malmo FF,Djurgarden,4,0
+2024-09-01,Goteborg,Hammarby,0,1
+2024-09-01,Norrkoping,Hacken,3,3
+2024-09-14,Vasteras SK,GAIS,2,3
+2024-09-15,AIK,Malmo FF,0,0
+2024-09-15,Djurgarden,Mjallby,1,1
+2024-09-15,Sirius,Brommapojkarna,3,2
+2024-09-15,Hacken,Goteborg,3,3
+2024-09-15,Halmstad,Elfsborg,0,1
+2024-09-15,Kalmar,Varnamo,3,1
+2024-09-16,Hammarby,Norrkoping,1,1
+2024-09-18,GAIS,Malmo FF,0,0
+2024-09-19,Elfsborg,Norrkoping,2,2
+2024-09-19,Hacken,Djurgarden,1,2
+2024-09-21,Kalmar,AIK,0,1
+2024-09-21,Brommapojkarna,Mjallby,0,0
+2024-09-22,Elfsborg,Hammarby,0,0
+2024-09-22,GAIS,Djurgarden,3,0
+2024-09-22,Varnamo,Vasteras SK,2,0
+2024-09-22,Malmo FF,Hacken,4,0
+2024-09-23,Goteborg,Halmstad,1,1
+2024-09-25,Djurgarden,Brommapojkarna,2,1
+2024-09-25,Mjallby,Varnamo,1,1
+2024-09-25,Sirius,AIK,0,1
+2024-09-26,Halmstad,Kalmar,2,2
+2024-09-26,Hammarby,Hacken,2,0
+2024-09-26,Vasteras SK,Goteborg,1,1
+2024-09-29,AIK,Hammarby,1,0
+2024-09-29,Halmstad,Norrkoping,0,0
+2024-09-29,Varnamo,Djurgarden,1,1
+2024-09-29,Hacken,Sirius,2,0
+2024-09-29,Kalmar,Elfsborg,1,3
+2024-09-29,Malmo FF,Mjallby,2,0
+2024-09-30,Brommapojkarna,Vasteras SK,2,1
+2024-09-30,Goteborg,GAIS,2,0
+2024-10-03,Norrkoping,Sirius,0,2
+2024-10-05,Hammarby,Halmstad,1,0
+2024-10-05,Mjallby,Vasteras SK,2,1
+2024-10-05,Brommapojkarna,GAIS,2,0
+2024-10-06,AIK,Hacken,0,2
+2024-10-06,Djurgarden,Kalmar,1,1
+2024-10-06,Malmo FF,Varnamo,1,1
+2024-10-06,Norrkoping,Goteborg,0,2
+2024-10-06,Sirius,Elfsborg,4,1
+2024-10-19,Elfsborg,Hacken,1,3
+2024-10-19,Vasteras SK,Malmo FF,1,1
+2024-10-19,Halmstad,Sirius,3,1
+2024-10-20,Kalmar,Mjallby,0,3
+2024-10-20,GAIS,Varnamo,0,0
+2024-10-21,Hammarby,Djurgarden,2,0
+2024-10-21,Norrkoping,Brommapojkarna,1,1
+2024-10-21,Goteborg,AIK,1,2
+2024-10-26,Mjallby,GAIS,1,1
+2024-10-26,Sirius,Hammarby,0,3
+2024-10-26,Brommapojkarna,Kalmar,1,2
+2024-10-27,AIK,Elfsborg,2,1
+2024-10-27,Varnamo,Norrkoping,1,2
+2024-10-27,Hacken,Halmstad,0,1
+2024-10-28,Djurgarden,Vasteras SK,2,1
+2024-10-28,Malmo FF,Goteborg,2,1
+2024-11-02,Elfsborg,Vasteras SK,1,0
+2024-11-02,Hammarby,Malmo FF,2,2
+2024-11-02,Goteborg,Kalmar,1,1
+2024-11-03,Brommapojkarna,Varnamo,0,1
+2024-11-03,Hacken,GAIS,1,2
+2024-11-03,Halmstad,Djurgarden,1,0
+2024-11-03,Sirius,Mjallby,1,1
+2024-11-04,Norrkoping,AIK,1,0
+2024-11-10,AIK,Halmstad,5,1
+2024-11-10,Djurgarden,Norrkoping,3,1
+2024-11-10,GAIS,Sirius,2,1
+2024-11-10,Kalmar,Hacken,1,0
+2024-11-10,Malmo FF,Brommapojkarna,2,1
+2024-11-10,Mjallby,Goteborg,1,0
+2024-11-10,Varnamo,Elfsborg,0,0
+2024-11-10,Vasteras SK,Hammarby,1,0
+2024-11-21,Landskrona,Varnamo,2,2
+2024-11-24,Varnamo,Landskrona,1,0
+2025-03-29,Djurgarden,Malmo FF,0,1
+2025-03-29,Hacken,Brommapojkarna,2,0
+2025-03-30,Elfsborg,Mjallby,2,2
+2025-03-30,Hammarby,Goteborg,4,0
+2025-03-30,Halmstad,Degerfors,0,5
+2025-03-30,Norrkoping,Oster,4,3
+2025-03-31,Varnamo,Sirius,1,2
+2025-03-31,GAIS,AIK,0,1
+2025-04-05,Goteborg,Halmstad,1,0
+2025-04-05,Sirius,Djurgarden,0,1
+2025-04-05,Oster,Hacken,2,0
+2025-04-06,AIK,Norrkoping,4,3
+2025-04-06,Brommapojkarna,Hammarby,0,2
+2025-04-06,Degerfors,Varnamo,1,0
+2025-04-06,Mjallby,GAIS,1,1
+2025-04-07,Malmo FF,Elfsborg,2,1
+2025-04-12,Hacken,Mjallby,0,3
+2025-04-12,Elfsborg,Norrkoping,2,0
+2025-04-13,Hammarby,Djurgarden,2,0
+2025-04-13,Varnamo,Goteborg,0,1
+2025-04-13,GAIS,Degerfors,2,0
+2025-04-13,Sirius,Brommapojkarna,0,3
+2025-04-14,Halmstad,Oster,1,0
+2025-04-14,AIK,Malmo FF,0,0
+2025-04-18,Malmo FF,Sirius,1,1
+2025-04-18,Mjallby,Hammarby,3,1
+2025-04-19,Degerfors,Elfsborg,0,1
+2025-04-19,Norrkoping,Halmstad,3,0
+2025-04-20,Brommapojkarna,Varnamo,3,2
+2025-04-20,Oster,AIK,0,1
+2025-04-20,Goteborg,Hacken,2,3
+2025-04-21,Djurgarden,GAIS,0,0
+2025-04-23,Elfsborg,Sirius,4,3
+2025-04-23,Hacken,Degerfors,3,4
+2025-04-23,Halmstad,Mjallby,1,3
+2025-04-23,Hammarby,Malmo FF,2,0
+2025-04-24,Djurgarden,Oster,1,0
+2025-04-24,GAIS,Brommapojkarna,1,1
+2025-04-24,Norrkoping,Goteborg,2,3
+2025-04-24,Varnamo,AIK,1,2
+2025-04-27,Hacken,Hammarby,1,1
+2025-04-27,Mjallby,Degerfors,4,1
+2025-04-27,AIK,Elfsborg,2,0
+2025-04-27,Sirius,Halmstad,1,1
+2025-04-27,Varnamo,Norrkoping,1,3
+2025-04-28,Goteborg,GAIS,1,1
+2025-04-29,Malmo FF,Oster,2,0
+2025-05-03,Degerfors,Sirius,1,1
+2025-05-03,Halmstad,Varnamo,4,2
+2025-05-04,Djurgarden,AIK,1,1
+2025-05-04,Norrkoping,Hacken,0,2
+2025-05-04,Mjallby,Goteborg,1,0
+2025-05-04,Oster,Hammarby,0,3
+2025-05-05,Malmo FF,Brommapojkarna,1,2
+2025-05-05,Elfsborg,GAIS,2,0
+2025-05-10,Brommapojkarna,Halmstad,0,1
+2025-05-10,GAIS,Varnamo,1,1
+2025-05-10,Sirius,Hacken,2,0
+2025-05-11,AIK,Mjallby,2,1
+2025-05-11,Hammarby,Norrkoping,1,1
+2025-05-11,Degerfors,Malmo FF,1,4
+2025-05-11,Oster,Elfsborg,0,1
+2025-05-12,Goteborg,Djurgarden,1,2
+2025-05-14,Hacken,AIK,3,3
+2025-05-14,Halmstad,GAIS,1,3
+2025-05-14,Hammarby,Sirius,3,2
+2025-05-15,Djurgarden,Mjallby,1,3
+2025-05-15,Elfsborg,Brommapojkarna,4,3
+2025-05-15,Goteborg,Oster,0,1
+2025-05-15,Norrkoping,Degerfors,1,2
+2025-05-15,Varnamo,Malmo FF,2,2
+2025-05-18,AIK,Hammarby,0,0
+2025-05-18,Hacken,Varnamo,2,0
+2025-05-18,Malmo FF,Halmstad,3,0
+2025-05-18,Oster,GAIS,1,1
+2025-05-19,Degerfors,Goteborg,1,3
+2025-05-19,Mjallby,Brommapojkarna,1,0
+2025-05-19,Sirius,Norrkoping,1,2
+2025-05-19,Elfsborg,Djurgarden,4,0
+2025-05-22,Hammarby,Mjallby,1,2
+2025-05-22,Malmo FF,AIK,0,0
+2025-05-24,Varnamo,Oster,1,1
+2025-05-24,GAIS,Sirius,2,1
+2025-05-25,Goteborg,Malmo FF,1,0
+2025-05-25,Halmstad,Elfsborg,1,4
+2025-05-25,Brommapojkarna,AIK,0,1
+2025-05-25,Djurgarden,Hacken,1,1
+2025-05-26,Norrkoping,Mjallby,1,1
+2025-05-26,Hammarby,Degerfors,1,0
+2025-05-29,Brommapojkarna,Djurgarden,0,1
+2025-05-31,Degerfors,Oster,1,2
+2025-05-31,Elfsborg,Hammarby,0,2
+2025-05-31,Norrkoping,GAIS,0,3
+2025-06-01,Brommapojkarna,Goteborg,1,3
+2025-06-01,Halmstad,Djurgarden,1,0
+2025-06-01,Malmo FF,Hacken,3,0
+2025-06-01,Mjallby,Varnamo,2,0
+2025-06-01,Sirius,AIK,3,1
+2025-06-28,Hammarby,Halmstad,2,0
+2025-06-28,Oster,Sirius,2,2
+2025-06-29,AIK,Goteborg,3,0
+2025-06-29,Degerfors,Brommapojkarna,0,3
+2025-06-29,Hacken,GAIS,1,3
+2025-06-29,Varnamo,Elfsborg,0,0
+2025-06-30,Djurgarden,Norrkoping,1,1
+2025-06-30,Mjallby,Malmo FF,1,1

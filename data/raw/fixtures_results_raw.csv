@@ -1,241 +1,589 @@
-Date,Venue,Match,HomeGoals,AwayGoals,Summary
-2024-03-08,IFK Norrköping Stadium,IFK Norrköping - Halmstads BK,1.0,1.0,Result
-2024-03-08,BK Häcken Stadium,BK Häcken - IF Elfsborg,2.0,2.0,Result
-2024-03-08,Varbergs BoIS Stadium,Varbergs BoIS - Mjällby AIF,2.0,1.0,Result
-2024-03-08,Värnamo Stadium,Värnamo - Kalmar FF,1.0,1.0,Result
-2024-03-08,AIK Stadium,AIK - Djurgårdens IF,3.0,2.0,Result
-2024-03-08,Degerfors IF Stadium,Degerfors IF - Östersunds FK,0.0,1.0,Result
-2024-03-08,IFK Göteborg Stadium,IFK Göteborg - IK Sirius FK,1.0,0.0,Result
-2024-03-08,Malmö FF Stadium,Malmö FF - Hammarby IF,2.0,0.0,Result
-2024-03-15,Östersunds FK Stadium,Östersunds FK - Kalmar FF,2.0,2.0,Result
-2024-03-15,IF Elfsborg Stadium,IF Elfsborg - Djurgårdens IF,0.0,0.0,Result
-2024-03-15,Mjällby AIF Stadium,Mjällby AIF - IK Sirius FK,1.0,0.0,Result
-2024-03-15,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,1.0,0.0,Result
-2024-03-15,IFK Norrköping Stadium,IFK Norrköping - Malmö FF,1.0,1.0,Result
-2024-03-15,IFK Göteborg Stadium,IFK Göteborg - Halmstads BK,1.0,1.0,Result
-2024-03-15,Degerfors IF Stadium,Degerfors IF - BK Häcken,1.0,1.0,Result
-2024-03-15,AIK Stadium,AIK - Värnamo,3.0,1.0,Result
-2024-03-22,Halmstads BK Stadium,Halmstads BK - Mjällby AIF,1.0,0.0,Result
-2024-03-22,Varbergs BoIS Stadium,Varbergs BoIS - AIK,3.0,1.0,Result
-2024-03-22,Malmö FF Stadium,Malmö FF - Degerfors IF,2.0,0.0,Result
-2024-03-22,Östersunds FK Stadium,Östersunds FK - Värnamo,1.0,2.0,Result
-2024-03-22,IFK Göteborg Stadium,IFK Göteborg - IF Elfsborg,2.0,0.0,Result
-2024-03-22,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,0.0,2.0,Result
-2024-03-22,Hammarby IF Stadium,Hammarby IF - IK Sirius FK,1.0,2.0,Result
-2024-03-22,Kalmar FF Stadium,Kalmar FF - BK Häcken,1.0,1.0,Result
-2024-04-01,IFK Göteborg Stadium,IFK Göteborg - Östersunds FK,2.0,1.0,Result
-2024-04-01,IF Elfsborg Stadium,IF Elfsborg - Halmstads BK,1.0,1.0,Result
-2024-04-01,Varbergs BoIS Stadium,Varbergs BoIS - Värnamo,3.0,2.0,Result
-2024-04-01,BK Häcken Stadium,BK Häcken - Degerfors IF,0.0,2.0,Result
-2024-04-01,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,2.0,2.0,Result
-2024-04-01,AIK Stadium,AIK - IFK Norrköping,1.0,1.0,Result
-2024-04-01,Kalmar FF Stadium,Kalmar FF - Djurgårdens IF,0.0,0.0,Result
-2024-04-01,Hammarby IF Stadium,Hammarby IF - IK Sirius FK,2.0,2.0,Result
-2024-04-08,Halmstads BK Stadium,Halmstads BK - Östersunds FK,1.0,0.0,Result
-2024-04-08,IF Elfsborg Stadium,IF Elfsborg - Malmö FF,1.0,4.0,Result
-2024-04-08,IK Sirius FK Stadium,IK Sirius FK - Degerfors IF,2.0,0.0,Result
-2024-04-08,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,1.0,1.0,Result
-2024-04-08,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,0.0,2.0,Result
-2024-04-08,Värnamo Stadium,Värnamo - IFK Göteborg,2.0,3.0,Result
-2024-04-08,Mjällby AIF Stadium,Mjällby AIF - AIK,1.0,0.0,Result
-2024-04-08,Kalmar FF Stadium,Kalmar FF - BK Häcken,2.0,3.0,Result
-2024-04-15,Malmö FF Stadium,Malmö FF - AIK,0.0,0.0,Result
-2024-04-15,IFK Norrköping Stadium,IFK Norrköping - IK Sirius FK,1.0,1.0,Result
-2024-04-15,Djurgårdens IF Stadium,Djurgårdens IF - Östersunds FK,1.0,0.0,Result
-2024-04-15,Värnamo Stadium,Värnamo - Varbergs BoIS,0.0,1.0,Result
-2024-04-15,Mjällby AIF Stadium,Mjällby AIF - Degerfors IF,1.0,3.0,Result
-2024-04-15,Hammarby IF Stadium,Hammarby IF - IF Elfsborg,3.0,0.0,Result
-2024-04-15,Halmstads BK Stadium,Halmstads BK - Kalmar FF,1.0,2.0,Result
-2024-04-15,IFK Göteborg Stadium,IFK Göteborg - BK Häcken,1.0,0.0,Result
-2024-04-22,Kalmar FF Stadium,Kalmar FF - Malmö FF,2.0,4.0,Result
-2024-04-22,Degerfors IF Stadium,Degerfors IF - IFK Göteborg,0.0,1.0,Result
-2024-04-22,BK Häcken Stadium,BK Häcken - Mjällby AIF,1.0,2.0,Result
-2024-04-22,Djurgårdens IF Stadium,Djurgårdens IF - IK Sirius FK,1.0,0.0,Result
-2024-04-22,Halmstads BK Stadium,Halmstads BK - AIK,1.0,1.0,Result
-2024-04-22,Varbergs BoIS Stadium,Varbergs BoIS - IF Elfsborg,1.0,0.0,Result
-2024-04-22,IFK Norrköping Stadium,IFK Norrköping - Värnamo,3.0,1.0,Result
-2024-04-22,Hammarby IF Stadium,Hammarby IF - Östersunds FK,3.0,1.0,Result
-2024-05-01,Halmstads BK Stadium,Halmstads BK - BK Häcken,0.0,1.0,Result
-2024-05-01,IFK Göteborg Stadium,IFK Göteborg - Värnamo,3.0,2.0,Result
-2024-05-01,Degerfors IF Stadium,Degerfors IF - IK Sirius FK,1.0,2.0,Result
-2024-05-01,Varbergs BoIS Stadium,Varbergs BoIS - IFK Norrköping,2.0,2.0,Result
-2024-05-01,IF Elfsborg Stadium,IF Elfsborg - Djurgårdens IF,2.0,1.0,Result
-2024-05-01,Hammarby IF Stadium,Hammarby IF - Östersunds FK,0.0,0.0,Result
-2024-05-01,Malmö FF Stadium,Malmö FF - Kalmar FF,0.0,2.0,Result
-2024-05-01,Mjällby AIF Stadium,Mjällby AIF - AIK,0.0,1.0,Result
-2024-05-08,BK Häcken Stadium,BK Häcken - Hammarby IF,1.0,3.0,Result
-2024-05-08,Mjällby AIF Stadium,Mjällby AIF - IFK Göteborg,2.0,1.0,Result
-2024-05-08,Varbergs BoIS Stadium,Varbergs BoIS - Degerfors IF,0.0,0.0,Result
-2024-05-08,IF Elfsborg Stadium,IF Elfsborg - Östersunds FK,2.0,1.0,Result
-2024-05-08,IK Sirius FK Stadium,IK Sirius FK - Malmö FF,1.0,1.0,Result
-2024-05-08,Djurgårdens IF Stadium,Djurgårdens IF - Värnamo,2.0,1.0,Result
-2024-05-08,Kalmar FF Stadium,Kalmar FF - IFK Norrköping,1.0,0.0,Result
-2024-05-08,Halmstads BK Stadium,Halmstads BK - AIK,2.0,1.0,Result
-2024-05-15,IF Elfsborg Stadium,IF Elfsborg - Degerfors IF,1.0,0.0,Result
-2024-05-15,Varbergs BoIS Stadium,Varbergs BoIS - BK Häcken,2.0,2.0,Result
-2024-05-15,IK Sirius FK Stadium,IK Sirius FK - Östersunds FK,2.0,4.0,Result
-2024-05-15,IFK Göteborg Stadium,IFK Göteborg - Hammarby IF,2.0,0.0,Result
-2024-05-15,Kalmar FF Stadium,Kalmar FF - Mjällby AIF,2.0,1.0,Result
-2024-05-15,AIK Stadium,AIK - Värnamo,2.0,3.0,Result
-2024-05-15,Halmstads BK Stadium,Halmstads BK - IFK Norrköping,0.0,0.0,Result
-2024-05-15,Malmö FF Stadium,Malmö FF - Djurgårdens IF,0.0,1.0,Result
-2024-05-22,IF Elfsborg Stadium,IF Elfsborg - Östersunds FK,0.0,2.0,Result
-2024-05-22,AIK Stadium,AIK - Degerfors IF,2.0,1.0,Result
-2024-05-22,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,2.0,1.0,Result
-2024-05-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,1.0,0.0,Result
-2024-05-22,Varbergs BoIS Stadium,Varbergs BoIS - Värnamo,0.0,2.0,Result
-2024-05-22,BK Häcken Stadium,BK Häcken - IK Sirius FK,3.0,1.0,Result
-2024-05-22,Hammarby IF Stadium,Hammarby IF - Halmstads BK,2.0,1.0,Result
-2024-05-22,IFK Göteborg Stadium,IFK Göteborg - Kalmar FF,0.0,0.0,Result
-2024-06-01,IFK Norrköping Stadium,IFK Norrköping - Djurgårdens IF,4.0,2.0,Result
-2024-06-01,Degerfors IF Stadium,Degerfors IF - Kalmar FF,3.0,0.0,Result
-2024-06-01,Östersunds FK Stadium,Östersunds FK - IFK Göteborg,2.0,1.0,Result
-2024-06-01,IF Elfsborg Stadium,IF Elfsborg - IK Sirius FK,3.0,2.0,Result
-2024-06-01,AIK Stadium,AIK - Mjällby AIF,3.0,2.0,Result
-2024-06-01,Hammarby IF Stadium,Hammarby IF - Varbergs BoIS,1.0,2.0,Result
-2024-06-01,Malmö FF Stadium,Malmö FF - Värnamo,0.0,2.0,Result
-2024-06-01,BK Häcken Stadium,BK Häcken - Halmstads BK,3.0,0.0,Result
-2024-06-08,Degerfors IF Stadium,Degerfors IF - Kalmar FF,2.0,2.0,Result
-2024-06-08,AIK Stadium,AIK - Östersunds FK,1.0,0.0,Result
-2024-06-08,Halmstads BK Stadium,Halmstads BK - IFK Norrköping,3.0,1.0,Result
-2024-06-08,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,2.0,4.0,Result
-2024-06-08,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,0.0,1.0,Result
-2024-06-08,IK Sirius FK Stadium,IK Sirius FK - Hammarby IF,1.0,2.0,Result
-2024-06-08,Värnamo Stadium,Värnamo - IFK Göteborg,1.0,4.0,Result
-2024-06-08,BK Häcken Stadium,BK Häcken - Varbergs BoIS,0.0,2.0,Result
-2024-06-15,Varbergs BoIS Stadium,Varbergs BoIS - AIK,2.0,0.0,Result
-2024-06-15,BK Häcken Stadium,BK Häcken - Värnamo,3.0,1.0,Result
-2024-06-15,Mjällby AIF Stadium,Mjällby AIF - IFK Norrköping,2.0,1.0,Result
-2024-06-15,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,2.0,1.0,Result
-2024-06-15,Halmstads BK Stadium,Halmstads BK - Kalmar FF,0.0,2.0,Result
-2024-06-15,Degerfors IF Stadium,Degerfors IF - Östersunds FK,1.0,2.0,Result
-2024-06-15,IK Sirius FK Stadium,IK Sirius FK - Malmö FF,0.0,1.0,Result
-2024-06-15,IFK Göteborg Stadium,IFK Göteborg - IF Elfsborg,1.0,2.0,Result
-2024-06-22,Varbergs BoIS Stadium,Varbergs BoIS - Malmö FF,2.0,1.0,Result
-2024-06-22,Djurgårdens IF Stadium,Djurgårdens IF - Värnamo,2.0,1.0,Result
-2024-06-22,AIK Stadium,AIK - Mjällby AIF,0.0,3.0,Result
-2024-06-22,Degerfors IF Stadium,Degerfors IF - Kalmar FF,1.0,1.0,Result
-2024-06-22,IFK Norrköping Stadium,IFK Norrköping - BK Häcken,2.0,0.0,Result
-2024-06-22,IK Sirius FK Stadium,IK Sirius FK - Östersunds FK,0.0,4.0,Result
-2024-06-22,IF Elfsborg Stadium,IF Elfsborg - Hammarby IF,2.0,2.0,Result
-2024-06-22,IFK Göteborg Stadium,IFK Göteborg - Halmstads BK,1.0,2.0,Result
-2024-11-01,Kalmar FF Stadium,Kalmar FF - IFK Göteborg,,,Fixture
-2024-11-01,BK Häcken Stadium,BK Häcken - AIK,,,Fixture
-2024-11-01,Halmstads BK Stadium,Halmstads BK - Degerfors IF,,,Fixture
-2024-11-01,Mjällby AIF Stadium,Mjällby AIF - Malmö FF,,,Fixture
-2024-11-01,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,,,Fixture
-2024-11-01,Värnamo Stadium,Värnamo - IFK Norrköping,,,Fixture
-2024-11-01,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
-2024-11-01,IK Sirius FK Stadium,IK Sirius FK - IF Elfsborg,,,Fixture
-2024-11-08,Malmö FF Stadium,Malmö FF - Värnamo,,,Fixture
-2024-11-08,Mjällby AIF Stadium,Mjällby AIF - Halmstads BK,,,Fixture
-2024-11-08,IFK Göteborg Stadium,IFK Göteborg - Degerfors IF,,,Fixture
-2024-11-08,IF Elfsborg Stadium,IF Elfsborg - BK Häcken,,,Fixture
-2024-11-08,Varbergs BoIS Stadium,Varbergs BoIS - IK Sirius FK,,,Fixture
-2024-11-08,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
-2024-11-08,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
-2024-11-08,Kalmar FF Stadium,Kalmar FF - AIK,,,Fixture
-2024-11-15,Kalmar FF Stadium,Kalmar FF - IF Elfsborg,,,Fixture
-2024-11-15,Malmö FF Stadium,Malmö FF - Halmstads BK,,,Fixture
-2024-11-15,Djurgårdens IF Stadium,Djurgårdens IF - AIK,,,Fixture
-2024-11-15,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
-2024-11-15,Mjällby AIF Stadium,Mjällby AIF - Hammarby IF,,,Fixture
-2024-11-15,IFK Göteborg Stadium,IFK Göteborg - Värnamo,,,Fixture
-2024-11-15,IFK Norrköping Stadium,IFK Norrköping - Degerfors IF,,,Fixture
-2024-11-15,IK Sirius FK Stadium,IK Sirius FK - BK Häcken,,,Fixture
-2024-11-22,IK Sirius FK Stadium,IK Sirius FK - IF Elfsborg,,,Fixture
-2024-11-22,Malmö FF Stadium,Malmö FF - Varbergs BoIS,,,Fixture
-2024-11-22,Mjällby AIF Stadium,Mjällby AIF - Värnamo,,,Fixture
-2024-11-22,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
-2024-11-22,Halmstads BK Stadium,Halmstads BK - Djurgårdens IF,,,Fixture
-2024-11-22,AIK Stadium,AIK - Kalmar FF,,,Fixture
-2024-11-22,Degerfors IF Stadium,Degerfors IF - BK Häcken,,,Fixture
-2024-11-22,IFK Göteborg Stadium,IFK Göteborg - IFK Norrköping,,,Fixture
-2024-12-01,Djurgårdens IF Stadium,Djurgårdens IF - Varbergs BoIS,,,Fixture
-2024-12-01,AIK Stadium,AIK - Halmstads BK,,,Fixture
-2024-12-01,Mjällby AIF Stadium,Mjällby AIF - IFK Göteborg,,,Fixture
-2024-12-01,Värnamo Stadium,Värnamo - Östersunds FK,,,Fixture
-2024-12-01,IK Sirius FK Stadium,IK Sirius FK - Hammarby IF,,,Fixture
-2024-12-01,Malmö FF Stadium,Malmö FF - IF Elfsborg,,,Fixture
-2024-12-01,IFK Norrköping Stadium,IFK Norrköping - Kalmar FF,,,Fixture
-2024-12-01,BK Häcken Stadium,BK Häcken - Degerfors IF,,,Fixture
-2024-12-08,BK Häcken Stadium,BK Häcken - Östersunds FK,,,Fixture
-2024-12-08,Malmö FF Stadium,Malmö FF - Varbergs BoIS,,,Fixture
-2024-12-08,Halmstads BK Stadium,Halmstads BK - Djurgårdens IF,,,Fixture
-2024-12-08,AIK Stadium,AIK - IFK Norrköping,,,Fixture
-2024-12-08,Hammarby IF Stadium,Hammarby IF - Mjällby AIF,,,Fixture
-2024-12-08,Kalmar FF Stadium,Kalmar FF - Degerfors IF,,,Fixture
-2024-12-08,IF Elfsborg Stadium,IF Elfsborg - Värnamo,,,Fixture
-2024-12-08,IFK Göteborg Stadium,IFK Göteborg - IK Sirius FK,,,Fixture
-2024-12-15,Kalmar FF Stadium,Kalmar FF - AIK,,,Fixture
-2024-12-15,IK Sirius FK Stadium,IK Sirius FK - Halmstads BK,,,Fixture
-2024-12-15,BK Häcken Stadium,BK Häcken - IFK Göteborg,,,Fixture
-2024-12-15,Hammarby IF Stadium,Hammarby IF - Malmö FF,,,Fixture
-2024-12-15,Degerfors IF Stadium,Degerfors IF - IFK Norrköping,,,Fixture
-2024-12-15,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,,,Fixture
-2024-12-15,Värnamo Stadium,Värnamo - Varbergs BoIS,,,Fixture
-2024-12-15,Östersunds FK Stadium,Östersunds FK - Mjällby AIF,,,Fixture
-2024-12-22,IK Sirius FK Stadium,IK Sirius FK - Mjällby AIF,,,Fixture
-2024-12-22,AIK Stadium,AIK - Halmstads BK,,,Fixture
-2024-12-22,Kalmar FF Stadium,Kalmar FF - Värnamo,,,Fixture
-2024-12-22,Varbergs BoIS Stadium,Varbergs BoIS - Hammarby IF,,,Fixture
-2024-12-22,BK Häcken Stadium,BK Häcken - IF Elfsborg,,,Fixture
-2024-12-22,Östersunds FK Stadium,Östersunds FK - Malmö FF,,,Fixture
-2024-12-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
-2024-12-22,Degerfors IF Stadium,Degerfors IF - IFK Göteborg,,,Fixture
-2024-13-01,Varbergs BoIS Stadium,Varbergs BoIS - Djurgårdens IF,,,Fixture
-2024-13-01,Värnamo Stadium,Värnamo - IFK Göteborg,,,Fixture
-2024-13-01,IF Elfsborg Stadium,IF Elfsborg - Halmstads BK,,,Fixture
-2024-13-01,Mjällby AIF Stadium,Mjällby AIF - Hammarby IF,,,Fixture
-2024-13-01,BK Häcken Stadium,BK Häcken - IK Sirius FK,,,Fixture
-2024-13-01,Östersunds FK Stadium,Östersunds FK - Malmö FF,,,Fixture
-2024-13-01,IFK Norrköping Stadium,IFK Norrköping - AIK,,,Fixture
-2024-13-01,Degerfors IF Stadium,Degerfors IF - Kalmar FF,,,Fixture
-2024-13-08,Kalmar FF Stadium,Kalmar FF - Östersunds FK,,,Fixture
-2024-13-08,IFK Göteborg Stadium,IFK Göteborg - Varbergs BoIS,,,Fixture
-2024-13-08,IF Elfsborg Stadium,IF Elfsborg - IK Sirius FK,,,Fixture
-2024-13-08,BK Häcken Stadium,BK Häcken - Mjällby AIF,,,Fixture
-2024-13-08,Värnamo Stadium,Värnamo - AIK,,,Fixture
-2024-13-08,IFK Norrköping Stadium,IFK Norrköping - Degerfors IF,,,Fixture
-2024-13-08,Hammarby IF Stadium,Hammarby IF - Djurgårdens IF,,,Fixture
-2024-13-08,Halmstads BK Stadium,Halmstads BK - Malmö FF,,,Fixture
-2024-13-15,Djurgårdens IF Stadium,Djurgårdens IF - Hammarby IF,,,Fixture
-2024-13-15,Mjällby AIF Stadium,Mjällby AIF - IFK Norrköping,,,Fixture
-2024-13-15,IK Sirius FK Stadium,IK Sirius FK - Degerfors IF,,,Fixture
-2024-13-15,Östersunds FK Stadium,Östersunds FK - Kalmar FF,,,Fixture
-2024-13-15,IF Elfsborg Stadium,IF Elfsborg - Värnamo,,,Fixture
-2024-13-15,Varbergs BoIS Stadium,Varbergs BoIS - Malmö FF,,,Fixture
-2024-13-15,Halmstads BK Stadium,Halmstads BK - AIK,,,Fixture
-2024-13-15,IFK Göteborg Stadium,IFK Göteborg - BK Häcken,,,Fixture
-2024-13-22,Östersunds FK Stadium,Östersunds FK - IFK Norrköping,,,Fixture
-2024-13-22,AIK Stadium,AIK - Degerfors IF,,,Fixture
-2024-13-22,Djurgårdens IF Stadium,Djurgårdens IF - IFK Göteborg,,,Fixture
-2024-13-22,IK Sirius FK Stadium,IK Sirius FK - Mjällby AIF,,,Fixture
-2024-13-22,IF Elfsborg Stadium,IF Elfsborg - Kalmar FF,,,Fixture
-2024-13-22,BK Häcken Stadium,BK Häcken - Malmö FF,,,Fixture
-2024-13-22,Varbergs BoIS Stadium,Varbergs BoIS - Halmstads BK,,,Fixture
-2024-13-22,Värnamo Stadium,Värnamo - Hammarby IF,,,Fixture
-2024-14-01,Malmö FF Stadium,Malmö FF - Kalmar FF,,,Fixture
-2024-14-01,AIK Stadium,AIK - Degerfors IF,,,Fixture
-2024-14-01,Östersunds FK Stadium,Östersunds FK - Halmstads BK,,,Fixture
-2024-14-01,IK Sirius FK Stadium,IK Sirius FK - IFK Göteborg,,,Fixture
-2024-14-01,Värnamo Stadium,Värnamo - Varbergs BoIS,,,Fixture
-2024-14-01,Djurgårdens IF Stadium,Djurgårdens IF - IFK Norrköping,,,Fixture
-2024-14-01,Mjällby AIF Stadium,Mjällby AIF - BK Häcken,,,Fixture
-2024-14-01,IF Elfsborg Stadium,IF Elfsborg - Hammarby IF,,,Fixture
-2024-14-08,IK Sirius FK Stadium,IK Sirius FK - Värnamo,,,Fixture
-2024-14-08,BK Häcken Stadium,BK Häcken - Kalmar FF,,,Fixture
-2024-14-08,Halmstads BK Stadium,Halmstads BK - Malmö FF,,,Fixture
-2024-14-08,Djurgårdens IF Stadium,Djurgårdens IF - IF Elfsborg,,,Fixture
-2024-14-08,Östersunds FK Stadium,Östersunds FK - Varbergs BoIS,,,Fixture
-2024-14-08,IFK Norrköping Stadium,IFK Norrköping - IFK Göteborg,,,Fixture
-2024-14-08,AIK Stadium,AIK - Hammarby IF,,,Fixture
-2024-14-08,Degerfors IF Stadium,Degerfors IF - Mjällby AIF,,,Fixture
-2024-14-15,Östersunds FK Stadium,Östersunds FK - Hammarby IF,,,Fixture
-2024-14-15,Djurgårdens IF Stadium,Djurgårdens IF - IK Sirius FK,,,Fixture
-2024-14-15,IFK Norrköping Stadium,IFK Norrköping - AIK,,,Fixture
-2024-14-15,Kalmar FF Stadium,Kalmar FF - Malmö FF,,,Fixture
-2024-14-15,Mjällby AIF Stadium,Mjällby AIF - Halmstads BK,,,Fixture
-2024-14-15,Degerfors IF Stadium,Degerfors IF - Varbergs BoIS,,,Fixture
-2024-14-15,IFK Göteborg Stadium,IFK Göteborg - Värnamo,,,Fixture
-2024-14-15,BK Häcken Stadium,BK Häcken - IF Elfsborg,,,Fixture
+Date,Match,HomeTeam,AwayTeam,FTHG,FTAG
+2023-04-01,Malmo FF 1-0 Kalmar,Malmo FF,Kalmar,1,0
+2023-04-01,Djurgarden 3-1 Brommapojkarna,Djurgarden,Brommapojkarna,3,1
+2023-04-02,Hammarby 3-1 Degerfors,Hammarby,Degerfors,3,1
+2023-04-02,Norrkoping 1-1 Sirius,Norrkoping,Sirius,1,1
+2023-04-02,Goteborg 0-1 Varnamo,Goteborg,Varnamo,0,1
+2023-04-02,Halmstad 2-1 AIK,Halmstad,AIK,2,1
+2023-04-03,Mjallby 2-2 Varberg,Mjallby,Varberg,2,2
+2023-04-03,Elfsborg 0-2 Hacken,Elfsborg,Hacken,0,2
+2023-04-08,Brommapojkarna 1-2 Malmo FF,Brommapojkarna,Malmo FF,1,2
+2023-04-08,Degerfors 3-1 Halmstad,Degerfors,Halmstad,3,1
+2023-04-09,Hacken 3-1 Hammarby,Hacken,Hammarby,3,1
+2023-04-09,Kalmar 2-0 Goteborg,Kalmar,Goteborg,2,0
+2023-04-09,Sirius 0-0 Djurgarden,Sirius,Djurgarden,0,0
+2023-04-10,Varnamo 0-1 Mjallby,Varnamo,Mjallby,0,1
+2023-04-10,AIK 0-3 Norrkoping,AIK,Norrkoping,0,3
+2023-04-10,Varberg 0-0 Elfsborg,Varberg,Elfsborg,0,0
+2023-04-15,Elfsborg 5-0 Brommapojkarna,Elfsborg,Brommapojkarna,5,0
+2023-04-15,Hacken 1-3 Kalmar,Hacken,Kalmar,1,3
+2023-04-16,AIK 2-0 Hammarby,AIK,Hammarby,2,0
+2023-04-16,Norrkoping 2-1 Varnamo,Norrkoping,Varnamo,2,1
+2023-04-16,Halmstad 2-0 Djurgarden,Halmstad,Djurgarden,2,0
+2023-04-16,Mjallby 2-0 Degerfors,Mjallby,Degerfors,2,0
+2023-04-17,Varberg 1-1 Sirius,Varberg,Sirius,1,1
+2023-04-17,Goteborg 0-1 Malmo FF,Goteborg,Malmo FF,0,1
+2023-04-22,Hammarby 2-0 Varberg,Hammarby,Varberg,2,0
+2023-04-22,Degerfors 1-2 Elfsborg,Degerfors,Elfsborg,1,2
+2023-04-23,Djurgarden 1-0 Goteborg,Djurgarden,Goteborg,1,0
+2023-04-23,Kalmar 2-0 Halmstad,Kalmar,Halmstad,2,0
+2023-04-23,Sirius 1-4 Hacken,Sirius,Hacken,1,4
+2023-04-24,Brommapojkarna 2-0 Mjallby,Brommapojkarna,Mjallby,2,0
+2023-04-24,Varnamo 1-0 AIK,Varnamo,AIK,1,0
+2023-04-24,Malmo FF 3-0 Norrkoping,Malmo FF,Norrkoping,3,0
+2023-04-29,AIK 0-0 Sirius,AIK,Sirius,0,0
+2023-04-29,Mjallby 0-1 Elfsborg,Mjallby,Elfsborg,0,1
+2023-04-29,Hacken 3-1 Varnamo,Hacken,Varnamo,3,1
+2023-04-29,Halmstad 0-2 Brommapojkarna,Halmstad,Brommapojkarna,0,2
+2023-04-30,Malmo FF 4-2 Hammarby,Malmo FF,Hammarby,4,2
+2023-04-30,Varberg 0-0 Kalmar,Varberg,Kalmar,0,0
+2023-04-30,Degerfors 2-1 Djurgarden,Degerfors,Djurgarden,2,1
+2023-05-01,Goteborg 1-1 Norrkoping,Goteborg,Norrkoping,1,1
+2023-05-03,Elfsborg 6-1 Halmstad,Elfsborg,Halmstad,6,1
+2023-05-03,Hacken 4-1 Djurgarden,Hacken,Djurgarden,4,1
+2023-05-03,Kalmar 2-2 Sirius,Kalmar,Sirius,2,2
+2023-05-03,Mjallby 0-0 AIK,Mjallby,AIK,0,0
+2023-05-04,Goteborg 6-0 Degerfors,Goteborg,Degerfors,6,0
+2023-05-04,Norrkoping 2-0 Hammarby,Norrkoping,Hammarby,2,0
+2023-05-04,Varberg 0-6 Malmo FF,Varberg,Malmo FF,0,6
+2023-05-04,Varnamo 0-1 Brommapojkarna,Varnamo,Brommapojkarna,0,1
+2023-05-07,Malmo FF 3-1 AIK,Malmo FF,AIK,3,1
+2023-05-07,Halmstad 1-0 Hacken,Halmstad,Hacken,1,0
+2023-05-08,Brommapojkarna 0-0 Goteborg,Brommapojkarna,Goteborg,0,0
+2023-05-08,Degerfors 0-2 Norrkoping,Degerfors,Norrkoping,0,2
+2023-05-08,Sirius 3-4 Elfsborg,Sirius,Elfsborg,3,4
+2023-05-08,Djurgarden 3-1 Kalmar,Djurgarden,Kalmar,3,1
+2023-05-09,Hammarby 0-0 Mjallby,Hammarby,Mjallby,0,0
+2023-05-09,Varnamo 3-1 Varberg,Varnamo,Varberg,3,1
+2023-05-13,Hacken 6-1 Degerfors,Hacken,Degerfors,6,1
+2023-05-13,Varberg 1-3 Norrkoping,Varberg,Norrkoping,1,3
+2023-05-14,Elfsborg 2-0 Varnamo,Elfsborg,Varnamo,2,0
+2023-05-14,Hammarby 4-3 Djurgarden,Hammarby,Djurgarden,4,3
+2023-05-14,Mjallby 3-0 Sirius,Mjallby,Sirius,3,0
+2023-05-14,Halmstad 0-1 Malmo FF,Halmstad,Malmo FF,0,1
+2023-05-14,Kalmar 1-3 Brommapojkarna,Kalmar,Brommapojkarna,1,3
+2023-05-15,AIK 2-2 Goteborg,AIK,Goteborg,2,2
+2023-05-20,Degerfors 2-1 AIK,Degerfors,AIK,2,1
+2023-05-21,Brommapojkarna 2-1 Varberg,Brommapojkarna,Varberg,2,1
+2023-05-21,Djurgarden 2-0 Mjallby,Djurgarden,Mjallby,2,0
+2023-05-21,Malmo FF 2-2 Hacken,Malmo FF,Hacken,2,2
+2023-05-21,Goteborg 1-1 Hammarby,Goteborg,Hammarby,1,1
+2023-05-21,Sirius 1-2 Halmstad,Sirius,Halmstad,1,2
+2023-05-22,Varnamo 0-1 Kalmar,Varnamo,Kalmar,0,1
+2023-05-22,Norrkoping 1-2 Elfsborg,Norrkoping,Elfsborg,1,2
+2023-05-24,Djurgarden 1-0 Hacken,Djurgarden,Hacken,1,0
+2023-05-25,Degerfors 2-2 Hammarby,Degerfors,Hammarby,2,2
+2023-05-27,Mjallby 0-2 Halmstad,Mjallby,Halmstad,0,2
+2023-05-27,Brommapojkarna 1-2 Sirius,Brommapojkarna,Sirius,1,2
+2023-05-28,Djurgarden 1-0 AIK,Djurgarden,AIK,1,0
+2023-05-28,Kalmar 2-1 Norrkoping,Kalmar,Norrkoping,2,1
+2023-05-28,Elfsborg 3-0 Malmo FF,Elfsborg,Malmo FF,3,0
+2023-05-29,Degerfors 1-1 Varberg,Degerfors,Varberg,1,1
+2023-05-29,Hammarby 0-2 Varnamo,Hammarby,Varnamo,0,2
+2023-05-29,Hacken 4-1 Goteborg,Hacken,Goteborg,4,1
+2023-06-03,Goteborg 0-1 Mjallby,Goteborg,Mjallby,0,1
+2023-06-03,Norrkoping 0-2 Brommapojkarna,Norrkoping,Brommapojkarna,0,2
+2023-06-04,AIK 1-1 Kalmar,AIK,Kalmar,1,1
+2023-06-04,Halmstad 0-0 Hammarby,Halmstad,Hammarby,0,0
+2023-06-04,Elfsborg 1-1 Djurgarden,Elfsborg,Djurgarden,1,1
+2023-06-04,Sirius 2-0 Varnamo,Sirius,Varnamo,2,0
+2023-06-05,Varberg 0-2 Hacken,Varberg,Hacken,0,2
+2023-06-05,Malmo FF 5-0 Degerfors,Malmo FF,Degerfors,5,0
+2023-06-09,Hammarby 2-1 Brommapojkarna,Hammarby,Brommapojkarna,2,1
+2023-06-10,Kalmar 2-1 Degerfors,Kalmar,Degerfors,2,1
+2023-06-10,Varnamo 1-3 Malmo FF,Varnamo,Malmo FF,1,3
+2023-06-10,Varberg 1-2 Halmstad,Varberg,Halmstad,1,2
+2023-06-11,AIK 1-2 Elfsborg,AIK,Elfsborg,1,2
+2023-06-11,Sirius 2-0 Goteborg,Sirius,Goteborg,2,0
+2023-06-11,Djurgarden 2-2 Norrkoping,Djurgarden,Norrkoping,2,2
+2023-06-11,Hacken 3-0 Mjallby,Hacken,Mjallby,3,0
+2023-07-01,Brommapojkarna 0-2 AIK,Brommapojkarna,AIK,0,2
+2023-07-01,Degerfors 0-2 Varnamo,Degerfors,Varnamo,0,2
+2023-07-01,Malmo FF 3-0 Sirius,Malmo FF,Sirius,3,0
+2023-07-02,Halmstad 0-0 Goteborg,Halmstad,Goteborg,0,0
+2023-07-02,Norrkoping 2-2 Hacken,Norrkoping,Hacken,2,2
+2023-07-02,Djurgarden 2-0 Varberg,Djurgarden,Varberg,2,0
+2023-07-03,Elfsborg 2-0 Hammarby,Elfsborg,Hammarby,2,0
+2023-07-03,Mjallby 1-1 Kalmar,Mjallby,Kalmar,1,1
+2023-07-08,AIK 1-2 Hacken,AIK,Hacken,1,2
+2023-07-08,Varnamo 1-2 Djurgarden,Varnamo,Djurgarden,1,2
+2023-07-08,Brommapojkarna 1-2 Degerfors,Brommapojkarna,Degerfors,1,2
+2023-07-09,Malmo FF 1-2 Mjallby,Malmo FF,Mjallby,1,2
+2023-07-09,Sirius 1-2 Hammarby,Sirius,Hammarby,1,2
+2023-07-09,Kalmar 0-4 Elfsborg,Kalmar,Elfsborg,0,4
+2023-07-10,Goteborg 1-2 Varberg,Goteborg,Varberg,1,2
+2023-07-10,Norrkoping 1-2 Halmstad,Norrkoping,Halmstad,1,2
+2023-07-15,Halmstad 2-2 Varnamo,Halmstad,Varnamo,2,2
+2023-07-15,Degerfors 0-3 Sirius,Degerfors,Sirius,0,3
+2023-07-15,Hacken 4-2 Brommapojkarna,Hacken,Brommapojkarna,4,2
+2023-07-16,Elfsborg 1-1 Goteborg,Elfsborg,Goteborg,1,1
+2023-07-16,Hammarby 3-1 Kalmar,Hammarby,Kalmar,3,1
+2023-07-16,Mjallby 1-2 Norrkoping,Mjallby,Norrkoping,1,2
+2023-07-17,Djurgarden 2-0 Malmo FF,Djurgarden,Malmo FF,2,0
+2023-07-17,Varberg 1-2 AIK,Varberg,AIK,1,2
+2023-07-21,Brommapojkarna 1-0 Hammarby,Brommapojkarna,Hammarby,1,0
+2023-07-22,Djurgarden 0-4 Elfsborg,Djurgarden,Elfsborg,0,4
+2023-07-22,Varnamo 1-0 Hacken,Varnamo,Hacken,1,0
+2023-07-23,AIK 0-0 Malmo FF,AIK,Malmo FF,0,0
+2023-07-23,Norrkoping 1-0 Degerfors,Norrkoping,Degerfors,1,0
+2023-07-23,Goteborg 0-0 Halmstad,Goteborg,Halmstad,0,0
+2023-07-23,Kalmar 1-0 Varberg,Kalmar,Varberg,1,0
+2023-07-24,Sirius 2-3 Mjallby,Sirius,Mjallby,2,3
+2023-07-29,Hacken 3-1 Elfsborg,Hacken,Elfsborg,3,1
+2023-07-29,Degerfors 2-0 Brommapojkarna,Degerfors,Brommapojkarna,2,0
+2023-07-29,Halmstad 0-5 Varberg,Halmstad,Varberg,0,5
+2023-07-30,Hammarby 2-1 Norrkoping,Hammarby,Norrkoping,2,1
+2023-07-30,Mjallby 0-1 Djurgarden,Mjallby,Djurgarden,0,1
+2023-07-30,Goteborg 2-0 Kalmar,Goteborg,Kalmar,2,0
+2023-07-31,Malmo FF 3-1 Varnamo,Malmo FF,Varnamo,3,1
+2023-07-31,Sirius 0-1 AIK,Sirius,AIK,0,1
+2023-08-05,Brommapojkarna 0-2 Varnamo,Brommapojkarna,Varnamo,0,2
+2023-08-06,Elfsborg 1-0 Sirius,Elfsborg,Sirius,1,0
+2023-08-06,Kalmar 1-1 AIK,Kalmar,AIK,1,1
+2023-08-07,Malmo FF 3-0 Halmstad,Malmo FF,Halmstad,3,0
+2023-08-07,Norrkoping 3-0 Goteborg,Norrkoping,Goteborg,3,0
+2023-08-07,Varberg 0-3 Mjallby,Varberg,Mjallby,0,3
+2023-08-12,AIK 2-2 Brommapojkarna,AIK,Brommapojkarna,2,2
+2023-08-13,Goteborg 2-1 Djurgarden,Goteborg,Djurgarden,2,1
+2023-08-13,Sirius 3-0 Kalmar,Sirius,Kalmar,3,0
+2023-08-13,Hacken 2-0 Varberg,Hacken,Varberg,2,0
+2023-08-13,Halmstad 1-3 Norrkoping,Halmstad,Norrkoping,1,3
+2023-08-13,Hammarby 1-0 Elfsborg,Hammarby,Elfsborg,1,0
+2023-08-14,Mjallby 1-0 Malmo FF,Mjallby,Malmo FF,1,0
+2023-08-14,Varnamo 0-1 Degerfors,Varnamo,Degerfors,0,1
+2023-08-19,Brommapojkarna 3-1 Halmstad,Brommapojkarna,Halmstad,3,1
+2023-08-19,Degerfors 1-2 Goteborg,Degerfors,Goteborg,1,2
+2023-08-19,Varberg 0-3 Varnamo,Varberg,Varnamo,0,3
+2023-08-20,Hacken 3-2 Sirius,Hacken,Sirius,3,2
+2023-08-20,Malmo FF 0-0 Djurgarden,Malmo FF,Djurgarden,0,0
+2023-08-20,Elfsborg 2-0 Mjallby,Elfsborg,Mjallby,2,0
+2023-08-20,Kalmar 0-0 Hammarby,Kalmar,Hammarby,0,0
+2023-08-21,Norrkoping 3-1 AIK,Norrkoping,AIK,3,1
+2023-08-27,Brommapojkarna 2-3 Kalmar,Brommapojkarna,Kalmar,2,3
+2023-08-27,Mjallby 0-3 Hammarby,Mjallby,Hammarby,0,3
+2023-08-27,Varnamo 0-0 Halmstad,Varnamo,Halmstad,0,0
+2023-08-27,Djurgarden 4-1 Degerfors,Djurgarden,Degerfors,4,1
+2023-08-27,Goteborg 4-2 Hacken,Goteborg,Hacken,4,2
+2023-08-28,AIK 3-0 Varberg,AIK,Varberg,3,0
+2023-08-28,Elfsborg 3-2 Norrkoping,Elfsborg,Norrkoping,3,2
+2023-08-28,Sirius 1-3 Malmo FF,Sirius,Malmo FF,1,3
+2023-09-02,Halmstad 2-1 Sirius,Halmstad,Sirius,2,1
+2023-09-02,Varnamo 1-0 Elfsborg,Varnamo,Elfsborg,1,0
+2023-09-03,Degerfors 1-0 Hacken,Degerfors,Hacken,1,0
+2023-09-03,Hammarby 4-2 AIK,Hammarby,AIK,4,2
+2023-09-03,Kalmar 0-2 Mjallby,Kalmar,Mjallby,0,2
+2023-09-03,Malmo FF 2-2 Goteborg,Malmo FF,Goteborg,2,2
+2023-09-03,Norrkoping 0-2 Djurgarden,Norrkoping,Djurgarden,0,2
+2023-09-03,Varberg 4-3 Brommapojkarna,Varberg,Brommapojkarna,4,3
+2023-09-16,Goteborg 1-0 Brommapojkarna,Goteborg,Brommapojkarna,1,0
+2023-09-16,Sirius 7-0 Varberg,Sirius,Varberg,7,0
+2023-09-16,Djurgarden 1-2 Varnamo,Djurgarden,Varnamo,1,2
+2023-09-17,Hammarby 1-3 Malmo FF,Hammarby,Malmo FF,1,3
+2023-09-17,Elfsborg 0-3 Kalmar,Elfsborg,Kalmar,0,3
+2023-09-17,Hacken 3-2 Halmstad,Hacken,Halmstad,3,2
+2023-09-18,Norrkoping 0-2 Mjallby,Norrkoping,Mjallby,0,2
+2023-09-18,AIK 2-0 Degerfors,AIK,Degerfors,2,0
+2023-09-23,Degerfors 1-2 Malmo FF,Degerfors,Malmo FF,1,2
+2023-09-23,Brommapojkarna 2-2 Norrkoping,Brommapojkarna,Norrkoping,2,2
+2023-09-24,AIK 2-0 Djurgarden,AIK,Djurgarden,2,0
+2023-09-24,Mjallby 0-1 Goteborg,Mjallby,Goteborg,0,1
+2023-09-24,Kalmar 1-0 Hacken,Kalmar,Hacken,1,0
+2023-09-24,Varberg 0-1 Hammarby,Varberg,Hammarby,0,1
+2023-09-25,Halmstad 0-1 Elfsborg,Halmstad,Elfsborg,0,1
+2023-09-25,Varnamo 0-1 Sirius,Varnamo,Sirius,0,1
+2023-09-30,Djurgarden 1-0 Halmstad,Djurgarden,Halmstad,1,0
+2023-09-30,Norrkoping 1-0 Kalmar,Norrkoping,Kalmar,1,0
+2023-10-01,Hacken 2-0 AIK,Hacken,AIK,2,0
+2023-10-01,Sirius 3-2 Degerfors,Sirius,Degerfors,3,2
+2023-10-01,Hammarby 1-1 Goteborg,Hammarby,Goteborg,1,1
+2023-10-01,Mjallby 2-3 Varnamo,Mjallby,Varnamo,2,3
+2023-10-02,Elfsborg 2-1 Varberg,Elfsborg,Varberg,2,1
+2023-10-02,Malmo FF 2-1 Brommapojkarna,Malmo FF,Brommapojkarna,2,1
+2023-10-07,AIK 1-0 Mjallby,AIK,Mjallby,1,0
+2023-10-07,Halmstad 0-0 Degerfors,Halmstad,Degerfors,0,0
+2023-10-07,Goteborg 0-1 Sirius,Goteborg,Sirius,0,1
+2023-10-08,Brommapojkarna 0-3 Elfsborg,Brommapojkarna,Elfsborg,0,3
+2023-10-08,Kalmar 1-0 Malmo FF,Kalmar,Malmo FF,1,0
+2023-10-08,Varnamo 2-1 Norrkoping,Varnamo,Norrkoping,2,1
+2023-10-08,Hammarby 2-2 Hacken,Hammarby,Hacken,2,2
+2023-10-08,Varberg 0-1 Djurgarden,Varberg,Djurgarden,0,1
+2023-10-21,Degerfors 1-3 Kalmar,Degerfors,Kalmar,1,3
+2023-10-21,Sirius 3-2 Brommapojkarna,Sirius,Brommapojkarna,3,2
+2023-10-22,Djurgarden 0-0 Hammarby,Djurgarden,Hammarby,0,0
+2023-10-22,Halmstad 1-1 Mjallby,Halmstad,Mjallby,1,1
+2023-10-22,Hacken 4-1 Norrkoping,Hacken,Norrkoping,4,1
+2023-10-22,Malmo FF 5-0 Varberg,Malmo FF,Varberg,5,0
+2023-10-23,Varnamo 3-1 Goteborg,Varnamo,Goteborg,3,1
+2023-10-23,Elfsborg 3-0 AIK,Elfsborg,AIK,3,0
+2023-10-28,Brommapojkarna 1-2 Djurgarden,Brommapojkarna,Djurgarden,1,2
+2023-10-28,Varberg 1-1 Degerfors,Varberg,Degerfors,1,1
+2023-10-29,Kalmar 1-3 Varnamo,Kalmar,Varnamo,1,3
+2023-10-29,Mjallby 2-1 Hacken,Mjallby,Hacken,2,1
+2023-10-29,Norrkoping 0-1 Malmo FF,Norrkoping,Malmo FF,0,1
+2023-10-29,AIK 1-1 Halmstad,AIK,Halmstad,1,1
+2023-10-30,Hammarby 2-2 Sirius,Hammarby,Sirius,2,2
+2023-10-30,Goteborg 1-2 Elfsborg,Goteborg,Elfsborg,1,2
+2023-11-04,Varnamo 0-0 Hammarby,Varnamo,Hammarby,0,0
+2023-11-04,Djurgarden 2-4 Sirius,Djurgarden,Sirius,2,4
+2023-11-05,Hacken 4-2 Malmo FF,Hacken,Malmo FF,4,2
+2023-11-05,Halmstad 3-0 Kalmar,Halmstad,Kalmar,3,0
+2023-11-05,Elfsborg 2-2 Degerfors,Elfsborg,Degerfors,2,2
+2023-11-05,Mjallby 1-2 Brommapojkarna,Mjallby,Brommapojkarna,1,2
+2023-11-06,Norrkoping 4-3 Varberg,Norrkoping,Varberg,4,3
+2023-11-06,Goteborg 1-1 AIK,Goteborg,AIK,1,1
+2023-11-12,AIK 3-1 Varnamo,AIK,Varnamo,3,1
+2023-11-12,Brommapojkarna 2-1 Hacken,Brommapojkarna,Hacken,2,1
+2023-11-12,Degerfors 1-2 Mjallby,Degerfors,Mjallby,1,2
+2023-11-12,Hammarby 2-2 Halmstad,Hammarby,Halmstad,2,2
+2023-11-12,Kalmar 2-1 Djurgarden,Kalmar,Djurgarden,2,1
+2023-11-12,Malmo FF 1-0 Elfsborg,Malmo FF,Elfsborg,1,0
+2023-11-12,Sirius 2-0 Norrkoping,Sirius,Norrkoping,2,0
+2023-11-12,Varberg 1-2 Goteborg,Varberg,Goteborg,1,2
+2024-03-30,Norrkoping 1-5 Malmo FF,Norrkoping,Malmo FF,1,5
+2024-03-31,GAIS 0-4 Brommapojkarna,GAIS,Brommapojkarna,0,4
+2024-03-31,Hammarby 3-1 Kalmar,Hammarby,Kalmar,3,1
+2024-03-31,Hacken 0-1 Mjallby,Hacken,Mjallby,0,1
+2024-04-01,Goteborg 1-4 Djurgarden,Goteborg,Djurgarden,1,4
+2024-04-01,Sirius 3-0 Halmstad,Sirius,Halmstad,3,0
+2024-04-01,AIK 1-0 Vasteras SK,AIK,Vasteras SK,1,0
+2024-04-01,Elfsborg 2-2 Varnamo,Elfsborg,Varnamo,2,2
+2024-04-06,Brommapojkarna 2-2 AIK,Brommapojkarna,AIK,2,2
+2024-04-06,Mjallby 3-0 Norrkoping,Mjallby,Norrkoping,3,0
+2024-04-07,Halmstad 1-0 Goteborg,Halmstad,Goteborg,1,0
+2024-04-07,Malmo FF 2-0 Hammarby,Malmo FF,Hammarby,2,0
+2024-04-07,Vasteras SK 0-1 Elfsborg,Vasteras SK,Elfsborg,0,1
+2024-04-08,Kalmar 1-2 Sirius,Kalmar,Sirius,1,2
+2024-04-08,Varnamo 1-2 GAIS,Varnamo,GAIS,1,2
+2024-04-08,Djurgarden 3-3 Hacken,Djurgarden,Hacken,3,3
+2024-04-13,Mjallby 1-1 AIK,Mjallby,AIK,1,1
+2024-04-13,Vasteras SK 0-1 Halmstad,Vasteras SK,Halmstad,0,1
+2024-04-14,Kalmar 0-1 Goteborg,Kalmar,Goteborg,0,1
+2024-04-14,Norrkoping 1-0 GAIS,Norrkoping,GAIS,1,0
+2024-04-14,Djurgarden 2-0 Sirius,Djurgarden,Sirius,2,0
+2024-04-15,Hacken 4-3 Brommapojkarna,Hacken,Brommapojkarna,4,3
+2024-04-15,Varnamo 0-4 Malmo FF,Varnamo,Malmo FF,0,4
+2024-04-15,Hammarby 3-0 Elfsborg,Hammarby,Elfsborg,3,0
+2024-04-20,Goteborg 1-1 Norrkoping,Goteborg,Norrkoping,1,1
+2024-04-20,Sirius 0-1 Varnamo,Sirius,Varnamo,0,1
+2024-04-20,Malmo FF 1-0 Vasteras SK,Malmo FF,Vasteras SK,1,0
+2024-04-21,AIK 2-0 Djurgarden,AIK,Djurgarden,2,0
+2024-04-21,GAIS 2-1 Mjallby,GAIS,Mjallby,2,1
+2024-04-21,Hacken 2-1 Hammarby,Hacken,Hammarby,2,1
+2024-04-21,Halmstad 0-2 Brommapojkarna,Halmstad,Brommapojkarna,0,2
+2024-04-22,Elfsborg 1-2 Kalmar,Elfsborg,Kalmar,1,2
+2024-04-24,AIK 2-0 Varnamo,AIK,Varnamo,2,0
+2024-04-24,Brommapojkarna 1-1 Sirius,Brommapojkarna,Sirius,1,1
+2024-04-24,Goteborg 0-1 Hacken,Goteborg,Hacken,0,1
+2024-04-25,Djurgarden 0-1 Malmo FF,Djurgarden,Malmo FF,0,1
+2024-04-25,Halmstad 2-1 Hammarby,Halmstad,Hammarby,2,1
+2024-04-25,Kalmar 2-3 GAIS,Kalmar,GAIS,2,3
+2024-04-25,Norrkoping 4-2 Elfsborg,Norrkoping,Elfsborg,4,2
+2024-04-25,Vasteras SK 2-1 Mjallby,Vasteras SK,Mjallby,2,1
+2024-04-28,Malmo FF 5-0 AIK,Malmo FF,AIK,5,0
+2024-04-28,Varnamo 1-3 Halmstad,Varnamo,Halmstad,1,3
+2024-04-28,Djurgarden 1-0 GAIS,Djurgarden,GAIS,1,0
+2024-04-28,Hacken 1-2 Norrkoping,Hacken,Norrkoping,1,2
+2024-04-29,Brommapojkarna 0-3 Goteborg,Brommapojkarna,Goteborg,0,3
+2024-04-29,Elfsborg 2-0 Sirius,Elfsborg,Sirius,2,0
+2024-04-29,Mjallby 3-2 Kalmar,Mjallby,Kalmar,3,2
+2024-04-29,Hammarby 2-1 Vasteras SK,Hammarby,Vasteras SK,2,1
+2024-05-04,Kalmar 5-2 Halmstad,Kalmar,Halmstad,5,2
+2024-05-04,Mjallby 1-1 Brommapojkarna,Mjallby,Brommapojkarna,1,1
+2024-05-04,Sirius 0-3 Hacken,Sirius,Hacken,0,3
+2024-05-05,Elfsborg 3-1 Malmo FF,Elfsborg,Malmo FF,3,1
+2024-05-05,Vasteras SK 0-2 Djurgarden,Vasteras SK,Djurgarden,0,2
+2024-05-05,AIK 6-2 Norrkoping,AIK,Norrkoping,6,2
+2024-05-05,Hammarby 1-2 Varnamo,Hammarby,Varnamo,1,2
+2024-05-06,GAIS 2-1 Goteborg,GAIS,Goteborg,2,1
+2024-05-11,AIK 1-3 Sirius,AIK,Sirius,1,3
+2024-05-11,Halmstad 1-3 Mjallby,Halmstad,Mjallby,1,3
+2024-05-11,GAIS 2-0 Vasteras SK,GAIS,Vasteras SK,2,0
+2024-05-12,Hacken 3-1 Kalmar,Hacken,Kalmar,3,1
+2024-05-12,Norrkoping 1-2 Hammarby,Norrkoping,Hammarby,1,2
+2024-05-12,Djurgarden 2-0 Elfsborg,Djurgarden,Elfsborg,2,0
+2024-05-12,Varnamo 1-1 Brommapojkarna,Varnamo,Brommapojkarna,1,1
+2024-05-13,Goteborg 0-3 Malmo FF,Goteborg,Malmo FF,0,3
+2024-05-15,Elfsborg 6-1 AIK,Elfsborg,AIK,6,1
+2024-05-15,Halmstad 3-0 Hacken,Halmstad,Hacken,3,0
+2024-05-15,Mjallby 3-0 Hammarby,Mjallby,Hammarby,3,0
+2024-05-15,Vasteras SK 0-2 Varnamo,Vasteras SK,Varnamo,0,2
+2024-05-16,Brommapojkarna 0-5 Djurgarden,Brommapojkarna,Djurgarden,0,5
+2024-05-16,Kalmar 1-1 Norrkoping,Kalmar,Norrkoping,1,1
+2024-05-16,Malmo FF 1-0 GAIS,Malmo FF,GAIS,1,0
+2024-05-16,Sirius 2-2 Goteborg,Sirius,Goteborg,2,2
+2024-05-19,Brommapojkarna 2-1 Norrkoping,Brommapojkarna,Norrkoping,2,1
+2024-05-19,Hammarby 2-1 AIK,Hammarby,AIK,2,1
+2024-05-19,GAIS 2-1 Elfsborg,GAIS,Elfsborg,2,1
+2024-05-19,Varnamo 0-2 Kalmar,Varnamo,Kalmar,0,2
+2024-05-20,Djurgarden 2-0 Halmstad,Djurgarden,Halmstad,2,0
+2024-05-20,Sirius 0-0 Vasteras SK,Sirius,Vasteras SK,0,0
+2024-05-20,Hacken 2-2 Malmo FF,Hacken,Malmo FF,2,2
+2024-05-21,Goteborg 1-0 Mjallby,Goteborg,Mjallby,1,0
+2024-05-24,Elfsborg 2-0 Halmstad,Elfsborg,Halmstad,2,0
+2024-05-24,Malmo FF 5-0 Kalmar,Malmo FF,Kalmar,5,0
+2024-05-25,GAIS 3-0 Hacken,GAIS,Hacken,3,0
+2024-05-25,Mjallby 1-3 Djurgarden,Mjallby,Djurgarden,1,3
+2024-05-26,Hammarby 3-0 Sirius,Hammarby,Sirius,3,0
+2024-05-26,Vasteras SK 1-1 Brommapojkarna,Vasteras SK,Brommapojkarna,1,1
+2024-05-27,Norrkoping 0-4 Varnamo,Norrkoping,Varnamo,0,4
+2024-05-27,AIK 5-2 Goteborg,AIK,Goteborg,5,2
+2024-05-28,Malmo FF 2-1 Elfsborg,Malmo FF,Elfsborg,2,1
+2024-05-29,Mjallby 2-1 Hacken,Mjallby,Hacken,2,1
+2024-06-01,Brommapojkarna 2-2 Malmo FF,Brommapojkarna,Malmo FF,2,2
+2024-06-01,Goteborg 1-0 Elfsborg,Goteborg,Elfsborg,1,0
+2024-06-01,Halmstad 4-0 GAIS,Halmstad,GAIS,4,0
+2024-06-01,Sirius 5-1 Norrkoping,Sirius,Norrkoping,5,1
+2024-06-02,Djurgarden 0-3 Hammarby,Djurgarden,Hammarby,0,3
+2024-06-02,Kalmar 0-4 Vasteras SK,Kalmar,Vasteras SK,0,4
+2024-06-02,Hacken 4-1 AIK,Hacken,AIK,4,1
+2024-06-02,Varnamo 1-2 Mjallby,Varnamo,Mjallby,1,2
+2024-07-06,Elfsborg 3-0 Brommapojkarna,Elfsborg,Brommapojkarna,3,0
+2024-07-06,Mjallby 3-2 Sirius,Mjallby,Sirius,3,2
+2024-07-07,AIK 1-2 Kalmar,AIK,Kalmar,1,2
+2024-07-07,Varnamo 2-0 Goteborg,Varnamo,Goteborg,2,0
+2024-07-07,GAIS 0-0 Hammarby,GAIS,Hammarby,0,0
+2024-07-07,Malmo FF 5-1 Halmstad,Malmo FF,Halmstad,5,1
+2024-07-08,Norrkoping 1-3 Djurgarden,Norrkoping,Djurgarden,1,3
+2024-07-08,Vasteras SK 1-2 Hacken,Vasteras SK,Hacken,1,2
+2024-07-13,Mjallby 2-1 Malmo FF,Mjallby,Malmo FF,2,1
+2024-07-13,Sirius 3-1 GAIS,Sirius,GAIS,3,1
+2024-07-14,Djurgarden 1-0 Varnamo,Djurgarden,Varnamo,1,0
+2024-07-14,Hacken 3-5 Elfsborg,Hacken,Elfsborg,3,5
+2024-07-14,Kalmar 0-1 Brommapojkarna,Kalmar,Brommapojkarna,0,1
+2024-07-14,Vasteras SK 2-1 Norrkoping,Vasteras SK,Norrkoping,2,1
+2024-07-15,Halmstad 1-2 AIK,Halmstad,AIK,1,2
+2024-07-15,Hammarby 0-1 Goteborg,Hammarby,Goteborg,0,1
+2024-07-19,Sirius 3-4 Malmo FF,Sirius,Malmo FF,3,4
+2024-07-20,Kalmar 2-1 Djurgarden,Kalmar,Djurgarden,2,1
+2024-07-20,Varnamo 2-2 Hacken,Varnamo,Hacken,2,2
+2024-07-20,Brommapojkarna 0-2 Hammarby,Brommapojkarna,Hammarby,0,2
+2024-07-21,Norrkoping 1-0 Halmstad,Norrkoping,Halmstad,1,0
+2024-07-21,Elfsborg 3-1 Mjallby,Elfsborg,Mjallby,3,1
+2024-07-21,Goteborg 1-1 Vasteras SK,Goteborg,Vasteras SK,1,1
+2024-07-22,GAIS 2-0 AIK,GAIS,AIK,2,0
+2024-07-27,Norrkoping 2-0 Kalmar,Norrkoping,Kalmar,2,0
+2024-07-27,Goteborg 3-4 Brommapojkarna,Goteborg,Brommapojkarna,3,4
+2024-07-27,Malmo FF 0-1 Sirius,Malmo FF,Sirius,0,1
+2024-07-27,Halmstad 1-0 Varnamo,Halmstad,Varnamo,1,0
+2024-07-28,Elfsborg 1-2 Djurgarden,Elfsborg,Djurgarden,1,2
+2024-07-28,Hacken 4-0 Vasteras SK,Hacken,Vasteras SK,4,0
+2024-07-28,Hammarby 3-0 Mjallby,Hammarby,Mjallby,3,0
+2024-07-29,AIK 0-1 GAIS,AIK,GAIS,0,1
+2024-08-03,GAIS 0-1 Norrkoping,GAIS,Norrkoping,0,1
+2024-08-03,Vasteras SK 1-2 AIK,Vasteras SK,AIK,1,2
+2024-08-03,Brommapojkarna 4-1 Halmstad,Brommapojkarna,Halmstad,4,1
+2024-08-04,Djurgarden 1-1 Goteborg,Djurgarden,Goteborg,1,1
+2024-08-04,Varnamo 2-4 Sirius,Varnamo,Sirius,2,4
+2024-08-04,Kalmar 1-4 Hammarby,Kalmar,Hammarby,1,4
+2024-08-10,Halmstad 0-1 Malmo FF,Halmstad,Malmo FF,0,1
+2024-08-10,Norrkoping 2-1 Vasteras SK,Norrkoping,Vasteras SK,2,1
+2024-08-10,Goteborg 0-0 Varnamo,Goteborg,Varnamo,0,0
+2024-08-11,AIK 1-0 Mjallby,AIK,Mjallby,1,0
+2024-08-11,Elfsborg 2-1 GAIS,Elfsborg,GAIS,2,1
+2024-08-11,Sirius 3-1 Kalmar,Sirius,Kalmar,3,1
+2024-08-12,Hammarby 3-3 Brommapojkarna,Hammarby,Brommapojkarna,3,3
+2024-08-17,Goteborg 1-1 Sirius,Goteborg,Sirius,1,1
+2024-08-17,Malmo FF 2-1 Norrkoping,Malmo FF,Norrkoping,2,1
+2024-08-17,Varnamo 0-3 Hammarby,Varnamo,Hammarby,0,3
+2024-08-17,Vasteras SK 2-1 Kalmar,Vasteras SK,Kalmar,2,1
+2024-08-18,Brommapojkarna 1-3 Hacken,Brommapojkarna,Hacken,1,3
+2024-08-18,Djurgarden 0-2 AIK,Djurgarden,AIK,0,2
+2024-08-18,Mjallby 1-1 Elfsborg,Mjallby,Elfsborg,1,1
+2024-08-18,GAIS 3-1 Halmstad,GAIS,Halmstad,3,1
+2024-08-24,Kalmar 2-2 Malmo FF,Kalmar,Malmo FF,2,2
+2024-08-25,Elfsborg 3-1 Goteborg,Elfsborg,Goteborg,3,1
+2024-08-25,Sirius 0-1 Djurgarden,Sirius,Djurgarden,0,1
+2024-08-25,AIK 2-1 Brommapojkarna,AIK,Brommapojkarna,2,1
+2024-08-25,Hacken 1-1 Varnamo,Hacken,Varnamo,1,1
+2024-08-26,Halmstad 0-1 Vasteras SK,Halmstad,Vasteras SK,0,1
+2024-08-26,Hammarby 0-0 GAIS,Hammarby,GAIS,0,0
+2024-08-26,Norrkoping 1-2 Mjallby,Norrkoping,Mjallby,1,2
+2024-08-31,GAIS 1-1 Kalmar,GAIS,Kalmar,1,1
+2024-08-31,Varnamo 0-1 AIK,Varnamo,AIK,0,1
+2024-08-31,Mjallby 3-1 Halmstad,Mjallby,Halmstad,3,1
+2024-08-31,Vasteras SK 1-2 Sirius,Vasteras SK,Sirius,1,2
+2024-09-01,Brommapojkarna 3-3 Elfsborg,Brommapojkarna,Elfsborg,3,3
+2024-09-01,Malmo FF 4-0 Djurgarden,Malmo FF,Djurgarden,4,0
+2024-09-01,Goteborg 0-1 Hammarby,Goteborg,Hammarby,0,1
+2024-09-01,Norrkoping 3-3 Hacken,Norrkoping,Hacken,3,3
+2024-09-14,Vasteras SK 2-3 GAIS,Vasteras SK,GAIS,2,3
+2024-09-15,AIK 0-0 Malmo FF,AIK,Malmo FF,0,0
+2024-09-15,Djurgarden 1-1 Mjallby,Djurgarden,Mjallby,1,1
+2024-09-15,Sirius 3-2 Brommapojkarna,Sirius,Brommapojkarna,3,2
+2024-09-15,Hacken 3-3 Goteborg,Hacken,Goteborg,3,3
+2024-09-15,Halmstad 0-1 Elfsborg,Halmstad,Elfsborg,0,1
+2024-09-15,Kalmar 3-1 Varnamo,Kalmar,Varnamo,3,1
+2024-09-16,Hammarby 1-1 Norrkoping,Hammarby,Norrkoping,1,1
+2024-09-18,GAIS 0-0 Malmo FF,GAIS,Malmo FF,0,0
+2024-09-19,Elfsborg 2-2 Norrkoping,Elfsborg,Norrkoping,2,2
+2024-09-19,Hacken 1-2 Djurgarden,Hacken,Djurgarden,1,2
+2024-09-21,Kalmar 0-1 AIK,Kalmar,AIK,0,1
+2024-09-21,Brommapojkarna 0-0 Mjallby,Brommapojkarna,Mjallby,0,0
+2024-09-22,Elfsborg 0-0 Hammarby,Elfsborg,Hammarby,0,0
+2024-09-22,GAIS 3-0 Djurgarden,GAIS,Djurgarden,3,0
+2024-09-22,Varnamo 2-0 Vasteras SK,Varnamo,Vasteras SK,2,0
+2024-09-22,Malmo FF 4-0 Hacken,Malmo FF,Hacken,4,0
+2024-09-23,Goteborg 1-1 Halmstad,Goteborg,Halmstad,1,1
+2024-09-25,Djurgarden 2-1 Brommapojkarna,Djurgarden,Brommapojkarna,2,1
+2024-09-25,Mjallby 1-1 Varnamo,Mjallby,Varnamo,1,1
+2024-09-25,Sirius 0-1 AIK,Sirius,AIK,0,1
+2024-09-26,Halmstad 2-2 Kalmar,Halmstad,Kalmar,2,2
+2024-09-26,Hammarby 2-0 Hacken,Hammarby,Hacken,2,0
+2024-09-26,Vasteras SK 1-1 Goteborg,Vasteras SK,Goteborg,1,1
+2024-09-29,AIK 1-0 Hammarby,AIK,Hammarby,1,0
+2024-09-29,Halmstad 0-0 Norrkoping,Halmstad,Norrkoping,0,0
+2024-09-29,Varnamo 1-1 Djurgarden,Varnamo,Djurgarden,1,1
+2024-09-29,Hacken 2-0 Sirius,Hacken,Sirius,2,0
+2024-09-29,Kalmar 1-3 Elfsborg,Kalmar,Elfsborg,1,3
+2024-09-29,Malmo FF 2-0 Mjallby,Malmo FF,Mjallby,2,0
+2024-09-30,Brommapojkarna 2-1 Vasteras SK,Brommapojkarna,Vasteras SK,2,1
+2024-09-30,Goteborg 2-0 GAIS,Goteborg,GAIS,2,0
+2024-10-03,Norrkoping 0-2 Sirius,Norrkoping,Sirius,0,2
+2024-10-05,Hammarby 1-0 Halmstad,Hammarby,Halmstad,1,0
+2024-10-05,Mjallby 2-1 Vasteras SK,Mjallby,Vasteras SK,2,1
+2024-10-05,Brommapojkarna 2-0 GAIS,Brommapojkarna,GAIS,2,0
+2024-10-06,AIK 0-2 Hacken,AIK,Hacken,0,2
+2024-10-06,Djurgarden 1-1 Kalmar,Djurgarden,Kalmar,1,1
+2024-10-06,Malmo FF 1-1 Varnamo,Malmo FF,Varnamo,1,1
+2024-10-06,Norrkoping 0-2 Goteborg,Norrkoping,Goteborg,0,2
+2024-10-06,Sirius 4-1 Elfsborg,Sirius,Elfsborg,4,1
+2024-10-19,Elfsborg 1-3 Hacken,Elfsborg,Hacken,1,3
+2024-10-19,Vasteras SK 1-1 Malmo FF,Vasteras SK,Malmo FF,1,1
+2024-10-19,Halmstad 3-1 Sirius,Halmstad,Sirius,3,1
+2024-10-20,Kalmar 0-3 Mjallby,Kalmar,Mjallby,0,3
+2024-10-20,GAIS 0-0 Varnamo,GAIS,Varnamo,0,0
+2024-10-21,Hammarby 2-0 Djurgarden,Hammarby,Djurgarden,2,0
+2024-10-21,Norrkoping 1-1 Brommapojkarna,Norrkoping,Brommapojkarna,1,1
+2024-10-21,Goteborg 1-2 AIK,Goteborg,AIK,1,2
+2024-10-26,Mjallby 1-1 GAIS,Mjallby,GAIS,1,1
+2024-10-26,Sirius 0-3 Hammarby,Sirius,Hammarby,0,3
+2024-10-26,Brommapojkarna 1-2 Kalmar,Brommapojkarna,Kalmar,1,2
+2024-10-27,AIK 2-1 Elfsborg,AIK,Elfsborg,2,1
+2024-10-27,Varnamo 1-2 Norrkoping,Varnamo,Norrkoping,1,2
+2024-10-27,Hacken 0-1 Halmstad,Hacken,Halmstad,0,1
+2024-10-28,Djurgarden 2-1 Vasteras SK,Djurgarden,Vasteras SK,2,1
+2024-10-28,Malmo FF 2-1 Goteborg,Malmo FF,Goteborg,2,1
+2024-11-02,Elfsborg 1-0 Vasteras SK,Elfsborg,Vasteras SK,1,0
+2024-11-02,Hammarby 2-2 Malmo FF,Hammarby,Malmo FF,2,2
+2024-11-02,Goteborg 1-1 Kalmar,Goteborg,Kalmar,1,1
+2024-11-03,Brommapojkarna 0-1 Varnamo,Brommapojkarna,Varnamo,0,1
+2024-11-03,Hacken 1-2 GAIS,Hacken,GAIS,1,2
+2024-11-03,Halmstad 1-0 Djurgarden,Halmstad,Djurgarden,1,0
+2024-11-03,Sirius 1-1 Mjallby,Sirius,Mjallby,1,1
+2024-11-04,Norrkoping 1-0 AIK,Norrkoping,AIK,1,0
+2024-11-10,AIK 5-1 Halmstad,AIK,Halmstad,5,1
+2024-11-10,Djurgarden 3-1 Norrkoping,Djurgarden,Norrkoping,3,1
+2024-11-10,GAIS 2-1 Sirius,GAIS,Sirius,2,1
+2024-11-10,Kalmar 1-0 Hacken,Kalmar,Hacken,1,0
+2024-11-10,Malmo FF 2-1 Brommapojkarna,Malmo FF,Brommapojkarna,2,1
+2024-11-10,Mjallby 1-0 Goteborg,Mjallby,Goteborg,1,0
+2024-11-10,Varnamo 0-0 Elfsborg,Varnamo,Elfsborg,0,0
+2024-11-10,Vasteras SK 1-0 Hammarby,Vasteras SK,Hammarby,1,0
+2024-11-21,Landskrona 2-2 Varnamo,Landskrona,Varnamo,2,2
+2024-11-24,Varnamo 1-0 Landskrona,Varnamo,Landskrona,1,0
+2025-03-29,Djurgarden 0-1 Malmo FF,Djurgarden,Malmo FF,0,1
+2025-03-29,Hacken 2-0 Brommapojkarna,Hacken,Brommapojkarna,2,0
+2025-03-30,Elfsborg 2-2 Mjallby,Elfsborg,Mjallby,2,2
+2025-03-30,Hammarby 4-0 Goteborg,Hammarby,Goteborg,4,0
+2025-03-30,Halmstad 0-5 Degerfors,Halmstad,Degerfors,0,5
+2025-03-30,Norrkoping 4-3 Oster,Norrkoping,Oster,4,3
+2025-03-31,Varnamo 1-2 Sirius,Varnamo,Sirius,1,2
+2025-03-31,GAIS 0-1 AIK,GAIS,AIK,0,1
+2025-04-05,Goteborg 1-0 Halmstad,Goteborg,Halmstad,1,0
+2025-04-05,Sirius 0-1 Djurgarden,Sirius,Djurgarden,0,1
+2025-04-05,Oster 2-0 Hacken,Oster,Hacken,2,0
+2025-04-06,AIK 4-3 Norrkoping,AIK,Norrkoping,4,3
+2025-04-06,Brommapojkarna 0-2 Hammarby,Brommapojkarna,Hammarby,0,2
+2025-04-06,Degerfors 1-0 Varnamo,Degerfors,Varnamo,1,0
+2025-04-06,Mjallby 1-1 GAIS,Mjallby,GAIS,1,1
+2025-04-07,Malmo FF 2-1 Elfsborg,Malmo FF,Elfsborg,2,1
+2025-04-12,Hacken 0-3 Mjallby,Hacken,Mjallby,0,3
+2025-04-12,Elfsborg 2-0 Norrkoping,Elfsborg,Norrkoping,2,0
+2025-04-13,Hammarby 2-0 Djurgarden,Hammarby,Djurgarden,2,0
+2025-04-13,Varnamo 0-1 Goteborg,Varnamo,Goteborg,0,1
+2025-04-13,GAIS 2-0 Degerfors,GAIS,Degerfors,2,0
+2025-04-13,Sirius 0-3 Brommapojkarna,Sirius,Brommapojkarna,0,3
+2025-04-14,Halmstad 1-0 Oster,Halmstad,Oster,1,0
+2025-04-14,AIK 0-0 Malmo FF,AIK,Malmo FF,0,0
+2025-04-18,Malmo FF 1-1 Sirius,Malmo FF,Sirius,1,1
+2025-04-18,Mjallby 3-1 Hammarby,Mjallby,Hammarby,3,1
+2025-04-19,Degerfors 0-1 Elfsborg,Degerfors,Elfsborg,0,1
+2025-04-19,Norrkoping 3-0 Halmstad,Norrkoping,Halmstad,3,0
+2025-04-20,Brommapojkarna 3-2 Varnamo,Brommapojkarna,Varnamo,3,2
+2025-04-20,Oster 0-1 AIK,Oster,AIK,0,1
+2025-04-20,Goteborg 2-3 Hacken,Goteborg,Hacken,2,3
+2025-04-21,Djurgarden 0-0 GAIS,Djurgarden,GAIS,0,0
+2025-04-23,Elfsborg 4-3 Sirius,Elfsborg,Sirius,4,3
+2025-04-23,Hacken 3-4 Degerfors,Hacken,Degerfors,3,4
+2025-04-23,Halmstad 1-3 Mjallby,Halmstad,Mjallby,1,3
+2025-04-23,Hammarby 2-0 Malmo FF,Hammarby,Malmo FF,2,0
+2025-04-24,Djurgarden 1-0 Oster,Djurgarden,Oster,1,0
+2025-04-24,GAIS 1-1 Brommapojkarna,GAIS,Brommapojkarna,1,1
+2025-04-24,Norrkoping 2-3 Goteborg,Norrkoping,Goteborg,2,3
+2025-04-24,Varnamo 1-2 AIK,Varnamo,AIK,1,2
+2025-04-27,Hacken 1-1 Hammarby,Hacken,Hammarby,1,1
+2025-04-27,Mjallby 4-1 Degerfors,Mjallby,Degerfors,4,1
+2025-04-27,AIK 2-0 Elfsborg,AIK,Elfsborg,2,0
+2025-04-27,Sirius 1-1 Halmstad,Sirius,Halmstad,1,1
+2025-04-27,Varnamo 1-3 Norrkoping,Varnamo,Norrkoping,1,3
+2025-04-28,Goteborg 1-1 GAIS,Goteborg,GAIS,1,1
+2025-04-29,Malmo FF 2-0 Oster,Malmo FF,Oster,2,0
+2025-05-03,Degerfors 1-1 Sirius,Degerfors,Sirius,1,1
+2025-05-03,Halmstad 4-2 Varnamo,Halmstad,Varnamo,4,2
+2025-05-04,Djurgarden 1-1 AIK,Djurgarden,AIK,1,1
+2025-05-04,Norrkoping 0-2 Hacken,Norrkoping,Hacken,0,2
+2025-05-04,Mjallby 1-0 Goteborg,Mjallby,Goteborg,1,0
+2025-05-04,Oster 0-3 Hammarby,Oster,Hammarby,0,3
+2025-05-05,Malmo FF 1-2 Brommapojkarna,Malmo FF,Brommapojkarna,1,2
+2025-05-05,Elfsborg 2-0 GAIS,Elfsborg,GAIS,2,0
+2025-05-10,Brommapojkarna 0-1 Halmstad,Brommapojkarna,Halmstad,0,1
+2025-05-10,GAIS 1-1 Varnamo,GAIS,Varnamo,1,1
+2025-05-10,Sirius 2-0 Hacken,Sirius,Hacken,2,0
+2025-05-11,AIK 2-1 Mjallby,AIK,Mjallby,2,1
+2025-05-11,Hammarby 1-1 Norrkoping,Hammarby,Norrkoping,1,1
+2025-05-11,Degerfors 1-4 Malmo FF,Degerfors,Malmo FF,1,4
+2025-05-11,Oster 0-1 Elfsborg,Oster,Elfsborg,0,1
+2025-05-12,Goteborg 1-2 Djurgarden,Goteborg,Djurgarden,1,2
+2025-05-14,Hacken 3-3 AIK,Hacken,AIK,3,3
+2025-05-14,Halmstad 1-3 GAIS,Halmstad,GAIS,1,3
+2025-05-14,Hammarby 3-2 Sirius,Hammarby,Sirius,3,2
+2025-05-15,Djurgarden 1-3 Mjallby,Djurgarden,Mjallby,1,3
+2025-05-15,Elfsborg 4-3 Brommapojkarna,Elfsborg,Brommapojkarna,4,3
+2025-05-15,Goteborg 0-1 Oster,Goteborg,Oster,0,1
+2025-05-15,Norrkoping 1-2 Degerfors,Norrkoping,Degerfors,1,2
+2025-05-15,Varnamo 2-2 Malmo FF,Varnamo,Malmo FF,2,2
+2025-05-18,AIK 0-0 Hammarby,AIK,Hammarby,0,0
+2025-05-18,Hacken 2-0 Varnamo,Hacken,Varnamo,2,0
+2025-05-18,Malmo FF 3-0 Halmstad,Malmo FF,Halmstad,3,0
+2025-05-18,Oster 1-1 GAIS,Oster,GAIS,1,1
+2025-05-19,Degerfors 1-3 Goteborg,Degerfors,Goteborg,1,3
+2025-05-19,Mjallby 1-0 Brommapojkarna,Mjallby,Brommapojkarna,1,0
+2025-05-19,Sirius 1-2 Norrkoping,Sirius,Norrkoping,1,2
+2025-05-19,Elfsborg 4-0 Djurgarden,Elfsborg,Djurgarden,4,0
+2025-05-22,Hammarby 1-2 Mjallby,Hammarby,Mjallby,1,2
+2025-05-22,Malmo FF 0-0 AIK,Malmo FF,AIK,0,0
+2025-05-24,Varnamo 1-1 Oster,Varnamo,Oster,1,1
+2025-05-24,GAIS 2-1 Sirius,GAIS,Sirius,2,1
+2025-05-25,Goteborg 1-0 Malmo FF,Goteborg,Malmo FF,1,0
+2025-05-25,Halmstad 1-4 Elfsborg,Halmstad,Elfsborg,1,4
+2025-05-25,Brommapojkarna 0-1 AIK,Brommapojkarna,AIK,0,1
+2025-05-25,Djurgarden 1-1 Hacken,Djurgarden,Hacken,1,1
+2025-05-26,Norrkoping 1-1 Mjallby,Norrkoping,Mjallby,1,1
+2025-05-26,Hammarby 1-0 Degerfors,Hammarby,Degerfors,1,0
+2025-05-29,Brommapojkarna 0-1 Djurgarden,Brommapojkarna,Djurgarden,0,1
+2025-05-31,Degerfors 1-2 Oster,Degerfors,Oster,1,2
+2025-05-31,Elfsborg 0-2 Hammarby,Elfsborg,Hammarby,0,2
+2025-05-31,Norrkoping 0-3 GAIS,Norrkoping,GAIS,0,3
+2025-06-01,Brommapojkarna 1-3 Goteborg,Brommapojkarna,Goteborg,1,3
+2025-06-01,Halmstad 1-0 Djurgarden,Halmstad,Djurgarden,1,0
+2025-06-01,Malmo FF 3-0 Hacken,Malmo FF,Hacken,3,0
+2025-06-01,Mjallby 2-0 Varnamo,Mjallby,Varnamo,2,0
+2025-06-01,Sirius 3-1 AIK,Sirius,AIK,3,1
+2025-06-28,Hammarby 2-0 Halmstad,Hammarby,Halmstad,2,0
+2025-06-28,Oster 2-2 Sirius,Oster,Sirius,2,2
+2025-06-29,AIK 3-0 Goteborg,AIK,Goteborg,3,0
+2025-06-29,Degerfors 0-3 Brommapojkarna,Degerfors,Brommapojkarna,0,3
+2025-06-29,Hacken 1-3 GAIS,Hacken,GAIS,1,3
+2025-06-29,Varnamo 0-0 Elfsborg,Varnamo,Elfsborg,0,0
+2025-06-30,Djurgarden 1-1 Norrkoping,Djurgarden,Norrkoping,1,1
+2025-06-30,Mjallby 1-1 Malmo FF,Mjallby,Malmo FF,1,1

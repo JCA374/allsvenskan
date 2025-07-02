@@ -153,12 +153,12 @@ class AllsvenskanScraper:
         """
         logger.warning("Creating sample data - all data sources failed")
         
-        # Real Allsvenskan teams for 2024/2025
+        # Real Allsvenskan teams from Football-Data API
         teams = [
-            'Malmo FF', 'IFK Goteborg', 'Djurgarden', 'Hammarby', 'AIK',
-            'BK Hacken', 'IF Elfsborg', 'Real Tuna', 'IFK Norrkoping', 'Halmstad',
-            'Kalmar FF', 'Mjallby AIF', 'Degerfors IF', 'Varbergs BoIS', 'Sirius',
-            'IK Brage'
+            'AIK', 'Brommapojkarna', 'Degerfors', 'Djurgarden', 'Elfsborg',
+            'GAIS', 'Goteborg', 'Hacken', 'Halmstad', 'Hammarby',
+            'Kalmar', 'Malmo FF', 'Mjallby', 'Norrkoping', 'Sirius',
+            'Varnamo', 'Vasteras SK'
         ]
         
         sample_matches = []

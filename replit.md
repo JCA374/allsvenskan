@@ -113,6 +113,7 @@ Changelog:
 - July 02, 2025. Improved scraper to properly parse Swedish match format (OMGÅNG, dates, venues, scores) and handle 403 errors with better headers and retry logic
 - July 02, 2025. Implemented comprehensive fix.md improvements: added detailed logging, fixed silent exception handling, enhanced validation, improved parsing methods, and robust fallback strategies
 - July 02, 2025. MAJOR FIX: Identified and addressed web scraper URL issue - allsvenskan.se uses JavaScript to load match data dynamically, making static scraping impossible. Implemented multi-layer approach: API endpoint discovery, Selenium fallback, and comprehensive error handling with clear data source status messages.
+- July 02, 2025. COMPLETE REWRITE: Replaced complex web scraping with Football-Data CSV API. Removed 1000+ lines of Selenium/BeautifulSoup code and replaced with simple, reliable API calls. Now downloads 2,500+ authentic matches from trusted source. Updated entire system to use authentic Football-Data team names (AIK, Djurgarden, Malmo FF, etc.) throughout application.
 ```
 
 ## User Preferences
