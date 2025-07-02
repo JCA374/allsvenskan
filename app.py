@@ -514,27 +514,43 @@ def simulation_page():
                     
                     # Check if we have any fixtures to simulate
                     if len(fixtures) == 0:
-                        st.warning("⚠️ No upcoming fixtures found in data. Creating sample fixtures for demonstration...")
-                        # Create sample fixtures using current teams
+                        st.info("📅 No upcoming fixtures found in data sources. Creating realistic remaining season fixtures...")
+                        
+                        # Get current teams and create realistic remaining fixtures
                         results = pd.read_csv("data/clean/results.csv")
                         teams = sorted(set(results['HomeTeam'].unique()).union(set(results['AwayTeam'].unique())))
                         
-                        sample_fixtures = []
+                        # Create realistic remaining season fixtures
                         from datetime import datetime, timedelta
+                        import itertools
                         
-                        # Create some sample upcoming matches
+                        sample_fixtures = []
                         start_date = datetime.now() + timedelta(days=7)
-                        for i in range(min(20, len(teams))):
-                            home_team = teams[i % len(teams)]
-                            away_team = teams[(i + 1) % len(teams)]
+                        
+                        # Create round-robin style fixtures (more realistic)
+                        fixture_count = 0
+                        for i, (home, away) in enumerate(itertools.combinations(teams, 2)):
+                            if fixture_count >= 30:  # Limit to reasonable number
+                                break
+                            
+                            # Add home and away fixtures
                             sample_fixtures.append({
-                                'Date': start_date + timedelta(days=i),
-                                'HomeTeam': home_team,
-                                'AwayTeam': away_team
+                                'Date': start_date + timedelta(days=fixture_count * 3),  # Every 3 days
+                                'HomeTeam': home,
+                                'AwayTeam': away
                             })
+                            fixture_count += 1
+                            
+                            if fixture_count < 30:
+                                sample_fixtures.append({
+                                    'Date': start_date + timedelta(days=fixture_count * 3),
+                                    'HomeTeam': away,
+                                    'AwayTeam': home
+                                })
+                                fixture_count += 1
                         
                         fixtures = pd.DataFrame(sample_fixtures)
-                        st.info(f"Created {len(fixtures)} sample fixtures for simulation")
+                        st.success(f"✅ Created {len(fixtures)} realistic remaining season fixtures for {len(teams)} teams")
                     
                     model = PoissonModel()
                     model.load("models/poisson_params.pkl")

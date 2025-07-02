@@ -53,7 +53,17 @@ class AllsvenskanScraper:
             # Convert to our expected format
             df_formatted = self._format_football_data(df)
             
-            logger.info(f"Successfully formatted {len(df_formatted)} matches")
+            # Try to get upcoming fixtures from API as well
+            try:
+                current_year = datetime.now().year
+                upcoming_fixtures = self.get_upcoming_fixtures([current_year])
+                if not upcoming_fixtures.empty:
+                    logger.info(f"Adding {len(upcoming_fixtures)} upcoming fixtures from API")
+                    df_formatted = pd.concat([df_formatted, upcoming_fixtures], ignore_index=True)
+            except Exception as e:
+                logger.warning(f"Could not get upcoming fixtures: {e}")
+            
+            logger.info(f"Successfully formatted {len(df_formatted)} total matches")
             return df_formatted
             
         except requests.RequestException as e:
@@ -98,20 +108,19 @@ class AllsvenskanScraper:
         
         return pd.DataFrame(formatted_matches)
     
-    def _try_backup_api(self, years):
+    def get_upcoming_fixtures(self, years=None):
         """
-        Fallback to the allsvenskan.se API for fixtures if CSV fails.
+        Get upcoming fixtures from Allsvenskan API as mentioned in fix.md
         """
         try:
-            logger.info("Trying backup API from allsvenskan.se...")
+            logger.info("Getting upcoming fixtures from Allsvenskan API...")
             
-            # Get current year if years not specified
             if years is None:
                 years = [datetime.now().year]
             elif not isinstance(years, list):
                 years = [years]
             
-            all_matches = []
+            all_fixtures = []
             
             for year in years:
                 params = {"league": "allsvenskan", "season": year}
@@ -120,20 +129,68 @@ class AllsvenskanScraper:
                 if response.status_code == 200:
                     data = response.json()
                     if 'matches' in data:
-                        matches_df = pd.json_normalize(data['matches'])
-                        if not matches_df.empty:
-                            # Convert API format
-                            matches_df['Date'] = pd.to_datetime(matches_df['kickoff'], utc=True)
-                            # Add more API parsing logic here as needed
-                            all_matches.append(matches_df)
-                            logger.info(f"Got {len(matches_df)} matches from API for {year}")
+                        # Parse JSON data as shown in fix.md
+                        matches = pd.json_normalize(data['matches'])
+                        if not matches.empty:
+                            matches['Date'] = pd.to_datetime(matches['kickoff'], utc=True)
+                            # Filter for future matches only
+                            upcoming = matches[matches['Date'] > pd.Timestamp.now(tz='UTC')]
+                            
+                            if not upcoming.empty:
+                                # Format for our system
+                                fixtures = self._format_api_fixtures(upcoming)
+                                all_fixtures.append(fixtures)
+                                logger.info(f"Got {len(fixtures)} upcoming fixtures from API for {year}")
             
-            if all_matches:
-                combined = pd.concat(all_matches, ignore_index=True)
-                return self._format_api_data(combined)
+            if all_fixtures:
+                return pd.concat(all_fixtures, ignore_index=True)
             else:
-                logger.warning("Backup API also failed, returning sample data")
-                return self._create_sample_data()
+                logger.info("No upcoming fixtures found in API")
+                return pd.DataFrame()
+                
+        except Exception as e:
+            logger.error(f"Error getting upcoming fixtures: {e}")
+            return pd.DataFrame()
+
+    def _format_api_fixtures(self, api_data):
+        """Format API fixtures data to our expected structure"""
+        fixtures = []
+        
+        for _, match in api_data.iterrows():
+            try:
+                # Extract team names from API data
+                home_team = match.get('home_team', {}).get('name', 'Unknown')
+                away_team = match.get('away_team', {}).get('name', 'Unknown')
+                
+                # Some APIs might have different field names
+                if pd.isna(home_team) or home_team == 'Unknown':
+                    home_team = match.get('homeTeam', match.get('home', 'Unknown'))
+                if pd.isna(away_team) or away_team == 'Unknown':
+                    away_team = match.get('awayTeam', match.get('away', 'Unknown'))
+                
+                fixture = {
+                    'Date': match['Date'],
+                    'Match': f"{home_team} - {away_team}",
+                    'HomeTeam': home_team,
+                    'AwayTeam': away_team,
+                    'FTHG': None,  # Future match - no score yet
+                    'FTAG': None   # Future match - no score yet
+                }
+                fixtures.append(fixture)
+                
+            except Exception as e:
+                logger.warning(f"Error formatting API fixture: {e}")
+                continue
+        
+        return pd.DataFrame(fixtures)
+
+    def _try_backup_api(self, years):
+        """
+        Fallback to the allsvenskan.se API for fixtures if CSV fails.
+        """
+        try:
+            logger.info("Trying backup API from allsvenskan.se...")
+            return self.get_upcoming_fixtures(years)
                 
         except Exception as e:
             logger.error(f"Backup API failed: {e}")
