@@ -1,505 +1,150 @@
-# Fix: Import Current Standings and Add Simulation Scores
+# Monte Carlo Simulation Debug Fix
 
-## 1. Update `src/utils/helpers.py` - Add function to calculate current standings
+## Issue Identified
 
-```python
-def calculate_current_standings(results_df):
-    """Calculate current league standings from completed matches"""
-    try:
-        if results_df.empty:
-            return {}
-        
-        # Get all teams
-        home_teams = set(results_df['HomeTeam'].unique())
-        away_teams = set(results_df['AwayTeam'].unique())
-        all_teams = list(home_teams | away_teams)
-        
-        # Initialize standings
-        standings = {}
-        for team in all_teams:
-            standings[team] = {
-                'played': 0,
-                'won': 0,
-                'drawn': 0,
-                'lost': 0,
-                'goals_for': 0,
-                'goals_against': 0,
-                'goal_diff': 0,
-                'points': 0
-            }
-        
-        # Process each match
-        for _, match in results_df.iterrows():
-            home_team = match['HomeTeam']
-            away_team = match['AwayTeam']
-            home_goals = int(match['FTHG']) if pd.notna(match['FTHG']) else 0
-            away_goals = int(match['FTAG']) if pd.notna(match['FTAG']) else 0
-            
-            # Update games played
-            standings[home_team]['played'] += 1
-            standings[away_team]['played'] += 1
-            
-            # Update goals
-            standings[home_team]['goals_for'] += home_goals
-            standings[home_team]['goals_against'] += away_goals
-            standings[away_team]['goals_for'] += away_goals
-            standings[away_team]['goals_against'] += home_goals
-            
-            # Update results and points
-            if home_goals > away_goals:
-                standings[home_team]['won'] += 1
-                standings[home_team]['points'] += 3
-                standings[away_team]['lost'] += 1
-            elif home_goals < away_goals:
-                standings[away_team]['won'] += 1
-                standings[away_team]['points'] += 3
-                standings[home_team]['lost'] += 1
-            else:
-                standings[home_team]['drawn'] += 1
-                standings[away_team]['drawn'] += 1
-                standings[home_team]['points'] += 1
-                standings[away_team]['points'] += 1
-        
-        # Calculate goal difference
-        for team in standings:
-            standings[team]['goal_diff'] = standings[team]['goals_for'] - standings[team]['goals_against']
-        
-        return standings
-        
-    except Exception as e:
-        print(f"Error calculating standings: {e}")
-        return {}
+The Monte Carlo simulation is not getting the upcoming games correctly because of several interconnected issues:
 
-def get_current_points_table(standings):
-    """Extract just team:points from full standings"""
-    return {team: data['points'] for team, data in standings.items()}
+### 1. **File Path Mismatch**
+- Your code references: `data/cleaned/upcoming_fixtures.csv`
+- But the actual file is at: `data/clean/upcoming_fixtures.csv`
+
+### 2. **Column Name Inconsistency**
+- The upcoming_fixtures.csv file uses columns: `Home_Team`, `Away_Team`
+- But the fixture predictions processing expects: `HomeTeam`, `AwayTeam`
+
+### 3. **Data Structure Problem**
+The current CSV has this structure:
+```csv
+Round,Date,Day,Time,Home_Team,Away_Team,
+19,2025-07-05,LÖRDAG,15:00,GAIS,Malmo FF,
+19,2025-07-05,LÖRDAG,15:00,Oster,Mjallby,
+19,2025-07-05,LÖRDAG,17:30,Hammarby,Varnamo,
 ```
 
-## 2. Update `src/simulation/simulator.py` - Add methods for simulating with current standings
-
-```python
-def simulate_season_with_current_standings(self, current_standings):
-    """Simulate a season starting from current standings"""
-    try:
-        # Start with current points
-        points_table = current_standings.copy()
-        
-        # Ensure all teams are in the table
-        for team in self.teams:
-            if team not in points_table:
-                points_table[team] = 0
-        
-        # Simulate only remaining fixtures
-        for _, fixture in self.fixtures.iterrows():
-            home_team = fixture['HomeTeam']
-            away_team = fixture['AwayTeam']
-            
-            # Skip if teams don't exist in our model
-            if home_team not in self.teams or away_team not in self.teams:
-                continue
-            
-            mu_home, mu_away = self.model.predict_match(home_team, away_team)
-            
-            home_goals = self.rng.poisson(mu_home)
-            away_goals = self.rng.poisson(mu_away)
-            
-            if home_goals > away_goals:
-                points_table[home_team] += 3
-            elif home_goals == away_goals:
-                points_table[home_team] += 1
-                points_table[away_team] += 1
-            else:
-                points_table[away_team] += 3
-        
-        return points_table
-    
-    except Exception as e:
-        print(f"Error simulating with current standings: {e}")
-        return current_standings
-
-def simulate_remaining_fixtures_detailed(self, n_simulations=1000):
-    """Simulate remaining fixtures and return detailed results"""
-    try:
-        fixture_results = []
-        
-        for sim_idx in range(n_simulations):
-            sim_fixtures = []
-            
-            for _, fixture in self.fixtures.iterrows():
-                home_team = fixture['HomeTeam']
-                away_team = fixture['AwayTeam']
-                
-                if home_team not in self.teams or away_team not in self.teams:
-                    continue
-                
-                mu_home, mu_away = self.model.predict_match(home_team, away_team)
-                
-                home_goals = self.rng.poisson(mu_home)
-                away_goals = self.rng.poisson(mu_away)
-                
-                sim_fixtures.append({
-                    'simulation': sim_idx,
-                    'date': fixture.get('Date', ''),
-                    'home_team': home_team,
-                    'away_team': away_team,
-                    'home_goals': home_goals,
-                    'away_goals': away_goals,
-                    'home_win': 1 if home_goals > away_goals else 0,
-                    'draw': 1 if home_goals == away_goals else 0,
-                    'away_win': 1 if home_goals < away_goals else 0
-                })
-            
-            fixture_results.extend(sim_fixtures)
-        
-        return pd.DataFrame(fixture_results)
-    
-    except Exception as e:
-        print(f"Error simulating fixtures: {e}")
-        return pd.DataFrame()
-
-def run_monte_carlo_with_standings(self, n_simulations, current_standings, progress_callback=None):
-    """Run Monte Carlo simulations starting from current standings"""
-    try:
-        print(f"Starting {n_simulations:,} simulations with current standings...")
-        simulation_results = []
-        
-        batch_size = min(1000, n_simulations // 10)
-        
-        for i in range(n_simulations):
-            if i % batch_size == 0 and progress_callback:
-                progress = (i / n_simulations) * 100
-                progress_callback(progress)
-            
-            season_result = self.simulate_season_with_current_standings(current_standings)
-            simulation_results.append(season_result)
-        
-        results_df = pd.DataFrame(simulation_results)
-        
-        # Ensure all teams are present
-        for team in self.teams:
-            if team not in results_df.columns:
-                results_df[team] = current_standings.get(team, 0)
-        
-        print(f"Completed {n_simulations:,} simulations with current standings!")
-        return results_df
-        
-    except Exception as e:
-        print(f"Error running simulations with standings: {e}")
-        return pd.DataFrame()
+But the code expects:
+```csv
+Date,HomeTeam,AwayTeam
+2025-07-05,GAIS,Malmo FF
+2025-07-05,Oster,Mjallby
+2025-07-05,Hammarby,Varnamo
 ```
 
-## 3. Update `src/data/scraper.py` - Separate completed matches from fixtures
+## Solution
 
+### Quick Fix 1: Update File Path in app.py
+
+Replace this line in `app.py`:
 ```python
-def separate_results_and_fixtures(self, df):
-    """Separate completed matches from upcoming fixtures"""
-    try:
-        # Completed matches have scores
-        results = df[
-            df['FTHG'].notna() & 
-            df['FTAG'].notna() & 
-            (df['FTHG'] != '') & 
-            (df['FTAG'] != '')
-        ].copy()
-        
-        # Fixtures don't have scores yet
-        fixtures = df[
-            df['FTHG'].isna() | 
-            df['FTAG'].isna() | 
-            (df['FTHG'] == '') | 
-            (df['FTAG'] == '')
-        ].copy()
-        
-        print(f"Separated {len(results)} completed matches and {len(fixtures)} fixtures")
-        
-        return results, fixtures
-        
-    except Exception as e:
-        print(f"Error separating results and fixtures: {e}")
-        return df[df['FTHG'].notna()], df[df['FTHG'].isna()]
+upcoming_fixtures_path = "data/clean/upcoming_fixtures.csv"
 ```
 
-## 4. Update `app.py` - Add current standings integration
+With:
+```python
+upcoming_fixtures_path = "data/cleaned/upcoming_fixtures.csv"
+```
+
+### Quick Fix 2: Update the MonteCarloSimulator Class
+
+In `src/simulation/simulator.py`, update the `_load_upcoming_fixtures_directly` method to handle the correct column names:
 
 ```python
-# In the simulation page function, add:
-
-def simulation_page():
-    st.header("🎲 Season Simulation")
-    
-    # Load data
+@staticmethod
+def _load_upcoming_fixtures_directly(filepath):
+    """Load upcoming fixtures directly from CSV with robust parsing"""
     try:
-        results_df = pd.read_csv("data/clean/results.csv", parse_dates=['Date'])
-        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+        # Read CSV with error handling
+        df = pd.read_csv(filepath, on_bad_lines='skip')
         
-        # Calculate current standings
-        from src.utils.helpers import calculate_current_standings, get_current_points_table
+        # Handle different column name formats
+        if 'Home_Team' in df.columns and 'Away_Team' in df.columns:
+            # Rename columns to match expected format
+            df = df.rename(columns={
+                'Home_Team': 'HomeTeam',
+                'Away_Team': 'AwayTeam'
+            })
         
-        current_standings_full = calculate_current_standings(results_df)
-        current_points = get_current_points_table(current_standings_full)
+        # Ensure required columns exist
+        if 'HomeTeam' not in df.columns or 'AwayTeam' not in df.columns:
+            raise ValueError("CSV must contain HomeTeam and AwayTeam columns")
         
-        # Display current standings
-        st.subheader("📊 Current League Table")
+        # Clean and standardize team names
+        team_mapping = {
+            'GAIS': 'GAIS', 'Malmo FF': 'Malmo FF', 'Malmö FF': 'Malmo FF',
+            'Oster': 'Oster', 'Östers IF': 'Oster', 'Osters IF': 'Oster',
+            'Mjallby': 'Mjallby', 'Mjällby AIF': 'Mjallby',
+            'Hammarby': 'Hammarby', 'Varnamo': 'Varnamo',
+            'Goteborg': 'Goteborg', 'IFK Göteborg': 'Goteborg',
+            'Norrkoping': 'Norrkoping', 'IFK Norrköping': 'Norrkoping',
+            'Hacken': 'Hacken', 'BK Häcken': 'Hacken',
+            'Brommapojkarna': 'Brommapojkarna', 'IF Brommapojkarna': 'Brommapojkarna',
+            'Sirius': 'Sirius', 'IK Sirius': 'Sirius',
+            'Elfsborg': 'Elfsborg', 'IF Elfsborg': 'Elfsborg',
+            'Halmstad': 'Halmstad', 'Halmstads BK': 'Halmstad',
+            'Djurgarden': 'Djurgarden', 'Djurgårdens IF': 'Djurgarden',
+            'AIK': 'AIK', 'Degerfors': 'Degerfors'
+        }
         
-        if current_standings_full:
-            standings_df = pd.DataFrame.from_dict(current_standings_full, orient='index')
-            standings_df = standings_df.sort_values(['points', 'goal_diff', 'goals_for'], 
-                                                  ascending=False)
-            standings_df.reset_index(inplace=True)
-            standings_df.rename(columns={'index': 'Team'}, inplace=True)
-            standings_df.index = range(1, len(standings_df) + 1)
-            
-            st.dataframe(
-                standings_df[['Team', 'played', 'won', 'drawn', 'lost', 
-                             'goals_for', 'goals_against', 'goal_diff', 'points']],
-                use_container_width=True
-            )
+        # Apply team name mapping
+        df['HomeTeam'] = df['HomeTeam'].map(team_mapping).fillna(df['HomeTeam'])
+        df['AwayTeam'] = df['AwayTeam'].map(team_mapping).fillna(df['AwayTeam'])
         
-        st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} fixtures remaining")
-        
-        # Simulation settings
-        st.subheader("⚙️ Simulation Settings")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            use_current_standings = st.checkbox(
-                "Start from current standings", 
-                value=True,
-                help="If checked, simulations will start from current league positions"
-            )
-            
-            n_simulations = st.slider(
-                "Number of Simulations",
-                min_value=100,
-                max_value=50000,
-                value=10000,
-                step=100
-            )
-        
-        with col2:
-            if st.button("🚀 Run Simulation", type="primary"):
-                try:
-                    with st.spinner(f"Running {n_simulations:,} simulations..."):
-                        progress_bar = st.progress(0)
-                        
-                        # Initialize simulator
-                        simulator = MonteCarloSimulator(
-                            results=results_df,
-                            fixtures=fixtures_df,
-                            model=load_model()
-                        )
-                        
-                        # Run simulations
-                        if use_current_standings:
-                            simulation_results = simulator.run_monte_carlo_with_standings(
-                                n_simulations=n_simulations,
-                                current_standings=current_points,
-                                progress_callback=lambda p: progress_bar.progress(int(p))
-                            )
-                        else:
-                            simulation_results = simulator.run_monte_carlo(
-                                n_simulations=n_simulations,
-                                progress_callback=lambda p: progress_bar.progress(int(p))
-                            )
-                        
-                        # Save results
-                        simulation_results.to_csv("reports/simulations/sim_results.csv", index=False)
-                        
-                        # Also save fixture predictions
-                        fixture_predictions = simulator.simulate_remaining_fixtures_detailed(
-                            n_simulations=min(1000, n_simulations)
-                        )
-                        fixture_predictions.to_csv("reports/simulations/fixture_predictions.csv", 
-                                                 index=False)
-                        
-                        st.success("✅ Simulation completed!")
-                        
-                except Exception as e:
-                    st.error(f"❌ Error: {str(e)}")
-        
-    except Exception as e:
-        st.error(f"❌ Error loading data: {str(e)}")
-
-# Add new fixture results page
-def fixture_results_page():
-    st.header("⚽ Fixture Predictions")
-    
-    if not os.path.exists("reports/simulations/fixture_predictions.csv"):
-        st.warning("⚠️ Please run simulations first.")
-        return
-    
-    try:
-        # Load fixture predictions
-        predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv")
-        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
-        
-        # Group by match
-        fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
-            'home_win': 'mean',
-            'draw': 'mean',
-            'away_win': 'mean',
-            'home_goals': 'mean',
-            'away_goals': 'mean'
-        }).reset_index()
-        
-        # Merge with fixture dates
-        fixture_summary = fixture_summary.merge(
-            fixtures_df[['HomeTeam', 'AwayTeam', 'Date']],
-            left_on=['home_team', 'away_team'],
-            right_on=['HomeTeam', 'AwayTeam'],
-            how='left'
-        )
-        
-        # Sort by date
-        fixture_summary = fixture_summary.sort_values('Date')
-        
-        # Display fixtures by date
-        st.subheader("📅 Upcoming Fixtures with Predictions")
-        
-        # Date filter
-        unique_dates = fixture_summary['Date'].dt.date.unique()
-        selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
-        
-        if selected_date != 'All':
-            display_df = fixture_summary[fixture_summary['Date'].dt.date == selected_date]
+        # Parse dates if needed
+        if 'Date' in df.columns:
+            df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
         else:
-            display_df = fixture_summary
+            # Create a default date if missing
+            df['Date'] = pd.Timestamp.now()
         
-        # Format for display
-        for _, match in display_df.iterrows():
-            col1, col2, col3 = st.columns([2, 3, 2])
-            
-            with col1:
-                st.write(f"**{match['Date'].strftime('%Y-%m-%d')}**")
-            
-            with col2:
-                st.write(f"{match['home_team']} vs {match['away_team']}")
-                
-                # Probability bars
-                probs = {
-                    'Home Win': match['home_win'] * 100,
-                    'Draw': match['draw'] * 100,
-                    'Away Win': match['away_win'] * 100
-                }
-                
-                # Create mini bar chart
-                fig = go.Figure(data=[
-                    go.Bar(x=list(probs.keys()), y=list(probs.values()),
-                          text=[f"{v:.1f}%" for v in probs.values()],
-                          textposition='auto')
-                ])
-                fig.update_layout(height=200, showlegend=False, 
-                                margin=dict(l=0, r=0, t=0, b=0))
-                st.plotly_chart(fig, use_container_width=True)
-            
-            with col3:
-                st.metric("Expected Score", 
-                         f"{match['home_goals']:.1f} - {match['away_goals']:.1f}")
-                
-                # Most likely result
-                if match['home_win'] > max(match['draw'], match['away_win']):
-                    st.success("Home Win")
-                elif match['away_win'] > max(match['draw'], match['home_win']):
-                    st.info("Away Win")
-                else:
-                    st.warning("Draw")
-            
-            st.divider()
+        # Filter out rows with missing team names
+        df = df.dropna(subset=['HomeTeam', 'AwayTeam'])
+        df = df[df['HomeTeam'].str.strip() != '']
+        df = df[df['AwayTeam'].str.strip() != '']
+        
+        # Ensure we have the required columns for simulation
+        required_columns = ['Date', 'HomeTeam', 'AwayTeam']
+        df = df[required_columns]
+        
+        logger.info(f"Successfully loaded {len(df)} fixtures from {filepath}")
+        return df
         
     except Exception as e:
-        st.error(f"❌ Error displaying fixture predictions: {str(e)}")
+        logger.error(f"Error loading fixtures from {filepath}: {e}")
+        return pd.DataFrame()
 ```
 
-## 5. Update main app navigation to include fixture results
+### Fix 3: Update the Fixture Predictions Merge in fix.md
+
+In the `fixture_results_page()` function, update the merge operation:
 
 ```python
-# In main() function, add:
-
-pages = {
-    "🏠 Overview": overview_page,
-    "📥 Data Collection": data_collection_page,
-    "✅ Data Verification": data_verification_page,
-    "🎲 Simulation": simulation_page,
-    "📈 Results Analysis": analysis_page,
-    "⚽ Fixture Predictions": fixture_results_page,  # Add this
-    "📊 Interactive Dashboard": dashboard_page,
-    "🗄️ Database Management": database_page
-}
+# Merge with fixture dates - use correct column names
+fixture_summary = fixture_summary.merge(
+    fixtures_df[['Home_Team', 'Away_Team', 'Date']],  # Changed from HomeTeam/AwayTeam
+    left_on=['home_team', 'away_team'],
+    right_on=['Home_Team', 'Away_Team'],  # Changed from HomeTeam/AwayTeam
+    how='left'
+)
 ```
 
-## 6. Create visualization for remaining fixtures
+## Complete Debug Steps
+
+1. **Check file exists**: Verify `data/cleaned/upcoming_fixtures.csv` exists
+2. **Fix file path**: Update the path in app.py to match actual location
+3. **Update column handling**: Use the enhanced `_load_upcoming_fixtures_directly` method
+4. **Test simulation**: Run a small simulation to verify fixtures load correctly
+5. **Check predictions merge**: Ensure fixture predictions display correctly
+
+## Test Commands
+
+After making these changes, test with:
 
 ```python
-# Add to src/visualization/dashboard.py
-
-def create_fixture_timeline(fixture_predictions, fixtures_df):
-    """Create timeline visualization of remaining fixtures"""
-    try:
-        # Merge predictions with fixture info
-        timeline_data = fixture_predictions.groupby(['date', 'home_team', 'away_team']).agg({
-            'home_win': 'mean',
-            'draw': 'mean',
-            'away_win': 'mean'
-        }).reset_index()
-        
-        # Create Gantt-style chart
-        fig = go.Figure()
-        
-        for idx, match in timeline_data.iterrows():
-            # Determine color based on most likely outcome
-            if match['home_win'] > max(match['draw'], match['away_win']):
-                color = 'green'
-                result = 'Home Win'
-            elif match['away_win'] > max(match['draw'], match['home_win']):
-                color = 'red'
-                result = 'Away Win'
-            else:
-                color = 'yellow'
-                result = 'Draw'
-            
-            fig.add_trace(go.Scatter(
-                x=[match['date'], match['date']],
-                y=[idx, idx],
-                mode='markers+text',
-                marker=dict(size=15, color=color),
-                text=f"{match['home_team']} vs {match['away_team']}<br>{result}",
-                textposition="top center",
-                showlegend=False
-            ))
-        
-        fig.update_layout(
-            title="Remaining Fixtures Timeline",
-            xaxis_title="Date",
-            yaxis_title="Match",
-            height=600
-        )
-        
-        return fig
-        
-    except Exception as e:
-        print(f"Error creating fixture timeline: {e}")
-        return go.Figure()
+# Test fixture loading
+from src.simulation.simulator import MonteCarloSimulator
+fixtures = MonteCarloSimulator._load_upcoming_fixtures_directly("data/cleaned/upcoming_fixtures.csv")
+print(f"Loaded {len(fixtures)} fixtures")
+print("Sample fixtures:")
+print(fixtures.head())
 ```
 
-## Key Features Added:
-
-1. **Current Standings Calculation**: Properly calculates current league table from completed matches
-2. **Simulation from Current Position**: Simulations can start from actual current standings
-3. **Fixture Predictions**: Detailed predictions for each remaining match
-4. **Visualization**: Shows probabilities and expected scores for each fixture
-5. **Timeline View**: Visual representation of remaining fixtures
-
-## Usage:
-
-1. Run data collection to get latest results and fixtures
-2. Go to Simulation page - it will show current standings
-3. Run simulation with "Start from current standings" checked
-4. View fixture predictions in the new "Fixture Predictions" page
-5. Analyze overall season predictions in Results Analysis
-
-The system now properly:
-- Calculates current standings from completed matches
-- Starts simulations from these standings
-- Shows detailed predictions for each remaining fixture
-- Provides probability distributions for match outcomes
+This should resolve the issue where the Monte Carlo simulation isn't getting the upcoming games correctly from your CSV file.
