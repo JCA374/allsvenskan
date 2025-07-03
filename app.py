@@ -751,11 +751,7 @@ def fixture_results_page():
             'away_goals': 'mean'
         }).reset_index()
         
-        # Debug: Show columns before merge
-        st.write("Debug - Fixtures columns:", list(fixtures_df.columns))
-        st.write("Debug - Prediction columns:", list(fixture_summary.columns))
-        
-        # Merge with fixture dates
+        # Merge with fixture dates using correct column names
         fixture_summary = fixture_summary.merge(
             fixtures_df[['Home_Team', 'Away_Team', 'Date']],
             left_on=['home_team', 'away_team'],
