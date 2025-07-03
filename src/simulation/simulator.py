@@ -80,7 +80,14 @@ class MonteCarloSimulator:
                     parts = line.strip().split(',')[:7]
                     
                     if len(parts) >= 6:  # Must have at least Round, Date, Day, Time, Home_Team, Away_Team
-                        round_num, date, day, time, home_team, away_team = parts[:6]
+                        round_num, date, day, time = parts[:4]
+                        
+                        if len(parts) >= 7:
+                            # Has venue: Round,Date,Day,Time,Venue,HomeTeam,AwayTeam
+                            venue, home_team, away_team = parts[4:7]
+                        else:
+                            # No venue: Round,Date,Day,Time,HomeTeam,AwayTeam
+                            home_team, away_team = parts[4:6]
                         
                         # Skip if already has a result (has score in status)
                         if len(parts) > 6 and parts[6] and '-' in str(parts[6]):
