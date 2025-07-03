@@ -43,93 +43,64 @@ class MonteCarloSimulator:
     @staticmethod
     def _load_upcoming_fixtures_directly(filepath):
         """Load upcoming fixtures directly from CSV with robust parsing"""
-        # Team name mapping to handle different formats
-        team_mapping = {
-            'GAIS': 'GAIS', 'Malmo FF': 'Malmo FF', 'Malmö FF': 'Malmo FF',
-            'Oster': 'Oster', 'Östers IF': 'Oster', 'Osters IF': 'Oster',
-            'Mjallby': 'Mjallby', 'Mjällby AIF': 'Mjallby', 'Mjallby AIF': 'Mjallby',
-            'Hammarby': 'Hammarby', 'Varnamo': 'Varnamo', 'IFK Värnamo': 'Varnamo',
-            'IFK Varnamo': 'Varnamo', 'Goteborg': 'Goteborg', 'IFK Göteborg': 'Goteborg',
-            'IFK Goteborg': 'Goteborg', 'Sirius': 'Sirius', 'IK Sirius': 'Sirius',
-            'Halmstad': 'Halmstad', 'Halmstads BK': 'Halmstad', 'AIK': 'AIK',
-            'Djurgarden': 'Djurgarden', 'Djurgårdens IF': 'Djurgarden', 'Djurgardens IF': 'Djurgarden',
-            'Degerfors': 'Degerfors', 'Degerfors IF': 'Degerfors', 'Elfsborg': 'Elfsborg',
-            'IF Elfsborg': 'Elfsborg', 'Hacken': 'Hacken', 'BK Häcken': 'Hacken',
-            'BK Hacken': 'Hacken', 'Norrkoping': 'Norrkoping', 'IFK Norrköping': 'Norrkoping',
-            'IFK Norrkoping': 'Norrkoping', 'Brommapojkarna': 'Brommapojkarna',
-            'IF Brommapojkarna': 'Brommapojkarna'
-        }
-
-        def normalize_team_name(name):
-            """Normalize team name"""
-            if pd.isna(name) or name == '':
-                return ''
-            name = str(name).strip()
-            return team_mapping.get(name, name)
-
-        fixtures = []
         try:
-            # Read file line by line to handle malformed lines
-            with open(filepath, 'r', encoding='utf-8') as f:
-                lines = f.readlines()
-
-            # Skip header line
-            for i, line in enumerate(lines[1:], 1):
-                try:
-                    # Split by comma and take only the first 7 fields
-                    parts = line.strip().split(',')[:7]
-
-                    if len(parts) >= 6:  # Must have at least Round, Date, Day, Time, Home_Team, Away_Team
-                        round_num, date, day, time = parts[:4]
-
-                        if len(parts) >= 7:
-                            # Has venue: Round,Date,Day,Time,Venue,HomeTeam,AwayTeam
-                            venue, home_team, away_team = parts[4:7]
-                        else:
-                            # No venue: Round,Date,Day,Time,HomeTeam,AwayTeam
-                            home_team, away_team = parts[4:6]
-
-                        # Skip if already has a result (has score in status)
-                        if len(parts) > 6 and parts[6] and '-' in str(parts[6]):
-                            continue
-
-                        # Normalize team names
-                        home_team = normalize_team_name(home_team)
-                        away_team = normalize_team_name(away_team)
-
-                        # Skip if we couldn't normalize team names or teams are empty
-                        if not home_team or not away_team or home_team == away_team:
-                            continue
-
-                        # Parse date
-                        try:
-                            parsed_date = pd.to_datetime(date)
-                        except:
-                            # If date parsing fails, use a default date
-                            parsed_date = pd.to_datetime('2025-07-01')
-
-                        fixtures.append({
-                            'Date': parsed_date,
-                            'HomeTeam': home_team,
-                            'AwayTeam': away_team,
-                            'Round': round_num
-                        })
-
-                except Exception as e:
-                    logger.warning(f"Error parsing line {i}: {line.strip()[:50]}... - {e}")
-                    continue
-
-            fixtures_df = pd.DataFrame(fixtures)
-
-            if not fixtures_df.empty:
-                # Remove duplicates and sort by date
-                fixtures_df = fixtures_df.drop_duplicates(subset=['HomeTeam', 'AwayTeam']).sort_values('Date').reset_index(drop=True)
-                logger.info(f"Loaded {len(fixtures_df)} valid fixtures from {filepath}")
-
-            return fixtures_df
-
+            # Read CSV with error handling
+            df = pd.read_csv(filepath, on_bad_lines='skip')
+            
+            # Handle different column name formats
+            if 'Home_Team' in df.columns and 'Away_Team' in df.columns:
+                # Rename columns to match expected format
+                df = df.rename(columns={
+                    'Home_Team': 'HomeTeam',
+                    'Away_Team': 'AwayTeam'
+                })
+            
+            # Ensure required columns exist
+            if 'HomeTeam' not in df.columns or 'AwayTeam' not in df.columns:
+                raise ValueError("CSV must contain HomeTeam and AwayTeam columns")
+            
+            # Clean and standardize team names
+            team_mapping = {
+                'GAIS': 'GAIS', 'Malmo FF': 'Malmo FF', 'Malmö FF': 'Malmo FF',
+                'Oster': 'Oster', 'Östers IF': 'Oster', 'Osters IF': 'Oster',
+                'Mjallby': 'Mjallby', 'Mjällby AIF': 'Mjallby',
+                'Hammarby': 'Hammarby', 'Varnamo': 'Varnamo',
+                'Goteborg': 'Goteborg', 'IFK Göteborg': 'Goteborg',
+                'Norrkoping': 'Norrkoping', 'IFK Norrköping': 'Norrkoping',
+                'Hacken': 'Hacken', 'BK Häcken': 'Hacken',
+                'Brommapojkarna': 'Brommapojkarna', 'IF Brommapojkarna': 'Brommapojkarna',
+                'Sirius': 'Sirius', 'IK Sirius': 'Sirius',
+                'Elfsborg': 'Elfsborg', 'IF Elfsborg': 'Elfsborg',
+                'Halmstad': 'Halmstad', 'Halmstads BK': 'Halmstad',
+                'Djurgarden': 'Djurgarden', 'Djurgårdens IF': 'Djurgarden',
+                'AIK': 'AIK', 'Degerfors': 'Degerfors'
+            }
+            
+            # Apply team name mapping
+            df['HomeTeam'] = df['HomeTeam'].map(team_mapping).fillna(df['HomeTeam'])
+            df['AwayTeam'] = df['AwayTeam'].map(team_mapping).fillna(df['AwayTeam'])
+            
+            # Parse dates if needed
+            if 'Date' in df.columns:
+                df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+            else:
+                # Create a default date if missing
+                df['Date'] = pd.Timestamp.now()
+            
+            # Filter out rows with missing team names
+            df = df.dropna(subset=['HomeTeam', 'AwayTeam'])
+            df = df[df['HomeTeam'].str.strip() != '']
+            df = df[df['AwayTeam'].str.strip() != '']
+            
+            # Ensure we have the required columns for simulation
+            required_columns = ['Date', 'HomeTeam', 'AwayTeam']
+            df = df[required_columns]
+            
+            logger.info(f"Successfully loaded {len(df)} fixtures from {filepath}")
+            return df
+            
         except Exception as e:
-            logger.error(f"Error reading upcoming fixtures file: {e}")
+            logger.error(f"Error loading fixtures from {filepath}: {e}")
             return pd.DataFrame()
 
     def _get_all_teams(self):
