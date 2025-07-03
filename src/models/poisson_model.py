@@ -10,13 +10,13 @@ import warnings
 
 class PoissonModel:
 
-    def __init__(self, time_decay=0.01, use_mle=True, use_dixon_coles=True):
+    def __init__(self, time_decay=0.01, use_mle=False, use_dixon_coles=False):
         """
-        Enhanced Poisson model with MLE, time decay, and Dixon-Coles correlation
+        Enhanced Poisson model with optional advanced features for faster training
 
         Args:
             time_decay: Exponential decay factor for time weighting
-            use_mle: Whether to use Maximum Likelihood Estimation
+            use_mle: Whether to use Maximum Likelihood Estimation (slower but more accurate)
             use_dixon_coles: Whether to apply Dixon-Coles correlation adjustment
         """
         self.attack_rates = {}
@@ -49,24 +49,23 @@ class PoissonModel:
             # Estimate home advantage
             self.home_advantage = self._estimate_home_advantage(results_df)
 
-            if self.use_mle and len(
-                    results_df) > 50:  # Only use MLE with sufficient data
-                # Use Maximum Likelihood Estimation for optimal parameters
+            # Use fast parameter refinement by default
+            self._refine_parameters(results_df)
+            
+            # Only use MLE if explicitly requested and sufficient data
+            if self.use_mle and len(results_df) > 100:
+                print("Using MLE optimization (this may take longer)...")
                 self._fit_mle(results_df)
-            else:
-                # Fall back to simpler refinement for small datasets
-                self._refine_parameters(results_df)
 
+            # Only use Dixon-Coles if explicitly requested
             if self.use_dixon_coles:
-                # Estimate Dixon-Coles correlation for low-scoring games
                 self._estimate_correlation(results_df)
 
-            # Perform validation if enough data
-            if len(results_df) > 100:
-                self.validation_score = self._cross_validate(results_df)
-                print(
-                    f"✅ Model validation log-loss: {self.validation_score:.4f}"
-                )
+            # Skip validation by default for faster training
+            # Uncomment below for validation if needed
+            # if len(results_df) > 100:
+            #     self.validation_score = self._cross_validate(results_df)
+            #     print(f"✅ Model validation log-loss: {self.validation_score:.4f}")
 
             self.fitted = True
 
@@ -193,32 +192,19 @@ class PoissonModel:
                                                  ]  # home advantage bounds
 
         try:
-            # Use different optimization methods with fallbacks
-            methods = ['L-BFGS-B', 'TNC', 'SLSQP']
-            best_result = None
-            best_score = float('inf')
+            # Use single fast optimization method
+            result = optimize.minimize(negative_log_likelihood,
+                                     initial_params,
+                                     method='L-BFGS-B',
+                                     bounds=bounds,
+                                     options={
+                                         'maxiter': 200,  # Reduced iterations
+                                         'disp': False
+                                     })
 
-            for method in methods:
-                try:
-                    result = optimize.minimize(negative_log_likelihood,
-                                               initial_params,
-                                               method=method,
-                                               bounds=bounds,
-                                               options={
-                                                   'maxiter': 500,
-                                                   'disp': False
-                                               })
-
-                    if result.success and result.fun < best_score:
-                        best_result = result
-                        best_score = result.fun
-
-                except Exception as e:
-                    continue
-
-            if best_result is not None and best_result.success:
+            if result.success:
                 # Update parameters with optimized values
-                optimized_params = best_result.x
+                optimized_params = result.x
                 for i, team in enumerate(teams):
                     self.attack_rates[team] = max(0.1, optimized_params[i])
                     self.defense_rates[team] = max(
@@ -226,7 +212,7 @@ class PoissonModel:
                 self.home_advantage = max(0.8, min(2.5, optimized_params[-1]))
 
                 print(
-                    f"✅ MLE optimization converged. Final log-likelihood: {-best_result.fun:.2f}"
+                    f"✅ MLE optimization converged. Final log-likelihood: {-result.fun:.2f}"
                 )
             else:
                 print(

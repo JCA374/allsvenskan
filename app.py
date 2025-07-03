@@ -43,14 +43,14 @@ if 'db_manager' not in st.session_state:
 def main():
     st.title("⚽ Allsvenskan Monte Carlo Forecast")
     st.markdown("### Predicting Swedish Football League Outcomes Using Statistical Modeling")
-    
+
     # Sidebar navigation
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a section:",
         ["Data Collection", "Data Verification", "Model Training", "Monte Carlo Simulation", "Fixture Predictions", "Results Analysis", "Dashboard", "Database Management"]
     )
-    
+
     if page == "Data Collection":
         data_collection_page()
     elif page == "Data Verification":
@@ -70,21 +70,21 @@ def main():
 
 def data_collection_page():
     st.header("📊 Data Collection & Processing")
-    
+
     # Database status indicator
     if st.session_state.get('db_connected', False):
         st.success("🗄️ Database connected and ready")
     else:
         st.warning("⚠️ Database not connected - using file storage only")
-    
+
     col1, col2 = st.columns(2)
-    
+
     with col1:
         st.subheader("Web Scraping")
-        
+
         # Year selection
         st.write("**Select Years to Scrape:**")
-        
+
         # Quick selection buttons
         col_quick1, col_quick2 = st.columns(2)
         with col_quick1:
@@ -93,11 +93,11 @@ def data_collection_page():
         with col_quick2:
             if st.button("Last 10 Years", type="secondary"):
                 st.session_state.selected_years = list(range(2015, 2026))
-        
+
         # Initialize selected years if not already set
         if 'selected_years' not in st.session_state:
             st.session_state.selected_years = [2025]
-        
+
         # Multi-select for years
         available_years = list(range(2015, 2026))
         selected_years = st.multiselect(
@@ -106,20 +106,20 @@ def data_collection_page():
             default=st.session_state.selected_years,
             key="year_selector"
         )
-        
+
         if selected_years:
             st.session_state.selected_years = selected_years
-        
+
         # Display selection info
         if st.session_state.selected_years:
             st.info(f"📅 Will scrape: {', '.join(map(str, sorted(st.session_state.selected_years)))}")
-        
+
         if st.button("🔍 Scrape Data from Selected Years", type="primary", disabled=not st.session_state.selected_years):
             with st.spinner(f"Scraping data from {len(st.session_state.selected_years)} years..."):
                 try:
                     scraper = AllsvenskanScraper()
                     raw_data = scraper.scrape_matches(years=st.session_state.selected_years)
-                    
+
                     if raw_data is not None and not raw_data.empty:
                         # Save raw data to files
                         os.makedirs("data/raw", exist_ok=True)
@@ -127,16 +127,16 @@ def data_collection_page():
                         years_str = ', '.join(map(str, sorted(st.session_state.selected_years)))
                         st.success(f"✅ Successfully scraped {len(raw_data)} matches from {len(st.session_state.selected_years)} years ({years_str})!")
                         st.dataframe(raw_data.head())
-                        
+
                         # Clean data automatically
                         cleaner = DataCleaner()
                         results, fixtures = cleaner.clean_data(raw_data)
-                        
+
                         # Save to files
                         os.makedirs("data/clean", exist_ok=True)
                         results.to_csv("data/clean/results.csv", index=False)
                         fixtures.to_csv("data/clean/fixtures.csv", index=False)
-                        
+
                         # Save to database if connected
                         if st.session_state.get('db_connected', False):
                             try:
@@ -148,33 +148,33 @@ def data_collection_page():
                                     st.warning("⚠️ Could not save to database - using file storage")
                             except Exception as e:
                                 st.warning(f"⚠️ Database save failed: {str(e)}")
-                        
+
                         st.session_state.data_loaded = True
                         st.success(f"✅ Data cleaned: {len(results)} completed matches, {len(fixtures)} upcoming fixtures")
-                        
+
                     else:
                         st.error("❌ Failed to scrape data. Please check the website or try again later.")
-                        
+
                 except Exception as e:
                     st.error(f"❌ Error during scraping: {str(e)}")
-    
+
     with col2:
         st.subheader("Data Status")
-        
+
         # Check database first, then files
         db_data_available = False
         if st.session_state.get('db_connected', False):
             try:
                 db_results = st.session_state.db_manager.load_matches('result')
                 db_fixtures = st.session_state.db_manager.load_matches('fixture')
-                
+
                 if not db_results.empty or not db_fixtures.empty:
                     st.success("✅ Data available in database")
                     st.metric("Completed Matches (DB)", len(db_results))
                     st.metric("Upcoming Fixtures (DB)", len(db_fixtures))
                     db_data_available = True
                     st.session_state.data_loaded = True
-                    
+
                     # Show recent results from database
                     if len(db_results) > 0:
                         st.subheader("Recent Results (Database)")
@@ -183,22 +183,22 @@ def data_collection_page():
                             st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
             except Exception as e:
                 st.warning(f"⚠️ Database error: {str(e)}")
-        
+
         # Fallback to file data if database not available
         if not db_data_available:
             results_exist = os.path.exists("data/clean/results.csv")
             fixtures_exist = os.path.exists("data/clean/fixtures.csv")
-            
+
             if results_exist and fixtures_exist:
                 st.success("✅ Clean data files found")
                 results = pd.read_csv("data/clean/results.csv")
                 fixtures = pd.read_csv("data/clean/fixtures.csv")
-                
+
                 st.metric("Completed Matches (Files)", len(results))
                 st.metric("Upcoming Fixtures (Files)", len(fixtures))
-                
+
                 st.session_state.data_loaded = True
-                
+
                 # Show recent results
                 if len(results) > 0:
                     st.subheader("Recent Results (Files)")
@@ -210,13 +210,13 @@ def data_collection_page():
 
 def data_verification_page():
     st.header("🔍 Data Verification")
-    
+
     if not st.session_state.data_loaded:
         st.warning("⚠️ Please load data first in the Data Collection section.")
         return
-    
+
     st.markdown("Verify that your data has been loaded and cleaned correctly by examining specific matches.")
-    
+
     # Load data from database or files
     try:
         # Try database first
@@ -227,12 +227,12 @@ def data_verification_page():
                 data_source = "Database"
             except Exception as e:
                 st.warning(f"Database load failed: {str(e)}")
-        
+
         # Fallback to files
         if all_matches is None or all_matches.empty:
             results_file = "data/clean/results.csv"
             fixtures_file = "data/clean/fixtures.csv"
-            
+
             if os.path.exists(results_file) and os.path.exists(fixtures_file):
                 results = pd.read_csv(results_file)
                 fixtures = pd.read_csv(fixtures_file)
@@ -241,13 +241,13 @@ def data_verification_page():
             else:
                 st.error("❌ No data found. Please collect data first.")
                 return
-        
+
         if all_matches.empty:
             st.error("❌ No match data available.")
             return
-        
+
         st.success(f"✅ Data loaded from {data_source}")
-        
+
         # Parse dates to extract years
         try:
             all_matches['Date'] = pd.to_datetime(all_matches['Date'], errors='coerce')
@@ -255,36 +255,36 @@ def data_verification_page():
         except:
             # If date parsing fails, try to extract year from string
             all_matches['Year'] = all_matches['Date'].astype(str).str.extract(r'(\d{4})').astype(float)
-        
+
         # Get available teams and years
         all_teams = sorted(set(all_matches['HomeTeam'].dropna().unique()) | 
                           set(all_matches['AwayTeam'].dropna().unique()))
         available_years = sorted(all_matches['Year'].dropna().unique(), reverse=True)
-        
+
         # Create verification interface
         col1, col2, col3 = st.columns(3)
-        
+
         with col1:
             selected_home_team = st.selectbox(
                 "Select Home Team:",
                 options=all_teams,
                 index=0 if all_teams else None
             )
-        
+
         with col2:
             selected_away_team = st.selectbox(
                 "Select Away Team:",
                 options=all_teams,
                 index=1 if len(all_teams) > 1 else 0
             )
-        
+
         with col3:
             selected_year = st.selectbox(
                 "Select Year:",
                 options=available_years,
                 index=0 if available_years else None
             )
-        
+
         # Filter and display results
         if st.button("🔍 Search Matches", type="primary"):
             # Filter matches based on selection
@@ -297,65 +297,65 @@ def data_verification_page():
                 ) &
                 (all_matches['Year'] == selected_year)
             ].copy()
-            
+
             if not filtered_matches.empty:
                 st.subheader(f"📋 Matches: {selected_home_team} vs {selected_away_team} in {int(selected_year)}")
-                
+
                 # Separate results and fixtures
                 results = filtered_matches[filtered_matches['FTHG'].notna() & filtered_matches['FTAG'].notna()]
                 fixtures = filtered_matches[filtered_matches['FTHG'].isna() | filtered_matches['FTAG'].isna()]
-                
+
                 # Display results
                 if not results.empty:
                     st.write(f"**Completed Matches ({len(results)}):**")
-                    
+
                     display_results = results[['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']].copy()
                     display_results['Score'] = display_results['FTHG'].astype(int).astype(str) + " - " + display_results['FTAG'].astype(int).astype(str)
                     display_results['Result'] = display_results.apply(
                         lambda x: f"{x['HomeTeam']} {x['Score']} {x['AwayTeam']}", axis=1
                     )
-                    
+
                     for _, match in display_results.iterrows():
                         st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['Result']}")
-                
+
                 # Display fixtures
                 if not fixtures.empty:
                     st.write(f"**Upcoming Fixtures ({len(fixtures)}):**")
-                    
+
                     display_fixtures = fixtures[['Date', 'HomeTeam', 'AwayTeam']].copy()
-                    
+
                     for _, match in display_fixtures.iterrows():
                         st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['HomeTeam']} vs {match['AwayTeam']}")
-                
+
                 # Show data quality summary
                 st.subheader("📊 Data Quality Summary")
-                
+
                 col1, col2, col3, col4 = st.columns(4)
-                
+
                 with col1:
                     st.metric("Total Matches Found", len(filtered_matches))
-                
+
                 with col2:
                     st.metric("Completed Results", len(results))
-                
+
                 with col3:
                     st.metric("Upcoming Fixtures", len(fixtures))
-                
+
                 with col4:
                     missing_dates = filtered_matches['Date'].isna().sum()
                     st.metric("Missing Dates", missing_dates)
-                
+
                 # Show raw data for verification
                 if st.checkbox("Show Raw Data"):
                     st.subheader("Raw Match Data")
                     st.dataframe(filtered_matches)
-                
+
             else:
                 st.info(f"ℹ️ No matches found between {selected_home_team} and {selected_away_team} in {int(selected_year)}")
-                
+
                 # Show alternative suggestions
                 st.subheader("💡 Suggestions")
-                
+
                 # Show matches involving either team in that year
                 team_matches = all_matches[
                     ((all_matches['HomeTeam'] == selected_home_team) | 
@@ -364,43 +364,43 @@ def data_verification_page():
                      (all_matches['AwayTeam'] == selected_away_team)) &
                     (all_matches['Year'] == selected_year)
                 ]
-                
+
                 if not team_matches.empty:
                     st.write(f"Found {len(team_matches)} matches involving these teams in {int(selected_year)}:")
-                    
+
                     # Show unique opponents
                     opponents_home = set(team_matches[team_matches['HomeTeam'] == selected_home_team]['AwayTeam'].dropna())
                     opponents_away = set(team_matches[team_matches['AwayTeam'] == selected_home_team]['HomeTeam'].dropna())
                     opponents_home2 = set(team_matches[team_matches['HomeTeam'] == selected_away_team]['AwayTeam'].dropna())
                     opponents_away2 = set(team_matches[team_matches['AwayTeam'] == selected_away_team]['HomeTeam'].dropna())
-                    
+
                     all_opponents = (opponents_home | opponents_away | opponents_home2 | opponents_away2) - {selected_home_team, selected_away_team}
-                    
+
                     if all_opponents:
                         st.write("Teams they played against:")
                         for opponent in sorted(all_opponents):
                             st.write(f"• {opponent}")
-        
+
         # Overall data summary
         st.subheader("📈 Overall Data Summary")
-        
+
         col1, col2, col3 = st.columns(3)
-        
+
         with col1:
             total_matches = len(all_matches)
             completed_matches = len(all_matches[all_matches['FTHG'].notna() & all_matches['FTAG'].notna()])
             st.metric("Total Matches in Dataset", total_matches)
             st.metric("Completed Matches", completed_matches)
-        
+
         with col2:
             st.metric("Total Teams", len(all_teams))
             st.metric("Years Covered", len(available_years))
-        
+
         with col3:
             if available_years:
                 st.metric("Earliest Year", int(min(available_years)))
                 st.metric("Latest Year", int(max(available_years)))
-        
+
         # Show team list
         if st.checkbox("Show All Teams"):
             st.subheader("All Teams in Dataset")
@@ -410,23 +410,23 @@ def data_verification_page():
                 for j, team in enumerate(all_teams[i:i+teams_per_row]):
                     with cols[j]:
                         st.write(f"• {team}")
-    
+
     except Exception as e:
         st.error(f"❌ Error during data verification: {str(e)}")
         st.info("Please check that your data has been collected and cleaned properly.")
 
 def model_training_page():
     st.header("🧠 Model Training")
-    
+
     if not st.session_state.data_loaded:
         st.warning("⚠️ Please load data first in the Data Collection section.")
         return
-    
+
     col1, col2 = st.columns(2)
-    
+
     with col1:
         st.subheader("Team Strength Analysis")
-        
+
         if st.button("📈 Calculate Team Strengths", type="primary"):
             with st.spinner("Calculating team strengths..."):
                 try:
@@ -438,18 +438,18 @@ def model_training_page():
                             st.info("📊 Using data from database")
                         except Exception as e:
                             st.warning(f"⚠️ Database load failed: {str(e)}")
-                    
+
                     if results is None or results.empty:
                         results = pd.read_csv("data/clean/results.csv")
                         st.info("📁 Using data from files")
-                    
+
                     strength_calc = TeamStrengthCalculator()
                     team_stats = strength_calc.calculate_strengths(results)
-                    
+
                     # Save to files
                     os.makedirs("data/processed", exist_ok=True)
                     team_stats.to_csv("data/processed/team_stats.csv")
-                    
+
                     # Save to database if connected
                     if st.session_state.get('db_connected', False):
                         try:
@@ -457,50 +457,81 @@ def model_training_page():
                                 st.success("✅ Team strengths saved to database")
                         except Exception as e:
                             st.warning(f"⚠️ Database save failed: {str(e)}")
-                    
+
                     st.success("✅ Team strengths calculated!")
                     st.dataframe(team_stats)
-                    
+
                 except Exception as e:
                     st.error(f"❌ Error calculating strengths: {str(e)}")
-    
+
     with col2:
         st.subheader("Poisson Model Training")
-        
-        if st.button("⚙️ Train Poisson Model", type="primary"):
-            if not os.path.exists("data/processed/team_stats.csv"):
-                st.error("❌ Please calculate team strengths first.")
-                return
-                
-            with st.spinner("Training Poisson model..."):
-                try:
-                    results = pd.read_csv("data/clean/results.csv")
-                    team_stats = pd.read_csv("data/processed/team_stats.csv", index_col=0)
-                    
-                    model = PoissonModel()
-                    model.fit(results, team_stats)
-                    
-                    os.makedirs("models", exist_ok=True)
-                    model.save("models/poisson_params.pkl")
-                    
-                    st.session_state.model_trained = True
-                    st.success("✅ Poisson model trained successfully!")
-                    
-                    # Show model parameters
-                    st.subheader("Model Parameters")
-                    st.metric("Home Advantage Factor", f"{model.home_advantage:.3f}")
-                    st.metric("League Average Goals/Game", f"{model.league_avg:.3f}")
-                    
-                except Exception as e:
-                    st.error(f"❌ Error training model: {str(e)}")
+
+        col2a, col2b = st.columns(2)
+
+        with col2a:
+            if st.button("⚙️ Fast Training", type="primary", help="Faster training without MLE optimization"):
+                if not os.path.exists("data/processed/team_stats.csv"):
+                    st.error("❌ Please calculate team strengths first.")
+                    return
+
+                with st.spinner("Training Poisson model (fast mode)..."):
+                    try:
+                        results = pd.read_csv("data/clean/results.csv")
+                        team_stats = pd.read_csv("data/processed/team_stats.csv", index_col=0)
+
+                        model = PoissonModel()
+                        model.fit(results, team_stats)
+
+                        os.makedirs("models", exist_ok=True)
+                        model.save("models/poisson_params.pkl")
+
+                        st.session_state.model_trained = True
+                        st.success("✅ Poisson model trained successfully (fast mode)!")
+
+                        # Show model parameters
+                        st.subheader("Model Parameters")
+                        st.metric("Home Advantage Factor", f"{model.home_advantage:.3f}")
+                        st.metric("League Average Goals/Game", f"{model.league_avg:.3f}")
+
+                    except Exception as e:
+                        st.error(f"❌ Error training model: {str(e)}")
+
+        with col2b:
+            if st.button("🎯 Advanced Training", help="Slower but more accurate with MLE optimization"):
+                if not os.path.exists("data/processed/team_stats.csv"):
+                    st.error("❌ Please calculate team strengths first.")
+                    return
+
+                with st.spinner("Training Poisson model (advanced mode)..."):
+                    try:
+                        results = pd.read_csv("data/clean/results.csv")
+                        team_stats = pd.read_csv("data/processed/team_stats.csv", index_col=0)
+
+                        # Advanced model with MLE and Dixon-Coles
+                        model = PoissonModel(use_mle=True, use_dixon_coles=True)
+                        model.fit(results, team_stats)
+
+                        os.makedirs("models", exist_ok=True)
+                        model.save("models/poisson_params.pkl")
+
+                        st.session_state.model_trained = True
+                        st.success("✅ Poisson model trained successfully (advanced mode)!")
+
+                        # Show model parameters
+                        st.subheader("Model Parameters")
+                        st.metric("Home Advantage Factor", f"{model.home_advantage:.3f}")
+                        st.metric("League Average Goals/Game", f"{model.league_avg:.3f}")
+                    except Exception as e:
+                        st.error(f"❌ Error training model: {str(e)}")
 
 def simulation_page():
     st.header("🎲 Season Simulation")
-    
+
     # Load data
     try:
         results_df = pd.read_csv("data/clean/results.csv", parse_dates=['Date'])
-        
+
         # Check for upcoming fixtures file and use it if available
         upcoming_fixtures_path = "data/clean/upcoming_fixtures.csv"
         if os.path.exists(upcoming_fixtures_path):
@@ -512,13 +543,13 @@ def simulation_page():
             fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
             fixtures_source = "generated_fixtures"
             st.info("📅 Using generated fixtures for simulation")
-        
+
         # Calculate current standings from live data
         from src.utils.helpers import calculate_current_standings_from_url, calculate_current_standings, get_current_points_table
-        
+
         # Try to get live standings first, fallback to local data
         current_standings_df = calculate_current_standings_from_url()
-        
+
         if current_standings_df.empty:
             st.warning("Using local data for standings calculation")
             current_standings_full = calculate_current_standings(results_df)
@@ -527,15 +558,15 @@ def simulation_page():
             st.info("Using live Football-Data for current standings")
             # Convert DataFrame to points dictionary for simulation
             current_points = dict(zip(current_standings_df['Team'], current_standings_df['Pts']))
-        
+
         # Display current standings
         st.subheader("📊 Current League Table")
-        
+
         if not current_standings_df.empty:
             # Use live data format
             standings_df = current_standings_df.copy()
             standings_df.index = range(1, len(standings_df) + 1)
-            
+
             st.dataframe(
                 standings_df[['Team', 'MP', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'Pts']],
                 use_container_width=True
@@ -548,7 +579,7 @@ def simulation_page():
             standings_df.reset_index(inplace=True)
             standings_df.rename(columns={'index': 'Team'}, inplace=True)
             standings_df.index = range(1, len(standings_df) + 1)
-            
+
             st.dataframe(
                 standings_df[['Team', 'played', 'won', 'drawn', 'lost', 
                              'goals_for', 'goals_against', 'goal_diff', 'points']],
@@ -556,7 +587,7 @@ def simulation_page():
             )
         else:
             st.warning("No standings data available")
-        
+
         # Show fixtures information
         if fixtures_source == "upcoming_fixtures":
             # Load and display info about upcoming fixtures using direct method
@@ -564,7 +595,7 @@ def simulation_page():
             temp_fixtures = MonteCarloSimulator._load_upcoming_fixtures_directly(upcoming_fixtures_path)
             if not temp_fixtures.empty:
                 st.info(f"📅 {len(results_df)} matches completed, {len(temp_fixtures)} upcoming fixtures loaded from upcoming_fixtures.csv")
-                
+
                 # Show sample upcoming fixtures
                 if st.checkbox("Show upcoming fixtures preview"):
                     st.subheader("📅 Next Upcoming Fixtures")
@@ -577,19 +608,19 @@ def simulation_page():
                 st.info("Please ensure the upcoming_fixtures.csv file is properly formatted")
         else:
             st.warning("No upcoming_fixtures.csv file found - please add authentic fixture data to run simulations")
-        
+
         # Simulation settings
         st.subheader("⚙️ Simulation Settings")
-        
+
         col1, col2 = st.columns(2)
-        
+
         with col1:
             use_current_standings = st.checkbox(
                 "Start from current standings", 
                 value=True,
                 help="If checked, simulations will start from current league positions"
             )
-            
+
             n_simulations = st.slider(
                 "Number of Simulations",
                 min_value=100,
@@ -597,17 +628,17 @@ def simulation_page():
                 value=10000,
                 step=100
             )
-        
+
         with col2:
             if st.button("🚀 Run Simulation", type="primary"):
                 try:
                     with st.spinner(f"Running {n_simulations:,} simulations..."):
                         progress_bar = st.progress(0)
-                        
+
                         # Initialize model and simulator
                         from src.models.poisson_model import PoissonModel
                         from src.simulation.simulator import MonteCarloSimulator
-                        
+
                         model = PoissonModel()
                         if os.path.exists("models/poisson_params.pkl"):
                             model.load("models/poisson_params.pkl")
@@ -617,7 +648,7 @@ def simulation_page():
                             model.fit(results_df, team_stats)
                             os.makedirs("models", exist_ok=True)
                             model.save("models/poisson_params.pkl")
-                        
+
                         # Initialize simulator based on fixtures source
                         if fixtures_source == "upcoming_fixtures":
                             try:
@@ -632,7 +663,7 @@ def simulation_page():
                             st.error("❌ No upcoming_fixtures.csv file found")
                             st.info("Please add the upcoming_fixtures.csv file to run simulations")
                             st.stop()
-                        
+
                         # Run simulations
                         if use_current_standings:
                             simulation_results = simulator.run_monte_carlo_with_standings(
@@ -645,31 +676,31 @@ def simulation_page():
                                 n_simulations=n_simulations,
                                 progress_callback=lambda p: progress_bar.progress(p / 100)
                             )
-                        
+
                         # Save results
                         os.makedirs("reports/simulations", exist_ok=True)
                         simulation_results.to_csv("reports/simulations/sim_results.csv", index=False)
-                        
+
                         # Also save fixture predictions
                         fixture_predictions = simulator.simulate_remaining_fixtures_detailed(
                             n_simulations=min(1000, n_simulations)
                         )
                         fixture_predictions.to_csv("reports/simulations/fixture_predictions.csv", 
                                                  index=False)
-                        
+
                         st.success("✅ Simulation completed!")
                         st.session_state.simulation_complete = True
-                        
+
                 except Exception as e:
                     st.error(f"❌ Error: {str(e)}")
-        
+
         # Show simulation status
         if os.path.exists("reports/simulations/sim_results.csv"):
             st.subheader("📈 Simulation Results")
             sim_results = pd.read_csv("reports/simulations/sim_results.csv")
             st.metric("Simulations Completed", len(sim_results))
             st.metric("Teams Analyzed", len(sim_results.columns))
-            
+
             # Show expected final table (combining current + simulated points)
             expected_points = sim_results.mean().sort_values(ascending=False)
             st.write("**Expected Final Season Table:**")
@@ -677,33 +708,33 @@ def simulation_page():
                 current_pts = current_points.get(team, 0)
                 simulated_pts = points - current_pts if points >= current_pts else points
                 st.write(f"{i+1}. {team}: {points:.1f} pts (Current: {current_pts}, +{simulated_pts:.1f} from remaining fixtures)")
-            
+
             # Show current vs projected standings comparison
             if not current_standings_df.empty and len(current_standings_df) > 0:
                 st.subheader("📈 Standings Projection")
-                
+
                 col1, col2 = st.columns(2)
-                
+
                 with col1:
                     st.write("**Current Position**")
                     for i, row in current_standings_df.head(10).iterrows():
                         st.write(f"{i+1}. {row['Team']}: {row['Pts']} pts")
-                
+
                 with col2:
                     st.write("**Projected Final Position**")
                     for i, (team, points) in enumerate(expected_points.head(10).items()):
                         st.write(f"{i+1}. {team}: {points:.1f} pts")
-        
+
     except Exception as e:
         st.error(f"❌ Error loading data: {str(e)}")
 
 def fixture_results_page():
     st.header("⚽ Fixture Predictions")
-    
+
     if not os.path.exists("reports/simulations/fixture_predictions.csv"):
         st.warning("⚠️ Please run simulations first.")
         return
-    
+
     try:
         # Load fixture predictions with error handling
         try:
@@ -712,13 +743,13 @@ def fixture_results_page():
             st.error(f"Error reading fixture predictions file: {e}")
             st.info("Trying to regenerate fixture predictions...")
             return
-        
+
         # Load upcoming fixtures
         try:
             fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
         except Exception as e:
             st.error(f"Error reading upcoming fixtures: {e}")
-            
+
             # Offer to clean the file
             col1, col2 = st.columns(2)
             with col1:
@@ -729,7 +760,7 @@ def fixture_results_page():
                             st.rerun()
                         else:
                             st.error("❌ Failed to clean the file.")
-            
+
             with col2:
                 if st.button("📄 Show File Status"):
                     if os.path.exists("data/clean/upcoming_fixtures.csv"):
@@ -741,7 +772,7 @@ def fixture_results_page():
                     else:
                         st.error("File does not exist")
             return
-        
+
         # Group by match
         fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
             'home_win': 'mean',
@@ -750,7 +781,7 @@ def fixture_results_page():
             'home_goals': 'mean',
             'away_goals': 'mean'
         }).reset_index()
-        
+
         # Merge with fixture dates using correct column names
         fixture_summary = fixture_summary.merge(
             fixtures_df[['Home_Team', 'Away_Team', 'Date']],
@@ -758,46 +789,46 @@ def fixture_results_page():
             right_on=['Home_Team', 'Away_Team'],
             how='left'
         )
-        
+
         # Sort by date
         fixture_summary = fixture_summary.sort_values('Date')
-        
+
         # Display fixtures by date
         st.subheader("📅 Upcoming Fixtures with Predictions")
-        
+
         # Date filter
         unique_dates = fixture_summary['Date'].dt.date.unique()
         selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
-        
+
         if selected_date != 'All':
             display_fixtures = fixture_summary[fixture_summary['Date'].dt.date == selected_date]
         else:
             display_fixtures = fixture_summary
-        
+
         # Display each fixture
         for _, match in display_fixtures.iterrows():
             col1, col2 = st.columns([3, 1])
-            
+
             with col1:
                 st.subheader(f"{match['home_team']} vs {match['away_team']}")
                 if pd.notna(match['Date']):
                     st.caption(f"📅 {match['Date'].strftime('%Y-%m-%d')}")
-                
+
                 # Probability bars
                 st.write("**Match Probabilities:**")
                 col_h, col_d, col_a = st.columns(3)
-                
+
                 with col_h:
                     st.metric("Home Win", f"{match['home_win']:.1%}")
                 with col_d:
                     st.metric("Draw", f"{match['draw']:.1%}")
                 with col_a:
                     st.metric("Away Win", f"{match['away_win']:.1%}")
-            
+
             with col2:
                 st.metric("Expected Score", 
                          f"{match['home_goals']:.1f} - {match['away_goals']:.1f}")
-                
+
                 # Most likely result
                 if match['home_win'] > max(match['draw'], match['away_win']):
                     st.success("Home Win")
@@ -805,12 +836,12 @@ def fixture_results_page():
                     st.info("Away Win")
                 else:
                     st.warning("Draw")
-            
+
             st.divider()
-        
+
     except Exception as e:
         st.error(f"❌ Error displaying fixture predictions: {str(e)}")
-        
+
         # Option to regenerate predictions
         if st.button("🔄 Regenerate Fixture Predictions"):
             try:
@@ -828,22 +859,22 @@ def clean_upcoming_fixtures_file():
         input_file = "data/clean/upcoming_fixtures.csv"
         if not os.path.exists(input_file):
             return False
-            
+
         # Read the file line by line to handle malformed lines
         cleaned_lines = []
         expected_columns = ['Round', 'Date', 'Day', 'Time', 'Home_Team', 'Away_Team', 'Status']
-        
+
         with open(input_file, 'r', encoding='utf-8') as f:
             lines = f.readlines()
-            
+
         # Keep header
         if lines:
             cleaned_lines.append(lines[0].strip())
-            
+
             # Process each data line
             for i, line in enumerate(lines[1:], start=2):
                 parts = line.strip().split(',')
-                
+
                 # If line has exactly 7 fields (expected), keep it
                 if len(parts) == 7:
                     cleaned_lines.append(line.strip())
@@ -855,14 +886,14 @@ def clean_upcoming_fixtures_file():
                 # If line has fewer than 7 fields, skip it
                 else:
                     print(f"Skipped line {i}: only {len(parts)} fields")
-        
+
         # Write cleaned file
         with open(input_file, 'w', encoding='utf-8') as f:
             f.write('\n'.join(cleaned_lines))
-            
+
         print(f"Cleaned upcoming fixtures file: {len(cleaned_lines)-1} data rows")
         return True
-        
+
     except Exception as e:
         print(f"Error cleaning upcoming fixtures: {e}")
         return False
@@ -873,7 +904,7 @@ def clean_fixture_predictions_file():
         if os.path.exists("reports/simulations/fixture_predictions.csv"):
             # Read with error handling
             df = pd.read_csv("reports/simulations/fixture_predictions.csv", on_bad_lines='skip')
-            
+
             # Clean team names (remove commas)
             if 'home_team' in df.columns:
                 df['home_team'] = df['home_team'].astype(str).str.replace(',', '')
@@ -881,7 +912,7 @@ def clean_fixture_predictions_file():
                 df['away_team'] = df['away_team'].astype(str).str.replace(',', '')
             if 'date' in df.columns:
                 df['date'] = df['date'].astype(str).str.replace(',', '')
-            
+
             # Save cleaned file
             df.to_csv("reports/simulations/fixture_predictions.csv", index=False)
             return True
@@ -891,23 +922,23 @@ def clean_fixture_predictions_file():
 
 def analysis_page():
     st.header("📈 Results Analysis")
-    
+
     if not os.path.exists("reports/simulations/sim_results.csv"):
         st.warning("⚠️ Please run simulations first.")
         return
-    
+
     try:
         sim_results = pd.read_csv("reports/simulations/sim_results.csv")
         aggregator = ResultsAggregator()
-        
+
         # Generate comprehensive analysis
         position_probs = aggregator.calculate_position_probabilities(sim_results)
         expected_points = aggregator.calculate_expected_points(sim_results)
         championship_odds = aggregator.calculate_championship_odds(sim_results)
         relegation_odds = aggregator.calculate_relegation_odds(sim_results)
-        
+
         col1, col2 = st.columns(2)
-        
+
         with col1:
             st.subheader("🏆 Championship Probabilities")
             champ_df = pd.DataFrame({
@@ -915,12 +946,12 @@ def analysis_page():
                 'Championship %': [prob * 100 for team, prob in championship_odds.items()]
             })
             champ_df = champ_df.sort_values('Championship %', ascending=False)
-            
+
             fig_champ = px.bar(champ_df.head(8), x='Team', y='Championship %',
                               title="Top 8 Championship Contenders")
             fig_champ.update_xaxes(tickangle=45)
             st.plotly_chart(fig_champ, use_container_width=True)
-            
+
         with col2:
             st.subheader("⬇️ Relegation Probabilities")
             releg_df = pd.DataFrame({
@@ -928,19 +959,19 @@ def analysis_page():
                 'Relegation %': [prob * 100 for team, prob in relegation_odds.items()]
             })
             releg_df = releg_df.sort_values('Relegation %', ascending=False)
-            
+
             fig_releg = px.bar(releg_df.head(8), x='Team', y='Relegation %',
                               title="Top 8 Relegation Candidates", color_discrete_sequence=['red'])
             fig_releg.update_xaxes(tickangle=45)
             st.plotly_chart(fig_releg, use_container_width=True)
-        
+
         # Position probability heatmap
         st.subheader("📊 Position Probability Matrix")
-        
+
         # Convert position probabilities to DataFrame for heatmap
         pos_matrix = pd.DataFrame(position_probs).T
         pos_matrix.columns = [f"Pos {i}" for i in range(1, len(pos_matrix.columns) + 1)]
-        
+
         fig_heatmap = px.imshow(pos_matrix.values, 
                                x=pos_matrix.columns,
                                y=pos_matrix.index,
@@ -948,7 +979,7 @@ def analysis_page():
                                title="Final Position Probabilities")
         fig_heatmap.update_layout(height=600)
         st.plotly_chart(fig_heatmap, use_container_width=True)
-        
+
         # Expected points comparison
         st.subheader("📏 Expected Final Points")
         points_df = pd.DataFrame({
@@ -956,44 +987,44 @@ def analysis_page():
             'Expected Points': [points for team, points in expected_points.items()]
         })
         points_df = points_df.sort_values('Expected Points', ascending=True)
-        
+
         fig_points = px.bar(points_df, x='Expected Points', y='Team', 
                            orientation='h', title="Expected Final League Points")
         st.plotly_chart(fig_points, use_container_width=True)
-        
+
     except Exception as e:
         st.error(f"❌ Error analyzing results: {str(e)}")
 
 def dashboard_page():
     st.header("📋 Interactive Dashboard")
-    
+
     if not os.path.exists("reports/simulations/sim_results.csv"):
         st.warning("⚠️ Please run simulations first to view dashboard.")
         return
-    
+
     try:
         dashboard = Dashboard()
         dashboard.create_full_dashboard()
-        
+
     except Exception as e:
         st.error(f"❌ Error loading dashboard: {str(e)}")
 
 def database_management_page():
     st.header("🗄️ Database Management")
-    
+
     if not st.session_state.get('db_connected', False):
         st.error("❌ Database not connected")
         st.info("Database functionality requires a PostgreSQL connection. Please check your environment variables.")
         return
-    
+
     st.success("✅ Database connected successfully")
-    
+
     # Database status overview
     col1, col2 = st.columns(2)
-    
+
     with col1:
         st.subheader("📊 Database Overview")
-        
+
         try:
             # Check table counts
             with st.session_state.db_manager.engine.connect() as conn:
@@ -1001,18 +1032,18 @@ def database_management_page():
                 team_stats_count = conn.execute(text("SELECT COUNT(*) FROM team_statistics")).scalar()
                 model_params_count = conn.execute(text("SELECT COUNT(*) FROM model_parameters")).scalar()
                 sim_results_count = conn.execute(text("SELECT COUNT(DISTINCT simulation_id) FROM simulation_results")).scalar()
-            
+
             st.metric("Total Matches", matches_count)
             st.metric("Team Statistics Records", team_stats_count)
             st.metric("Model Parameters", model_params_count)
             st.metric("Simulation Runs", sim_results_count)
-            
+
         except Exception as e:
             st.error(f"Error querying database: {str(e)}")
-    
+
     with col2:
         st.subheader("🔧 Database Operations")
-        
+
         if st.button("📋 View Recent Matches"):
             try:
                 recent_matches = st.session_state.db_manager.load_matches()
@@ -1022,7 +1053,7 @@ def database_management_page():
                     st.info("No matches found in database")
             except Exception as e:
                 st.error(f"Error loading matches: {str(e)}")
-        
+
         if st.button("📈 View Team Statistics"):
             try:
                 team_stats = st.session_state.db_manager.load_team_statistics()
@@ -1032,7 +1063,7 @@ def database_management_page():
                     st.info("No team statistics found in database")
             except Exception as e:
                 st.error(f"Error loading team statistics: {str(e)}")
-        
+
         if st.button("🎲 View Simulation History"):
             try:
                 sim_history = st.session_state.db_manager.get_simulation_history()
@@ -1042,20 +1073,20 @@ def database_management_page():
                     st.info("No simulation history found")
             except Exception as e:
                 st.error(f"Error loading simulation history: {str(e)}")
-    
+
     # Advanced operations
     st.subheader("⚠️ Advanced Operations")
     st.warning("Use these operations carefully as they may affect stored data")
-    
+
     col3, col4 = st.columns(2)
-    
+
     with col3:
         if st.button("🔄 Test Database Connection", type="secondary"):
             if st.session_state.db_manager.test_connection():
                 st.success("✅ Database connection successful")
             else:
                 st.error("❌ Database connection failed")
-    
+
     with col4:
         if st.button("📊 Show Database Schema", type="secondary"):
             st.subheader("Database Tables")
@@ -1066,7 +1097,7 @@ def database_management_page():
                 ("simulation_results", "Monte Carlo simulation results"),
                 ("analysis_results", "Aggregated analysis results")
             ]
-            
+
             for table_name, description in tables_info:
                 st.write(f"**{table_name}**: {description}")
 
