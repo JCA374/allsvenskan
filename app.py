@@ -820,58 +820,7 @@ def clean_fixture_predictions_file():
             return True
     except Exception as e:
         print(f"Error cleaning fixture predictions: {e}")
-        return Falsenique_dates = fixture_summary['Date'].dt.date.unique()
-        selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
-        
-        if selected_date != 'All':
-            display_df = fixture_summary[fixture_summary['Date'].dt.date == selected_date]
-        else:
-            display_df = fixture_summary
-        
-        # Format for display
-        for _, match in display_df.iterrows():
-            col1, col2, col3 = st.columns([2, 3, 2])
-            
-            with col1:
-                st.write(f"**{match['Date'].strftime('%Y-%m-%d')}**")
-            
-            with col2:
-                st.write(f"{match['home_team']} vs {match['away_team']}")
-                
-                # Probability bars
-                probs = {
-                    'Home Win': match['home_win'] * 100,
-                    'Draw': match['draw'] * 100,
-                    'Away Win': match['away_win'] * 100
-                }
-                
-                # Create mini bar chart
-                import plotly.graph_objects as go
-                fig = go.Figure(data=[
-                    go.Bar(x=list(probs.keys()), y=list(probs.values()),
-                          text=[f"{v:.1f}%" for v in probs.values()],
-                          textposition='auto')
-                ])
-                fig.update_layout(height=200, showlegend=False, 
-                                margin=dict(l=0, r=0, t=0, b=0))
-                st.plotly_chart(fig, use_container_width=True)
-            
-            with col3:
-                st.metric("Expected Score", 
-                         f"{match['home_goals']:.1f} - {match['away_goals']:.1f}")
-                
-                # Most likely result
-                if match['home_win'] > max(match['draw'], match['away_win']):
-                    st.success("Home Win")
-                elif match['away_win'] > max(match['draw'], match['home_win']):
-                    st.info("Away Win")
-                else:
-                    st.warning("Draw")
-            
-            st.divider()
-        
-    except Exception as e:
-        st.error(f"❌ Error displaying fixture predictions: {str(e)}")
+        return False
 
 def analysis_page():
     st.header("📈 Results Analysis")
