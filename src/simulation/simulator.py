@@ -16,28 +16,19 @@ class MonteCarloSimulator:
     
     @classmethod
     def from_upcoming_fixtures(cls, poisson_model, upcoming_fixtures_path="data/clean/upcoming_fixtures.csv", seed=42):
-        """Create simulator using the upcoming_fixtures.csv file"""
-        from ..data.fixtures_cleaner import FixturesCleaner
-        
+        """Create simulator using the upcoming_fixtures.csv file directly"""
         try:
             logger.info(f"Loading upcoming fixtures from {upcoming_fixtures_path}")
             
-            # Initialize fixtures cleaner
-            cleaner = FixturesCleaner()
-            
-            # Clean the fixtures file
-            fixtures_df = cleaner.clean_fixtures_file(upcoming_fixtures_path)
+            # Read the CSV directly with robust error handling
+            fixtures_df = cls._load_upcoming_fixtures_directly(upcoming_fixtures_path)
             
             if fixtures_df.empty:
                 logger.warning("No valid fixtures found, falling back to existing fixtures")
-                # Try to load existing fixtures as fallback
                 if os.path.exists("data/clean/fixtures.csv"):
                     fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
                 else:
                     raise ValueError("No fixtures available for simulation")
-            
-            # Save cleaned fixtures for reference
-            cleaner.save_cleaned_fixtures(fixtures_df, "data/clean/upcoming_fixtures_cleaned.csv")
             
             logger.info(f"Successfully loaded {len(fixtures_df)} fixtures for simulation")
             return cls(fixtures_df, poisson_model, seed)
@@ -51,6 +42,91 @@ class MonteCarloSimulator:
                 return cls(fixtures_df, poisson_model, seed)
             else:
                 raise ValueError(f"Could not load fixtures: {e}")
+    
+    @staticmethod
+    def _load_upcoming_fixtures_directly(filepath):
+        """Load upcoming fixtures directly from CSV with robust parsing"""
+        # Team name mapping to handle different formats
+        team_mapping = {
+            'GAIS': 'GAIS', 'Malmo FF': 'Malmo FF', 'Malmö FF': 'Malmo FF',
+            'Oster': 'Oster', 'Östers IF': 'Oster', 'Osters IF': 'Oster',
+            'Mjallby': 'Mjallby', 'Mjällby AIF': 'Mjallby', 'Mjallby AIF': 'Mjallby',
+            'Hammarby': 'Hammarby', 'Varnamo': 'Varnamo', 'IFK Värnamo': 'Varnamo',
+            'IFK Varnamo': 'Varnamo', 'Goteborg': 'Goteborg', 'IFK Göteborg': 'Goteborg',
+            'IFK Goteborg': 'Goteborg', 'Sirius': 'Sirius', 'IK Sirius': 'Sirius',
+            'Halmstad': 'Halmstad', 'Halmstads BK': 'Halmstad', 'AIK': 'AIK',
+            'Djurgarden': 'Djurgarden', 'Djurgårdens IF': 'Djurgarden', 'Djurgardens IF': 'Djurgarden',
+            'Degerfors': 'Degerfors', 'Degerfors IF': 'Degerfors', 'Elfsborg': 'Elfsborg',
+            'IF Elfsborg': 'Elfsborg', 'Hacken': 'Hacken', 'BK Häcken': 'Hacken',
+            'BK Hacken': 'Hacken', 'Norrkoping': 'Norrkoping', 'IFK Norrköping': 'Norrkoping',
+            'IFK Norrkoping': 'Norrkoping', 'Brommapojkarna': 'Brommapojkarna',
+            'IF Brommapojkarna': 'Brommapojkarna'
+        }
+        
+        def normalize_team_name(name):
+            """Normalize team name"""
+            if pd.isna(name) or name == '':
+                return ''
+            name = str(name).strip()
+            return team_mapping.get(name, name)
+        
+        fixtures = []
+        try:
+            # Read file line by line to handle malformed lines
+            with open(filepath, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            
+            # Skip header line
+            for i, line in enumerate(lines[1:], 1):
+                try:
+                    # Split by comma and take only the first 7 fields
+                    parts = line.strip().split(',')[:7]
+                    
+                    if len(parts) >= 6:  # Must have at least Round, Date, Day, Time, Home_Team, Away_Team
+                        round_num, date, day, time, home_team, away_team = parts[:6]
+                        
+                        # Skip if already has a result (has score in status)
+                        if len(parts) > 6 and parts[6] and '-' in str(parts[6]):
+                            continue
+                            
+                        # Normalize team names
+                        home_team = normalize_team_name(home_team)
+                        away_team = normalize_team_name(away_team)
+                        
+                        # Skip if we couldn't normalize team names or teams are empty
+                        if not home_team or not away_team or home_team == away_team:
+                            continue
+                            
+                        # Parse date
+                        try:
+                            parsed_date = pd.to_datetime(date)
+                        except:
+                            # If date parsing fails, use a default date
+                            parsed_date = pd.to_datetime('2025-07-01')
+                        
+                        fixtures.append({
+                            'Date': parsed_date,
+                            'HomeTeam': home_team,
+                            'AwayTeam': away_team,
+                            'Round': round_num
+                        })
+                        
+                except Exception as e:
+                    logger.warning(f"Error parsing line {i}: {line.strip()[:50]}... - {e}")
+                    continue
+            
+            fixtures_df = pd.DataFrame(fixtures)
+            
+            if not fixtures_df.empty:
+                # Remove duplicates and sort by date
+                fixtures_df = fixtures_df.drop_duplicates(subset=['HomeTeam', 'AwayTeam']).sort_values('Date').reset_index(drop=True)
+                logger.info(f"Loaded {len(fixtures_df)} valid fixtures from {filepath}")
+            
+            return fixtures_df
+            
+        except Exception as e:
+            logger.error(f"Error reading upcoming fixtures file: {e}")
+            return pd.DataFrame()
     
     def _get_all_teams(self):
         """Get all unique teams from fixtures"""

@@ -559,10 +559,9 @@ def simulation_page():
         
         # Show fixtures information
         if fixtures_source == "upcoming_fixtures":
-            # Load and display info about upcoming fixtures
-            from src.data.fixtures_cleaner import FixturesCleaner
-            cleaner = FixturesCleaner()
-            temp_fixtures = cleaner.clean_fixtures_file(upcoming_fixtures_path)
+            # Load and display info about upcoming fixtures using direct method
+            from src.simulation.simulator import MonteCarloSimulator
+            temp_fixtures = MonteCarloSimulator._load_upcoming_fixtures_directly(upcoming_fixtures_path)
             if not temp_fixtures.empty:
                 st.info(f"📅 {len(results_df)} matches completed, {len(temp_fixtures)} upcoming fixtures loaded from upcoming_fixtures.csv")
                 

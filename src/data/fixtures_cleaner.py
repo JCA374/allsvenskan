@@ -80,7 +80,14 @@ class FixturesCleaner:
         """Clean the upcoming_fixtures.csv file and return standardized fixtures"""
         try:
             logger.info(f"Loading fixtures from {filepath}")
-            df = pd.read_csv(filepath)
+            
+            # Read CSV with error handling for malformed lines
+            try:
+                df = pd.read_csv(filepath, on_bad_lines='skip')
+            except Exception as e:
+                logger.warning(f"Standard CSV read failed: {e}")
+                # Try reading with different parameters
+                df = pd.read_csv(filepath, error_bad_lines=False, warn_bad_lines=True)
             
             # Check if we have the expected columns
             if 'Home_Team' not in df.columns or 'Away_Team' not in df.columns:
