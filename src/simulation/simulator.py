@@ -24,11 +24,8 @@ class MonteCarloSimulator:
             fixtures_df = cls._load_upcoming_fixtures_directly(upcoming_fixtures_path)
             
             if fixtures_df.empty:
-                logger.warning("No valid fixtures found, falling back to existing fixtures")
-                if os.path.exists("data/clean/fixtures.csv"):
-                    fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
-                else:
-                    raise ValueError("No fixtures available for simulation")
+                logger.warning("No valid fixtures found in upcoming_fixtures.csv")
+                raise ValueError("No fixtures available for simulation")
             
             logger.info(f"Successfully loaded {len(fixtures_df)} fixtures for simulation")
             return cls(fixtures_df, poisson_model, seed)

@@ -573,12 +573,10 @@ def simulation_page():
                         date_str = fixture['Date'].strftime('%Y-%m-%d') if hasattr(fixture['Date'], 'strftime') else str(fixture['Date'])
                         st.write(f"• {date_str}: {fixture['HomeTeam']} vs {fixture['AwayTeam']}")
             else:
-                st.warning("Could not load upcoming fixtures properly")
-                fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
-                st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} generated fixtures")
+                st.error("Could not load upcoming fixtures from upcoming_fixtures.csv")
+                st.info("Please ensure the upcoming_fixtures.csv file is properly formatted")
         else:
-            if fixtures_df is not None:
-                st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} generated fixtures")
+            st.warning("No upcoming_fixtures.csv file found - please add authentic fixture data to run simulations")
         
         # Simulation settings
         st.subheader("⚙️ Simulation Settings")
@@ -628,12 +626,12 @@ def simulation_page():
                                 )
                                 st.success("✅ Using upcoming_fixtures.csv for simulation")
                             except Exception as e:
-                                st.warning(f"⚠️ Could not load upcoming fixtures: {e}")
-                                st.info("Falling back to generated fixtures...")
-                                fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
-                                simulator = MonteCarloSimulator(fixtures_df, model, seed=42)
+                                st.error(f"❌ Could not load upcoming fixtures: {e}")
+                                st.stop()  # Stop execution since no fixtures are available
                         else:
-                            simulator = MonteCarloSimulator(fixtures_df, model, seed=42)
+                            st.error("❌ No upcoming_fixtures.csv file found")
+                            st.info("Please add the upcoming_fixtures.csv file to run simulations")
+                            st.stop()
                         
                         # Run simulations
                         if use_current_standings:
