@@ -707,7 +707,7 @@ def fixture_results_page():
     try:
         # Load fixture predictions
         predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv")
-        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+        fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
         
         # Group by match
         fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
