@@ -705,9 +705,20 @@ def fixture_results_page():
         return
     
     try:
-        # Load fixture predictions
-        predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv")
-        fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
+        # Load fixture predictions with error handling
+        try:
+            predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv", on_bad_lines='skip')
+        except pd.errors.ParserError as e:
+            st.error(f"Error reading fixture predictions file: {e}")
+            st.info("Trying to regenerate fixture predictions...")
+            return
+        
+        # Load upcoming fixtures
+        try:
+            fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
+        except Exception as e:
+            st.error(f"Error reading upcoming fixtures: {e}")
+            return
         
         # Group by match
         fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
@@ -734,6 +745,82 @@ def fixture_results_page():
         
         # Date filter
         unique_dates = fixture_summary['Date'].dt.date.unique()
+        selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
+        
+        if selected_date != 'All':
+            display_fixtures = fixture_summary[fixture_summary['Date'].dt.date == selected_date]
+        else:
+            display_fixtures = fixture_summary
+        
+        # Display each fixture
+        for _, match in display_fixtures.iterrows():
+            col1, col2 = st.columns([3, 1])
+            
+            with col1:
+                st.subheader(f"{match['home_team']} vs {match['away_team']}")
+                if pd.notna(match['Date']):
+                    st.caption(f"📅 {match['Date'].strftime('%Y-%m-%d')}")
+                
+                # Probability bars
+                st.write("**Match Probabilities:**")
+                col_h, col_d, col_a = st.columns(3)
+                
+                with col_h:
+                    st.metric("Home Win", f"{match['home_win']:.1%}")
+                with col_d:
+                    st.metric("Draw", f"{match['draw']:.1%}")
+                with col_a:
+                    st.metric("Away Win", f"{match['away_win']:.1%}")
+            
+            with col2:
+                st.metric("Expected Score", 
+                         f"{match['home_goals']:.1f} - {match['away_goals']:.1f}")
+                
+                # Most likely result
+                if match['home_win'] > max(match['draw'], match['away_win']):
+                    st.success("Home Win")
+                elif match['away_win'] > max(match['draw'], match['home_win']):
+                    st.info("Away Win")
+                else:
+                    st.warning("Draw")
+            
+            st.divider()
+        
+    except Exception as e:
+        st.error(f"❌ Error displaying fixture predictions: {str(e)}")
+        
+        # Option to regenerate predictions
+        if st.button("🔄 Regenerate Fixture Predictions"):
+            try:
+                # Clean up the malformed file
+                if os.path.exists("reports/simulations/fixture_predictions.csv"):
+                    os.remove("reports/simulations/fixture_predictions.csv")
+                st.success("Cleared malformed predictions file. Please run simulations again.")
+                st.rerun()
+            except Exception as cleanup_error:
+                st.error(f"Error cleaning up file: {cleanup_error}")
+
+def clean_fixture_predictions_file():
+    """Clean up malformed fixture predictions CSV"""
+    try:
+        if os.path.exists("reports/simulations/fixture_predictions.csv"):
+            # Read with error handling
+            df = pd.read_csv("reports/simulations/fixture_predictions.csv", on_bad_lines='skip')
+            
+            # Clean team names (remove commas)
+            if 'home_team' in df.columns:
+                df['home_team'] = df['home_team'].astype(str).str.replace(',', '')
+            if 'away_team' in df.columns:
+                df['away_team'] = df['away_team'].astype(str).str.replace(',', '')
+            if 'date' in df.columns:
+                df['date'] = df['date'].astype(str).str.replace(',', '')
+            
+            # Save cleaned file
+            df.to_csv("reports/simulations/fixture_predictions.csv", index=False)
+            return True
+    except Exception as e:
+        print(f"Error cleaning fixture predictions: {e}")
+        return Falsenique_dates = fixture_summary['Date'].dt.date.unique()
         selected_date = st.selectbox("Select Date", options=['All'] + list(unique_dates))
         
         if selected_date != 'All':
