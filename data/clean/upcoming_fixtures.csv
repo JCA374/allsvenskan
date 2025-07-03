@@ -134,42 +134,42 @@ Round,Date,Day,Time,Home_Team,Away_Team,Status
 30,2025-11-09,SÖNDAG,00:00,Oster,Djurgarden,
 30,2025-11-09,SÖNDAG,00:00,Malmo FF,GAIS,
 30,2025-11-09,SÖNDAG,00:00,Mjallby,Hacken,
-30,2025-11-09,SÖNDAG,00:00,Sirius,Varnamo,Degerfors IF,Djurgårdens IF,
-26,2025-10-04,LÖRDAG,17:30,gamla ullevi,GAIS,IFK Norrköping,
-26,2025-10-04,LÖRDAG,17:30,strandvallen a-plan,Mjällby AIF,IF Elfsborg,
-26,2025-10-05,SÖNDAG,14:00,nationalarenan strawberry arena,AIK,IFK Värnamo,
-26,2025-10-05,SÖNDAG,14:00,gamla ullevi,IFK Göteborg,Hammarby,
-26,2025-10-05,SÖNDAG,16:30,grimsta ip 1,IF Brommapojkarna,BK Häcken,
-26,2025-10-05,SÖNDAG,16:30,studenternas,IK Sirius,Malmö FF,
-27,2025-10-19,SÖNDAG,00:00,3arena,Hammarby,AIK,
-27,2025-10-19,SÖNDAG,00:00,borås arena,IF Elfsborg,Östers IF,
-27,2025-10-19,SÖNDAG,00:00,gamla ullevi,GAIS,Djurgårdens IF,
-27,2025-10-19,SÖNDAG,00:00,gamla ullevi,IFK Göteborg,Mjällby AIF,
-27,2025-10-19,SÖNDAG,00:00,bravida arena,BK Häcken,IK Sirius,
-27,2025-10-19,SÖNDAG,00:00,platinumcars arena,IFK Norrköping,Malmö FF,
-27,2025-10-19,SÖNDAG,00:00,stora valla,Degerfors IF,Halmstads BK,
-27,2025-10-19,SÖNDAG,00:00,finnvedsvallen värnamo,IFK Värnamo,IF Brommapojkarna,
-28,2025-10-26,SÖNDAG,00:00,nationalarenan strawberry arena,AIK,BK Häcken,
-28,2025-10-26,SÖNDAG,00:00,3arena,Djurgårdens IF,IFK Värnamo,
-28,2025-10-26,SÖNDAG,00:00,grimsta ip 1,IF Brommapojkarna,GAIS,
-28,2025-10-26,SÖNDAG,00:00,spiris arena 1 växjö,Östers IF,Degerfors IF,
-28,2025-10-26,SÖNDAG,00:00,eleda stadion,Malmö FF,Hammarby,
-28,2025-10-26,SÖNDAG,00:00,strandvallen a-plan,Mjällby AIF,IFK Norrköping,
-28,2025-10-26,SÖNDAG,00:00,studenternas,IK Sirius,IF Elfsborg,
-28,2025-10-26,SÖNDAG,00:00,örjans vall,Halmstads BK,IFK Göteborg,
-29,2025-11-02,SÖNDAG,00:00,3arena,Djurgårdens IF,IFK Göteborg,
-29,2025-11-02,SÖNDAG,00:00,borås arena,IF Elfsborg,AIK,
-29,2025-11-02,SÖNDAG,00:00,gamla ullevi,GAIS,Östers IF,
-29,2025-11-02,SÖNDAG,00:00,bravida arena,BK Häcken,Malmö FF,
-29,2025-11-02,SÖNDAG,00:00,platinumcars arena,IFK Norrköping,IK Sirius,
-29,2025-11-02,SÖNDAG,00:00,örjans vall,Halmstads BK,IF Brommapojkarna,
-29,2025-11-02,SÖNDAG,00:00,stora valla,Degerfors IF,Hammarby,
-29,2025-11-02,SÖNDAG,00:00,finnvedsvallen värnamo,IFK Värnamo,Mjällby AIF,
-30,2025-11-09,SÖNDAG,00:00,nationalarenan strawberry arena,AIK,Halmstads BK,
-30,2025-11-09,SÖNDAG,00:00,3arena,Hammarby,IF Elfsborg,
-30,2025-11-09,SÖNDAG,00:00,grimsta ip 1,IF Brommapojkarna,Degerfors IF,
-30,2025-11-09,SÖNDAG,00:00,gamla ullevi,IFK Göteborg,IFK Norrköping,
-30,2025-11-09,SÖNDAG,00:00,spiris arena 1 växjö,Östers IF,Djurgårdens IF,
-30,2025-11-09,SÖNDAG,00:00,eleda stadion,Malmö FF,GAIS,
-30,2025-11-09,SÖNDAG,00:00,strandvallen a-plan,Mjällby AIF,BK Häcken,
-30,2025-11-09,SÖNDAG,00:00,studenternas,IK Sirius,IFK Värnamo,
+30,2025-11-09,SÖNDAG,00:00,Sirius,Varnamo,Degerfors IF
+26,2025-10-04,LÖRDAG,17:30,gamla ullevi,GAIS,IFK Norrköping
+26,2025-10-04,LÖRDAG,17:30,strandvallen a-plan,Mjällby AIF,IF Elfsborg
+26,2025-10-05,SÖNDAG,14:00,nationalarenan strawberry arena,AIK,IFK Värnamo
+26,2025-10-05,SÖNDAG,14:00,gamla ullevi,IFK Göteborg,Hammarby
+26,2025-10-05,SÖNDAG,16:30,grimsta ip 1,IF Brommapojkarna,BK Häcken
+26,2025-10-05,SÖNDAG,16:30,studenternas,IK Sirius,Malmö FF
+27,2025-10-19,SÖNDAG,00:00,3arena,Hammarby,AIK
+27,2025-10-19,SÖNDAG,00:00,borås arena,IF Elfsborg,Östers IF
+27,2025-10-19,SÖNDAG,00:00,gamla ullevi,GAIS,Djurgårdens IF
+27,2025-10-19,SÖNDAG,00:00,gamla ullevi,IFK Göteborg,Mjällby AIF
+27,2025-10-19,SÖNDAG,00:00,bravida arena,BK Häcken,IK Sirius
+27,2025-10-19,SÖNDAG,00:00,platinumcars arena,IFK Norrköping,Malmö FF
+27,2025-10-19,SÖNDAG,00:00,stora valla,Degerfors IF,Halmstads BK
+27,2025-10-19,SÖNDAG,00:00,finnvedsvallen värnamo,IFK Värnamo,IF Brommapojkarna
+28,2025-10-26,SÖNDAG,00:00,nationalarenan strawberry arena,AIK,BK Häcken
+28,2025-10-26,SÖNDAG,00:00,3arena,Djurgårdens IF,IFK Värnamo
+28,2025-10-26,SÖNDAG,00:00,grimsta ip 1,IF Brommapojkarna,GAIS
+28,2025-10-26,SÖNDAG,00:00,spiris arena 1 växjö,Östers IF,Degerfors IF
+28,2025-10-26,SÖNDAG,00:00,eleda stadion,Malmö FF,Hammarby
+28,2025-10-26,SÖNDAG,00:00,strandvallen a-plan,Mjällby AIF,IFK Norrköping
+28,2025-10-26,SÖNDAG,00:00,studenternas,IK Sirius,IF Elfsborg
+28,2025-10-26,SÖNDAG,00:00,örjans vall,Halmstads BK,IFK Göteborg
+29,2025-11-02,SÖNDAG,00:00,3arena,Djurgårdens IF,IFK Göteborg
+29,2025-11-02,SÖNDAG,00:00,borås arena,IF Elfsborg,AIK
+29,2025-11-02,SÖNDAG,00:00,gamla ullevi,GAIS,Östers IF
+29,2025-11-02,SÖNDAG,00:00,bravida arena,BK Häcken,Malmö FF
+29,2025-11-02,SÖNDAG,00:00,platinumcars arena,IFK Norrköping,IK Sirius
+29,2025-11-02,SÖNDAG,00:00,örjans vall,Halmstads BK,IF Brommapojkarna
+29,2025-11-02,SÖNDAG,00:00,stora valla,Degerfors IF,Hammarby
+29,2025-11-02,SÖNDAG,00:00,finnvedsvallen värnamo,IFK Värnamo,Mjällby AIF
+30,2025-11-09,SÖNDAG,00:00,nationalarenan strawberry arena,AIK,Halmstads BK
+30,2025-11-09,SÖNDAG,00:00,3arena,Hammarby,IF Elfsborg
+30,2025-11-09,SÖNDAG,00:00,grimsta ip 1,IF Brommapojkarna,Degerfors IF
+30,2025-11-09,SÖNDAG,00:00,gamla ullevi,IFK Göteborg,IFK Norrköping
+30,2025-11-09,SÖNDAG,00:00,spiris arena 1 växjö,Östers IF,Djurgårdens IF
+30,2025-11-09,SÖNDAG,00:00,eleda stadion,Malmö FF,GAIS
+30,2025-11-09,SÖNDAG,00:00,strandvallen a-plan,Mjällby AIF,BK Häcken
+30,2025-11-09,SÖNDAG,00:00,studenternas,IK Sirius,IFK Värnamo

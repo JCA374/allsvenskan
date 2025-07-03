@@ -718,6 +718,28 @@ def fixture_results_page():
             fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
         except Exception as e:
             st.error(f"Error reading upcoming fixtures: {e}")
+            
+            # Offer to clean the file
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button("🔧 Clean Upcoming Fixtures File"):
+                    with st.spinner("Cleaning CSV file..."):
+                        if clean_upcoming_fixtures_file():
+                            st.success("✅ File cleaned successfully! Please refresh the page.")
+                            st.rerun()
+                        else:
+                            st.error("❌ Failed to clean the file.")
+            
+            with col2:
+                if st.button("📄 Show File Status"):
+                    if os.path.exists("data/clean/upcoming_fixtures.csv"):
+                        with open("data/clean/upcoming_fixtures.csv", 'r') as f:
+                            lines = f.readlines()
+                        st.info(f"File exists with {len(lines)} lines")
+                        if len(lines) > 140:
+                            st.warning("File appears to have malformed data around line 137")
+                    else:
+                        st.error("File does not exist")
             return
         
         # Group by match
@@ -799,6 +821,51 @@ def fixture_results_page():
                 st.rerun()
             except Exception as cleanup_error:
                 st.error(f"Error cleaning up file: {cleanup_error}")
+
+def clean_upcoming_fixtures_file():
+    """Clean up malformed upcoming fixtures CSV"""
+    try:
+        input_file = "data/clean/upcoming_fixtures.csv"
+        if not os.path.exists(input_file):
+            return False
+            
+        # Read the file line by line to handle malformed lines
+        cleaned_lines = []
+        expected_columns = ['Round', 'Date', 'Day', 'Time', 'Home_Team', 'Away_Team', 'Status']
+        
+        with open(input_file, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            
+        # Keep header
+        if lines:
+            cleaned_lines.append(lines[0].strip())
+            
+            # Process each data line
+            for i, line in enumerate(lines[1:], start=2):
+                parts = line.strip().split(',')
+                
+                # If line has exactly 7 fields (expected), keep it
+                if len(parts) == 7:
+                    cleaned_lines.append(line.strip())
+                # If line has more than 7 fields, truncate to first 7
+                elif len(parts) > 7:
+                    fixed_line = ','.join(parts[:7])
+                    cleaned_lines.append(fixed_line)
+                    print(f"Fixed line {i}: truncated from {len(parts)} to 7 fields")
+                # If line has fewer than 7 fields, skip it
+                else:
+                    print(f"Skipped line {i}: only {len(parts)} fields")
+        
+        # Write cleaned file
+        with open(input_file, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(cleaned_lines))
+            
+        print(f"Cleaned upcoming fixtures file: {len(cleaned_lines)-1} data rows")
+        return True
+        
+    except Exception as e:
+        print(f"Error cleaning upcoming fixtures: {e}")
+        return False
 
 def clean_fixture_predictions_file():
     """Clean up malformed fixture predictions CSV"""
