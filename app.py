@@ -500,7 +500,18 @@ def simulation_page():
     # Load data
     try:
         results_df = pd.read_csv("data/clean/results.csv", parse_dates=['Date'])
-        fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+        
+        # Check for upcoming fixtures file and use it if available
+        upcoming_fixtures_path = "data/clean/upcoming_fixtures.csv"
+        if os.path.exists(upcoming_fixtures_path):
+            st.info("📅 Using upcoming_fixtures.csv for simulation")
+            fixtures_source = "upcoming_fixtures"
+            # Will load cleaned fixtures in simulation section
+            fixtures_df = None
+        else:
+            fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+            fixtures_source = "generated_fixtures"
+            st.info("📅 Using generated fixtures for simulation")
         
         # Calculate current standings from live data
         from src.utils.helpers import calculate_current_standings_from_url, calculate_current_standings, get_current_points_table
@@ -546,7 +557,29 @@ def simulation_page():
         else:
             st.warning("No standings data available")
         
-        st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} fixtures remaining")
+        # Show fixtures information
+        if fixtures_source == "upcoming_fixtures":
+            # Load and display info about upcoming fixtures
+            from src.data.fixtures_cleaner import FixturesCleaner
+            cleaner = FixturesCleaner()
+            temp_fixtures = cleaner.clean_fixtures_file(upcoming_fixtures_path)
+            if not temp_fixtures.empty:
+                st.info(f"📅 {len(results_df)} matches completed, {len(temp_fixtures)} upcoming fixtures loaded from upcoming_fixtures.csv")
+                
+                # Show sample upcoming fixtures
+                if st.checkbox("Show upcoming fixtures preview"):
+                    st.subheader("📅 Next Upcoming Fixtures")
+                    next_fixtures = temp_fixtures.head(10)
+                    for _, fixture in next_fixtures.iterrows():
+                        date_str = fixture['Date'].strftime('%Y-%m-%d') if hasattr(fixture['Date'], 'strftime') else str(fixture['Date'])
+                        st.write(f"• {date_str}: {fixture['HomeTeam']} vs {fixture['AwayTeam']}")
+            else:
+                st.warning("Could not load upcoming fixtures properly")
+                fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+                st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} generated fixtures")
+        else:
+            if fixtures_df is not None:
+                st.info(f"📅 {len(results_df)} matches completed, {len(fixtures_df)} generated fixtures")
         
         # Simulation settings
         st.subheader("⚙️ Simulation Settings")
@@ -588,9 +621,20 @@ def simulation_page():
                             os.makedirs("models", exist_ok=True)
                             model.save("models/poisson_params.pkl")
                         
-                        simulator = MonteCarloSimulator(
-                            fixtures_df, model, seed=42
-                        )
+                        # Initialize simulator based on fixtures source
+                        if fixtures_source == "upcoming_fixtures":
+                            try:
+                                simulator = MonteCarloSimulator.from_upcoming_fixtures(
+                                    model, upcoming_fixtures_path, seed=42
+                                )
+                                st.success("✅ Using upcoming_fixtures.csv for simulation")
+                            except Exception as e:
+                                st.warning(f"⚠️ Could not load upcoming fixtures: {e}")
+                                st.info("Falling back to generated fixtures...")
+                                fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+                                simulator = MonteCarloSimulator(fixtures_df, model, seed=42)
+                        else:
+                            simulator = MonteCarloSimulator(fixtures_df, model, seed=42)
                         
                         # Run simulations
                         if use_current_standings:

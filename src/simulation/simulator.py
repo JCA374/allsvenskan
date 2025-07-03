@@ -2,6 +2,10 @@ import pandas as pd
 import numpy as np
 from scipy.stats import poisson
 import time
+import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 class MonteCarloSimulator:
     def __init__(self, fixtures_df, poisson_model, seed=42):
@@ -9,6 +13,44 @@ class MonteCarloSimulator:
         self.model = poisson_model
         self.rng = np.random.RandomState(seed)
         self.teams = self._get_all_teams()
+    
+    @classmethod
+    def from_upcoming_fixtures(cls, poisson_model, upcoming_fixtures_path="data/clean/upcoming_fixtures.csv", seed=42):
+        """Create simulator using the upcoming_fixtures.csv file"""
+        from ..data.fixtures_cleaner import FixturesCleaner
+        
+        try:
+            logger.info(f"Loading upcoming fixtures from {upcoming_fixtures_path}")
+            
+            # Initialize fixtures cleaner
+            cleaner = FixturesCleaner()
+            
+            # Clean the fixtures file
+            fixtures_df = cleaner.clean_fixtures_file(upcoming_fixtures_path)
+            
+            if fixtures_df.empty:
+                logger.warning("No valid fixtures found, falling back to existing fixtures")
+                # Try to load existing fixtures as fallback
+                if os.path.exists("data/clean/fixtures.csv"):
+                    fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+                else:
+                    raise ValueError("No fixtures available for simulation")
+            
+            # Save cleaned fixtures for reference
+            cleaner.save_cleaned_fixtures(fixtures_df, "data/clean/upcoming_fixtures_cleaned.csv")
+            
+            logger.info(f"Successfully loaded {len(fixtures_df)} fixtures for simulation")
+            return cls(fixtures_df, poisson_model, seed)
+            
+        except Exception as e:
+            logger.error(f"Error loading upcoming fixtures: {e}")
+            # Fallback to existing fixtures
+            if os.path.exists("data/clean/fixtures.csv"):
+                logger.info("Falling back to existing fixtures.csv")
+                fixtures_df = pd.read_csv("data/clean/fixtures.csv", parse_dates=['Date'])
+                return cls(fixtures_df, poisson_model, seed)
+            else:
+                raise ValueError(f"Could not load fixtures: {e}")
     
     def _get_all_teams(self):
         """Get all unique teams from fixtures"""
