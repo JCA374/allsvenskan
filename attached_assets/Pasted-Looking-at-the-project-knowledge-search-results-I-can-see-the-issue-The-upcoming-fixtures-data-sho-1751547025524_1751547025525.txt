@@ -1,0 +1,36 @@
+Looking at the project knowledge search results, I can see the issue. The upcoming fixtures data shows games scheduled for **2025-07-05**, but there appears to be a problem with the predictions or prediction display for those specific games.Based on the project knowledge search results, I can see the issue. The **Upcoming Fixtures with Predictions** is missing games on **2025-07-05** because there appears to be a data structure or processing problem. Let me examine this more closely:Based on my analysis of the project knowledge, I can see the issue clearly. The **Upcoming Fixtures with Predictions** is missing the games on **2025-07-05** due to a few interconnected problems:
+
+## The Issue
+
+**Column Name Mismatch**: The upcoming fixtures CSV uses column names `Home_Team` and `Away_Team`, but the fixture predictions processing code is looking for `HomeTeam` and `AwayTeam`. This mismatch prevents the proper merging of fixture data with prediction data.
+
+**Data Processing Problem**: In the application code, there's a merge operation that tries to match:
+- Prediction data columns: `['home_team', 'away_team']` 
+- Fixture data columns: `['Home_Team', 'Away_Team']`
+
+But the actual fixture file uses different column names, causing the merge to fail.
+
+## The Missing Games on 2025-07-05
+
+The fixture data clearly shows three games scheduled for **2025-07-05**:
+1. **GAIS vs Malmo FF** (15:00)
+2. **Oster vs Mjallby** (15:00) 
+3. **Hammarby vs Varnamo** (17:30)
+
+These games exist in the upcoming_fixtures.csv file, but they're not appearing in the predictions display because of the column name mismatch preventing proper data merging.
+
+## Solution
+
+The fix requires updating the merge operation in the application code to use the correct column names. The code should be changed from:
+
+```python
+right_on=['HomeTeam', 'AwayTeam']
+```
+
+to:
+
+```python
+right_on=['Home_Team', 'Away_Team']
+```
+
+This will allow the prediction system to properly match and display the July 5th fixtures with their corresponding predictions.
