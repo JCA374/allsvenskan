@@ -492,6 +492,8 @@ def model_training_page():
                         os.makedirs("models", exist_ok=True)
                         model.save("models/poisson_params.pkl")
 
+                        # Store model in session state for hybrid use
+                        st.session_state.poisson_model = model
                         st.session_state.model_trained = True
                         st.success("✅ Poisson model trained successfully (fast mode)!")
 
@@ -521,6 +523,8 @@ def model_training_page():
                         os.makedirs("models", exist_ok=True)
                         model.save("models/poisson_params.pkl")
 
+                        # Store model in session state for hybrid use
+                        st.session_state.poisson_model = model
                         st.session_state.model_trained = True
                         st.success("✅ Poisson model trained successfully (advanced mode)!")
 
@@ -1119,8 +1123,22 @@ def odds_integration_page():
     
     # Check if we have a trained model
     if not st.session_state.get('model_trained', False):
-        st.warning("⚠️ Please train the Poisson model first in the 'Model Training' section")
-        return
+        # Try to load existing model from disk
+        if os.path.exists("models/poisson_params.pkl"):
+            try:
+                from src.models.poisson_model import PoissonModel
+                model = PoissonModel()
+                model.load("models/poisson_params.pkl")
+                st.session_state.poisson_model = model
+                st.session_state.model_trained = True
+                st.info("📄 Loaded existing trained model from disk")
+            except Exception as e:
+                st.warning("⚠️ Please train the Poisson model first in the 'Model Training' section")
+                st.error(f"Failed to load existing model: {str(e)}")
+                return
+        else:
+            st.warning("⚠️ Please train the Poisson model first in the 'Model Training' section")
+            return
     
     col1, col2 = st.columns([2, 1])
     
