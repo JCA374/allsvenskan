@@ -1,150 +1,136 @@
-# Monte Carlo Simulation Debug Fix
+Awesome. You're in a perfect spot to take advantage of **“Team Strength Extraction from Odds”** — especially now that you already have upcoming match odds and a working Poisson model. Let me break it down more deeply and give you a practical plan.
 
-## Issue Identified
+---
 
-The Monte Carlo simulation is not getting the upcoming games correctly because of several interconnected issues:
+## 🧠 **What Is “Team Strength Extraction from Odds”?**
 
-### 1. **File Path Mismatch**
-- Your code references: `data/cleaned/upcoming_fixtures.csv`
-- But the actual file is at: `data/clean/upcoming_fixtures.csv`
+Bookmakers' odds already *encode* their belief about team strengths and expected goals.
 
-### 2. **Column Name Inconsistency**
-- The upcoming_fixtures.csv file uses columns: `Home_Team`, `Away_Team`
-- But the fixture predictions processing expects: `HomeTeam`, `AwayTeam`
+If we can **reverse-engineer** those beliefs from the odds, we can:
 
-### 3. **Data Structure Problem**
-The current CSV has this structure:
-```csv
-Round,Date,Day,Time,Home_Team,Away_Team,
-19,2025-07-05,LÖRDAG,15:00,GAIS,Malmo FF,
-19,2025-07-05,LÖRDAG,15:00,Oster,Mjallby,
-19,2025-07-05,LÖRDAG,17:30,Hammarby,Varnamo,
-```
+* Estimate **attack/defense strength** directly from the market
+* Use these strengths to feed a **Poisson simulation**
+* Blend this with your historical/team-based model = true **Hybrid**
 
-But the code expects:
-```csv
-Date,HomeTeam,AwayTeam
-2025-07-05,GAIS,Malmo FF
-2025-07-05,Oster,Mjallby
-2025-07-05,Hammarby,Varnamo
-```
+---
 
-## Solution
+## 🎯 **What You Have:**
 
-### Quick Fix 1: Update File Path in app.py
+* Odds for upcoming games ✅
+* Poisson model trained on historical goals ✅
+* Probabilities from odds (using `remove_margin()`) ✅
 
-Replace this line in `app.py`:
-```python
-upcoming_fixtures_path = "data/clean/upcoming_fixtures.csv"
-```
+---
 
-With:
-```python
-upcoming_fixtures_path = "data/cleaned/upcoming_fixtures.csv"
-```
+## 🧩 **The Goal:**
 
-### Quick Fix 2: Update the MonteCarloSimulator Class
+Estimate team attack/defense strengths such that the **Poisson-predicted match probabilities match the market’s odds** as closely as possible.
 
-In `src/simulation/simulator.py`, update the `_load_upcoming_fixtures_directly` method to handle the correct column names:
+---
 
-```python
-@staticmethod
-def _load_upcoming_fixtures_directly(filepath):
-    """Load upcoming fixtures directly from CSV with robust parsing"""
-    try:
-        # Read CSV with error handling
-        df = pd.read_csv(filepath, on_bad_lines='skip')
-        
-        # Handle different column name formats
-        if 'Home_Team' in df.columns and 'Away_Team' in df.columns:
-            # Rename columns to match expected format
-            df = df.rename(columns={
-                'Home_Team': 'HomeTeam',
-                'Away_Team': 'AwayTeam'
-            })
-        
-        # Ensure required columns exist
-        if 'HomeTeam' not in df.columns or 'AwayTeam' not in df.columns:
-            raise ValueError("CSV must contain HomeTeam and AwayTeam columns")
-        
-        # Clean and standardize team names
-        team_mapping = {
-            'GAIS': 'GAIS', 'Malmo FF': 'Malmo FF', 'Malmö FF': 'Malmo FF',
-            'Oster': 'Oster', 'Östers IF': 'Oster', 'Osters IF': 'Oster',
-            'Mjallby': 'Mjallby', 'Mjällby AIF': 'Mjallby',
-            'Hammarby': 'Hammarby', 'Varnamo': 'Varnamo',
-            'Goteborg': 'Goteborg', 'IFK Göteborg': 'Goteborg',
-            'Norrkoping': 'Norrkoping', 'IFK Norrköping': 'Norrkoping',
-            'Hacken': 'Hacken', 'BK Häcken': 'Hacken',
-            'Brommapojkarna': 'Brommapojkarna', 'IF Brommapojkarna': 'Brommapojkarna',
-            'Sirius': 'Sirius', 'IK Sirius': 'Sirius',
-            'Elfsborg': 'Elfsborg', 'IF Elfsborg': 'Elfsborg',
-            'Halmstad': 'Halmstad', 'Halmstads BK': 'Halmstad',
-            'Djurgarden': 'Djurgarden', 'Djurgårdens IF': 'Djurgarden',
-            'AIK': 'AIK', 'Degerfors': 'Degerfors'
-        }
-        
-        # Apply team name mapping
-        df['HomeTeam'] = df['HomeTeam'].map(team_mapping).fillna(df['HomeTeam'])
-        df['AwayTeam'] = df['AwayTeam'].map(team_mapping).fillna(df['AwayTeam'])
-        
-        # Parse dates if needed
-        if 'Date' in df.columns:
-            df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
-        else:
-            # Create a default date if missing
-            df['Date'] = pd.Timestamp.now()
-        
-        # Filter out rows with missing team names
-        df = df.dropna(subset=['HomeTeam', 'AwayTeam'])
-        df = df[df['HomeTeam'].str.strip() != '']
-        df = df[df['AwayTeam'].str.strip() != '']
-        
-        # Ensure we have the required columns for simulation
-        required_columns = ['Date', 'HomeTeam', 'AwayTeam']
-        df = df[required_columns]
-        
-        logger.info(f"Successfully loaded {len(df)} fixtures from {filepath}")
-        return df
-        
-    except Exception as e:
-        logger.error(f"Error loading fixtures from {filepath}: {e}")
-        return pd.DataFrame()
-```
+## ⚙️ **How It Works (Simplified Version)**
 
-### Fix 3: Update the Fixture Predictions Merge in fix.md
+Let’s say for a match:
 
-In the `fixture_results_page()` function, update the merge operation:
+* Market-implied probabilities:
+  `P_home_win`, `P_draw`, `P_away_win` from odds
+
+We want to find values of:
+
+* `λ_home = base_attack_strength_home * base_defense_weakness_away * home_advantage`
+* `λ_away = base_attack_strength_away * base_defense_weakness_home`
+
+Then:
+
+* Simulate Poisson distribution of goals with these λ’s
+* Compute `P_home_win`, `P_draw`, `P_away_win` from that
+* Minimize the difference between simulated and market probabilities
+
+This is an **optimization problem.**
+
+---
+
+## 📦 **Implementation Plan**
+
+### Step 1: Convert Odds → Probabilities
+
+Use your existing `odds_converter.py`.
 
 ```python
-# Merge with fixture dates - use correct column names
-fixture_summary = fixture_summary.merge(
-    fixtures_df[['Home_Team', 'Away_Team', 'Date']],  # Changed from HomeTeam/AwayTeam
-    left_on=['home_team', 'away_team'],
-    right_on=['Home_Team', 'Away_Team'],  # Changed from HomeTeam/AwayTeam
-    how='left'
-)
+p_home, p_draw, p_away = remove_margin(home_odds, draw_odds, away_odds)
 ```
 
-## Complete Debug Steps
+---
 
-1. **Check file exists**: Verify `data/cleaned/upcoming_fixtures.csv` exists
-2. **Fix file path**: Update the path in app.py to match actual location
-3. **Update column handling**: Use the enhanced `_load_upcoming_fixtures_directly` method
-4. **Test simulation**: Run a small simulation to verify fixtures load correctly
-5. **Check predictions merge**: Ensure fixture predictions display correctly
+### Step 2: Build Poisson Probability Calculator
 
-## Test Commands
-
-After making these changes, test with:
+You probably already have this, but it should:
 
 ```python
-# Test fixture loading
-from src.simulation.simulator import MonteCarloSimulator
-fixtures = MonteCarloSimulator._load_upcoming_fixtures_directly("data/cleaned/upcoming_fixtures.csv")
-print(f"Loaded {len(fixtures)} fixtures")
-print("Sample fixtures:")
-print(fixtures.head())
+def match_probs_poisson(lambda_home, lambda_away, max_goals=6):
+    probs = np.zeros((max_goals, max_goals))
+    for i in range(max_goals):
+        for j in range(max_goals):
+            probs[i, j] = poisson.pmf(i, lambda_home) * poisson.pmf(j, lambda_away)
+
+    p_home = np.sum(np.tril(probs, -1))  # i > j
+    p_draw = np.sum(np.diag(probs))      # i == j
+    p_away = np.sum(np.triu(probs, 1))   # j > i
+    return p_home, p_draw, p_away
 ```
 
-This should resolve the issue where the Monte Carlo simulation isn't getting the upcoming games correctly from your CSV file.
+---
+
+### Step 3: Optimize Strengths for One Match
+
+Use `scipy.optimize.minimize` to find λ\_home and λ\_away that match the bookmaker.
+
+```python
+from scipy.optimize import minimize
+
+def objective(params, p_market):
+    lambda_home, lambda_away = params
+    p_model = match_probs_poisson(lambda_home, lambda_away)
+    return np.sum((np.array(p_model) - np.array(p_market))**2)
+
+res = minimize(objective, x0=[1.5, 1.2], args=([p_home, p_draw, p_away]))
+```
+
+---
+
+### Step 4: Generalize to Many Matches
+
+Now you can optimize **team strengths** instead of just λs directly:
+
+```python
+# Example variables to optimize:
+# strength = {'Hammarby_attack': 1.2, 'Malmo_defense': 0.8, ...}
+# λ_home = attack_home * defense_away * home_adv
+```
+
+This becomes a multi-match optimization problem — or you just do it **match-by-match**, store the λs, and average them per team over time.
+
+---
+
+## 💾 **Bonus: Save Strengths to DB**
+
+Once you extract implied `λ_home`, `λ_away` from each match:
+
+* Store them in your existing DB
+* Over time, **track team form from market perspective**
+* Compare to historical Poisson strengths → detect mispricing 📈
+
+---
+
+## 🔁 **Hybrid Usage**
+
+Later in your `HybridPoissonOddsModel`:
+
+```python
+λ_poisson = team_strength_model(...)
+λ_odds = extracted_from_market[match_id]
+
+λ_final = weight * λ_poisson + (1 - weight) * λ_odds
+```
+
+Let me know if you want me to write a ready-to-use Python module for this (`odds_strength_extractor.py`) or integrate it into your model pipeline.
