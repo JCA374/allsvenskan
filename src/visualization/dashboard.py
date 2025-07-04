@@ -23,6 +23,10 @@ class Dashboard:
             from src.analysis.aggregator import ResultsAggregator
             aggregator = ResultsAggregator()
             
+            # Load current standings
+            from src.utils.helpers import calculate_current_standings_from_url
+            current_standings_df = calculate_current_standings_from_url()
+            
             # Generate all analyses
             analysis = aggregator.analyze_results(sim_results)
             position_probs = aggregator.calculate_position_probabilities(sim_results)
@@ -32,7 +36,7 @@ class Dashboard:
             final_table = aggregator.generate_final_table_prediction(sim_results)
             
             # Create dashboard sections
-            self._create_overview_section(final_table, sim_results)
+            self._create_overview_section(final_table, sim_results, current_standings_df)
             self._create_position_analysis(position_probs, championship_odds, relegation_odds, european_odds)
             self._create_team_comparison(analysis, sim_results)
             self._create_probability_charts(championship_odds, relegation_odds, european_odds)
@@ -40,7 +44,7 @@ class Dashboard:
         except Exception as e:
             st.error(f"❌ Error creating dashboard: {str(e)}")
     
-    def _create_overview_section(self, final_table, sim_results):
+    def _create_overview_section(self, final_table, sim_results, current_standings_df):
         """Create overview section with key metrics"""
         st.subheader("🏆 Season Outlook")
         
@@ -70,15 +74,33 @@ class Dashboard:
         if not final_table.empty:
             # Format the table for better display
             display_table = final_table.copy()
+            
+            # Add current standings information
+            if not current_standings_df.empty:
+                # Create current position mapping
+                current_pos_map = dict(zip(current_standings_df['Team'], range(1, len(current_standings_df) + 1)))
+                current_pts_map = dict(zip(current_standings_df['Team'], current_standings_df['Pts']))
+                
+                display_table['Current_Position'] = display_table['Team'].map(current_pos_map)
+                display_table['Current_Points'] = display_table['Team'].map(current_pts_map)
+                display_table['Position_Change'] = display_table['Current_Position'] - display_table['Position']
+            else:
+                display_table['Current_Position'] = "N/A"
+                display_table['Current_Points'] = 0
+                display_table['Position_Change'] = 0
+            
             display_table['Championship_Prob'] = display_table['Championship_Prob'].apply(lambda x: f"{x}%")
             display_table['Relegation_Prob'] = display_table['Relegation_Prob'].apply(lambda x: f"{x}%")
             
             st.dataframe(
                 display_table,
                 column_config={
-                    "Position": st.column_config.NumberColumn("Pos"),
+                    "Position": st.column_config.NumberColumn("Final Pos"),
                     "Team": st.column_config.TextColumn("Team"),
-                    "Expected_Points": st.column_config.NumberColumn("Exp. Points", format="%.1f"),
+                    "Current_Position": st.column_config.NumberColumn("Current Pos"),
+                    "Current_Points": st.column_config.NumberColumn("Current Pts"),
+                    "Expected_Points": st.column_config.NumberColumn("Final Pts", format="%.1f"),
+                    "Position_Change": st.column_config.NumberColumn("Pos Change", format="%+d"),
                     "Championship_Prob": st.column_config.TextColumn("Title %"),
                     "Relegation_Prob": st.column_config.TextColumn("Relegation %")
                 },
