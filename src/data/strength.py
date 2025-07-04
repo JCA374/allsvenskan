@@ -1,11 +1,28 @@
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
+import logging
+from typing import Dict, List, Optional
+
+# Import odds integration components
+try:
+    from src.data.odds_strength_extractor import (
+        OddsStrengthExtractor, 
+        AdaptiveStrengthCalculator,
+        integrate_odds_strengths_with_historical
+    )
+    from src.data.odds_api import OddsAPI
+    from src.data.odds_schema import OddsData
+    ODDS_AVAILABLE = True
+except ImportError:
+    ODDS_AVAILABLE = False
+
+logger = logging.getLogger(__name__)
 
 
 class TeamStrengthCalculator:
 
-    def __init__(self, min_games=3, time_decay=0.01, form_window=5):
+    def __init__(self, min_games=3, time_decay=0.01, form_window=5, use_odds_integration=True):
         """
         Enhanced team strength calculator with time decay and improved metrics
 
@@ -13,14 +30,36 @@ class TeamStrengthCalculator:
             min_games: Minimum games required for reliable statistics
             time_decay: Exponential decay factor for time weighting (higher = more recent bias)
             form_window: Number of recent games for form calculation
+            use_odds_integration: Whether to integrate odds-based strength calculations
         """
         self.min_games = min_games
         self.time_decay = time_decay
         self.form_window = form_window
+        self.use_odds_integration = use_odds_integration and ODDS_AVAILABLE
+        
+        # Initialize odds-based components if available
+        if self.use_odds_integration:
+            try:
+                self.odds_strength_extractor = OddsStrengthExtractor()
+                self.adaptive_calculator = AdaptiveStrengthCalculator()
+                logger.info("Odds-based strength calculation enabled")
+            except Exception as e:
+                logger.warning(f"Failed to initialize odds components: {e}")
+                self.use_odds_integration = False
+                self.odds_strength_extractor = None
+                self.adaptive_calculator = None
+        else:
+            self.odds_strength_extractor = None
+            self.adaptive_calculator = None
+            logger.info("Using historical-only strength calculation")
 
-    def calculate_strengths(self, results_df):
+    def calculate_strengths(self, results_df, odds_data=None):
         """
         Calculate enhanced team strengths with time weighting and advanced metrics
+        
+        Args:
+            results_df: Historical match results dataframe
+            odds_data: Optional odds data for strength extraction
         """
         try:
             if results_df.empty:
@@ -82,6 +121,11 @@ class TeamStrengthCalculator:
                 lambda x: self._calculate_recent_form(x.name, results_df,
                                                       weights),
                 axis=1)
+
+            # Integrate odds-based strength calculations if available
+            if self.use_odds_integration and odds_data is not None:
+                team_stats = self._integrate_odds_based_strengths(
+                    team_stats, odds_data, results_df)
 
             # Round all numeric columns for readability
             numeric_columns = team_stats.select_dtypes(
@@ -397,3 +441,135 @@ class TeamStrengthCalculator:
 
         except Exception as e:
             return 1.0
+
+    def _integrate_odds_based_strengths(self, team_stats, odds_data, results_df):
+        """
+        Integrate odds-based strength calculations with historical data
+        
+        Args:
+            team_stats: DataFrame with historical team statistics
+            odds_data: Odds data for strength extraction
+            results_df: Historical results dataframe
+            
+        Returns:
+            Enhanced team statistics with odds-based metrics
+        """
+        try:
+            logger.info("Integrating odds-based strength calculations")
+            
+            # Extract odds-based strengths
+            odds_strengths = {}
+            
+            # Process odds data to extract team strengths
+            if isinstance(odds_data, dict):
+                # Handle different odds data formats
+                if 'all_odds' in odds_data:
+                    # Extract from OddsData format
+                    odds_records = odds_data['all_odds']
+                    fixtures_with_odds = []
+                    
+                    for match_key, odds_record in odds_records.items():
+                        fixture = {
+                            'home_team': odds_record.home_team,
+                            'away_team': odds_record.away_team,
+                            'home_odds': odds_record.home_odds,
+                            'draw_odds': odds_record.draw_odds,
+                            'away_odds': odds_record.away_odds,
+                            'date': odds_record.date,
+                            'bookmaker': odds_record.bookmaker
+                        }
+                        fixtures_with_odds.append(fixture)
+                    
+                    # Extract team strengths from fixtures
+                    if fixtures_with_odds:
+                        odds_strengths = self.odds_strength_extractor.extract_team_strengths_from_fixtures(
+                            fixtures_with_odds)
+                
+                elif 'fixtures' in odds_data:
+                    # Handle fixtures format
+                    odds_strengths = self.odds_strength_extractor.extract_team_strengths_from_fixtures(
+                        odds_data['fixtures'])
+            
+            # Integrate odds strengths with historical strengths
+            if odds_strengths and ODDS_AVAILABLE:
+                # Calculate odds weight based on amount of odds data available
+                total_odds_matches = sum(len(str(matches)) for matches in odds_strengths.values())
+                odds_weight = min(0.4, total_odds_matches / 100)  # Max 40% weight
+                
+                # Apply integration using the global function
+                try:
+                    team_stats = integrate_odds_strengths_with_historical(
+                        odds_strengths, team_stats, odds_weight)
+                    logger.info(f"Integrated odds data for {len(odds_strengths)} teams with {odds_weight:.2f} weight")
+                except Exception as e:
+                    logger.warning(f"Integration function failed: {e}")
+            
+            return team_stats
+            
+        except Exception as e:
+            logger.error(f"Error integrating odds-based strengths: {e}")
+            return team_stats
+
+    def calculate_strengths_with_odds_api(self, results_df, api_key=None):
+        """
+        Calculate team strengths using live odds data from API
+        
+        Args:
+            results_df: Historical results dataframe
+            api_key: Optional API key for odds service
+            
+        Returns:
+            Enhanced team statistics with live odds integration
+        """
+        try:
+            if not self.use_odds_integration:
+                logger.info("Odds integration disabled, using historical data only")
+                return self.calculate_strengths(results_df)
+            
+            # Initialize odds API if available
+            if api_key and ODDS_AVAILABLE:
+                from src.data.odds_api import OddsAPI
+                odds_api = OddsAPI(api_key)
+                
+                # Fetch live odds data
+                live_odds = odds_api.get_upcoming_matches_odds()
+                
+                if live_odds:
+                    # Convert to format expected by strength calculator
+                    odds_data = {
+                        'all_odds': {f"match_{i}": odds for i, odds in enumerate(live_odds)}
+                    }
+                    
+                    # Calculate strengths with odds integration
+                    return self.calculate_strengths(results_df, odds_data)
+            
+            # Fallback to historical calculation
+            return self.calculate_strengths(results_df)
+            
+        except Exception as e:
+            logger.error(f"Error calculating strengths with odds API: {e}")
+            return self.calculate_strengths(results_df)
+
+    def extract_lambda_values_from_odds(self, odds_record):
+        """
+        Extract expected goals (lambda values) from betting odds
+        
+        Args:
+            odds_record: Single odds record
+            
+        Returns:
+            Tuple of (lambda_home, lambda_away) expected goals
+        """
+        try:
+            if not self.use_odds_integration:
+                return 1.4, 1.1  # Default values
+            
+            # Use odds strength extractor to optimize lambda values
+            lambda_home, lambda_away = self.odds_strength_extractor.optimize_match_lambdas(
+                odds_record, initial_guess=(1.4, 1.1))
+            
+            return lambda_home, lambda_away
+            
+        except Exception as e:
+            logger.error(f"Error extracting lambda values from odds: {e}")
+            return 1.4, 1.1

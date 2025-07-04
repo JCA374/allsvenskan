@@ -432,6 +432,16 @@ def model_training_page():
 
     with col1:
         st.subheader("Team Strength Analysis")
+        
+        # Enhanced strength calculation options
+        st.markdown("**Choose calculation method:**")
+        strength_method = st.radio(
+            "Method:",
+            ["Historical Only", "Enhanced with Odds (if available)"],
+            help="Enhanced method integrates betting odds data to improve accuracy"
+        )
+        
+        use_odds_integration = strength_method == "Enhanced with Odds (if available)"
 
         if st.button("📈 Calculate Team Strengths", type="primary"):
             with st.spinner("Calculating team strengths..."):
@@ -449,8 +459,17 @@ def model_training_page():
                         results = pd.read_csv("data/clean/results.csv")
                         st.info("📁 Using data from files")
 
-                    strength_calc = TeamStrengthCalculator()
-                    team_stats = strength_calc.calculate_strengths(results)
+                    # Initialize enhanced strength calculator
+                    strength_calc = TeamStrengthCalculator(use_odds_integration=use_odds_integration)
+                    
+                    # Prepare odds data if enhanced method is selected
+                    odds_data = None
+                    if use_odds_integration and st.session_state.get('odds_fetched', False):
+                        odds_data = st.session_state.get('odds_data')
+                        st.info("🎯 Using odds data for enhanced calculations")
+                    
+                    # Calculate team strengths
+                    team_stats = strength_calc.calculate_strengths(results, odds_data)
 
                     # Save to files
                     os.makedirs("data/processed", exist_ok=True)
@@ -465,10 +484,57 @@ def model_training_page():
                             st.warning(f"⚠️ Database save failed: {str(e)}")
 
                     st.success("✅ Team strengths calculated!")
-                    st.dataframe(team_stats)
+                    
+                    # Display enhanced metrics if available
+                    if use_odds_integration and 'odds_attack' in team_stats.columns:
+                        st.subheader("📊 Enhanced Strength Metrics")
+                        
+                        col1a, col1b = st.columns(2)
+                        
+                        with col1a:
+                            st.write("**Historical vs Odds-Based Attack Strength**")
+                            comparison_df = team_stats[['attack_strength', 'odds_attack']].head(10)
+                            st.dataframe(comparison_df.round(3))
+                        
+                        with col1b:
+                            st.write("**Odds Confidence & Form**")
+                            if 'odds_confidence' in team_stats.columns:
+                                confidence_df = team_stats[['odds_form', 'odds_confidence']].head(10)
+                                st.dataframe(confidence_df.round(3))
+                    
+                    st.dataframe(team_stats.round(3))
 
                 except Exception as e:
                     st.error(f"❌ Error calculating strengths: {str(e)}")
+                    
+        # Add button for API-based live odds integration
+        if use_odds_integration:
+            st.markdown("---")
+            st.subheader("🔄 Live Odds Integration")
+            
+            api_key = st.text_input(
+                "Odds API Key (optional):",
+                type="password",
+                help="Enter your The-Odds-API key for live odds integration"
+            )
+            
+            if st.button("🌐 Calculate with Live Odds", disabled=not api_key):
+                with st.spinner("Fetching live odds and calculating strengths..."):
+                    try:
+                        results = pd.read_csv("data/clean/results.csv")
+                        strength_calc = TeamStrengthCalculator(use_odds_integration=True)
+                        
+                        # Calculate with live odds
+                        team_stats = strength_calc.calculate_strengths_with_odds_api(results, api_key)
+                        
+                        # Save enhanced results
+                        team_stats.to_csv("data/processed/team_stats_enhanced.csv")
+                        
+                        st.success("✅ Enhanced team strengths with live odds calculated!")
+                        st.dataframe(team_stats.round(3))
+                        
+                    except Exception as e:
+                        st.error(f"❌ Error with live odds integration: {str(e)}")
 
     with col2:
         st.subheader("Poisson Model Training")
