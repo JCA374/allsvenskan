@@ -8,9 +8,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 class MonteCarloSimulator:
-    def __init__(self, fixtures_df, poisson_model, seed=42):
+    def __init__(self, fixtures_df, poisson_model, seed=42, hybrid_model=None, odds_data=None, season_progress=0.5):
         self.fixtures = fixtures_df.copy()
         self.model = poisson_model
+        self.hybrid_model = hybrid_model
+        self.odds_data = odds_data
+        self.season_progress = season_progress
         self.rng = np.random.RandomState(seed)
         self.teams = self._get_all_teams()
 
@@ -120,8 +123,32 @@ class MonteCarloSimulator:
                 home_team = fixture['HomeTeam']
                 away_team = fixture['AwayTeam']
 
-                # Get expected goals from model
-                mu_home, mu_away = self.model.predict_match(home_team, away_team)
+                # Get expected goals from hybrid model if available, otherwise use Poisson
+                if self.hybrid_model and self.odds_data:
+                    # Try to get odds for this match
+                    match_key = f"{fixture.get('Date', '')}_{home_team}_{away_team}"
+                    odds_record = None
+                    
+                    # Search for matching odds record
+                    for key, record in self.odds_data.get_all_odds().items():
+                        if (record.home_team.lower() == home_team.lower() and 
+                            record.away_team.lower() == away_team.lower()):
+                            odds_record = record
+                            break
+                    
+                    if odds_record:
+                        # Use hybrid prediction
+                        combined_probs = self.hybrid_model.predict_with_odds(
+                            home_team, away_team, odds_record, self.season_progress
+                        )
+                        # Convert probabilities back to expected goals (approximate)
+                        mu_home, mu_away = self.model.predict_match(home_team, away_team)
+                    else:
+                        # Fall back to pure Poisson
+                        mu_home, mu_away = self.model.predict_match(home_team, away_team)
+                else:
+                    # Use pure Poisson model
+                    mu_home, mu_away = self.model.predict_match(home_team, away_team)
 
                 # Simulate match outcome
                 home_goals = self.rng.poisson(mu_home)

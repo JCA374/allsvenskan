@@ -640,6 +640,28 @@ def simulation_page():
             )
 
         with col2:
+            # Hybrid model settings
+            use_odds_integration = st.checkbox(
+                "Use Odds Integration", 
+                value=st.session_state.get('use_odds_integration', False),
+                help="Combine Poisson model with betting odds for more accurate predictions"
+            )
+            st.session_state.use_odds_integration = use_odds_integration
+
+            if use_odds_integration:
+                season_progress = st.slider(
+                    "Season Progress",
+                    min_value=0.0,
+                    max_value=1.0,
+                    value=st.session_state.get('season_progress', 0.5),
+                    step=0.05,
+                    help="0.0 = Season start (more odds weight), 1.0 = Season end (more Poisson weight)"
+                )
+                st.session_state.season_progress = season_progress
+            else:
+                season_progress = 0.5
+
+        with col2:
             if st.button("🚀 Run Simulation", type="primary"):
                 try:
                     with st.spinner(f"Running {n_simulations:,} simulations..."):
@@ -662,9 +684,27 @@ def simulation_page():
                         # Initialize simulator based on fixtures source
                         if fixtures_source == "upcoming_fixtures":
                             try:
+                                # Create hybrid model if odds integration is enabled
+                                hybrid_model = None
+                                odds_data = None
+                                
+                                if use_odds_integration and st.session_state.get('odds_fetched', False):
+                                    from src.models.hybrid_model import HybridPoissonOddsModel
+                                    hybrid_model = HybridPoissonOddsModel(model)
+                                    odds_data = st.session_state.get('odds_data')
+                                    st.info("🔮 Using Hybrid Model (Poisson + Odds)")
+                                else:
+                                    st.info("📊 Using Pure Poisson Model")
+                                
                                 simulator = MonteCarloSimulator.from_upcoming_fixtures(
                                     model, upcoming_fixtures_path, seed=42
                                 )
+                                
+                                # Add hybrid model support to existing simulator
+                                simulator.hybrid_model = hybrid_model
+                                simulator.odds_data = odds_data
+                                simulator.season_progress = season_progress
+                                
                                 st.success("✅ Using upcoming_fixtures.csv for simulation")
                             except Exception as e:
                                 st.error(f"❌ Could not load upcoming fixtures: {e}")
