@@ -16,6 +16,10 @@ from src.simulation.simulator import MonteCarloSimulator
 from src.analysis.aggregator import ResultsAggregator
 from src.visualization.dashboard import Dashboard
 from src.database.db_manager import DatabaseManager
+from src.data.odds_api import OddsAPI
+from src.data.odds_schema import OddsData, OddsRecord
+from src.models.hybrid_model import HybridPoissonOddsModel
+from src.utils.odds_converter import remove_margin, calculate_margin
 
 # Page configuration
 st.set_page_config(
@@ -48,7 +52,7 @@ def main():
     st.sidebar.title("Navigation")
     page = st.sidebar.selectbox(
         "Choose a section:",
-        ["Data Collection", "Data Verification", "Model Training", "Monte Carlo Simulation", "Fixture Predictions", "Results Analysis", "Dashboard", "Database Management"]
+        ["Data Collection", "Data Verification", "Model Training", "Odds Integration", "Monte Carlo Simulation", "Fixture Predictions", "Results Analysis", "Dashboard", "Database Management"]
     )
 
     if page == "Data Collection":
@@ -57,6 +61,8 @@ def main():
         data_verification_page()
     elif page == "Model Training":
         model_training_page()
+    elif page == "Odds Integration":
+        odds_integration_page()
     elif page == "Monte Carlo Simulation":
         simulation_page()
     elif page == "Fixture Predictions":
@@ -1100,6 +1106,262 @@ def database_management_page():
 
             for table_name, description in tables_info:
                 st.write(f"**{table_name}**: {description}")
+
+def odds_integration_page():
+    st.header("🎯 Odds Integration & Hybrid Predictions")
+    st.markdown("### Combine Statistical Models with Real Betting Markets")
+    
+    # Initialize session state for odds
+    if 'odds_data' not in st.session_state:
+        st.session_state.odds_data = OddsData()
+    if 'odds_fetched' not in st.session_state:
+        st.session_state.odds_fetched = False
+    
+    # Check if we have a trained model
+    if not st.session_state.get('model_trained', False):
+        st.warning("⚠️ Please train the Poisson model first in the 'Model Training' section")
+        return
+    
+    col1, col2 = st.columns([2, 1])
+    
+    with col1:
+        st.subheader("📡 Live Odds Data")
+        
+        # API Status
+        try:
+            odds_api = OddsAPI()
+            st.success("✅ Odds API connected and ready")
+            
+            # Check API usage
+            if st.button("Check API Usage", type="secondary"):
+                with st.spinner("Checking API usage..."):
+                    usage = odds_api.check_api_usage()
+                    if usage:
+                        st.info(f"📊 API Usage: {usage.get('requests_used', 0)} used, {usage.get('requests_remaining', 0)} remaining")
+                    else:
+                        st.warning("Could not retrieve usage information")
+        
+        except Exception as e:
+            st.error(f"❌ Odds API connection failed: {str(e)}")
+            st.info("🔑 Make sure your ODDS_API_KEY is properly configured")
+            return
+        
+        # Fetch current odds
+        if st.button("Fetch Current Odds", type="primary"):
+            with st.spinner("Fetching live odds from bookmakers..."):
+                try:
+                    odds_records = odds_api.get_upcoming_matches_odds()
+                    
+                    if odds_records:
+                        # Store in session state
+                        st.session_state.odds_data.clear_cache()
+                        for record in odds_records:
+                            st.session_state.odds_data.add_match_odds(record)
+                        
+                        st.session_state.odds_fetched = True
+                        st.success(f"✅ Successfully fetched odds for {len(odds_records)} matches!")
+                        
+                        # Display summary
+                        st.write("**Fetched Matches:**")
+                        for record in odds_records[:5]:  # Show first 5
+                            margin = calculate_margin(record.home_odds, record.draw_odds, record.away_odds)
+                            st.write(f"• {record.home_team} vs {record.away_team} - Margin: {margin:.1f}%")
+                        
+                        if len(odds_records) > 5:
+                            st.write(f"... and {len(odds_records) - 5} more matches")
+                    
+                    else:
+                        st.warning("No upcoming matches found with odds")
+                        
+                except Exception as e:
+                    st.error(f"Error fetching odds: {str(e)}")
+    
+    with col2:
+        st.subheader("⚙️ Configuration")
+        
+        # Odds weight configuration
+        st.write("**Odds Weight by Season Progress:**")
+        early_weight = st.slider("Early Season (Games 1-2)", 0.0, 1.0, 0.7, 0.1)
+        mid_early_weight = st.slider("Mid-Early (Games 3-5)", 0.0, 1.0, 0.5, 0.1)
+        mid_weight = st.slider("Mid Season (Games 6-10)", 0.0, 1.0, 0.3, 0.1)
+        late_weight = st.slider("Late Season (Games 11+)", 0.0, 1.0, 0.1, 0.1)
+        
+        # Value betting threshold
+        st.write("**Value Betting:**")
+        min_edge = st.slider("Minimum Edge (%)", 0.0, 20.0, 5.0, 0.5) / 100
+    
+    # Show current odds if available
+    if st.session_state.odds_fetched and st.session_state.odds_data.get_all_odds():
+        st.subheader("📊 Current Odds Analysis")
+        
+        odds_data = st.session_state.odds_data.get_all_odds()
+        
+        # Create odds DataFrame for display
+        odds_list = []
+        for key, record in odds_data.items():
+            margin = calculate_margin(record.home_odds, record.draw_odds, record.away_odds)
+            home_prob, draw_prob, away_prob = remove_margin(record.home_odds, record.draw_odds, record.away_odds)
+            
+            odds_list.append({
+                'Match': f"{record.home_team} vs {record.away_team}",
+                'Date': record.date.strftime('%Y-%m-%d %H:%M'),
+                'Home Odds': f"{record.home_odds:.2f}",
+                'Draw Odds': f"{record.draw_odds:.2f}",
+                'Away Odds': f"{record.away_odds:.2f}",
+                'Margin %': f"{margin:.1f}%",
+                'Home Prob': f"{home_prob:.1%}",
+                'Draw Prob': f"{draw_prob:.1%}",
+                'Away Prob': f"{away_prob:.1%}"
+            })
+        
+        if odds_list:
+            odds_df = pd.DataFrame(odds_list)
+            st.dataframe(odds_df, use_container_width=True)
+    
+    # Hybrid predictions section
+    if st.session_state.odds_fetched and st.session_state.get('model_trained', False):
+        st.subheader("🔮 Hybrid Predictions")
+        st.markdown("*Combining Poisson Model + Betting Odds*")
+        
+        # Load the trained model
+        try:
+            model = st.session_state.get('poisson_model')
+            if model is None:
+                st.warning("Model not found in session. Please retrain the model.")
+                return
+            
+            # Create hybrid model
+            hybrid_model = HybridPoissonOddsModel(model)
+            
+            # Get season progress estimate
+            season_progress = st.slider("Season Progress", 0.0, 1.0, 0.5, 0.05, 
+                                       help="0.0 = Season start, 1.0 = Season end")
+            
+            # Generate predictions for all matches with odds
+            predictions = []
+            value_bets = []
+            
+            for key, odds_record in st.session_state.odds_data.get_all_odds().items():
+                try:
+                    # Get hybrid prediction
+                    prediction = hybrid_model.predict_match_detailed(
+                        odds_record.home_team,
+                        odds_record.away_team,
+                        odds_record,
+                        season_progress
+                    )
+                    
+                    predictions.append(prediction)
+                    
+                    # Check for value bets
+                    if prediction.get('has_odds', False):
+                        values = hybrid_model.calculate_value_bets(
+                            prediction['combined_probs'],
+                            odds_record,
+                            min_edge
+                        )
+                        if values:
+                            value_bets.extend([{**v, 'match': f"{odds_record.home_team} vs {odds_record.away_team}"} for v in values])
+                
+                except Exception as e:
+                    st.error(f"Error predicting {odds_record.home_team} vs {odds_record.away_team}: {str(e)}")
+                    continue
+            
+            if predictions:
+                # Display predictions
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.write("**🎯 Match Predictions**")
+                    
+                    pred_data = []
+                    for pred in predictions[:10]:  # Show first 10
+                        if pred.get('has_odds', False):
+                            poisson_winner = ['Home', 'Draw', 'Away'][np.argmax(pred['poisson_probs'])]
+                            combined_winner = ['Home', 'Draw', 'Away'][np.argmax(pred['combined_probs'])]
+                            
+                            pred_data.append({
+                                'Match': f"{pred['home_team']} vs {pred['away_team']}",
+                                'Poisson Winner': poisson_winner,
+                                'Combined Winner': combined_winner,
+                                'Odds Weight': f"{pred['odds_weight']:.1%}",
+                                'Agreement': '✅' if poisson_winner == combined_winner else '❌'
+                            })
+                    
+                    if pred_data:
+                        pred_df = pd.DataFrame(pred_data)
+                        st.dataframe(pred_df, use_container_width=True)
+                
+                with col2:
+                    st.write("**💰 Value Betting Opportunities**")
+                    
+                    if value_bets:
+                        # Sort by edge
+                        value_bets.sort(key=lambda x: x['edge'], reverse=True)
+                        
+                        for bet in value_bets[:5]:  # Show top 5
+                            st.write(f"**{bet['match']}**")
+                            st.write(f"• Bet: {bet['outcome'].title()}")
+                            st.write(f"• Our Probability: {bet['our_probability']:.1%}")
+                            st.write(f"• Market Odds: {bet['market_odds']:.2f}")
+                            st.write(f"• Edge: {bet['edge_percent']:+.1f}%")
+                            st.write("---")
+                    else:
+                        st.info("No value bets found with current threshold")
+            
+            # Model comparison visualization
+            if len(predictions) >= 3:
+                st.subheader("📈 Model Comparison")
+                
+                # Create comparison chart
+                comparison_data = []
+                for pred in predictions:
+                    if pred.get('has_odds', False):
+                        comparison_data.append({
+                            'Match': f"{pred['home_team'][:3]} vs {pred['away_team'][:3]}",
+                            'Poisson Home': pred['poisson_probs'][0],
+                            'Odds Home': pred['odds_probs'][0],
+                            'Combined Home': pred['combined_probs'][0]
+                        })
+                
+                if comparison_data:
+                    comp_df = pd.DataFrame(comparison_data)
+                    
+                    fig = go.Figure()
+                    fig.add_trace(go.Scatter(x=comp_df['Match'], y=comp_df['Poisson Home'], 
+                                           mode='markers+lines', name='Poisson Model', line=dict(color='blue')))
+                    fig.add_trace(go.Scatter(x=comp_df['Match'], y=comp_df['Odds Home'], 
+                                           mode='markers+lines', name='Betting Odds', line=dict(color='red')))
+                    fig.add_trace(go.Scatter(x=comp_df['Match'], y=comp_df['Combined Home'], 
+                                           mode='markers+lines', name='Hybrid Model', line=dict(color='green')))
+                    
+                    fig.update_layout(title="Home Win Probability Comparison", 
+                                    xaxis_title="Match", yaxis_title="Probability",
+                                    height=400)
+                    st.plotly_chart(fig, use_container_width=True)
+        
+        except Exception as e:
+            st.error(f"Error creating hybrid predictions: {str(e)}")
+    
+    # Help section
+    with st.expander("ℹ️ How Odds Integration Works"):
+        st.markdown("""
+        **Hybrid Model Approach:**
+        
+        1. **Early Season**: Betting odds get higher weight (70%) because limited historical data
+        2. **Mid Season**: Balanced weighting (30-50%) as patterns emerge
+        3. **Late Season**: Statistical model dominates (90%) with extensive data
+        
+        **Value Betting:**
+        - Compares our model's probabilities vs market odds
+        - Identifies opportunities where market undervalues outcomes
+        - Edge = (Our Probability × Odds) - 1.0
+        
+        **Data Sources:**
+        - Statistical Model: Historical match results + team strengths
+        - Betting Odds: Live markets from European bookmakers
+        - Combination: Weighted average based on season progress
+        """)
 
 if __name__ == "__main__":
     main()

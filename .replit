@@ -2,7 +2,7 @@ modules = ["python-3.11", "python3"]
 
 [nix]
 channel = "stable-24_05"
-packages = ["geckodriver", "glibcLocales", "libxcrypt", "pkg-config", "xsimd"]
+packages = ["geckodriver", "glibcLocales", "libxcrypt", "libyaml", "pkg-config", "xsimd"]
 
 [deployment]
 deploymentTarget = "autoscale"
