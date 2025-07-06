@@ -254,168 +254,144 @@ def data_verification_page():
 
         st.success(f"✅ Data loaded from {data_source}")
 
-        # Parse dates to extract years
-        try:
+        # Validate and process data
+        if not all_matches.empty and 'Date' in all_matches.columns:
+            # Ensure Date column is datetime
             all_matches['Date'] = pd.to_datetime(all_matches['Date'], errors='coerce')
-            all_matches['Year'] = all_matches['Date'].dt.year
-        except:
-            # If date parsing fails, try to extract year from string
-            all_matches['Year'] = all_matches['Date'].astype(str).str.extract(r'(\d{4})').astype(float)
 
-        # Get available teams and years
-        all_teams = sorted(set(all_matches['HomeTeam'].dropna().unique()) | 
-                          set(all_matches['AwayTeam'].dropna().unique()))
-        available_years = sorted(all_matches['Year'].dropna().unique(), reverse=True)
+            # Remove rows with invalid dates
+            all_matches = all_matches.dropna(subset=['Date'])
 
-        # Create verification interface
-        col1, col2, col3 = st.columns(3)
+            if not all_matches.empty:
+                # Add year column for filtering
+                all_matches['Year'] = all_matches['Date'].dt.year
 
-        with col1:
-            selected_home_team = st.selectbox(
-                "Select Home Team:",
-                options=all_teams,
-                index=0 if all_teams else None
-            )
+                # Get unique values for filters - ensure no NaN values
+                available_years = sorted([year for year in all_matches['Year'].unique() if pd.notna(year)], reverse=True)
+                home_teams = sorted([team for team in all_matches['HomeTeam'].unique() if pd.notna(team) and team != ''])
+                away_teams = sorted([team for team in all_matches['AwayTeam'].unique() if pd.notna(team) and team != ''])
 
-        with col2:
-            selected_away_team = st.selectbox(
-                "Select Away Team:",
-                options=all_teams,
-                index=1 if len(all_teams) > 1 else 0
-            )
+                # Sidebar filters
+                st.sidebar.header("🔍 Search Filters")
 
-        with col3:
-            selected_year = st.selectbox(
-                "Select Year:",
-                options=available_years,
-                index=0 if available_years else None
-            )
-
-        # Filter and display results
-        if st.button("🔍 Search Matches", type="primary"):
-            # Filter matches based on selection
-            filtered_matches = all_matches[
-                (
-                    ((all_matches['HomeTeam'] == selected_home_team) & 
-                     (all_matches['AwayTeam'] == selected_away_team)) |
-                    ((all_matches['HomeTeam'] == selected_away_team) & 
-                     (all_matches['AwayTeam'] == selected_home_team))
-                ) &
-                (all_matches['Year'] == selected_year)
-            ].copy()
-
-            if not filtered_matches.empty:
-                st.subheader(f"📋 Matches: {selected_home_team} vs {selected_away_team} in {int(selected_year)}")
-
-                # Separate results and fixtures
-                results = filtered_matches[filtered_matches['FTHG'].notna() & filtered_matches['FTAG'].notna()]
-                fixtures = filtered_matches[filtered_matches['FTHG'].isna() | filtered_matches['FTAG'].isna()]
-
-                # Display results
-                if not results.empty:
-                    st.write(f"**Completed Matches ({len(results)}):**")
-
-                    display_results = results[['Date', 'HomeTeam', 'AwayTeam', 'FTHG', 'FTAG']].copy()
-                    display_results['Score'] = display_results['FTHG'].astype(int).astype(str) + " - " + display_results['FTAG'].astype(int).astype(str)
-                    display_results['Result'] = display_results.apply(
-                        lambda x: f"{x['HomeTeam']} {x['Score']} {x['AwayTeam']}", axis=1
+                # Year filter
+                if available_years:
+                    selected_year = st.sidebar.selectbox(
+                        "Select Year",
+                        options=available_years,
+                        index=0
                     )
+                else:
+                    st.sidebar.warning("No valid years found in data")
+                    selected_year = None
 
-                    for _, match in display_results.iterrows():
-                        st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['Result']}")
+                # Team filters
+                if home_teams:
+                    selected_home_team = st.sidebar.selectbox(
+                        "Home Team",
+                        options=['All Teams'] + home_teams,
+                        index=0
+                    )
+                else:
+                    st.sidebar.warning("No home teams found in data")
+                    selected_home_team = 'All Teams'
 
-                # Display fixtures
-                if not fixtures.empty:
-                    st.write(f"**Upcoming Fixtures ({len(fixtures)}):**")
+                if away_teams:
+                    selected_away_team = st.sidebar.selectbox(
+                        "Away Team", 
+                        options=['All Teams'] + away_teams,
+                        index=0
+                    )
+                else:
+                    st.sidebar.warning("No away teams found in data")
+                    selected_away_team = 'All Teams'
 
-                    display_fixtures = fixtures[['Date', 'HomeTeam', 'AwayTeam']].copy()
+                # Apply filters
+                filtered_matches = all_matches.copy()
 
-                    for _, match in display_fixtures.iterrows():
-                        st.write(f"• {match['Date'].strftime('%Y-%m-%d') if pd.notna(match['Date']) else 'Unknown date'}: {match['HomeTeam']} vs {match['AwayTeam']}")
+                if selected_year and pd.notna(selected_year):
+                    filtered_matches = filtered_matches[filtered_matches['Year'] == selected_year]
 
-                # Show data quality summary
-                st.subheader("📊 Data Quality Summary")
+                if selected_home_team != 'All Teams':
+                    filtered_matches = filtered_matches[filtered_matches['HomeTeam'] == selected_home_team]
 
-                col1, col2, col3, col4 = st.columns(4)
+                if selected_away_team != 'All Teams':
+                    filtered_matches = filtered_matches[filtered_matches['AwayTeam'] == selected_away_team]
 
-                with col1:
-                    st.metric("Total Matches Found", len(filtered_matches))
+                # Show results
+                if not filtered_matches.empty:
+                    st.subheader(f"📊 Match Results")
 
-                with col2:
-                    st.metric("Completed Results", len(results))
+                    # Separate results and fixtures with better validation
+                    try:
+                        results = filtered_matches[
+                            filtered_matches['FTHG'].notna() & 
+                            filtered_matches['FTAG'].notna() &
+                            (filtered_matches['FTHG'] != '') & 
+                            (filtered_matches['FTAG'] != '')
+                        ]
+                        fixtures = filtered_matches[
+                            filtered_matches['FTHG'].isna() | 
+                            filtered_matches['FTAG'].isna() |
+                            (filtered_matches['FTHG'] == '') | 
+                            (filtered_matches['FTAG'] == '')
+                        ]
+                    except Exception as e:
+                        st.error(f"Error separating results and fixtures: {e}")
+                        results = pd.DataFrame()
+                        fixtures = filtered_matches.copy()
 
-                with col3:
-                    st.metric("Upcoming Fixtures", len(fixtures))
+                    # Display metrics
+                    col1, col2, col3, col4 = st.columns(4)
 
-                with col4:
-                    missing_dates = filtered_matches['Date'].isna().sum()
-                    st.metric("Missing Dates", missing_dates)
+                    with col1:
+                        st.metric("Total Matches", len(filtered_matches))
 
-                # Show raw data for verification
-                if st.checkbox("Show Raw Data"):
-                    st.subheader("Raw Match Data")
+                    with col2:
+                        st.metric("Completed Results", len(results))
+
+                    with col3:
+                        st.metric("Upcoming Fixtures", len(fixtures))
+
+                    with col4:
+                        missing_dates = filtered_matches['Date'].isna().sum()
+                        st.metric("Missing Dates", missing_dates)
+
+                    # Display results table
                     st.dataframe(filtered_matches)
 
-            else:
-                st.info(f"ℹ️ No matches found between {selected_home_team} and {selected_away_team} in {int(selected_year)}")
+                else:
+                    st.warning("No valid data available after filtering")
+        else:
+            st.error("❌ No match data available. Please check data sources.")
 
-                # Show alternative suggestions
-                st.subheader("💡 Suggestions")
+            # Show debug information
+            st.subheader("🔧 Debug Information")
+            st.write("Database status:", st.session_state.db_manager.get_connection() is not None)
 
-                # Show matches involving either team in that year
-                team_matches = all_matches[
-                    ((all_matches['HomeTeam'] == selected_home_team) | 
-                     (all_matches['AwayTeam'] == selected_home_team) |
-                     (all_matches['HomeTeam'] == selected_away_team) | 
-                     (all_matches['AwayTeam'] == selected_away_team)) &
-                    (all_matches['Year'] == selected_year)
-                ]
+            try:
+                # Try to get some basic stats
+                results_count = st.session_state.db_manager.get_results_count()
+                fixtures_count = st.session_state.db_manager.get_fixtures_count()
+                st.write(f"Results in database: {results_count}")
+                st.write(f"Fixtures in database: {fixtures_count}")
 
-                if not team_matches.empty:
-                    st.write(f"Found {len(team_matches)} matches involving these teams in {int(selected_year)}:")
+                # Show data structure if available
+                if not all_matches.empty:
+                    st.write("Data columns:", list(all_matches.columns))
+                    st.write("Data shape:", all_matches.shape)
+                    st.write("Sample data:")
+                    st.dataframe(all_matches.head())
 
-                    # Show unique opponents
-                    opponents_home = set(team_matches[team_matches['HomeTeam'] == selected_home_team]['AwayTeam'].dropna())
-                    opponents_away = set(team_matches[team_matches['AwayTeam'] == selected_home_team]['HomeTeam'].dropna())
-                    opponents_home2 = set(team_matches[team_matches['HomeTeam'] == selected_away_team]['AwayTeam'].dropna())
-                    opponents_away2 = set(team_matches[team_matches['AwayTeam'] == selected_away_team]['HomeTeam'].dropna())
+            except Exception as e:
+                st.write(f"Error getting database stats: {e}")
 
-                    all_opponents = (opponents_home | opponents_away | opponents_home2 | opponents_away2) - {selected_home_team, selected_away_team}
+            # Provide action suggestions
+            st.subheader("🔄 Try These Actions")
+            if st.button("Refresh Data"):
+                st.rerun()
 
-                    if all_opponents:
-                        st.write("Teams they played against:")
-                        for opponent in sorted(all_opponents):
-                            st.write(f"• {opponent}")
-
-        # Overall data summary
-        st.subheader("📈 Overall Data Summary")
-
-        col1, col2, col3 = st.columns(3)
-
-        with col1:
-            total_matches = len(all_matches)
-            completed_matches = len(all_matches[all_matches['FTHG'].notna() & all_matches['FTAG'].notna()])
-            st.metric("Total Matches in Dataset", total_matches)
-            st.metric("Completed Matches", completed_matches)
-
-        with col2:
-            st.metric("Total Teams", len(all_teams))
-            st.metric("Years Covered", len(available_years))
-
-        with col3:
-            if available_years:
-                st.metric("Earliest Year", int(min(available_years)))
-                st.metric("Latest Year", int(max(available_years)))
-
-        # Show team list
-        if st.checkbox("Show All Teams"):
-            st.subheader("All Teams in Dataset")
-            teams_per_row = 3
-            for i in range(0, len(all_teams), teams_per_row):
-                cols = st.columns(teams_per_row)
-                for j, team in enumerate(all_teams[i:i+teams_per_row]):
-                    with cols[j]:
-                        st.write(f"• {team}")
+            st.info("If the problem persists, the data source might be temporarily unavailable.")
 
     except Exception as e:
         st.error(f"❌ Error during data verification: {str(e)}")
@@ -432,7 +408,7 @@ def model_training_page():
 
     with col1:
         st.subheader("Team Strength Analysis")
-        
+
         # Enhanced strength calculation options
         st.markdown("**Choose calculation method:**")
         strength_method = st.radio(
@@ -440,7 +416,7 @@ def model_training_page():
             ["Historical Only", "Enhanced with Odds (if available)"],
             help="Enhanced method integrates betting odds data to improve accuracy"
         )
-        
+
         use_odds_integration = strength_method == "Enhanced with Odds (if available)"
 
         if st.button("📈 Calculate Team Strengths", type="primary"):
@@ -461,13 +437,13 @@ def model_training_page():
 
                     # Initialize enhanced strength calculator
                     strength_calc = TeamStrengthCalculator(use_odds_integration=use_odds_integration)
-                    
+
                     # Prepare odds data if enhanced method is selected
                     odds_data = None
                     if use_odds_integration and st.session_state.get('odds_fetched', False):
                         odds_data = st.session_state.get('odds_data')
                         st.info("🎯 Using odds data for enhanced calculations")
-                    
+
                     # Calculate team strengths
                     team_stats = strength_calc.calculate_strengths(results, odds_data)
 
@@ -484,55 +460,55 @@ def model_training_page():
                             st.warning(f"⚠️ Database save failed: {str(e)}")
 
                     st.success("✅ Team strengths calculated!")
-                    
+
                     # Display enhanced metrics if available
                     if use_odds_integration and 'odds_attack' in team_stats.columns:
                         st.subheader("📊 Enhanced Strength Metrics")
-                        
+
                         col1a, col1b = st.columns(2)
-                        
+
                         with col1a:
                             st.write("**Historical vs Odds-Based Attack Strength**")
                             comparison_df = team_stats[['attack_strength', 'odds_attack']].head(10)
                             st.dataframe(comparison_df.round(3))
-                        
+
                         with col1b:
                             st.write("**Odds Confidence & Form**")
                             if 'odds_confidence' in team_stats.columns:
                                 confidence_df = team_stats[['odds_form', 'odds_confidence']].head(10)
                                 st.dataframe(confidence_df.round(3))
-                    
+
                     st.dataframe(team_stats.round(3))
 
                 except Exception as e:
                     st.error(f"❌ Error calculating strengths: {str(e)}")
-                    
+
         # Add button for API-based live odds integration
         if use_odds_integration:
             st.markdown("---")
             st.subheader("🔄 Live Odds Integration")
-            
+
             api_key = st.text_input(
                 "Odds API Key (optional):",
                 type="password",
                 help="Enter your The-Odds-API key for live odds integration"
             )
-            
+
             if st.button("🌐 Calculate with Live Odds", disabled=not api_key):
                 with st.spinner("Fetching live odds and calculating strengths..."):
                     try:
                         results = pd.read_csv("data/clean/results.csv")
                         strength_calc = TeamStrengthCalculator(use_odds_integration=True)
-                        
+
                         # Calculate with live odds
                         team_stats = strength_calc.calculate_strengths_with_odds_api(results, api_key)
-                        
+
                         # Save enhanced results
                         team_stats.to_csv("data/processed/team_stats_enhanced.csv")
-                        
+
                         st.success("✅ Enhanced team strengths with live odds calculated!")
                         st.dataframe(team_stats.round(3))
-                        
+
                     except Exception as e:
                         st.error(f"❌ Error with live odds integration: {str(e)}")
 
@@ -1266,7 +1242,6 @@ def odds_integration_page():
                 model = PoissonModel()
                 model.load("models/poisson_params.pkl")
                 st.session_state.poisson_model = model
-                st.session_state.model_trained = True
                 st.info("📄 Loaded existing trained model from disk")
             except Exception as e:
                 st.warning("⚠️ Please train the Poisson model first in the 'Model Training' section")
