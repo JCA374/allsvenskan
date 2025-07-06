@@ -94,7 +94,7 @@ class FixturesCleaner:
                 logger.error("Expected columns 'Home_Team' and 'Away_Team' not found")
                 return pd.DataFrame()
             
-            # Filter out completed matches (those with scores)
+            # Filter out completed matches (those with scores) and past matches
             if 'Status' in df.columns:
                 # Remove matches that already have results (contain scores like "1-2")
                 incomplete_matches = df[
@@ -105,10 +105,25 @@ class FixturesCleaner:
             else:
                 incomplete_matches = df
             
+            # Filter out matches that have already been played (past dates)
+            from datetime import datetime
+            today = datetime.now().date()
+            
+            # Convert Date column to datetime and filter for future matches only
+            try:
+                incomplete_matches['Date_parsed'] = pd.to_datetime(incomplete_matches['Date'], errors='coerce')
+                future_matches = incomplete_matches[
+                    incomplete_matches['Date_parsed'].dt.date >= today
+                ].copy()
+                logger.info(f"Filtered to {len(future_matches)} future matches from {len(incomplete_matches)} total")
+            except Exception as e:
+                logger.warning(f"Could not filter by date: {e}")
+                future_matches = incomplete_matches
+            
             # Create standardized fixtures dataframe
             fixtures = []
             
-            for _, row in incomplete_matches.iterrows():
+            for _, row in future_matches.iterrows():
                 try:
                     # Parse date
                     date_str = row['Date']
