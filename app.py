@@ -828,9 +828,13 @@ def fixture_results_page():
         return
 
     try:
+        # Import column standardizer
+        from src.utils.column_standardizer import ColumnStandardizer
+        
         # Load fixture predictions with error handling
         try:
             predictions_df = pd.read_csv("reports/simulations/fixture_predictions.csv", on_bad_lines='skip')
+            predictions_df = ColumnStandardizer.standardize_columns(predictions_df)
         except pd.errors.ParserError as e:
             st.error(f"Error reading fixture predictions file: {e}")
             st.info("Trying to regenerate fixture predictions...")
@@ -839,6 +843,7 @@ def fixture_results_page():
         # Load upcoming fixtures
         try:
             fixtures_df = pd.read_csv("data/clean/upcoming_fixtures.csv", parse_dates=['Date'])
+            fixtures_df = ColumnStandardizer.standardize_columns(fixtures_df)
         except Exception as e:
             st.error(f"Error reading upcoming fixtures: {e}")
 
@@ -866,7 +871,7 @@ def fixture_results_page():
             return
 
         # Group by match
-        fixture_summary = predictions_df.groupby(['home_team', 'away_team']).agg({
+        fixture_summary = predictions_df.groupby(['HomeTeam', 'AwayTeam']).agg({
             'home_win': 'mean',
             'draw': 'mean',
             'away_win': 'mean',
@@ -874,11 +879,11 @@ def fixture_results_page():
             'away_goals': 'mean'
         }).reset_index()
 
-        # Merge with fixture dates using correct column names
+        # Merge with fixture dates using standardized column names
         fixture_summary = fixture_summary.merge(
-            fixtures_df[['Home_Team', 'Away_Team', 'Date']],
-            left_on=['home_team', 'away_team'],
-            right_on=['Home_Team', 'Away_Team'],
+            fixtures_df[['HomeTeam', 'AwayTeam', 'Date']],
+            left_on=['HomeTeam', 'AwayTeam'],
+            right_on=['HomeTeam', 'AwayTeam'],
             how='left'
         )
 
@@ -898,7 +903,7 @@ def fixture_results_page():
 
         with col2:
             # Team filter
-            all_teams = sorted(set(fixture_summary['home_team'].unique()) | set(fixture_summary['away_team'].unique()))
+            all_teams = sorted(set(fixture_summary['HomeTeam'].unique()) | set(fixture_summary['AwayTeam'].unique()))
             selected_team = st.selectbox("Select Team", options=['All Teams'] + all_teams)
 
         # Apply filters
@@ -909,13 +914,13 @@ def fixture_results_page():
 
         if selected_team != 'All Teams':
             # Filter for matches where the selected team is either home or away
-            team_filter = (display_fixtures['home_team'] == selected_team) | (display_fixtures['away_team'] == selected_team)
+            team_filter = (display_fixtures['HomeTeam'] == selected_team) | (display_fixtures['AwayTeam'] == selected_team)
             display_fixtures = display_fixtures[team_filter]
 
             # Show team-specific info
             if len(display_fixtures) > 0:
-                home_games = len(display_fixtures[display_fixtures['home_team'] == selected_team])
-                away_games = len(display_fixtures[display_fixtures['away_team'] == selected_team])
+                home_games = len(display_fixtures[display_fixtures['HomeTeam'] == selected_team])
+                away_games = len(display_fixtures[display_fixtures['AwayTeam'] == selected_team])
                 st.info(f"📊 {selected_team}: {len(display_fixtures)} total games ({home_games} home, {away_games} away)")
             else:
                 st.info(f"ℹ️ No upcoming fixtures found for {selected_team}")
@@ -932,7 +937,7 @@ def fixture_results_page():
             col1, col2 = st.columns([3, 1])
 
             with col1:
-                st.subheader(f"{match['home_team']} vs {match['away_team']}")
+                st.subheader(f"{match['HomeTeam']} vs {match['AwayTeam']}")
                 if pd.notna(match['Date']):
                     st.caption(f"📅 {match['Date'].strftime('%Y-%m-%d')}")
 

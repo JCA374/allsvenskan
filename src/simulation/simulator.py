@@ -47,19 +47,21 @@ class MonteCarloSimulator:
     def _load_upcoming_fixtures_directly(filepath):
         """Load upcoming fixtures directly from CSV with robust parsing"""
         try:
+            # Import column standardizer
+            import sys
+            import os
+            sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+            from src.utils.column_standardizer import ColumnStandardizer
+            
             # Read CSV with error handling
             df = pd.read_csv(filepath, on_bad_lines='skip')
             
-            # Handle different column name formats
-            if 'Home_Team' in df.columns and 'Away_Team' in df.columns:
-                # Rename columns to match expected format
-                df = df.rename(columns={
-                    'Home_Team': 'HomeTeam',
-                    'Away_Team': 'AwayTeam'
-                })
+            # Standardize column names
+            df = ColumnStandardizer.standardize_columns(df)
             
-            # Ensure required columns exist
-            if 'HomeTeam' not in df.columns or 'AwayTeam' not in df.columns:
+            # Validate required columns
+            required = ['HomeTeam', 'AwayTeam']
+            if not ColumnStandardizer.validate_required_columns(df, required):
                 raise ValueError("CSV must contain HomeTeam and AwayTeam columns")
             
             # Clean and standardize team names
