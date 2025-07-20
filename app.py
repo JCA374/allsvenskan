@@ -184,7 +184,9 @@ def data_collection_page():
                     # Show recent results from database
                     if len(db_results) > 0:
                         st.subheader("Recent Results (Database)")
-                        recent = db_results.tail(5)
+                        # Sort by date descending and take the 5 most recent
+                        db_results_sorted = db_results.sort_values('Date', ascending=False)
+                        recent = db_results_sorted.head(5)
                         for _, match in recent.iterrows():
                             st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
             except Exception as e:
@@ -208,7 +210,14 @@ def data_collection_page():
                 # Show recent results
                 if len(results) > 0:
                     st.subheader("Recent Results (Files)")
-                    recent = results.tail(5)
+                    # Convert Date column to datetime if it's not already
+                    if 'Date' in results.columns:
+                        results['Date'] = pd.to_datetime(results['Date'], errors='coerce')
+                        # Sort by date descending and take the 5 most recent
+                        results_sorted = results.sort_values('Date', ascending=False)
+                        recent = results_sorted.head(5)
+                    else:
+                        recent = results.tail(5)
                     for _, match in recent.iterrows():
                         st.write(f"{match['HomeTeam']} {match['FTHG']}-{match['FTAG']} {match['AwayTeam']}")
             else:
