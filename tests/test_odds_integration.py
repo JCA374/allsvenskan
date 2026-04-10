@@ -3,8 +3,8 @@ Basic tests for odds integration components
 """
 import os
 from datetime import datetime
-from premier_league.data.odds_schema import OddsRecord, OddsData
-from premier_league.utils.odds_converter import odds_to_probability, remove_margin, calculate_margin
+from allsvenskan.data.odds_schema import OddsRecord, OddsData
+from allsvenskan.utils.odds_converter import odds_to_probability, remove_margin, calculate_margin
 
 def test_odds_record_validation():
     """Test OddsRecord validation"""

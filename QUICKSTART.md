@@ -1,4 +1,4 @@
-# Premier League Forecast - CLI Quick Start
+# Allsvenskan Forecast - CLI Quick Start
 
 ## 🚀 Get Started in 3 Commands
 
@@ -112,7 +112,7 @@ python cli.py pipeline
 
 See `CLI_GUIDE.md` for complete documentation with examples and advanced usage.
 
-## 🏒 Web Interface
+## ⚽ Web Interface
 
 To use the Streamlit web interface instead:
 

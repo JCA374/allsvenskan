@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-SHL Monte Carlo Forecast - Command Line Interface
+Allsvenskan Monte Carlo Forecast - Command Line Interface
 
-This CLI provides command-line access to all the main features of the SHL forecasting system.
+This CLI provides command-line access to all the main features of the Allsvenskan forecasting system.
 """
 
 import argparse
@@ -14,13 +14,13 @@ from datetime import datetime
 import json
 
 # Import custom modules
-from premier_league.data.scraper import PremierLeagueScraper
-from premier_league.data.cleaner import DataCleaner
-from premier_league.data.strength import TeamStrengthCalculator
-from premier_league.models.poisson_model import PoissonModel
-from premier_league.simulation.simulator import MonteCarloSimulator
-from premier_league.analysis.aggregator import ResultsAggregator
-from premier_league.database.db_manager import DatabaseManager
+from allsvenskan.data.scraper import AllsvenskanScraper
+from allsvenskan.data.cleaner import DataCleaner
+from allsvenskan.data.strength import TeamStrengthCalculator
+from allsvenskan.models.poisson_model import PoissonModel
+from allsvenskan.simulation.simulator import MonteCarloSimulator
+from allsvenskan.analysis.aggregator import ResultsAggregator
+from allsvenskan.database.db_manager import DatabaseManager
 
 
 def setup_directories():
@@ -38,18 +38,18 @@ def setup_directories():
 
 
 def scrape_data(seasons=None):
-    """Scrape match data from stats.swehockey.se"""
-    print("🏒 Starting data scraping...")
+    """Scrape Allsvenskan match data from football-data.co.uk"""
+    print("⚽ Starting data scraping...")
 
     if seasons is None:
         current_year = datetime.now().year
         seasons = [current_year - 1, current_year]
 
-    scraper = PremierLeagueScraper()
+    scraper = AllsvenskanScraper()
     raw_data = scraper.scrape_matches(seasons=seasons)
 
     if raw_data is not None and len(raw_data) > 0:
-        output_file = f'data/raw/shl_matches_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'
+        output_file = f'data/raw/allsvenskan_matches_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv'
         raw_data.to_csv(output_file, index=False)
         print(f"✅ Scraped {len(raw_data)} matches")
         print(f"📁 Saved to: {output_file}")
@@ -65,7 +65,7 @@ def clean_data(input_file=None):
 
     if input_file is None:
         # Find most recent raw data file
-        raw_files = list(Path('data/raw').glob('shl_matches_*.csv'))
+        raw_files = list(Path('data/raw').glob('allsvenskan_matches_*.csv'))
         if not raw_files:
             print("❌ No raw data files found. Run 'scrape' first.")
             return None, None
@@ -103,7 +103,7 @@ def train_model(advanced=False):
     print("📊 Calculating team strengths...")
     strength_calc = TeamStrengthCalculator()
     team_stats = strength_calc.calculate_strengths(results)
-    team_stats.to_csv('data/processed/team_stats.csv', index=False)
+    team_stats.to_csv('data/processed/team_stats.csv')
     print(f"✅ Team statistics calculated for {len(team_stats)} teams")
 
     # Train model
@@ -114,9 +114,7 @@ def train_model(advanced=False):
 
     # Save model
     model_file = 'models/poisson_params.pkl'
-    import pickle
-    with open(model_file, 'wb') as f:
-        pickle.dump(model, f)
+    model.save(model_file)
 
     print(f"✅ Model trained successfully")
     print(f"📁 Saved to: {model_file}")
@@ -134,9 +132,8 @@ def run_simulation(n_simulations=10000):
         print("❌ Model file not found. Run 'train' first.")
         return None
 
-    import pickle
-    with open(model_file, 'rb') as f:
-        model = pickle.load(f)
+    model = PoissonModel()
+    model.load(model_file)
 
     # Load fixtures
     fixtures_file = 'data/clean/fixtures.csv'
@@ -244,9 +241,8 @@ def predict_fixtures():
         print("❌ Model file not found. Run 'train' first.")
         return None
 
-    import pickle
-    with open(model_file, 'rb') as f:
-        model = pickle.load(f)
+    model = PoissonModel()
+    model.load(model_file)
 
     # Load fixtures
     fixtures_file = 'data/clean/fixtures.csv'
@@ -259,7 +255,7 @@ def predict_fixtures():
     # Generate predictions
     predictions = []
     for _, match in fixtures.iterrows():
-        pred = model.predict(match['HomeTeam'], match['AwayTeam'])
+        pred = model.predict_outcome_probabilities(match['HomeTeam'], match['AwayTeam'])
         predictions.append({
             'Date': match.get('Date', 'TBD'),
             'HomeTeam': match['HomeTeam'],
@@ -267,8 +263,8 @@ def predict_fixtures():
             'Home_Win_Prob': pred['home_win'],
             'Draw_Prob': pred['draw'],
             'Away_Win_Prob': pred['away_win'],
-            'Expected_Home_Goals': pred['expected_home_goals'],
-            'Expected_Away_Goals': pred['expected_away_goals']
+            'Expected_Home_Goals': pred['mu_home'],
+            'Expected_Away_Goals': pred['mu_away']
         })
 
     predictions_df = pd.DataFrame(predictions)
@@ -293,7 +289,7 @@ def predict_fixtures():
 
 def main():
     parser = argparse.ArgumentParser(
-        description='SHL Monte Carlo Forecast - CLI',
+        description='Allsvenskan Monte Carlo Forecast - CLI',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

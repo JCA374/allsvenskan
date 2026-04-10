@@ -4,7 +4,7 @@ import sys
 
 # Add project root to path so we can import ColumnStandardizer
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from premier_league.utils.column_standardizer import ColumnStandardizer
+from allsvenskan.utils.column_standardizer import ColumnStandardizer
 
 def migrate_csv_files():
     """Migrate all CSV files to use standardized column names"""

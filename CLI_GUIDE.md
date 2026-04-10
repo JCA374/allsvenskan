@@ -1,8 +1,8 @@
-# Premier League Forecast - CLI Interface Guide
+# Allsvenskan Forecast - CLI Interface Guide
 
 ## Quick Start
 
-The CLI provides command-line access to all major features of the Premier League forecasting system.
+The CLI provides command-line access to all major features of the Allsvenskan forecasting system.
 
 ### Basic Usage
 
@@ -17,7 +17,7 @@ python cli.py --help
 ## Available Commands
 
 ### 1. Data Scraping
-Scrape match data from stats.swefootball.se:
+Download Allsvenskan data from football-data.co.uk:
 
 ```bash
 # Scrape current and previous season (default)
@@ -38,7 +38,7 @@ Clean and separate completed matches from upcoming fixtures:
 python cli.py clean
 
 # Clean specific file
-python cli.py clean --input data/raw/shl_matches_20250101_120000.csv
+python cli.py clean --input data/raw/allsvenskan_matches_20250101_120000.csv
 ```
 
 ### 3. Model Training
@@ -173,7 +173,7 @@ The CLI automatically creates and organizes files:
 ```
 data/
 ├── raw/              # Scraped data
-│   └── shl_matches_YYYYMMDD_HHMMSS.csv
+│   └── allsvenskan_matches_YYYYMMDD_HHMMSS.csv
 ├── clean/            # Cleaned data
 │   ├── results.csv   # Completed matches
 │   └── fixtures.csv  # Upcoming matches
