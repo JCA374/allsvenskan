@@ -1,109 +1,0 @@
-
-[     UTC     ] Logs for shl-mc.streamlit.app/
-────────────────────────────────────────────────────────────────────────────────────────
-[20:17:53] 🖥 Provisioning machine...
-[20:17:53] 🎛 Preparing system...
-[20:17:53] ⛓ Spinning up manager process...
-[20:17:52] 🚀 Starting up repository: 'shl', branch: 'main', main module: 'app.py'
-[20:17:52] 🐙 Cloning repository...
-[20:18:12] 🐙 Cloning into '/mount/src/shl'...
-Updating files:  20% (4706/22651)Updating files:  21% (4757/22651)Updating files:  22% (4984/22651)Updating files:  23% (5210/22651)Updating files:  24% (5437/22651)Updating files:  25% (5663/22651)Updating files:  26% (5890/22651)Updating files:  27% (6116/22651)Updating files:  28% (6343/22651)Updating files:  29% (6569/22651)Updating files:  30% (6796/22651)Updating files:  31% (7022/22651)Updating files:  32% (7249/22651)Updating files:  33% (7475/22651)Updating files:  34% (7702/22651)Updating files:  35% (7928/22651)Updating files:  36% (8155/22651)Updating files:  37% (8381/22651)Updating files:  38% (8608/22651)Updating files:  39% (8834/22651)Updating files:  40% (9061/22651)Updating files:  41% (9287/22651)Updating files:  42% (9514/22651)Updating files:  43% (9740/22651)Updating files:  44% (9967/22651)Updating files:  45% (10193/22651)Updating files:  46% (10420/22651)Updating files:  47% (10646/22651)Updating files:  48% (10873/22651)Updating files:  48% (11093/22651)Updating files:  49% (11099/22651)Updating files:  50% (11326/22651)Updating files:  51% (11553/22651)Updating files:  52% (11779/22651)Updating files:  53% (12006/22651)Updating files:  54% (12232/22651)Updating files:  55% (12459/22651)Updating files:  56% (12685/22651)Updating files:  57% (12912/22651)Updating files:  57% (12974/22651)Updating files:  58% (13138/22651)Updating files:  59% (13365/22651)Updating files:  60% (13591/22651)Updating files:  61% (13818/22651)Updating files:  62% (14044/22651)Updating files:  63% (14271/22651)Updating files:  64% (14497/22651)Updating files:  65% (14724/22651)Updating files:  66% (14950/22651)Updating files:  67% (15177/22651)Updating files:  68% (15403/22651)Updating files:  69% (15630/22651)Updating files:  70% (15856/22651)Updating files:  71% (16083/22651)Updating files:  71% (16286/22651)Updating files:  72% (16309/22651)Updating files:  73% (16536/22651)Updating files:  74% (16762/22651)Updating files:  75% (16989/22651)Updating files:  76% (17215/22651)Updating files:  77% (17442/22651)Updating files:  78% (17668/22651)Updating files:  79% (17895/22651)Updating files:  80% (18121/22651)Updating files:  81% (18348/22651)Updating files:  82% (18574/22651)Updating files:  83% (18801/22651)Updating files:  84% (19027/22651)Updating files:  85% (19254/22651)Updating files:  86% (19480/22651)Updating files:  87% (19707/22651)Updating files:  88% (19933/22651)Updating files:  89% (20160/22651)Updating files:  89% (20328/22651)Updating files:  90% (20386/22651)Updating files:  91% (20613/22651)Updating files:  92% (20839/22651)Updating files:  93% (21066/22651)Updating files:  94% (21292/22651)Updating files:  95% (21519/22651)Updating files:  96% (21745/22651)Updating files:  97% (21972/22651)Updating files:  98% (22198/22651)Updating files:  99% (22425/22651)Updating files: 100% (22651/22651)Updating files: 100% (22651/22651), done.
-
-[20:18:12] 🐙 Cloned repository!
-[20:18:12] 🐙 Pulling code changes from Github...
-[20:18:20] 📦 Processing dependencies...
-
-──────────────────────────────────────── uv ───────────────────────────────────────────
-
-Using uv pip install.
-Using Python 3.13.9 environment at /home/adminuser/venv
-Resolved 63 packages in 765ms
-Prepared 63 packages in 2.59s
-Installed 63 packages in 230ms
- + altair==5.5.0
- + annotated-types==0.7.0
- + attrs==25.4.0
- + babel==2.17.0
- + beautifulsoup4==4.14.2
- + blinker==1.9.0
- + cachetools==6.2.1
- + certifi==2025.10.5
- + charset-normalizer==3.4.4
- + click==8.3.0
- + courlan==1.3.2
- + dateparser==1.2.2
- + gitdb==4.0.12
- + gitpython==3.1.45
- + greenlet==3.2.4[2025-11-04 20:18:24.791270] 
- + htmldate==1.9.4
- + idna==3.11
- + jinja2==3.1.6
- + joblib==1.5.2
- + jsonschema==4.25.1
- + jsonschema-specifications==2025.9.1
- + [2025-11-04 20:18:24.791589] justext==3.0.2
- + lxml==6.0.2
- + lxml-html-clean==0.4.3
- + markupsafe==3.0.3
- + narwhals==2.10.2
- + numpy==2.3.4
- + packaging==25.0
- + pandas==2.3.3
- + pillow==12.0.0
- + plotly==6.4.0
- + protobuf==6.33.0[2025-11-04 20:18:24.791815] 
- + pyarrow==21.0.0
- + pydantic==2.12.3
- + pydantic-core==2.41.4
- + pydeck==0.9.1
- + python-dateutil==2.9.0.post0
- + pytz==2025.2
- + pyyaml==6.0.3
- + referencing==0.37.0
- + regex==2025.11.3
- + requests==2.32.5
- + rpds-py==0.28.0
- + scikit-learn==1.7.2
- + scipy==1.16.3
- + six==1.17.0
- + smmap==5.0.2
- + soupsieve==[2025-11-04 20:18:24.792166] 2.8
- + sqlalchemy==2.0.44
- + streamlit==1.51.0
- + tenacity==9.1.2
- + threadpoolctl==3.6.0
- + tld==0.13.1
- + toml[2025-11-04 20:18:24.792391] ==0.10.2
- + tornado==6.5.2
- + trafilatura==2.0.0
- + typing-extensions==4.15.0
- + typing-inspection==0.4.2
- +[2025-11-04 20:18:24.792562]  tzdata==2025.2
- + tzlocal==5.3.1
- + unidecode==1.4.0
- + urllib3==2.5.0
- + watchdog==6.0.0[2025-11-04 20:18:24.792731] 
-Checking if Streamlit is installed
-Found Streamlit version 1.51.0 in the environment
-Installing rich for an improved exception logging
-Using uv pip install.
-Using Python 3.13.9 environment at /home/adminuser/venv
-Resolved 4 packages in 141ms
-Prepared 4 packages in 149ms
-Installed 4 packages in 14ms
- + markdown-it-py==4.0.0
- + mdurl[2025-11-04 20:18:26.885531] ==0.1.2
- + pygments==2.19.2
- + rich==14.2.0
-
-────────────────────────────────────────────────────────────────────────────────────────
-
-[20:18:28] 🐍 Python dependencies were installed from /mount/src/shl/requirements.txt using uv.
-Check if streamlit is installed
-Streamlit is already installed
-[20:18:29] 📦 Processed dependencies!
-
-
-
-[20:18:31] ❗️ The service has encountered an error while checking the health of the Streamlit app: Get "http://localhost:8501/healthz": dial tcp 127.0.0.1:8501: connect: connection refused
-[20:22:56] ❗️ We have encountered an unexpected problem. If this issue persists, please contact support

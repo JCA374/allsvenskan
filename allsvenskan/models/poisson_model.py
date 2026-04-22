@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pickle
+from datetime import datetime
 from scipy import optimize
 from scipy.stats import poisson
 from sklearn.model_selection import TimeSeriesSplit
@@ -29,6 +30,8 @@ class PoissonModel:
         self.use_dixon_coles = use_dixon_coles
         self.rho = 0.0  # Dixon-Coles correlation parameter
         self.validation_score = None
+        self.last_trained = None
+        self.training_window = None  # number of seasons used for training (None = all)
 
     def fit(self, results_df, team_stats_df):
         """Enhanced fitting with proper MLE and validation - same signature as original"""
@@ -70,6 +73,7 @@ class PoissonModel:
             #     print(f"✅ Model validation log-loss: {self.validation_score:.4f}")
 
             self.fitted = True
+            self.last_trained = datetime.now()
 
         except Exception as e:
             print(f"Error fitting enhanced model: {e}")
@@ -143,6 +147,11 @@ class PoissonModel:
              [self.defense_rates[team] for team in teams],
              [self.home_advantage]])
 
+        # L2 regularization strength — anchors attack/defense near 1.0, resolving
+        # the scale invariance: multiplying all attack by c and defense by 1/c
+        # leaves the likelihood unchanged but raises the regularization penalty.
+        lam = 0.01 * len(valid_df)
+
         def negative_log_likelihood(params):
             attack_rates = np.clip(params[:n_teams], 0.1, 3.0)
             defense_rates = np.clip(params[n_teams:2 * n_teams], 0.1, 3.0)
@@ -157,7 +166,8 @@ class PoissonModel:
 
             log_probs = (poisson.logpmf(home_goals_arr, mu_home) +
                          poisson.logpmf(away_goals_arr, mu_away))
-            return -np.sum(np.clip(log_probs, -10, None))
+            reg = lam * (np.sum((attack_rates - 1.0) ** 2) + np.sum((defense_rates - 1.0) ** 2))
+            return -np.sum(np.clip(log_probs, -10, None)) + reg
 
         bounds = [(0.1, 3.0)] * (2 * n_teams) + [(0.8, 2.5)]
 
@@ -170,9 +180,27 @@ class PoissonModel:
 
             if result.success:
                 optimized_params = result.x
+
+                # Count actual games per team for shrinkage (not time-weighted —
+                # shrinkage is about data quantity, not recency).
+                game_counts = {}
+                for _, row in results_df.iterrows():
+                    game_counts[row['HomeTeam']] = game_counts.get(row['HomeTeam'], 0) + 1
+                    game_counts[row['AwayTeam']] = game_counts.get(row['AwayTeam'], 0) + 1
+
+                # Bayesian shrinkage toward league average (1.0).
+                # prior_strength = 10 games means a team needs ~10 games before the MLE
+                # estimate is trusted more than the prior. With 1 game the estimate is
+                # shrunk ~91% toward 1.0; with 30 games it is only ~25% shrunk.
+                prior_strength = 10.0
                 for i, team in enumerate(teams):
-                    self.attack_rates[team] = max(0.1, optimized_params[i])
-                    self.defense_rates[team] = max(0.1, optimized_params[n_teams + i])
+                    raw_atk = max(0.1, optimized_params[i])
+                    raw_def = max(0.1, optimized_params[n_teams + i])
+                    n_games = game_counts.get(team, 0)
+                    shrink = n_games / (n_games + prior_strength)
+                    self.attack_rates[team] = shrink * raw_atk + (1 - shrink) * 1.0
+                    self.defense_rates[team] = shrink * raw_def + (1 - shrink) * 1.0
+
                 self.home_advantage = float(np.clip(optimized_params[-1], 0.8, 2.5))
                 print(f"✅ MLE optimization converged. Final log-likelihood: {-result.fun:.2f}")
             else:
@@ -182,38 +210,50 @@ class PoissonModel:
             print(f"⚠️ MLE optimization error: {e}. Using refined parameters.")
 
     def _estimate_correlation(self, results_df):
-        """Estimate Dixon-Coles correlation parameter for low-scoring games"""
+        """Estimate Dixon-Coles correlation parameter for low-scoring games.
+
+        Computes expected 0-0 and 1-1 rates from the fitted Poisson parameters
+        rather than using hardcoded league-agnostic constants.
+        """
         try:
-            # Focus on low-scoring games (0-0, 1-0, 0-1, 1-1)
-            low_scoring = results_df[((results_df['FTHG'] <= 1) &
-                                      (results_df['FTAG'] <= 1))]
-
-            if len(low_scoring) > 10:
-                # Count specific low-scoring outcomes
-                total_matches = len(results_df)
-                observed_00 = len(low_scoring[(low_scoring['FTHG'] == 0)
-                                              & (low_scoring['FTAG'] == 0)])
-                observed_11 = len(low_scoring[(low_scoring['FTHG'] == 1)
-                                              & (low_scoring['FTAG'] == 1)])
-                observed_01 = len(low_scoring[(low_scoring['FTHG'] == 0)
-                                              & (low_scoring['FTAG'] == 1)])
-                observed_10 = len(low_scoring[(low_scoring['FTHG'] == 1)
-                                              & (low_scoring['FTAG'] == 0)])
-
-                # Simple correlation estimate based on observed vs expected ratios
-                expected_00_rate = 0.08  # Typical rate for 0-0 draws
-                expected_11_rate = 0.12  # Typical rate for 1-1 draws
-
-                observed_00_rate = observed_00 / total_matches
-                observed_11_rate = observed_11 / total_matches
-
-                # Rough correlation estimate
-                self.rho = min(
-                    0.2,
-                    max(-0.2, (observed_00_rate - expected_00_rate) +
-                        (observed_11_rate - expected_11_rate)))
-            else:
+            total_matches = len(results_df)
+            if total_matches < 10:
                 self.rho = 0.0
+                return
+
+            # Count observed low-scoring outcomes
+            observed_00 = int(((results_df['FTHG'] == 0) & (results_df['FTAG'] == 0)).sum())
+            observed_11 = int(((results_df['FTHG'] == 1) & (results_df['FTAG'] == 1)).sum())
+
+            observed_00_rate = observed_00 / total_matches
+            observed_11_rate = observed_11 / total_matches
+
+            # Compute expected rates from the fitted Poisson parameters per match
+            exp_00_list = []
+            exp_11_list = []
+            for _, row in results_df.iterrows():
+                home = row['HomeTeam']
+                away = row['AwayTeam']
+                if home not in self.attack_rates or away not in self.attack_rates:
+                    continue
+                mu_h = self.league_avg * self.attack_rates[home] * self.defense_rates[away] * self.home_advantage
+                mu_a = self.league_avg * self.attack_rates[away] * self.defense_rates[home]
+                mu_h = max(0.1, mu_h)
+                mu_a = max(0.1, mu_a)
+                exp_00_list.append(poisson.pmf(0, mu_h) * poisson.pmf(0, mu_a))
+                exp_11_list.append(poisson.pmf(1, mu_h) * poisson.pmf(1, mu_a))
+
+            if not exp_00_list:
+                self.rho = 0.0
+                return
+
+            expected_00_rate = float(np.mean(exp_00_list))
+            expected_11_rate = float(np.mean(exp_11_list))
+
+            self.rho = float(np.clip(
+                (observed_00_rate - expected_00_rate) + (observed_11_rate - expected_11_rate),
+                -0.2, 0.2,
+            ))
 
         except Exception as e:
             self.rho = 0.0
@@ -225,15 +265,20 @@ class PoissonModel:
             return 1.0
 
         if home_goals == 0 and away_goals == 0:
-            return 1 - mu_home * mu_away * self.rho
+            factor = 1 - mu_home * mu_away * self.rho
         elif home_goals == 0 and away_goals == 1:
-            return 1 + mu_home * self.rho
+            factor = 1 + mu_home * self.rho
         elif home_goals == 1 and away_goals == 0:
-            return 1 + mu_away * self.rho
+            factor = 1 + mu_away * self.rho
         elif home_goals == 1 and away_goals == 1:
-            return 1 - self.rho
+            factor = 1 - self.rho
         else:
             return 1.0
+
+        # Guard against extreme mu/rho combinations producing invalid factors
+        if not (0.01 <= factor <= 10.0):
+            return 1.0
+        return factor
 
     def _cross_validate(self, results_df, n_splits=3):
         """Time-series cross-validation with enhanced error handling"""
@@ -496,7 +541,9 @@ class PoissonModel:
                 'time_decay': self.time_decay,
                 'use_mle': self.use_mle,
                 'use_dixon_coles': self.use_dixon_coles,
-                'validation_score': self.validation_score
+                'validation_score': self.validation_score,
+                'last_trained': self.last_trained,
+                'training_window': self.training_window,
             }
 
             with open(filepath, 'wb') as f:
@@ -521,6 +568,8 @@ class PoissonModel:
             self.use_mle = model_data.get('use_mle', True)
             self.use_dixon_coles = model_data.get('use_dixon_coles', True)
             self.validation_score = model_data.get('validation_score', None)
+            self.last_trained = model_data.get('last_trained', None)
+            self.training_window = model_data.get('training_window', None)
 
         except Exception as e:
             print(f"Error loading model: {e}")
@@ -545,6 +594,9 @@ class PoissonModel:
             'validation_score':
             round(self.validation_score, 4)
             if self.validation_score else 'N/A',
+            'last_trained':
+            self.last_trained.strftime('%Y-%m-%d %H:%M')
+            if self.last_trained else 'Unknown',
             'strongest_attack':
             max(self.attack_rates.items(), key=lambda x: x[1])
             if self.attack_rates else None,
@@ -554,3 +606,129 @@ class PoissonModel:
         }
 
         return summary
+
+    @staticmethod
+    def walk_forward_cv(results_df, lookback_windows=None, current_season_val_frac=0.4):
+        """Walk-forward cross-validation across different historical lookback windows.
+
+        Runs two types of evaluation:
+
+        1. **Historical CV** — for each window k, trains on the k completed seasons
+           before the most-recent completed season, validates on that last completed
+           season. Validates model accuracy on unseen full-season data.
+
+        2. **Current-season split** — splits the in-progress season at
+           ``(1 - current_season_val_frac)`` of its matches. Trains on k prior
+           seasons + the early part of the current season; validates on the held-out
+           tail. This directly measures how well the model predicts remaining matches
+           this season as form data accumulates.
+
+        Why differences between windows are small
+        ------------------------------------------
+        The model applies exponential time-decay (time_decay=0.01). A match played
+        365 days ago is weighted e^{-3.65} ≈ 0.026 vs 1.0 for today. Matches from
+        2+ years ago weigh < 0.07 % and contribute almost nothing to the fitted
+        parameters. Adding more historical seasons therefore barely moves log-loss —
+        the effect is real but small by design.
+
+        Args:
+            results_df: Full multi-season results DataFrame with 'SeasonStart' column.
+            lookback_windows: List of ints — number of past seasons to train on.
+                              Defaults to [1, 2, 3, 5, 8].
+            current_season_val_frac: Fraction of current-season matches held out for
+                                     validation (default 0.4 = last 40%).
+
+        Returns:
+            dict with keys:
+              'historical'      — list of result dicts (historical CV)
+              'current_season'  — list of result dicts (in-progress season split),
+                                  or empty list if < 10 current-season matches exist.
+        """
+        from allsvenskan.data.strength import TeamStrengthCalculator
+
+        if lookback_windows is None:
+            lookback_windows = [1, 2, 3, 5, 8]
+
+        if 'SeasonStart' not in results_df.columns:
+            raise ValueError("results_df must have a 'SeasonStart' column")
+
+        seasons = sorted(results_df['SeasonStart'].dropna().astype(int).unique())
+        if len(seasons) < 2:
+            raise ValueError("Need at least 2 seasons for walk-forward CV")
+
+        def _eval_log_loss(model, val_df):
+            vals = []
+            for _, row in val_df.iterrows():
+                try:
+                    probs = model.predict_outcome_probabilities(row['HomeTeam'], row['AwayTeam'])
+                    hg, ag = int(row['FTHG']), int(row['FTAG'])
+                    p = probs['home_win'] if hg > ag else (probs['draw'] if hg == ag else probs['away_win'])
+                    vals.append(-np.log(max(1e-6, p)))
+                except Exception:
+                    continue
+            return vals
+
+        def _train_and_eval(train_df, val_df, train_seasons):
+            if len(train_df) < 20:
+                return None
+            try:
+                strength_calc = TeamStrengthCalculator(use_odds_integration=False)
+                team_stats = strength_calc.calculate_strengths(train_df)
+                model = PoissonModel(use_mle=False, use_dixon_coles=False)
+                model.fit(train_df, team_stats)
+                if not model.fitted:
+                    return None
+                vals = _eval_log_loss(model, val_df)
+                if not vals:
+                    return None
+                return {
+                    'train_seasons': train_seasons,
+                    'n_train': len(train_df),
+                    'n_val': len(vals),
+                    'log_loss': float(np.mean(vals)),
+                }
+            except Exception:
+                return None
+
+        # ── 1. Historical CV ──────────────────────────────────────────────────
+        current_season = seasons[-1]
+        completed_seasons = seasons[:-1]  # exclude the in-progress season
+        val_season = completed_seasons[-1] if completed_seasons else current_season
+        val_df_hist = results_df[results_df['SeasonStart'] == val_season].copy()
+
+        historical = []
+        prior_seasons = [s for s in completed_seasons if s != val_season]
+        for k in lookback_windows:
+            train_seasons = prior_seasons[-k:] if k <= len(prior_seasons) else prior_seasons
+            if not train_seasons:
+                continue
+            train_df = results_df[results_df['SeasonStart'].isin(train_seasons)].copy()
+            row = _train_and_eval(train_df, val_df_hist, train_seasons)
+            if row:
+                historical.append({'lookback': k, **row})
+
+        # ── 2. Current-season split ───────────────────────────────────────────
+        current_df = results_df[results_df['SeasonStart'] == current_season].copy()
+        if 'Date' in current_df.columns:
+            current_df = current_df.sort_values('Date')
+
+        current_season_results = []
+        n_current = len(current_df)
+        split_idx = int(n_current * (1 - current_season_val_frac))
+
+        if split_idx >= 10 and (n_current - split_idx) >= 5:
+            cur_train_part = current_df.iloc[:split_idx]
+            cur_val_part   = current_df.iloc[split_idx:]
+
+            for k in lookback_windows:
+                prior = prior_seasons[-k:] if k <= len(prior_seasons) else prior_seasons
+                hist_part = results_df[results_df['SeasonStart'].isin(prior)].copy() if prior else pd.DataFrame()
+                train_df = pd.concat([hist_part, cur_train_part], ignore_index=True) if not hist_part.empty else cur_train_part.copy()
+                row = _train_and_eval(train_df, cur_val_part, (prior or []) + [current_season])
+                if row:
+                    current_season_results.append({'lookback': k, **row})
+
+        return {
+            'historical': historical,
+            'current_season': current_season_results,
+        }

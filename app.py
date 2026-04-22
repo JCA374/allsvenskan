@@ -1,4 +1,5 @@
 import os
+import json
 import pickle
 from pathlib import Path
 
@@ -24,31 +25,78 @@ st.set_page_config(
 )
 
 # ── Constants ──────────────────────────────────────────────────────────────────
-RESULTS_PATH = Path("data/clean/results.csv")
-FIXTURES_PATH = Path("data/clean/fixtures.csv")
+RESULTS_PATH   = Path("data/clean/results.csv")
+FIXTURES_PATH  = Path("data/clean/fixtures.csv")
 HISTORICAL_PATH = Path("data/clean/historical_results.csv")
 TEAM_STATS_PATH = Path("data/processed/team_stats.csv")
-MODEL_PATH = Path("models/poisson_params.pkl")
-SIM_PATH = Path("reports/simulations/sim_results_latest.csv")
+MODEL_PATH     = Path("models/poisson_params.pkl")
+SIM_PATH       = Path("reports/simulations/sim_results_latest.csv")
+CV_CACHE_PATH  = Path("data/processed/cv_cache.json")
 
 RELEGATION_SPOTS = 3
-EUROPEAN_SPOTS = 5   # top 5: CL (1-2) + EL/ECL (3-5)
+EUROPEAN_SPOTS   = 3   # 1st: CL qualifying · 2nd–3rd: ECL qualifying (cup winner gets EL separately)
+
+# ── Pipeline steps definition ──────────────────────────────────────────────────
+STEPS = [
+    ("Data",        "🗄️",  "data_loaded"),
+    ("CV",          "🔬",  "cv_complete"),
+    ("Model",       "🧠",  "model_trained"),
+    ("Simulate",    "🎲",  "sim_complete"),
+    ("Forecast",    "📊",  "sim_complete"),
+    ("Predictions", "📅",  "model_trained"),
+]
+
+def _nav(page: str):
+    st.session_state.active_page = page
+    st.rerun()
+
+def _step_done(key: str) -> bool:
+    return bool(st.session_state.get(key, False))
+
+def _save_cv_cache(cv_results, cv_optimal_k, selected_window):
+    try:
+        CV_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(CV_CACHE_PATH, "w") as f:
+            json.dump({
+                "cv_results":      cv_results,
+                "cv_optimal_k":    cv_optimal_k,
+                "selected_window": selected_window,
+            }, f)
+    except Exception:
+        pass
+
+def _load_cv_cache():
+    try:
+        if CV_CACHE_PATH.exists():
+            with open(CV_CACHE_PATH) as f:
+                data = json.load(f)
+            return (
+                data.get("cv_results"),
+                data.get("cv_optimal_k"),
+                data.get("selected_window"),
+            )
+    except Exception:
+        pass
+    return None, None, None
 
 # ── Session-state defaults ─────────────────────────────────────────────────────
 for key, default in {
-    "data_loaded": False,
-    "model_trained": False,
-    "sim_complete": False,
-    "active_page": "Data",
+    "data_loaded":      False,
+    "model_trained":    False,
+    "sim_complete":     False,
+    "cv_complete":      False,
+    "active_page":      "Data",
+    "cv_results":       None,
+    "cv_optimal_k":     None,
+    "selected_window":  None,   # the single confirmed training window for the whole pipeline
 }.items():
     if key not in st.session_state:
         st.session_state[key] = default
 
-# Detect what's already on disk so refreshes don't lose context
+# Detect on-disk state so page refreshes don't lose context
 if not st.session_state.data_loaded and RESULTS_PATH.exists():
     try:
-        _r = pd.read_csv(RESULTS_PATH)
-        if len(_r) > 0:
+        if len(pd.read_csv(RESULTS_PATH)) > 0:
             st.session_state.data_loaded = True
     except Exception:
         pass
@@ -58,11 +106,18 @@ if not st.session_state.model_trained and MODEL_PATH.exists():
 
 if not st.session_state.sim_complete and SIM_PATH.exists():
     try:
-        _s = pd.read_csv(SIM_PATH)
-        if len(_s) > 0:
+        if len(pd.read_csv(SIM_PATH)) > 0:
             st.session_state.sim_complete = True
     except Exception:
         pass
+
+if st.session_state.cv_results is None:
+    _cv, _k, _sel = _load_cv_cache()
+    if _cv is not None:
+        st.session_state.cv_results      = _cv
+        st.session_state.cv_optimal_k    = _k
+        st.session_state.selected_window = _sel
+        st.session_state.cv_complete     = True
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -70,27 +125,52 @@ with st.sidebar:
     st.caption("Monte Carlo Forecast")
     st.divider()
 
-    pages = ["Data", "Model", "Simulate", "Forecast", "Fixtures"]
-    icons  = ["🗄️",   "🧠",    "🎲",       "📊",       "📅"]
+    for i, (name, icon, gate) in enumerate(STEPS, 1):
+        done    = _step_done(gate)
+        active  = st.session_state.active_page == name
+        if active:
+            label = f"**{i}. {icon} {name}**"
+        elif done:
+            label = f"{i}. {icon} {name} ✅"
+        else:
+            label = f"{i}. {icon} {name}"
 
-    for page, icon in zip(pages, icons):
-        label = f"{icon} {page}"
-        if st.button(label, use_container_width=True,
-                     type="primary" if st.session_state.active_page == page else "secondary"):
-            st.session_state.active_page = page
-            st.rerun()
-
-    st.divider()
-    # Pipeline status
-    st.caption("Pipeline status")
-    st.write("Data" , "✅" if st.session_state.data_loaded   else "⬜")
-    st.write("Model", "✅" if st.session_state.model_trained  else "⬜")
-    st.write("Sim"  , "✅" if st.session_state.sim_complete   else "⬜")
+        st.button(
+            label,
+            key=f"nav_{name}",
+            use_container_width=True,
+            type="primary" if active else "secondary",
+            on_click=_nav,
+            args=(name,),
+        )
 
 page = st.session_state.active_page
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
+
+def _filter_by_window(results: pd.DataFrame, k: int | None) -> pd.DataFrame:
+    if k is None or "SeasonStart" not in results.columns:
+        return results
+    seasons = sorted(results["SeasonStart"].dropna().astype(int).unique())
+    keep = seasons[-k:]
+    return results[results["SeasonStart"].isin(keep)].copy()
+
+def _show_window_badge(results: pd.DataFrame):
+    """Display the active training window (read-only). Set on the CV page."""
+    k = st.session_state.get("selected_window")
+    if k and "SeasonStart" in results.columns and not results.empty:
+        seasons = sorted(results["SeasonStart"].dropna().astype(int).unique())
+        keep    = seasons[-k:]
+        n       = len(results[results["SeasonStart"].isin(keep)])
+        label   = f"{keep[0]}–{keep[-1]}" if len(keep) > 1 else str(keep[0])
+        st.info(f"Training window: **{k} season(s)** — {label} · {n} matches  *(set on CV page)*")
+    else:
+        n = len(results) if not results.empty else 0
+        if "SeasonStart" in results.columns and not results.empty:
+            seasons = sorted(results["SeasonStart"].dropna().astype(int).unique())
+            label   = f"{seasons[0]}–{seasons[-1]}" if len(seasons) > 1 else str(seasons[0])
+            st.info(f"Training window: **all seasons** — {label} · {n} matches  *(run CV to optimise)*")
 
 def _load_results() -> pd.DataFrame:
     df = pd.read_csv(RESULTS_PATH, parse_dates=["Date"])
@@ -109,77 +189,129 @@ def _load_model() -> PoissonModel:
         data = pickle.load(f)
     if isinstance(data, PoissonModel):
         return data
-    # Legacy: file contains the raw dict saved by model.save()
     m = PoissonModel()
     m.load(str(MODEL_PATH))
     return m
 
-def _load_sim() -> pd.DataFrame:
+@st.cache_data
+def _load_sim(_mtime: float = 0) -> pd.DataFrame:
     return pd.read_csv(SIM_PATH)
+
+@st.cache_data
+def _compute_forecast(_mtime: float = 0):
+    sim      = _load_sim(_mtime)
+    agg      = ResultsAggregator()
+    table    = agg.generate_final_table_prediction(sim)
+    champ    = agg.calculate_championship_odds(sim)
+    releg    = agg.calculate_relegation_odds(sim, relegation_spots=RELEGATION_SPOTS)
+    europe   = agg.calculate_european_qualification_odds(sim, european_spots=EUROPEAN_SPOTS)
+    pos_probs = agg.calculate_position_probabilities(sim)
+    summary  = agg.analyze_results(sim)
+    return table, champ, releg, europe, pos_probs, summary
 
 def _standings_from_results(results: pd.DataFrame) -> pd.DataFrame:
     teams = pd.unique(results[["HomeTeam", "AwayTeam"]].values.ravel())
-    cols = ["GP", "W", "D", "L", "GF", "GA", "GD", "Pts"]
-    tbl = pd.DataFrame(0, index=teams, columns=cols)
+    cols  = ["GP", "W", "D", "L", "GF", "GA", "GD", "Pts"]
+    tbl   = pd.DataFrame(0, index=teams, columns=cols)
     for _, r in results.iterrows():
-        h, a = r["HomeTeam"], r["AwayTeam"]
+        h, a   = r["HomeTeam"], r["AwayTeam"]
         hg, ag = int(r["FTHG"]), int(r["FTAG"])
         tbl.at[h, "GP"] += 1; tbl.at[a, "GP"] += 1
         tbl.at[h, "GF"] += hg; tbl.at[h, "GA"] += ag
         tbl.at[a, "GF"] += ag; tbl.at[a, "GA"] += hg
         if hg > ag:
-            tbl.at[h, "W"] += 1; tbl.at[a, "L"] += 1
-            tbl.at[h, "Pts"] += 3
+            tbl.at[h, "W"] += 1; tbl.at[a, "L"] += 1; tbl.at[h, "Pts"] += 3
         elif ag > hg:
-            tbl.at[a, "W"] += 1; tbl.at[h, "L"] += 1
-            tbl.at[a, "Pts"] += 3
+            tbl.at[a, "W"] += 1; tbl.at[h, "L"] += 1; tbl.at[a, "Pts"] += 3
         else:
             tbl.at[h, "D"] += 1; tbl.at[a, "D"] += 1
             tbl.at[h, "Pts"] += 1; tbl.at[a, "Pts"] += 1
     tbl["GD"] = tbl["GF"] - tbl["GA"]
     return (
         tbl.sort_values(["Pts", "GD", "GF"], ascending=False)
-           .reset_index()
-           .rename(columns={"index": "Team"})
+           .reset_index().rename(columns={"index": "Team"})
     )
 
 def _color_table_row(row, n_teams):
-    """Return CSS background colours for standing row based on position."""
-    pos = row.name + 1  # 1-indexed
-    if pos == 1:
-        return ["background-color: #d4edda"] * len(row)  # gold-ish green
-    if pos <= 2:
-        return ["background-color: #e8f5e9"] * len(row)  # CL
-    if pos <= EUROPEAN_SPOTS:
-        return ["background-color: #e3f2fd"] * len(row)  # Europe
-    if pos > n_teams - RELEGATION_SPOTS:
-        return ["background-color: #fce4ec"] * len(row)  # relegation
+    pos = row.name + 1
+    if pos == 1:                          return ["background-color: #d4edda"] * len(row)  # CL
+    if pos <= EUROPEAN_SPOTS:             return ["background-color: #e3f2fd"] * len(row)  # ECL (2nd–3rd)
+    if pos > n_teams - RELEGATION_SPOTS:  return ["background-color: #fce4ec"] * len(row)  # relegation
     return [""] * len(row)
 
+def _stepper():
+    """Render a horizontal progress strip at the top of each page."""
+    cols = st.columns(len(STEPS))
+    for col, (i, (name, icon, gate)) in zip(cols, enumerate(STEPS, 1)):
+        done   = _step_done(gate)
+        active = page == name
+        if active:
+            col.markdown(f"**▶ {i}. {name}**")
+        elif done:
+            col.markdown(f"✅ {i}. {name}")
+        else:
+            col.markdown(f"<span style='color:#aaa'>{i}. {name}</span>", unsafe_allow_html=True)
+    st.divider()
+
+def _next_button(next_page: str):
+    """Render a 'Next step' button at the bottom of a page."""
+    st.divider()
+    if st.button(f"Next → {next_page}", type="primary"):
+        _nav(next_page)
+
+def _blocked(required_page: str, message: str):
+    """Show a friendly blocker and stop rendering."""
+    st.info(message)
+    if st.button(f"Go to {required_page}"):
+        _nav(required_page)
+    st.stop()
+
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: DATA
+# STEP 1 — DATA
 # ══════════════════════════════════════════════════════════════════════════════
 if page == "Data":
-    st.title("Data")
+    _stepper()
+    st.title("Step 1 — Data")
+
+    with st.expander("📐 How the pipeline works"):
+        st.markdown("""
+**Data → CV → Model → Simulate → Forecast**
+
+| Step | What happens |
+|------|-------------|
+| **Data** | Download completed match results + upcoming fixtures from football-data.co.uk |
+| **CV** | Walk-forward cross-validation finds the optimal number of historical seasons to train on |
+| **Model** | Fits a Poisson regression to estimate each team's attack & defense strength |
+| **Simulate** | Plays out the remaining fixtures 10 000× using random Poisson draws |
+| **Forecast** | Aggregates the 10 000 simulations into finish probabilities |
+
+**What the raw data contains:** `FTHG` = Full-Time Home Goals, `FTAG` = Full-Time Away Goals,
+`SeasonStart` = calendar year the season started (e.g. 2025 for the 2025 season).
+Rows without goal values are upcoming fixtures.
+        """)
 
     col_load, col_status = st.columns([1, 2])
 
     with col_load:
         current_year = pd.Timestamp.now().year
-        history_exists = HISTORICAL_PATH.exists() and len(pd.read_csv(HISTORICAL_PATH)) > 0 if HISTORICAL_PATH.exists() else False
+        history_exists = False
+        if HISTORICAL_PATH.exists():
+            try:
+                history_exists = len(pd.read_csv(HISTORICAL_PATH)) > 0
+            except Exception:
+                pass
 
-        # ── One-time historical download ──────────────────────────────────────
         st.subheader("Historical data (one-time)")
         if history_exists:
-            hist_df = pd.read_csv(HISTORICAL_PATH)
+            hist_df      = pd.read_csv(HISTORICAL_PATH)
             hist_seasons = sorted(hist_df["SeasonStart"].dropna().astype(int).unique())
             st.success(f"Cached: seasons {hist_seasons[0]}–{hist_seasons[-1]} ({len(hist_df)} matches)")
         else:
             st.info("No historical data cached yet.")
 
         if st.button("Download All History", disabled=history_exists):
-            past_years = list(range(2012, current_year))  # all completed seasons
+            past_years = list(range(2012, current_year))
             with st.spinner(f"Downloading seasons {past_years[0]}–{past_years[-1]}…"):
                 try:
                     scraper = AllsvenskanScraper()
@@ -198,9 +330,7 @@ if page == "Data":
 
         st.divider()
 
-        # ── Current season refresh ────────────────────────────────────────────
         st.subheader(f"Current season ({current_year})")
-
         if st.button("Refresh Current Season", type="primary"):
             with st.spinner(f"Fetching {current_year} data…"):
                 try:
@@ -212,9 +342,8 @@ if page == "Data":
                         cleaner = DataCleaner()
                         cur_results, cur_fixtures = cleaner.clean_data(raw)
 
-                        # Merge with historical (if available)
                         if history_exists:
-                            hist_df = pd.read_csv(HISTORICAL_PATH, parse_dates=["Date"])
+                            hist_df  = pd.read_csv(HISTORICAL_PATH, parse_dates=["Date"])
                             combined = pd.concat([hist_df, cur_results], ignore_index=True)
                             combined = combined.drop_duplicates(
                                 subset=["Date", "HomeTeam", "AwayTeam"], keep="last"
@@ -241,45 +370,36 @@ if page == "Data":
     with col_status:
         if st.session_state.data_loaded:
             try:
-                results = _load_results()
+                results  = _load_results()
                 fixtures = _load_fixtures()
-
                 c1, c2, c3 = st.columns(3)
                 c1.metric("Results", len(results))
                 c2.metric("Upcoming fixtures", len(fixtures))
                 seasons = sorted(results["SeasonStart"].dropna().astype(int).unique()) if "SeasonStart" in results.columns else []
                 c3.metric("Seasons loaded", len(seasons) if seasons else "—")
-
             except Exception as e:
                 st.warning(f"Could not read data files: {e}")
         else:
-            st.info("No data loaded yet. Select seasons and click Download.")
+            st.info("Download historical data then refresh the current season to get started.")
 
     if st.session_state.data_loaded:
         st.divider()
         st.subheader("Current Season Standings")
         try:
             results = _load_results()
-            # Filter to most recent season
             if "SeasonStart" in results.columns:
-                latest = results["SeasonStart"].max()
-                results_current = results[results["SeasonStart"] == latest]
+                results_current = results[results["SeasonStart"] == results["SeasonStart"].max()]
             else:
                 results_current = results
-
             standings = _standings_from_results(results_current)
             n = len(standings)
-
             styled = (
                 standings.style
                 .apply(_color_table_row, n_teams=n, axis=1)
                 .format({"GD": "{:+d}"})
             )
             st.dataframe(styled, use_container_width=True, hide_index=True)
-
-            st.caption(
-                "🟢 Title contender  |  🔵 European spots  |  🔴 Relegation zone"
-            )
+            st.caption("🟢 Title contender  |  🔵 European spots  |  🔴 Relegation zone")
         except Exception as e:
             st.error(f"Could not build standings: {e}")
 
@@ -288,48 +408,235 @@ if page == "Data":
         try:
             all_results = _load_results()
             teams = sorted(pd.unique(all_results[["HomeTeam", "AwayTeam"]].values.ravel()))
-
             fc1, fc2, fc3 = st.columns(3)
-            sel_home = fc1.selectbox("Home team", ["Any"] + teams, key="hist_home")
-            sel_away = fc2.selectbox("Away team", ["Any"] + teams, key="hist_away")
+            sel_home   = fc1.selectbox("Home team", ["Any"] + teams, key="hist_home")
+            sel_away   = fc2.selectbox("Away team", ["Any"] + teams, key="hist_away")
             seasons_avail = sorted(all_results["SeasonStart"].dropna().astype(int).unique(), reverse=True) if "SeasonStart" in all_results.columns else []
             sel_season = fc3.selectbox("Season", ["All"] + [str(s) for s in seasons_avail], key="hist_season")
 
             view = all_results.copy()
-            if sel_home != "Any":
-                view = view[view["HomeTeam"] == sel_home]
-            if sel_away != "Any":
-                view = view[view["AwayTeam"] == sel_away]
-            if sel_season != "All":
-                view = view[view["SeasonStart"] == int(sel_season)]
-
+            if sel_home   != "Any":  view = view[view["HomeTeam"] == sel_home]
+            if sel_away   != "Any":  view = view[view["AwayTeam"] == sel_away]
+            if sel_season != "All":  view = view[view["SeasonStart"] == int(sel_season)]
             view = view.sort_values("Date", ascending=False)
             st.caption(f"{len(view)} matches")
             st.dataframe(
                 view[["Date", "HomeTeam", "FTHG", "FTAG", "AwayTeam", "SeasonStart"]]
                 .rename(columns={"FTHG": "HG", "FTAG": "AG", "SeasonStart": "Season"})
                 .reset_index(drop=True),
-                use_container_width=True,
-                hide_index=True,
+                use_container_width=True, hide_index=True,
             )
         except Exception as e:
             st.error(f"Could not load match history: {e}")
 
+    if st.session_state.data_loaded:
+        _next_button("CV")
+
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: MODEL
+# STEP 2 — CV
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Model":
-    st.title("Model Training")
+elif page == "CV":
+    _stepper()
+    st.title("Step 2 — Cross-Validation")
+    st.caption(
+        "Finds the optimal number of historical seasons to train on. "
+        "The confirmed window flows automatically to Model training and Simulation — it is set here once and nowhere else."
+    )
+
+    with st.expander("📐 How cross-validation works"):
+        st.markdown("""
+**Goal:** find the training window that makes the model's match predictions most accurate — not just the one that fits past data best.
+
+**Walk-forward CV procedure:**
+1. Hold out the last completed season as the *validation* set (never seen during training)
+2. Train the model on the *k* seasons before it
+3. For every match in the validation set, record the probability the model assigned to the actual outcome
+4. Compute **log-loss** = average of −log(p), where *p* is the predicted probability of what happened
+
+**Why log-loss?**
+Log-loss penalises confident wrong predictions heavily. A model that says "home win 90%" and gets it wrong scores much worse than one that said "home win 60%". Lower log-loss = better-calibrated predictions.
+
+| log-loss | Interpretation |
+|----------|---------------|
+| ~1.10 | Random guessing (1/3 probability to each outcome) |
+| ~0.95 | Reasonable football model |
+| ~0.85 | Very good model |
+
+**Why do windows give similar results?**
+The model applies exponential time-decay (decay = 0.01). A match played 1 year ago gets weight e⁻³·⁶⁵ ≈ 2.6%, two years ago ≈ 0.07%. Extra historical seasons add almost no information to the fit — so log-loss differences between windows are real but small by design.
+        """)
 
     if not st.session_state.data_loaded:
-        st.warning("Load data first (Data page).")
-        st.stop()
+        _blocked("Data", "Download data first before running CV.")
+
+    # ── Run CV ────────────────────────────────────────────────────────────────
+    if st.button("Run CV", type="primary"):
+        with st.spinner("Running walk-forward cross-validation…"):
+            try:
+                all_results = _load_results()
+                cv_out      = PoissonModel.walk_forward_cv(all_results)
+                optimal_k   = None
+                hist        = cv_out.get("historical", [])
+                if hist:
+                    optimal_k = min(hist, key=lambda r: r["log_loss"])["lookback"]
+                st.session_state["cv_results"]   = cv_out
+                st.session_state["cv_optimal_k"] = optimal_k
+                # Don't auto-confirm yet — let the user review and confirm below
+                st.rerun()
+            except Exception as e:
+                st.error(f"CV failed: {e}")
+
+    cv_out = st.session_state.get("cv_results")
+    if cv_out:
+        hist_rows = cv_out.get("historical", [])
+        curr_rows = cv_out.get("current_season", [])
+
+        def _render_cv(rows, title):
+            if not rows:
+                return None
+            df = pd.DataFrame(rows)
+            df["train_seasons"] = df["train_seasons"].apply(
+                lambda s: f"{s[0]}–{s[-1]}" if len(s) > 1 else str(s[0])
+            )
+            best_idx = df["log_loss"].idxmin()
+            df[""] = ""
+            df.at[best_idx, ""] = "◄ best"
+            c1, c2 = st.columns([1, 2])
+            with c1:
+                st.caption(title)
+                st.dataframe(
+                    df[["lookback", "train_seasons", "n_train", "n_val", "log_loss", ""]]
+                    .rename(columns={
+                        "lookback": "Lookback", "train_seasons": "Train range",
+                        "n_train": "N train", "n_val": "N val", "log_loss": "Log-loss",
+                    }),
+                    use_container_width=True, hide_index=True,
+                )
+            with c2:
+                fig = go.Figure()
+                fig.add_scatter(
+                    x=df["lookback"], y=df["log_loss"], mode="lines+markers",
+                    marker=dict(size=8, color="#2196F3"), line=dict(width=2), name="Log-loss",
+                )
+                fig.add_scatter(
+                    x=[df.loc[best_idx, "lookback"]], y=[df.loc[best_idx, "log_loss"]],
+                    mode="markers", marker=dict(size=12, color="#4CAF50", symbol="star"), name="Best",
+                )
+                fig.update_layout(
+                    xaxis_title="Lookback (seasons)", yaxis_title="Log-loss",
+                    height=240, margin=dict(t=10, b=10),
+                    legend=dict(orientation="h", yanchor="bottom", y=1),
+                )
+                st.plotly_chart(fig, use_container_width=True)
+            return df.loc[best_idx]
+
+        _render_cv(hist_rows, "Historical CV (validates on last complete season)")
+        if curr_rows:
+            st.divider()
+            _render_cv(curr_rows, "Current season (train on early matches, validate on recent)")
+
+        st.divider()
+
+        # ── Confirm window ────────────────────────────────────────────────────
+        st.subheader("Confirm training window")
+        st.caption(
+            "**Why differences between windows are small:** the model applies exponential "
+            "time-decay (decay=0.01) — a match 1 year old has weight ≈2.6%, 2 years ≈0.07%. "
+            "Extra historical seasons contribute near-zero to the fit, so the effect is real but small."
+        )
+
+        optimal_k = st.session_state.get("cv_optimal_k")
+        options   = ["All available", "1 season", "2 seasons", "3 seasons", "5 seasons", "8 seasons"]
+        k_map     = {"All available": None, "1 season": 1, "2 seasons": 2,
+                     "3 seasons": 3, "5 seasons": 5, "8 seasons": 8}
+
+        default_label = "All available"
+        if optimal_k:
+            for lbl, v in k_map.items():
+                if v == optimal_k:
+                    default_label = lbl
+                    break
+
+        chosen = st.selectbox(
+            "Training window to use for Model and Simulation",
+            options,
+            index=options.index(default_label),
+            help="CV recommends the pre-selected option. You can override it here.",
+        )
+        confirmed_k = k_map[chosen]
+
+        # Show what seasons this covers
+        try:
+            all_res  = _load_results()
+            if confirmed_k and "SeasonStart" in all_res.columns:
+                seasons  = sorted(all_res["SeasonStart"].dropna().astype(int).unique())
+                keep     = seasons[-confirmed_k:]
+                n        = len(all_res[all_res["SeasonStart"].isin(keep)])
+                lbl      = f"{keep[0]}–{keep[-1]}" if len(keep) > 1 else str(keep[0])
+                marker   = " (CV-recommended)" if confirmed_k == optimal_k else ""
+                st.caption(f"Seasons {lbl} · {n} matches{marker}")
+            else:
+                seasons  = sorted(all_res["SeasonStart"].dropna().astype(int).unique()) if "SeasonStart" in all_res.columns else []
+                lbl      = f"{seasons[0]}–{seasons[-1]}" if len(seasons) > 1 else "all"
+                st.caption(f"All seasons {lbl} · {len(all_res)} matches")
+        except Exception:
+            pass
+
+        if st.button("Confirm window and proceed to Model", type="primary"):
+            st.session_state["selected_window"] = confirmed_k
+            st.session_state["cv_complete"]     = True
+            _save_cv_cache(cv_out, optimal_k, confirmed_k)
+            st.success(f"Window confirmed: **{chosen}**. All downstream steps will use this.")
+            _nav("Model")
+    else:
+        st.info("Click Run CV to analyse how many seasons of data produce the best predictions.")
+        st.caption("You can also skip this step and train with all available data on the Model page.")
+        if st.button("Skip CV — use all data"):
+            st.session_state["selected_window"] = None
+            st.session_state["cv_complete"]     = True
+            _save_cv_cache(None, None, None)
+            _nav("Model")
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# STEP 3 — MODEL
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "Model":
+    _stepper()
+    st.title("Step 3 — Model")
+
+    with st.expander("📐 The Poisson model — how it works"):
+        st.markdown(r"""
+**Core idea:** model goals as two independent Poisson random variables, one per team.
+
+$$\mu_{\text{home}} = \lambda \times \alpha_{\text{home}} \times \beta_{\text{away}} \times \gamma$$
+$$\mu_{\text{away}} = \lambda \times \alpha_{\text{away}} \times \beta_{\text{home}}$$
+
+| Symbol | Meaning | Typical value |
+|--------|---------|--------------|
+| **λ** | League average goals per team per match (time-weighted) | 1.3 – 1.5 |
+| **α** | Attack strength — goals scored / λ. >1 = above average attack | 0.7 – 1.4 |
+| **β** | Defense strength — goals conceded / λ. **<1 = solid defense (hard to score against), >1 = leaky** | 0.7 – 1.4 |
+| **γ** | Home advantage — ratio of home goals to away goals | 1.1 – 1.4 |
+
+Once we have μ_home and μ_away, the probability of any scoreline (h, a) is:
+
+$$P(H=h, A=a) = \text{Poisson}(h;\mu_h) \times \text{Poisson}(a;\mu_a)$$
+
+**Advanced mode** adds:
+- **MLE** — maximises the joint log-likelihood across all matches instead of simple averages, with L2 regularisation to prevent scale drift
+- **Bayesian shrinkage** — teams with few matches are pulled toward league average (prevents overfit for promoted/new teams)
+- **Dixon-Coles** — small correction to 0-0 and 1-1 probabilities, which Poisson systematically under/over-predicts
+        """)
+
+    if not st.session_state.data_loaded:
+        _blocked("Data", "Download data first before training the model.")
 
     col_train, col_result = st.columns([1, 2])
 
     with col_train:
-        st.subheader("Train Poisson Model")
+        st.subheader("Train")
         mode = st.radio(
             "Training mode",
             ["Fast", "Advanced (MLE + Dixon-Coles)"],
@@ -337,10 +644,13 @@ elif page == "Model":
         )
         advanced = mode.startswith("Advanced")
 
+        train_k = st.session_state.get("selected_window")
+        _show_window_badge(_load_results())
+
         if st.button("Train Model", type="primary"):
             with st.spinner("Calculating team strengths…"):
                 try:
-                    results = _load_results()
+                    results = _filter_by_window(_load_results(), train_k)
                     strength_calc = TeamStrengthCalculator(use_odds_integration=False)
                     team_stats = strength_calc.calculate_strengths(results)
                     TEAM_STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -351,10 +661,10 @@ elif page == "Model":
 
             with st.spinner(f"Training {'advanced' if advanced else 'fast'} Poisson model…"):
                 try:
-                    results = _load_results()
                     team_stats = pd.read_csv(TEAM_STATS_PATH, index_col=0)
                     model = PoissonModel(use_mle=advanced, use_dixon_coles=advanced)
                     model.fit(results, team_stats)
+                    model.training_window = train_k
                     MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
                     model.save(str(MODEL_PATH))
                     st.session_state.model_trained = True
@@ -367,13 +677,22 @@ elif page == "Model":
         if st.session_state.model_trained:
             try:
                 model = _load_model()
-                st.subheader("Model Parameters")
+                st.subheader("Parameters")
+                mode_label    = "Advanced (MLE + Dixon-Coles)" if getattr(model, "use_mle", False) else "Fast"
+                trained_label = model.last_trained.strftime("%Y-%m-%d %H:%M") if getattr(model, "last_trained", None) else "Unknown"
+                window_label  = f"{model.training_window} season(s)" if getattr(model, "training_window", None) else "all"
+                st.caption(f"Mode: **{mode_label}** · Window: **{window_label}** · Trained: **{trained_label}**")
                 mc1, mc2 = st.columns(2)
-                mc1.metric("Home Advantage", f"{model.home_advantage:.3f}")
+                mc1.metric("Home Advantage",        f"{model.home_advantage:.3f}")
                 mc2.metric("League Avg Goals/Match", f"{model.league_avg:.3f}")
 
                 if TEAM_STATS_PATH.exists():
                     st.subheader("Team Strengths")
+                    st.caption(
+                        "Attack >1.0 = scores more than average. "
+                        "Defense <1.0 = concedes less than average (solid). "
+                        "Defense >1.0 = concedes more than average (leaky)."
+                    )
                     ts = pd.read_csv(TEAM_STATS_PATH, index_col=0)
                     display_cols = [c for c in ["attack_strength", "defense_strength", "avg_goals_scored", "avg_goals_conceded"] if c in ts.columns]
                     if display_cols:
@@ -381,83 +700,159 @@ elif page == "Model":
                         ts_show.index.name = "Team"
                         ts_show.columns = [c.replace("_", " ").title() for c in ts_show.columns]
 
-                        # Bar chart: attack vs defence
                         fig = go.Figure()
                         if "Attack Strength" in ts_show.columns:
-                            fig.add_bar(x=ts_show.index, y=ts_show["Attack Strength"], name="Attack", marker_color="#2196F3")
+                            fig.add_bar(x=ts_show.index, y=ts_show["Attack Strength"], name="Attack (α)", marker_color="#2196F3")
                         if "Defense Strength" in ts_show.columns:
-                            fig.add_bar(x=ts_show.index, y=ts_show["Defense Strength"], name="Defense", marker_color="#F44336")
+                            fig.add_bar(x=ts_show.index, y=ts_show["Defense Strength"], name="Defense (β, lower=better)", marker_color="#F44336")
+                        fig.add_hline(y=1.0, line_dash="dash", line_color="gray", annotation_text="league avg")
                         fig.update_layout(
                             barmode="group", xaxis_tickangle=-45,
-                            height=340, margin=dict(t=20, b=10),
+                            height=320, margin=dict(t=20, b=10),
                             legend=dict(orientation="h", yanchor="bottom", y=1),
                         )
                         st.plotly_chart(fig, use_container_width=True)
                         st.dataframe(ts_show.round(3), use_container_width=True)
+
+                # ── Interactive prediction breakdown ──────────────────────────
+                if model.attack_rates:
+                    st.subheader("Try a prediction")
+                    teams_sorted = sorted(model.attack_rates.keys())
+                    _pc1, _pc2 = st.columns(2)
+                    ex_home = _pc1.selectbox("Home team", teams_sorted, key="ex_home")
+                    ex_away_opts = [t for t in teams_sorted if t != ex_home]
+                    ex_away = _pc2.selectbox("Away team", ex_away_opts, key="ex_away")
+
+                    ah  = model.attack_rates.get(ex_home, 1.0)
+                    dh  = model.defense_rates.get(ex_home, 1.0)
+                    aa  = model.attack_rates.get(ex_away, 1.0)
+                    da  = model.defense_rates.get(ex_away, 1.0)
+                    lam = model.league_avg
+                    gam = model.home_advantage
+                    mu_h = lam * ah * da * gam
+                    mu_a = lam * aa * dh
+
+                    st.markdown(
+                        f"**μ_home** = λ({lam:.2f}) × α_{ex_home}({ah:.3f}) × β_{ex_away}({da:.3f}) × γ({gam:.3f}) "
+                        f"= **{mu_h:.2f} xG**  \n"
+                        f"**μ_away** = λ({lam:.2f}) × α_{ex_away}({aa:.3f}) × β_{ex_home}({dh:.3f}) "
+                        f"= **{mu_a:.2f} xG**"
+                    )
+                    try:
+                        probs = model.predict_outcome_probabilities(ex_home, ex_away)
+                        _m1, _m2, _m3 = st.columns(3)
+                        _m1.metric(f"{ex_home} win", f"{probs['home_win']:.0%}")
+                        _m2.metric("Draw",           f"{probs['draw']:.0%}")
+                        _m3.metric(f"{ex_away} win", f"{probs['away_win']:.0%}")
+                        if getattr(model, "use_dixon_coles", False):
+                            st.caption(f"Dixon-Coles ρ = {model.rho:.4f} (low-score correction active)")
+                    except Exception:
+                        pass
+
             except Exception as e:
                 st.warning(f"Could not display model info: {e}")
         else:
-            st.info("No model trained yet.")
+            st.info("No model trained yet. Choose settings and click Train Model.")
+
+    if st.session_state.model_trained:
+        _next_button("Simulate")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: SIMULATE
+# STEP 4 — SIMULATE
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Simulate":
-    st.title("Monte Carlo Simulation")
+    _stepper()
+    st.title("Step 4 — Simulate")
+
+    with st.expander("📐 How the Monte Carlo simulation works"):
+        st.markdown("""
+**What it does:** plays out every remaining fixture *N* times, drawing random Poisson-distributed scorelines each time.
+
+For each remaining fixture:
+1. Compute μ_home and μ_away from the fitted model
+2. Draw `home_goals ~ Poisson(μ_home)`, `away_goals ~ Poisson(μ_away)`
+3. Award 3 pts (win) / 1 pt each (draw) / 0 pts (loss)
+4. Accumulate points on top of actual current standings
+
+After *N* simulations each team has a distribution of final points.
+From that distribution we read championship, European, and relegation probabilities directly.
+
+**Current standings seed:** the simulation starts from each team's *real* points already earned this season.
+This is critical — without it, early-season leaders would get no advantage.
+
+**Accuracy vs speed:** each doubling of *N* halves the standard error on probabilities.
+- 1 000 sims → ±3% uncertainty on a 50% probability
+- 10 000 sims → ±1%
+- 50 000 sims → ±0.4%
+        """)
 
     if not st.session_state.model_trained:
-        st.warning("Train the model first (Model page).")
-        st.stop()
+        _blocked("Model", "Train the model before running a simulation.")
 
     col_cfg, col_info = st.columns([1, 2])
 
     with col_cfg:
         st.subheader("Settings")
+
         n_sims = st.slider(
             "Simulations",
             min_value=500, max_value=50_000, value=10_000, step=500,
-            help="More simulations = more accurate probabilities, but slower.",
+            help="More = more accurate probabilities, but slower.",
         )
 
-        fixtures = _load_fixtures()
+        # Fixture info
         upcoming_path = Path("data/clean/upcoming_fixtures.csv")
+        uf = pd.DataFrame()
         if upcoming_path.exists():
             try:
-                uf = pd.read_csv(upcoming_path)
-                n_fixtures = len(uf)
+                uf = pd.read_csv(upcoming_path, parse_dates=["Date"])
             except Exception:
-                n_fixtures = len(fixtures)
-        else:
-            n_fixtures = len(fixtures)
+                pass
+        n_fixtures = len(uf) if not uf.empty else len(_load_fixtures())
 
         st.metric("Upcoming fixtures", n_fixtures)
+        if not uf.empty and "Date" in uf.columns:
+            d_min = uf["Date"].min()
+            d_max = uf["Date"].max()
+            st.caption(f"Fixtures: {d_min.strftime('%d %b %Y')} – {d_max.strftime('%d %b %Y')}")
+
+        # Show what model will be used — no retrain here
+        if MODEL_PATH.exists():
+            try:
+                _m = _load_model()
+                _trained  = getattr(_m, "last_trained", None)
+                _mode_lbl = "Advanced" if getattr(_m, "use_mle", False) else "Fast"
+                _win_lbl  = f"{_m.training_window} season(s)" if getattr(_m, "training_window", None) else "all seasons"
+                _date_str = _trained.strftime("%d %b %Y %H:%M") if _trained else "unknown"
+                st.caption(f"Model: **{_mode_lbl}**, window **{_win_lbl}**, trained {_date_str}")
+            except Exception:
+                pass
 
         if n_fixtures == 0:
-            st.warning("No upcoming fixtures found. Re-download data for the current season.")
+            st.warning("No upcoming fixtures. Re-download data on the Data page.")
 
-        run_disabled = n_fixtures == 0
-
-        if st.button("Run Simulation", type="primary", disabled=run_disabled):
+        if st.button("Run Simulation", type="primary", disabled=n_fixtures == 0):
             progress = st.progress(0, text="Starting…")
 
             def _cb(pct):
                 progress.progress(int(pct), text=f"{pct:.0f}%")
 
             try:
+                # Always use the model exactly as trained — window and mode are
+                # fixed on the CV and Model pages; no silent retrain here.
                 model = _load_model()
                 simulator = MonteCarloSimulator.from_upcoming_fixtures(model)
 
-                # Seed simulations with already-accumulated points this season
-                current_year = pd.Timestamp.now().year
                 try:
                     _all_res = pd.read_csv(RESULTS_PATH, parse_dates=["Date"])
-                    _cur = _all_res[_all_res["SeasonStart"] == current_year] if "SeasonStart" in _all_res.columns else pd.DataFrame()
-                    if not _cur.empty:
-                        _standings = _standings_from_results(_cur)
-                        current_pts = _standings["Pts"].to_dict()
+                    if "SeasonStart" in _all_res.columns and not _all_res.empty:
+                        _latest  = int(_all_res["SeasonStart"].dropna().max())
+                        _cur     = _all_res[_all_res["SeasonStart"] == _latest]
                     else:
-                        current_pts = {}
+                        _cur = pd.DataFrame()
+                    _stnd = _standings_from_results(_cur) if not _cur.empty else pd.DataFrame()
+                    current_pts = dict(zip(_stnd["Team"], _stnd["Pts"])) if not _stnd.empty else {}
                 except Exception:
                     current_pts = {}
 
@@ -480,42 +875,75 @@ elif page == "Simulate":
                 st.error(f"Simulation failed: {e}")
 
     with col_info:
+        # ── Data sanity check ─────────────────────────────────────────────
+        with st.expander("🔍 Data sanity check", expanded=True):
+            issues = []
+            try:
+                _san_model    = _load_model() if MODEL_PATH.exists() else None
+                _san_fix_path = Path("data/clean/upcoming_fixtures.csv")
+                _san_fix      = pd.read_csv(_san_fix_path) if _san_fix_path.exists() else pd.DataFrame()
+                _san_res      = _load_results() if RESULTS_PATH.exists() else pd.DataFrame()
+
+                model_teams   = set(_san_model.attack_rates.keys()) if _san_model else set()
+                fixture_teams = set(_san_fix["HomeTeam"].tolist() + _san_fix["AwayTeam"].tolist()) if not _san_fix.empty else set()
+                result_teams  = set(pd.unique(_san_res[["HomeTeam", "AwayTeam"]].values.ravel())) if not _san_res.empty else set()
+
+                in_fixtures_not_model = fixture_teams - model_teams
+                in_model_not_fixtures = model_teams - fixture_teams
+
+                st.markdown(f"**Model teams:** {len(model_teams)}  \n"
+                            f"**Fixture teams:** {len(fixture_teams)}  \n"
+                            f"**Overlap:** {len(model_teams & fixture_teams)}")
+
+                if in_fixtures_not_model:
+                    st.warning(f"In fixtures but NOT in model (will use default α=β=1.0): {sorted(in_fixtures_not_model)}")
+                    issues.append("team mismatch")
+                else:
+                    st.success("All fixture teams are in the model ✅")
+
+                if not _san_res.empty and "SeasonStart" in _san_res.columns:
+                    latest = int(_san_res["SeasonStart"].dropna().max())
+                    cur    = _san_res[_san_res["SeasonStart"] == latest]
+                    cur_teams = set(pd.unique(cur[["HomeTeam", "AwayTeam"]].values.ravel()))
+                    seed_mismatch = cur_teams - fixture_teams
+                    if seed_mismatch:
+                        st.warning(f"Teams in current standings but NOT in upcoming fixtures (standings seed may be incomplete): {sorted(seed_mismatch)}")
+                        issues.append("standings seed mismatch")
+                    else:
+                        st.success(f"Current season standings seed ({len(cur_teams)} teams) consistent with fixtures ✅")
+            except Exception as e:
+                st.caption(f"Sanity check skipped: {e}")
+
         if st.session_state.sim_complete:
             try:
-                sim = _load_sim()
-                agg = ResultsAggregator()
-                summary = agg.analyze_results(sim)
+                _mtime = SIM_PATH.stat().st_mtime
+                _, _, _, _, _, summary = _compute_forecast(_mtime)
                 if not summary.empty:
-                    st.subheader("Quick Summary")
-                    top3 = summary.head(3)
-                    for _, row in top3.iterrows():
+                    st.subheader("Last Simulation — Top 3")
+                    for _, row in summary.head(3).iterrows():
                         st.metric(row["Team"], f"{row['Mean_Points']:.1f} pts avg")
             except Exception as e:
                 st.warning(f"Could not load previous results: {e}")
         else:
-            st.info("No simulation run yet for the current data.")
+            st.info("Configure settings and click Run Simulation.")
+
+    if st.session_state.sim_complete:
+        _next_button("Forecast")
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: FORECAST
+# STEP 4 — FORECAST
 # ══════════════════════════════════════════════════════════════════════════════
 elif page == "Forecast":
-    st.title("Season Forecast")
+    _stepper()
+    st.title("Step 5 — Forecast")
 
     if not st.session_state.sim_complete:
-        st.warning("Run a simulation first (Simulate page).")
-        st.stop()
+        _blocked("Simulate", "Run a simulation first to see the season forecast.")
 
     try:
-        sim = _load_sim()
-        agg = ResultsAggregator()
-
-        table = agg.generate_final_table_prediction(sim)
-        champ  = agg.calculate_championship_odds(sim)
-        releg  = agg.calculate_relegation_odds(sim, relegation_spots=RELEGATION_SPOTS)
-        europe = agg.calculate_european_qualification_odds(sim, european_spots=EUROPEAN_SPOTS)
-        pos_probs = agg.calculate_position_probabilities(sim)
-        summary = agg.analyze_results(sim)
+        _mtime = SIM_PATH.stat().st_mtime
+        table, champ, releg, europe, pos_probs, summary = _compute_forecast(_mtime)
     except Exception as e:
         st.error(f"Could not load simulation results: {e}")
         st.stop()
@@ -525,88 +953,73 @@ elif page == "Forecast":
     # ── Expected Final Table ──────────────────────────────────────────────────
     st.subheader("Expected Final Standings")
 
-    # Compute total games per team for the current season
-    current_year = pd.Timestamp.now().year
     try:
         all_results = pd.read_csv(RESULTS_PATH, parse_dates=["Date"])
-        season_results = (
-            all_results[all_results["SeasonStart"] == current_year]
-            if "SeasonStart" in all_results.columns
-            else pd.DataFrame()
-        )
+        # Use the most recent season in the data, not a hardcoded calendar year,
+        # so the filter works regardless of when the app is run.
+        if "SeasonStart" in all_results.columns and not all_results.empty:
+            latest_season = int(all_results["SeasonStart"].dropna().max())
+            season_results = all_results[all_results["SeasonStart"] == latest_season].copy()
+        else:
+            season_results = all_results.copy()
     except Exception:
         season_results = pd.DataFrame()
 
+    # Use upcoming_fixtures.csv — same file the simulator reads — so the counts
+    # are consistent with what was actually simulated.
+    _upcoming_path = Path("data/clean/upcoming_fixtures.csv")
     try:
-        season_fixtures = pd.read_csv(FIXTURES_PATH, parse_dates=["Date"])
+        season_fixtures = pd.read_csv(
+            _upcoming_path if _upcoming_path.exists() else FIXTURES_PATH,
+            parse_dates=["Date"],
+        )
     except Exception:
         season_fixtures = pd.DataFrame()
 
     def _games_for_team(team, results_df, fixtures_df):
-        played = 0
-        if not results_df.empty:
-            played = int(
-                (results_df["HomeTeam"] == team).sum()
-                + (results_df["AwayTeam"] == team).sum()
-            )
-        upcoming = 0
-        if not fixtures_df.empty:
-            upcoming = int(
-                (fixtures_df["HomeTeam"] == team).sum()
-                + (fixtures_df["AwayTeam"] == team).sum()
-            )
+        played   = int((results_df["HomeTeam"] == team).sum() + (results_df["AwayTeam"] == team).sum()) if not results_df.empty else 0
+        upcoming = int((fixtures_df["HomeTeam"] == team).sum() + (fixtures_df["AwayTeam"] == team).sum()) if not fixtures_df.empty else 0
         return played + upcoming
 
-    # Build enriched table
     tbl = table.copy()
-    tbl["GP"] = tbl["Team"].map(
-        lambda t: _games_for_team(t, season_results, season_fixtures)
-    )
-    tbl["Title %"]    = tbl["Team"].map(lambda t: champ.get(t, 0) * 100)
-    tbl["Europe %"]   = tbl["Team"].map(lambda t: europe.get(t, 0) * 100)
+    tbl["GP"]           = tbl["Team"].map(lambda t: _games_for_team(t, season_results, season_fixtures))
+    tbl["Title %"]      = tbl["Team"].map(lambda t: champ.get(t, 0) * 100)
+    tbl["Europe %"]     = tbl["Team"].map(lambda t: europe.get(t, 0) * 100)
     tbl["Relegation %"] = tbl["Team"].map(lambda t: releg.get(t, 0) * 100)
     if not summary.empty:
         std_map = dict(zip(summary["Team"], summary["Std_Points"]))
-        tbl["Pts ±"]  = tbl["Team"].map(lambda t: std_map.get(t, 0))
+        tbl["Pts ±"] = tbl["Team"].map(lambda t: std_map.get(t, 0))
 
-    # Reorder columns
     cols_order = ["Position", "Team", "GP", "Expected_Points"]
     if "Pts ±" in tbl.columns:
         cols_order.append("Pts ±")
     cols_order += ["Title %", "Europe %", "Relegation %"]
-    tbl = tbl[cols_order]
-    tbl = tbl.rename(columns={"Expected_Points": "Exp Pts"})
-    tbl = tbl.reset_index(drop=True)
+    tbl = tbl[cols_order].rename(columns={"Expected_Points": "Exp Pts"}).reset_index(drop=True)
 
     def _row_color(row):
         pos = int(row["Position"])
-        if pos == 1:
-            return ["background-color: #fffde7"] * len(row)
-        if pos <= 2:
-            return ["background-color: #e8f5e9"] * len(row)
-        if pos <= EUROPEAN_SPOTS:
-            return ["background-color: #e3f2fd"] * len(row)
-        if pos > n_teams - RELEGATION_SPOTS:
-            return ["background-color: #fce4ec"] * len(row)
+        if pos == 1:                          return ["background-color: #fffde7"] * len(row)  # CL
+        if pos <= EUROPEAN_SPOTS:             return ["background-color: #e3f2fd"] * len(row)  # ECL
+        if pos > n_teams - RELEGATION_SPOTS:  return ["background-color: #fce4ec"] * len(row)  # relegation
         return [""] * len(row)
 
-    fmt = {
-        "Exp Pts": "{:.1f}",
-        "Title %": "{:.1f}%",
-        "Europe %": "{:.1f}%",
-        "Relegation %": "{:.1f}%",
-    }
+    fmt = {"Exp Pts": "{:.1f}", "Title %": "{:.1f}%", "Europe %": "{:.1f}%", "Relegation %": "{:.1f}%"}
     if "Pts ±" in tbl.columns:
         fmt["Pts ±"] = "±{:.1f}"
 
-    styled = tbl.style.apply(_row_color, axis=1).format(fmt)
-    st.dataframe(styled, use_container_width=True, hide_index=True)
+    st.dataframe(tbl.style.apply(_row_color, axis=1).format(fmt), use_container_width=True, hide_index=True)
 
-    legend_cols = st.columns(4)
-    legend_cols[0].caption("🟡 Title contender")
-    legend_cols[1].caption("🟢 Champions League")
-    legend_cols[2].caption("🔵 European spots")
-    legend_cols[3].caption("🔴 Relegation zone")
+    legend_cols = st.columns(3)
+    legend_cols[0].caption("🟡 1st — Champions League")
+    legend_cols[1].caption("🔵 2nd–3rd — Conference League")
+    legend_cols[2].caption("🔴 Relegation zone")
+
+    st.caption(
+        "**GP** = games played this season + remaining fixtures.  "
+        "**Exp Pts** = mean final points across all simulations (includes actual points already earned).  "
+        "**± Pts** = standard deviation — how spread-out the point outcomes are.  "
+        "**Title/Europe/Relegation %** = fraction of simulations where the team finished in that zone."
+    )
 
     st.divider()
 
@@ -615,11 +1028,11 @@ elif page == "Forecast":
         ["Title Race", "European Qualification", "Relegation Battle", "Position Heatmap"]
     )
 
-    def _sorted_bar(probs: dict, color: str, title: str, threshold: float = 0.005):
+    def _sorted_bar(probs: dict, color: str, threshold: float = 0.005):
         data = {k: v * 100 for k, v in probs.items() if v > threshold}
-        df = pd.DataFrame({"Team": list(data.keys()), "Probability": list(data.values())})
-        df = df.sort_values("Probability", ascending=True)
-        fig = px.bar(
+        df   = pd.DataFrame({"Team": list(data.keys()), "Probability": list(data.values())})
+        df   = df.sort_values("Probability", ascending=True)
+        fig  = px.bar(
             df, x="Probability", y="Team", orientation="h",
             text=df["Probability"].map(lambda x: f"{x:.1f}%"),
             color_discrete_sequence=[color],
@@ -627,24 +1040,21 @@ elif page == "Forecast":
         fig.update_traces(textposition="outside")
         fig.update_layout(
             xaxis_title="Probability (%)", yaxis_title="",
-            margin=dict(l=10, r=20, t=20, b=10), height=max(300, len(df) * 32),
-            showlegend=False,
+            margin=dict(l=10, r=20, t=20, b=10),
+            height=max(300, len(df) * 32), showlegend=False,
         )
         return fig
 
     with tab_title:
-        st.plotly_chart(_sorted_bar(champ, "#FFC107", "Title"), use_container_width=True)
-
+        st.plotly_chart(_sorted_bar(champ, "#FFC107"), use_container_width=True)
     with tab_europe:
-        st.plotly_chart(_sorted_bar(europe, "#2196F3", "European"), use_container_width=True)
-
+        st.plotly_chart(_sorted_bar(europe, "#2196F3"), use_container_width=True)
     with tab_releg:
-        st.plotly_chart(_sorted_bar(releg, "#F44336", "Relegation"), use_container_width=True)
-
+        st.plotly_chart(_sorted_bar(releg, "#F44336"), use_container_width=True)
     with tab_heat:
         if pos_probs:
             teams_ordered = tbl["Team"].tolist()
-            n_pos = len(teams_ordered)
+            n_pos  = len(teams_ordered)
             matrix = np.array([
                 [pos_probs.get(team, [0] * n_pos)[p] for p in range(n_pos)]
                 for team in teams_ordered
@@ -661,8 +1071,7 @@ elif page == "Forecast":
                 colorbar=dict(title="Prob %"),
             ))
             fig.update_layout(
-                xaxis_title="Final Position",
-                yaxis_title="",
+                xaxis_title="Final Position", yaxis_title="",
                 height=max(400, n_pos * 30),
                 margin=dict(l=10, r=10, t=10, b=10),
                 yaxis=dict(autorange="reversed"),
@@ -671,20 +1080,22 @@ elif page == "Forecast":
         else:
             st.info("Position probabilities not available.")
 
+    _next_button("Predictions")
+
 
 # ══════════════════════════════════════════════════════════════════════════════
-# PAGE: FIXTURES
+# STEP 5 — PREDICTIONS
 # ══════════════════════════════════════════════════════════════════════════════
-elif page == "Fixtures":
-    st.title("Fixture Predictions")
+elif page == "Predictions":
+    _stepper()
+    st.title("Step 6 — Predictions")
 
     if not st.session_state.model_trained:
-        st.warning("Train the model first (Model page).")
-        st.stop()
+        _blocked("Model", "Train the model first to generate fixture predictions.")
 
     fixtures = _load_fixtures()
     if fixtures.empty:
-        st.info("No upcoming fixtures found. Download data for the current season.")
+        st.info("No upcoming fixtures found. Download data for the current season on the Data page.")
         st.stop()
 
     try:
@@ -700,12 +1111,11 @@ elif page == "Fixtures":
         team_filter = st.selectbox("Filter by team", ["All teams"] + all_teams)
     with col_f2:
         if "Date" in fixtures.columns and fixtures["Date"].notna().any():
-            dates = sorted(fixtures["Date"].dt.date.dropna().unique())
+            dates       = sorted(fixtures["Date"].dt.date.dropna().unique())
             date_filter = st.selectbox("Filter by date", ["All dates"] + [str(d) for d in dates])
         else:
             date_filter = "All dates"
 
-    # Apply filters
     disp = fixtures.copy()
     if team_filter != "All teams":
         disp = disp[(disp["HomeTeam"] == team_filter) | (disp["AwayTeam"] == team_filter)]
@@ -718,7 +1128,7 @@ elif page == "Fixtures":
         st.info("No fixtures match the selected filters.")
         st.stop()
 
-    # ── Build predictions table ───────────────────────────────────────────────
+    # ── Build predictions ─────────────────────────────────────────────────────
     rows = []
     for _, fix in disp.iterrows():
         try:
@@ -742,7 +1152,7 @@ elif page == "Fixtures":
 
     pred_df = pd.DataFrame(rows)
 
-    # ── Compact table view ────────────────────────────────────────────────────
+    # ── Table view ────────────────────────────────────────────────────────────
     st.subheader("All Fixtures")
     table_df = pred_df.copy()
     table_df["Home Win"] = table_df["Home Win"].map(lambda x: f"{x:.0%}")
@@ -754,40 +1164,34 @@ elif page == "Fixtures":
 
     st.divider()
 
-    # ── Detailed fixture cards ────────────────────────────────────────────────
+    # ── Match cards ───────────────────────────────────────────────────────────
     st.subheader("Match Details")
     for _, r in pred_df.iterrows():
         with st.container():
             left, mid, right = st.columns([3, 2, 3])
 
-            home_w = float(str(r["Home Win"]).strip("%")) if isinstance(r["Home Win"], str) else r["Home Win"] * 100
-            draw_w = float(str(r["Draw"]).strip("%")) if isinstance(r["Draw"], str) else r["Draw"] * 100
-            away_w = float(str(r["Away Win"]).strip("%")) if isinstance(r["Away Win"], str) else r["Away Win"] * 100
-
-            # Use raw numeric values
-            hw = r["Home Win"] if isinstance(r["Home Win"], float) else home_w / 100
-            dw = r["Draw"]     if isinstance(r["Draw"], float)     else draw_w / 100
-            aw = r["Away Win"] if isinstance(r["Away Win"], float)  else away_w / 100
-            xgh = r["xG Home"] if isinstance(r["xG Home"], float) else float(r["xG Home"])
-            xga = r["xG Away"] if isinstance(r["xG Away"], float) else float(r["xG Away"])
+            hw  = float(r["Home Win"])
+            dw  = float(r["Draw"])
+            aw  = float(r["Away Win"])
+            xgh = float(r["xG Home"])
+            xga = float(r["xG Away"])
 
             with left:
                 st.markdown(f"**{r['Home']}**")
                 st.caption(f"xG {xgh:.2f}")
 
             with mid:
-                st.markdown(f"<div style='text-align:center; font-size:0.8em; color:#888'>{r['Date']}</div>", unsafe_allow_html=True)
-                st.markdown(f"<div style='text-align:center; font-size:1.1em'>{hw:.0%} · {dw:.0%} · {aw:.0%}</div>", unsafe_allow_html=True)
-
-                # Stacked probability bar
-                fig = go.Figure(go.Bar(
-                    x=[hw * 100], y=[""], orientation="h",
-                    marker_color="#2196F3", name="Home", showlegend=False,
-                ))
-                fig.add_bar(x=[dw * 100], y=[""], orientation="h",
-                            marker_color="#9E9E9E", name="Draw", showlegend=False)
-                fig.add_bar(x=[aw * 100], y=[""], orientation="h",
-                            marker_color="#F44336", name="Away", showlegend=False)
+                st.markdown(
+                    f"<div style='text-align:center;font-size:0.8em;color:#888'>{r['Date']}</div>",
+                    unsafe_allow_html=True,
+                )
+                st.markdown(
+                    f"<div style='text-align:center;font-size:1.1em'>{hw:.0%} · {dw:.0%} · {aw:.0%}</div>",
+                    unsafe_allow_html=True,
+                )
+                fig = go.Figure(go.Bar(x=[hw * 100], y=[""], orientation="h", marker_color="#2196F3", name="Home", showlegend=False))
+                fig.add_bar(x=[dw * 100], y=[""], orientation="h", marker_color="#9E9E9E", name="Draw", showlegend=False)
+                fig.add_bar(x=[aw * 100], y=[""], orientation="h", marker_color="#F44336", name="Away", showlegend=False)
                 fig.update_layout(
                     barmode="stack", height=40,
                     margin=dict(l=0, r=0, t=0, b=0),

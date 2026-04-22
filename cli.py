@@ -43,7 +43,9 @@ def scrape_data(seasons=None):
 
     if seasons is None:
         current_year = datetime.now().year
-        seasons = [current_year - 1, current_year]
+        # 5 seasons gives enough data for stable home-advantage and league-avg
+        # estimation; time-decay in the model ensures old matches don't dominate.
+        seasons = list(range(current_year - 4, current_year + 1))
 
     scraper = AllsvenskanScraper()
     raw_data = scraper.scrape_matches(seasons=seasons)
@@ -287,6 +289,51 @@ def predict_fixtures():
     return predictions_df
 
 
+def window_cv(lookback_windows=None):
+    """Walk-forward CV across lookback windows to find optimal training data range."""
+    print("🔬 Running walk-forward cross-validation across data windows...\n")
+
+    results_file = 'data/clean/results.csv'
+    if not Path(results_file).exists():
+        print("❌ Results file not found. Run 'scrape' + 'clean' first.")
+        return None
+
+    results_df = pd.read_csv(results_file, parse_dates=['Date'])
+    if 'SeasonStart' not in results_df.columns:
+        print("❌ Results file has no 'SeasonStart' column.")
+        return None
+
+    seasons = sorted(results_df['SeasonStart'].dropna().astype(int).unique())
+    val_season = seasons[-1]
+    print(f"Seasons available : {seasons}")
+    print(f"Validation season : {val_season}")
+    print(f"Training seasons  : all prior\n")
+
+    cv_out = PoissonModel.walk_forward_cv(results_df, lookback_windows=lookback_windows)
+
+    def _print_section(rows, title):
+        if not rows:
+            return
+        print(f"\n{title}")
+        print(f"{'Lookback':>10}  {'Train range':>20}  {'N train':>8}  {'N val':>6}  {'Log-loss':>10}")
+        print("-" * 62)
+        best = min(rows, key=lambda r: r['log_loss'])
+        for r in rows:
+            marker = " ◄ best" if r is best else ""
+            s = r['train_seasons']
+            season_str = f"{s[0]}–{s[-1]}" if len(s) > 1 else str(s[0])
+            print(f"{r['lookback']:>10}  {season_str:>20}  {r['n_train']:>8}  {r['n_val']:>6}  {r['log_loss']:>10.4f}{marker}")
+        print(f"\n  Optimal: {best['lookback']} season(s) — log-loss {best['log_loss']:.4f}")
+
+    _print_section(cv_out.get('historical', []),      "Historical CV (validates on last complete season)")
+    _print_section(cv_out.get('current_season', []),  "Current season (train early, validate recent)")
+
+    print("\nNote: small differences between windows are expected — the time-decay")
+    print("weighting (decay=0.01) reduces 1-year-old matches to ~2.6% weight,")
+    print("so extra historical seasons contribute almost nothing to the fit.")
+    return cv_out
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Allsvenskan Monte Carlo Forecast - CLI',
@@ -301,11 +348,12 @@ Examples:
   %(prog)s analyze                   # Analyze simulation results
   %(prog)s predict                   # Generate fixture predictions
   %(prog)s pipeline                  # Run full pipeline (scrape -> clean -> train -> simulate -> analyze)
+  %(prog)s window-cv                 # Walk-forward CV: find optimal training data window
         """
     )
 
     parser.add_argument('command',
-                       choices=['scrape', 'clean', 'train', 'simulate', 'analyze', 'predict', 'pipeline'],
+                       choices=['scrape', 'clean', 'train', 'simulate', 'analyze', 'predict', 'pipeline', 'window-cv'],
                        help='Command to execute')
     parser.add_argument('--seasons', nargs='+', type=int,
                        help='Seasons to scrape (default: current and previous)')
@@ -340,6 +388,9 @@ Examples:
 
         elif args.command == 'predict':
             predict_fixtures()
+
+        elif args.command == 'window-cv':
+            window_cv()
 
         elif args.command == 'pipeline':
             print("🚀 Running full pipeline...\n")
