@@ -1,1 +1,1 @@
-{"cv_results": null, "cv_optimal_k": null, "selected_window": null}
+{"cv_results": {"historical": [{"lookback": 1, "train_seasons": [

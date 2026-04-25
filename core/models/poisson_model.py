@@ -608,7 +608,8 @@ class PoissonModel:
         return summary
 
     @staticmethod
-    def walk_forward_cv(results_df, lookback_windows=None, current_season_val_frac=0.4):
+    def walk_forward_cv(results_df, lookback_windows=None, current_season_val_frac=0.4,
+                        progress_callback=None):
         """Walk-forward cross-validation across different historical lookback windows.
 
         Runs two types of evaluation:
@@ -644,7 +645,7 @@ class PoissonModel:
               'current_season'  — list of result dicts (in-progress season split),
                                   or empty list if < 10 current-season matches exist.
         """
-        from allsvenskan.data.strength import TeamStrengthCalculator
+        from core.data.strength import TeamStrengthCalculator
 
         if lookback_windows is None:
             lookback_windows = [1, 2, 3, 5, 8]
@@ -698,14 +699,26 @@ class PoissonModel:
 
         historical = []
         prior_seasons = [s for s in completed_seasons if s != val_season]
+
+        # Count total fits upfront so the callback reports 0→1 progress
+        n_current_check = len(results_df[results_df['SeasonStart'] == current_season])
+        split_idx_check = int(n_current_check * (1 - current_season_val_frac))
+        has_current_split = split_idx_check >= 10 and (n_current_check - split_idx_check) >= 5
+        total_fits = len(lookback_windows) + (len(lookback_windows) if has_current_split else 0)
+        fits_done  = 0
+
         for k in lookback_windows:
             train_seasons = prior_seasons[-k:] if k <= len(prior_seasons) else prior_seasons
             if not train_seasons:
+                fits_done += 1
                 continue
             train_df = results_df[results_df['SeasonStart'].isin(train_seasons)].copy()
             row = _train_and_eval(train_df, val_df_hist, train_seasons)
             if row:
                 historical.append({'lookback': k, **row})
+            fits_done += 1
+            if progress_callback:
+                progress_callback(fits_done / total_fits)
 
         # ── 2. Current-season split ───────────────────────────────────────────
         current_df = results_df[results_df['SeasonStart'] == current_season].copy()
@@ -727,6 +740,9 @@ class PoissonModel:
                 row = _train_and_eval(train_df, cur_val_part, (prior or []) + [current_season])
                 if row:
                     current_season_results.append({'lookback': k, **row})
+                fits_done += 1
+                if progress_callback:
+                    progress_callback(fits_done / total_fits)
 
         return {
             'historical': historical,

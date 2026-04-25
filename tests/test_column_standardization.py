@@ -4,7 +4,7 @@ import os
 
 # Add project root to path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from allsvenskan.utils.column_standardizer import ColumnStandardizer
+from core.utils.column_standardizer import ColumnStandardizer
 
 def test_column_standardization():
     """Test that column standardization works correctly"""

@@ -4,10 +4,10 @@ from typing import Tuple, Dict, Optional, List
 from datetime import datetime
 import pandas as pd
 
-from allsvenskan.models.poisson_model import PoissonModel
-from allsvenskan.data.odds_schema import OddsRecord
-from allsvenskan.utils.odds_converter import remove_margin, calculate_implied_probabilities
-from allsvenskan.config.config_loader import get_weights_config
+from core.models.poisson_model import PoissonModel
+from core.data.odds_schema import OddsRecord
+from core.utils.odds_converter import remove_margin, calculate_implied_probabilities
+from core.config.config_loader import get_weights_config
 
 logger = logging.getLogger(__name__)
 

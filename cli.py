@@ -14,13 +14,13 @@ from datetime import datetime
 import json
 
 # Import custom modules
-from allsvenskan.data.scraper import AllsvenskanScraper
-from allsvenskan.data.cleaner import DataCleaner
-from allsvenskan.data.strength import TeamStrengthCalculator
-from allsvenskan.models.poisson_model import PoissonModel
-from allsvenskan.simulation.simulator import MonteCarloSimulator
-from allsvenskan.analysis.aggregator import ResultsAggregator
-from allsvenskan.database.db_manager import DatabaseManager
+from core.data.scraper import AllsvenskanScraper
+from core.data.cleaner import DataCleaner
+from core.data.strength import TeamStrengthCalculator
+from core.models.poisson_model import PoissonModel
+from core.simulation.simulator import MonteCarloSimulator
+from core.analysis.aggregator import ResultsAggregator
+from core.database.db_manager import DatabaseManager
 
 
 def setup_directories():

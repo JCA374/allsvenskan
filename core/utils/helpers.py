@@ -18,6 +18,7 @@ TEAM_NAME_MAP: dict = {
     'Djurgårdens IF': 'Djurgarden',
     'Djurgardens IF': 'Djurgarden',
     'Djurgarden IF': 'Djurgarden',
+    'Djurgården': 'Djurgarden',
     # BK Häcken
     'BK Häcken': 'Hacken',
     'BK Hacken': 'Hacken',
@@ -300,7 +301,7 @@ def calculate_current_standings_from_url():
     """Calculate current Allsvenskan standings using latest scraped results."""
     try:
         from datetime import datetime
-        from allsvenskan.data.scraper import AllsvenskanScraper
+        from core.data.scraper import AllsvenskanScraper
 
         scraper = AllsvenskanScraper()
         current_year = datetime.now().year

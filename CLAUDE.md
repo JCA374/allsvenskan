@@ -58,7 +58,7 @@ results, fixtures = cleaner.clean_data(raw_data)
 
 ## Architecture
 
-The Python package is `allsvenskan/` (previously `premier_league/`).
+The Python package is `core/` (previously `allsvenskan/`, before that `premier_league/`).
 
 ### Data Source
 

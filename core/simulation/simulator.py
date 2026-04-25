@@ -5,7 +5,7 @@ import time
 import os
 import logging
 
-from allsvenskan.utils.helpers import TEAM_NAME_MAP
+from core.utils.helpers import TEAM_NAME_MAP
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ class MonteCarloSimulator:
         """Load upcoming fixtures directly from CSV with robust parsing"""
         try:
             # Import column standardizer
-            from allsvenskan.utils.column_standardizer import ColumnStandardizer
+            from core.utils.column_standardizer import ColumnStandardizer
             
             # Read CSV with error handling
             df = pd.read_csv(filepath, on_bad_lines='skip')
@@ -178,6 +178,9 @@ class MonteCarloSimulator:
             for team in self.teams:
                 if team not in results_df.columns:
                     results_df[team] = 0
+
+            # Collapse any duplicate name variants into one column.
+            results_df = results_df.T.groupby(level=0).sum().T
 
             print(f"Completed {n_simulations:,} simulations successfully!")
             return results_df
@@ -403,6 +406,10 @@ class MonteCarloSimulator:
             for team in self.teams:
                 if team not in results_df.columns:
                     results_df[team] = current_standings.get(team, 0)
+
+            # Collapse any duplicate name variants (e.g. "Djurgården" + "Djurgarden")
+            # by summing their columns — both refer to the same team.
+            results_df = results_df.T.groupby(level=0).sum().T
 
             print(f"Completed {n_simulations:,} simulations with current standings!")
             return results_df

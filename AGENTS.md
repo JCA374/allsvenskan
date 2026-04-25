@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 - `app.py` hosts the Streamlit UI; each navigation tab calls a page-level function.  
-- Allsvenskan-specific logic is organized under `allsvenskan/`: scraping and cleaning in `allsvenskan/data/`, modeling in `allsvenskan/models/`, simulation engines in `allsvenskan/simulation/`, analytics in `allsvenskan/analysis/`, visualization helpers in `allsvenskan/visualization/`, and database utilities in `allsvenskan/database/`.  
+- Allsvenskan-specific logic is organized under `core/`: scraping and cleaning in `core/data/`, modeling in `core/models/`, simulation engines in `core/simulation/`, analytics in `core/analysis/`, visualization helpers in , and database utilities in `core/database/`.  
 - Tests mirror this layout inside `tests/`. Reusable notebooks or scripts live in `reports/` and `scripts/`.  
 - Data artifacts are kept in `data/` (`raw/`, `clean/`, `db/`), with the default SQLite file stored at `data/db/allsvenskan.db`.
 

@@ -9,12 +9,13 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from allsvenskan.data.scraper import AllsvenskanScraper
-from allsvenskan.data.cleaner import DataCleaner
-from allsvenskan.data.strength import TeamStrengthCalculator
-from allsvenskan.models.poisson_model import PoissonModel
-from allsvenskan.simulation.simulator import MonteCarloSimulator
-from allsvenskan.analysis.aggregator import ResultsAggregator
+from core.data.scraper import AllsvenskanScraper
+from core.data.cleaner import DataCleaner
+from core.data.strength import TeamStrengthCalculator
+from core.models.poisson_model import PoissonModel
+from core.simulation.simulator import MonteCarloSimulator
+from core.analysis.aggregator import ResultsAggregator
+from core.utils.helpers import TEAM_NAME_MAP
 
 # ── Page config ────────────────────────────────────────────────────────────────
 st.set_page_config(
@@ -144,10 +145,29 @@ with st.sidebar:
             args=(name,),
         )
 
+    st.divider()
+    _upd_active = st.session_state.active_page == "Update"
+    st.button(
+        "**🔄 Update Everything**" if _upd_active else "🔄 Update Everything",
+        key="nav_Update",
+        use_container_width=True,
+        type="primary" if _upd_active else "secondary",
+        on_click=_nav,
+        args=("Update",),
+    )
+
 page = st.session_state.active_page
 
 
 # ── Helpers ────────────────────────────────────────────────────────────────────
+
+def _normalize_teams(df: pd.DataFrame) -> pd.DataFrame:
+    """Apply TEAM_NAME_MAP to HomeTeam/AwayTeam — ensures e.g. 'Djurgården' → 'Djurgarden'."""
+    df = df.copy()
+    for col in ("HomeTeam", "AwayTeam"):
+        if col in df.columns:
+            df[col] = df[col].map(lambda t: TEAM_NAME_MAP.get(str(t).strip(), str(t).strip()))
+    return df
 
 def _filter_by_window(results: pd.DataFrame, k: int | None) -> pd.DataFrame:
     if k is None or "SeasonStart" not in results.columns:
@@ -174,6 +194,7 @@ def _show_window_badge(results: pd.DataFrame):
 
 def _load_results() -> pd.DataFrame:
     df = pd.read_csv(RESULTS_PATH, parse_dates=["Date"])
+    df = _normalize_teams(df)
     return df[df["FTHG"].notna() & df["FTAG"].notna()].copy()
 
 def _load_fixtures() -> pd.DataFrame:
@@ -181,7 +202,8 @@ def _load_fixtures() -> pd.DataFrame:
         df = pd.read_csv(FIXTURES_PATH, parse_dates=["Date"])
         if "FTHG" in df.columns:
             df = df[df["FTHG"].isna()]
-        return df[["Date", "HomeTeam", "AwayTeam"]].copy()
+        df = _normalize_teams(df[["Date", "HomeTeam", "AwayTeam"]].copy())
+        return df
     return pd.DataFrame(columns=["Date", "HomeTeam", "AwayTeam"])
 
 def _load_model() -> PoissonModel:
@@ -195,11 +217,22 @@ def _load_model() -> PoissonModel:
 
 @st.cache_data
 def _load_sim(_mtime: float = 0) -> pd.DataFrame:
-    return pd.read_csv(SIM_PATH)
+    df = pd.read_csv(SIM_PATH)
+    # Normalise column names (team names) and merge duplicate variants.
+    # e.g. both "Djurgården" and "Djurgarden" should collapse into "Djurgarden".
+    rename_map = {col: TEAM_NAME_MAP.get(col, col) for col in df.columns}
+    df = df.rename(columns=rename_map)
+    # If renaming created duplicate columns, sum them (they represent the same team).
+    df = df.T.groupby(level=0).sum().T
+    return df
 
 @st.cache_data
 def _compute_forecast(_mtime: float = 0):
-    sim      = _load_sim(_mtime)
+    sim = _load_sim(_mtime)
+    # Normalise column names and collapse any duplicate team-name variants
+    # (e.g. "Djurgården" + "Djurgarden" must merge into one column).
+    rename_map = {col: TEAM_NAME_MAP.get(col, col) for col in sim.columns}
+    sim = sim.rename(columns=rename_map).T.groupby(level=0).sum().T
     agg      = ResultsAggregator()
     table    = agg.generate_final_table_prediction(sim)
     champ    = agg.calculate_championship_odds(sim)
@@ -321,6 +354,7 @@ Rows without goal values are upcoming fixtures.
                     else:
                         cleaner = DataCleaner()
                         hist_results, _ = cleaner.clean_data(raw)
+                        hist_results = _normalize_teams(hist_results)
                         HISTORICAL_PATH.parent.mkdir(parents=True, exist_ok=True)
                         hist_results.to_csv(HISTORICAL_PATH, index=False)
                         st.success(f"Saved {len(hist_results)} historical matches.")
@@ -342,15 +376,17 @@ Rows without goal values are upcoming fixtures.
                         cleaner = DataCleaner()
                         cur_results, cur_fixtures = cleaner.clean_data(raw)
 
+                        cur_results  = _normalize_teams(cur_results)
+                        cur_fixtures = _normalize_teams(cur_fixtures)
+
                         if history_exists:
-                            hist_df  = pd.read_csv(HISTORICAL_PATH, parse_dates=["Date"])
+                            hist_df  = _normalize_teams(pd.read_csv(HISTORICAL_PATH, parse_dates=["Date"]))
                             combined = pd.concat([hist_df, cur_results], ignore_index=True)
                             combined = combined.drop_duplicates(
                                 subset=["Date", "HomeTeam", "AwayTeam"], keep="last"
                             )
                         else:
                             combined = cur_results
-
                         RESULTS_PATH.parent.mkdir(parents=True, exist_ok=True)
                         FIXTURES_PATH.parent.mkdir(parents=True, exist_ok=True)
                         combined.to_csv(RESULTS_PATH, index=False)
@@ -973,6 +1009,7 @@ elif page == "Forecast":
             _upcoming_path if _upcoming_path.exists() else FIXTURES_PATH,
             parse_dates=["Date"],
         )
+        season_fixtures = _normalize_teams(season_fixtures)
     except Exception:
         season_fixtures = pd.DataFrame()
 
@@ -1206,3 +1243,301 @@ elif page == "Predictions":
                 st.caption(f"xG {xga:.2f}")
 
             st.divider()
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# UPDATE EVERYTHING  (state-machine: each step is a separate rerun so that
+# the Stop button — which queues a rerun — takes effect between steps)
+# ══════════════════════════════════════════════════════════════════════════════
+elif page == "Update":
+    # ── Session-state defaults for this page ─────────────────────────────────
+    for _k, _v in {
+        "upd_step":  None,   # None | "data" | "cv" | "model" | "sim" | "done"
+        "upd_stop":  False,
+        "upd_log":   [],     # list of dicts {label, state, msg}
+    }.items():
+        if _k not in st.session_state:
+            st.session_state[_k] = _v
+
+    upd_step = st.session_state.upd_step
+    upd_stop = st.session_state.upd_stop
+
+    st.title("🔄 Update Everything")
+
+    # ── Completed-step log (persists across reruns) ───────────────────────────
+    for entry in st.session_state.upd_log:
+        if entry["state"] == "complete":
+            st.success(f"✅ {entry['label']} — {entry['msg']}")
+        elif entry["state"] == "skipped":
+            st.info(f"⏭ {entry['label']} — {entry['msg']}")
+        elif entry["state"] == "error":
+            st.error(f"❌ {entry['label']} — {entry['msg']}")
+        elif entry["state"] == "stopped":
+            st.warning(f"⏹ {entry['label']} — {entry['msg']}")
+
+    # ── Idle — show start UI ──────────────────────────────────────────────────
+    if upd_step is None:
+        st.caption("Fetch fresh data → CV → train model → 10 000 simulations → Predictions")
+
+        current_year   = pd.Timestamp.now().year
+        data_age_hours = None
+        if RESULTS_PATH.exists():
+            try:
+                mtime          = RESULTS_PATH.stat().st_mtime
+                data_age_hours = (pd.Timestamp.now() - pd.Timestamp.fromtimestamp(mtime)).total_seconds() / 3600
+            except Exception:
+                pass
+
+        history_ok = False
+        if HISTORICAL_PATH.exists():
+            try:
+                history_ok = len(pd.read_csv(HISTORICAL_PATH)) > 0
+            except Exception:
+                pass
+
+        if data_age_hours is not None:
+            if data_age_hours < 1:
+                st.success(f"Data is fresh ({data_age_hours * 60:.0f} min ago) — fetch will be skipped.")
+            else:
+                st.info(f"Data last fetched {data_age_hours:.1f}h ago.")
+        else:
+            st.warning("No data on disk yet.")
+
+        if not history_ok:
+            st.warning(
+                "Historical data not downloaded. Go to **Data** and click "
+                "**Download All History** first."
+            )
+
+        if st.button("Update Everything", type="primary", disabled=not history_ok):
+            st.session_state.upd_step = "data"
+            st.session_state.upd_stop = False
+            st.session_state.upd_log  = []
+            st.rerun()
+
+    # ── Done or stopped ───────────────────────────────────────────────────────
+    elif upd_step == "done":
+        if upd_stop:
+            st.warning("Stopped — completed steps have been saved.")
+        else:
+            st.success("All steps complete!")
+
+        col_a, col_b = st.columns(2)
+        if col_a.button("Go to Predictions", type="primary"):
+            st.session_state.upd_step = None
+            _nav("Predictions")
+        if col_b.button("Run again"):
+            st.session_state.upd_step = None
+            st.session_state.upd_log  = []
+            st.rerun()
+
+    # ── Running a step ────────────────────────────────────────────────────────
+    else:
+        # Stop button — sets flag; takes effect after the current step finishes
+        if st.button("⏹ Stop after this step", type="secondary"):
+            st.session_state.upd_stop = True
+            st.rerun()
+
+        current_year = pd.Timestamp.now().year
+
+        def _log(label, state, msg):
+            st.session_state.upd_log.append({"label": label, "state": state, "msg": msg})
+
+        def _advance(next_step):
+            """Move to next step, or to done if stop was requested."""
+            st.session_state.upd_step = "done" if st.session_state.upd_stop else next_step
+            st.rerun()
+
+        # ── Step 1: Data ──────────────────────────────────────────────────────
+        if upd_step == "data":
+            data_age_hours = None
+            if RESULTS_PATH.exists():
+                try:
+                    mtime          = RESULTS_PATH.stat().st_mtime
+                    data_age_hours = (pd.Timestamp.now() - pd.Timestamp.fromtimestamp(mtime)).total_seconds() / 3600
+                except Exception:
+                    pass
+
+            skip_fetch = data_age_hours is not None and data_age_hours < 1
+
+            st.subheader("Step 1/4 — Match data")
+            bar  = st.progress(0, text="Starting…")
+
+            if skip_fetch:
+                bar.progress(100, text="Skipped (data < 1h old)")
+                _log("Step 1/4 — Data", "skipped",
+                     f"data is {data_age_hours * 60:.0f} min old (< 1 hour)")
+                _advance("cv")
+
+            try:
+                bar.progress(10, text="Connecting to football-data.co.uk…")
+                scraper = AllsvenskanScraper()
+                raw = scraper.scrape_matches(seasons=[current_year])
+                if raw.empty:
+                    raise RuntimeError("No data returned from source")
+
+                bar.progress(40, text="Cleaning and normalising team names…")
+                cleaner      = DataCleaner()
+                cur_results, cur_fixtures = cleaner.clean_data(raw)
+                cur_results  = _normalize_teams(cur_results)
+                cur_fixtures = _normalize_teams(cur_fixtures)
+
+                # Warn on any unexpected Djurgården variant
+                all_fix_teams = pd.concat([cur_fixtures["HomeTeam"], cur_fixtures["AwayTeam"]]).unique()
+                bad_djurg = [t for t in all_fix_teams
+                             if ("jurg" in str(t).lower() or "ård" in str(t).lower())
+                             and t != "Djurgarden"]
+                if bad_djurg:
+                    st.warning(f"Unexpected Djurgården variant after normalisation: {bad_djurg}")
+
+                bar.progress(70, text="Merging with historical data…")
+                hist_df  = _normalize_teams(pd.read_csv(HISTORICAL_PATH, parse_dates=["Date"]))
+                combined = pd.concat([hist_df, cur_results], ignore_index=True)
+                combined = combined.drop_duplicates(
+                    subset=["Date", "HomeTeam", "AwayTeam"], keep="last"
+                )
+
+                bar.progress(90, text="Saving…")
+                RESULTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+                FIXTURES_PATH.parent.mkdir(parents=True, exist_ok=True)
+                combined.to_csv(RESULTS_PATH, index=False)
+                cur_fixtures.to_csv(FIXTURES_PATH, index=False)
+                cur_fixtures.to_csv("data/clean/upcoming_fixtures.csv", index=False)
+                st.session_state.data_loaded = True
+
+                bar.progress(100, text="Done")
+                _log("Step 1/4 — Data", "complete",
+                     f"{len(cur_results)} matches fetched · {len(cur_fixtures)} upcoming fixtures")
+                _advance("cv")
+
+            except Exception as e:
+                bar.progress(100, text="Failed")
+                _log("Step 1/4 — Data", "error", str(e))
+                st.session_state.upd_step = "done"
+                st.rerun()
+
+        # ── Step 2: CV ────────────────────────────────────────────────────────
+        elif upd_step == "cv":
+            st.subheader("Step 2/4 — Cross-validation")
+            bar      = st.progress(0, text="Loading results…")
+            bar_text = st.empty()
+
+            try:
+                all_results = _load_results()
+                bar.progress(5, text="Running walk-forward CV…")
+
+                def _cv_cb(frac):
+                    pct = int(5 + frac * 90)
+                    bar.progress(pct, text=f"CV fits: {int(frac * 100)}%")
+
+                cv_out    = PoissonModel.walk_forward_cv(all_results, progress_callback=_cv_cb)
+                hist_cv   = cv_out.get("historical", [])
+                optimal_k = min(hist_cv, key=lambda r: r["log_loss"])["lookback"] if hist_cv else None
+                window_str = f"{optimal_k} season(s)" if optimal_k else "all seasons"
+
+                st.session_state["cv_results"]      = cv_out
+                st.session_state["cv_optimal_k"]    = optimal_k
+                st.session_state["selected_window"] = optimal_k
+                st.session_state["cv_complete"]     = True
+                _save_cv_cache(cv_out, optimal_k, optimal_k)
+
+                bar.progress(100, text="Done")
+                _log("Step 2/4 — CV", "complete", f"optimal window: {window_str}")
+                _advance("model")
+
+            except Exception as e:
+                bar.progress(100, text="Failed")
+                _log("Step 2/4 — CV", "error", str(e))
+                st.session_state.upd_step = "done"
+                st.rerun()
+
+        # ── Step 3: Model ─────────────────────────────────────────────────────
+        elif upd_step == "model":
+            st.subheader("Step 3/4 — Training model (advanced)")
+            bar = st.progress(0, text="Loading data…")
+
+            try:
+                train_k = st.session_state.get("selected_window")
+                results = _filter_by_window(_load_results(), train_k)
+
+                bar.progress(20, text="Calculating team strengths…")
+                strength_calc = TeamStrengthCalculator(use_odds_integration=False)
+                team_stats    = strength_calc.calculate_strengths(results)
+                TEAM_STATS_PATH.parent.mkdir(parents=True, exist_ok=True)
+                team_stats.to_csv(TEAM_STATS_PATH)
+
+                bar.progress(50, text="Fitting Poisson model (MLE + Dixon-Coles)…")
+                model = PoissonModel(use_mle=True, use_dixon_coles=True)
+                model.fit(results, team_stats)
+                model.training_window = train_k
+
+                bar.progress(90, text="Saving model…")
+                MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
+                model.save(str(MODEL_PATH))
+                st.session_state.model_trained = True
+
+                n_teams = len(model.attack_rates)
+                bar.progress(100, text="Done")
+                _log("Step 3/4 — Model", "complete",
+                     f"{n_teams} teams · {len(results)} matches · window: "
+                     f"{train_k} season(s)" if train_k else "all seasons")
+                _advance("sim")
+
+            except Exception as e:
+                bar.progress(100, text="Failed")
+                _log("Step 3/4 — Model", "error", str(e))
+                st.session_state.upd_step = "done"
+                st.rerun()
+
+        # ── Step 4: Simulate ──────────────────────────────────────────────────
+        elif upd_step == "sim":
+            st.subheader("Step 4/4 — Simulating 10 000 seasons")
+            bar = st.progress(0, text="Loading model and fixtures…")
+
+            try:
+                model     = _load_model()
+                simulator = MonteCarloSimulator.from_upcoming_fixtures(model)
+
+                try:
+                    _all_res = pd.read_csv(RESULTS_PATH, parse_dates=["Date"])
+                    if "SeasonStart" in _all_res.columns and not _all_res.empty:
+                        _latest  = int(_all_res["SeasonStart"].dropna().max())
+                        _cur_res = _all_res[_all_res["SeasonStart"] == _latest]
+                    else:
+                        _cur_res = pd.DataFrame()
+                    _stnd       = _standings_from_results(_cur_res) if not _cur_res.empty else pd.DataFrame()
+                    current_pts = dict(zip(_stnd["Team"], _stnd["Pts"])) if not _stnd.empty else {}
+                except Exception:
+                    current_pts = {}
+
+                def _sim_cb(pct):
+                    bar.progress(int(pct), text=f"Simulating… {pct:.0f}%")
+
+                bar.progress(5, text="Starting simulations…")
+                if current_pts:
+                    sim_results = simulator.run_monte_carlo_with_standings(
+                        n_simulations=10_000,
+                        current_standings=current_pts,
+                        progress_callback=_sim_cb,
+                    )
+                else:
+                    sim_results = simulator.run(
+                        n_simulations=10_000,
+                        progress_callback=_sim_cb,
+                    )
+
+                bar.progress(98, text="Saving results…")
+                SIM_PATH.parent.mkdir(parents=True, exist_ok=True)
+                sim_results.to_csv(SIM_PATH, index=False)
+                st.session_state.sim_complete = True
+
+                bar.progress(100, text="Done")
+                _log("Step 4/4 — Simulate", "complete", "10 000 simulations complete")
+                st.session_state.upd_step = "done"
+                st.rerun()
+
+            except Exception as e:
+                bar.progress(100, text="Failed")
+                _log("Step 4/4 — Simulate", "error", str(e))
+                st.session_state.upd_step = "done"
+                st.rerun()

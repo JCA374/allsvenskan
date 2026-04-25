@@ -7,7 +7,7 @@ from typing import Iterable, List, Optional
 import pandas as pd
 import requests
 
-from allsvenskan.utils.helpers import TEAM_NAME_MAP
+from core.utils.helpers import TEAM_NAME_MAP
 
 logger = logging.getLogger(__name__)
 

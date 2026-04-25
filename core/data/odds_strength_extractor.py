@@ -14,8 +14,8 @@ from scipy.optimize import minimize, differential_evolution
 from scipy.stats import poisson
 import warnings
 
-from allsvenskan.data.odds_schema import OddsRecord
-from allsvenskan.utils.odds_converter import remove_margin, calculate_implied_probabilities
+from core.data.odds_schema import OddsRecord
+from core.utils.odds_converter import remove_margin, calculate_implied_probabilities
 
 logger = logging.getLogger(__name__)
 
