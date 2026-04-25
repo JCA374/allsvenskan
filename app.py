@@ -1044,7 +1044,7 @@ elif page == "Forecast":
     if "Pts ±" in tbl.columns:
         fmt["Pts ±"] = "±{:.1f}"
 
-    st.dataframe(tbl.style.apply(_row_color, axis=1).format(fmt), use_container_width=True, hide_index=True)
+    st.dataframe(tbl.style.apply(_row_color, axis=1).format(fmt), use_container_width=True, hide_index=True, height=(len(tbl) + 1) * 35 + 3)
 
     legend_cols = st.columns(3)
     legend_cols[0].caption("🟡 1st — Champions League")
