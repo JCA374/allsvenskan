@@ -1166,22 +1166,36 @@ elif page == "Predictions":
         st.stop()
 
     # ── Build predictions ─────────────────────────────────────────────────────
-    rows = []
-    for _, fix in disp.iterrows():
-        try:
-            pred = model.predict_outcome_probabilities(fix["HomeTeam"], fix["AwayTeam"])
-            rows.append({
-                "Date":     fix["Date"].date() if pd.notna(fix.get("Date")) else "—",
-                "Home":     fix["HomeTeam"],
-                "Away":     fix["AwayTeam"],
-                "Home Win": pred["home_win"],
-                "Draw":     pred["draw"],
-                "Away Win": pred["away_win"],
-                "xG Home":  pred["mu_home"],
-                "xG Away":  pred["mu_away"],
-            })
-        except Exception:
-            pass
+    @st.cache_data(show_spinner=False)
+    def _predict_fixtures(fixture_records: tuple, model_mtime: float):
+        rows = []
+        for home, away, date in fixture_records:
+            try:
+                pred = model.predict_outcome_probabilities(home, away)
+                rows.append({
+                    "Date":     date,
+                    "Home":     home,
+                    "Away":     away,
+                    "Home Win": pred["home_win"],
+                    "Draw":     pred["draw"],
+                    "Away Win": pred["away_win"],
+                    "xG Home":  pred["mu_home"],
+                    "xG Away":  pred["mu_away"],
+                })
+            except Exception:
+                pass
+        return rows
+
+    _model_mtime = MODEL_PATH.stat().st_mtime if MODEL_PATH.exists() else 0
+    _fixture_records = tuple(
+        (
+            r["HomeTeam"],
+            r["AwayTeam"],
+            r["Date"].date() if pd.notna(r.get("Date")) else "—",
+        )
+        for _, r in disp.iterrows()
+    )
+    rows = _predict_fixtures(_fixture_records, _model_mtime)
 
     if not rows:
         st.info("No predictions could be generated.")
@@ -1203,46 +1217,38 @@ elif page == "Predictions":
 
     # ── Match cards ───────────────────────────────────────────────────────────
     st.subheader("Match Details")
-    for _, r in pred_df.iterrows():
-        with st.container():
-            left, mid, right = st.columns([3, 2, 3])
-
-            hw  = float(r["Home Win"])
-            dw  = float(r["Draw"])
-            aw  = float(r["Away Win"])
-            xgh = float(r["xG Home"])
-            xga = float(r["xG Away"])
-
-            with left:
-                st.markdown(f"**{r['Home']}**")
-                st.caption(f"xG {xgh:.2f}")
-
-            with mid:
-                st.markdown(
-                    f"<div style='text-align:center;font-size:0.8em;color:#888'>{r['Date']}</div>",
-                    unsafe_allow_html=True,
-                )
-                st.markdown(
-                    f"<div style='text-align:center;font-size:1.1em'>{hw:.0%} · {dw:.0%} · {aw:.0%}</div>",
-                    unsafe_allow_html=True,
-                )
-                fig = go.Figure(go.Bar(x=[hw * 100], y=[""], orientation="h", marker_color="#2196F3", name="Home", showlegend=False))
-                fig.add_bar(x=[dw * 100], y=[""], orientation="h", marker_color="#9E9E9E", name="Draw", showlegend=False)
-                fig.add_bar(x=[aw * 100], y=[""], orientation="h", marker_color="#F44336", name="Away", showlegend=False)
-                fig.update_layout(
-                    barmode="stack", height=40,
-                    margin=dict(l=0, r=0, t=0, b=0),
-                    xaxis=dict(showticklabels=False, range=[0, 100]),
-                    yaxis=dict(showticklabels=False),
-                    plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)",
-                )
-                st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
-
-            with right:
-                st.markdown(f"**{r['Away']}**")
-                st.caption(f"xG {xga:.2f}")
-
-            st.divider()
+    cards_html = []
+    for r in pred_df.to_dict("records"):
+        hw  = float(r["Home Win"]) * 100
+        dw  = float(r["Draw"])    * 100
+        aw  = float(r["Away Win"]) * 100
+        xgh = float(r["xG Home"])
+        xga = float(r["xG Away"])
+        cards_html.append(f"""
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;align-items:center;
+            padding:10px 0;border-bottom:1px solid #e0e0e0">
+  <div>
+    <strong>{r['Home']}</strong><br>
+    <span style="color:#888;font-size:0.8em">xG {xgh:.2f}</span>
+  </div>
+  <div style="text-align:center">
+    <div style="color:#888;font-size:0.75em;margin-bottom:4px">{r['Date']}</div>
+    <div style="font-size:1em;margin-bottom:6px">{hw:.0f}% · {dw:.0f}% · {aw:.0f}%</div>
+    <div style="display:flex;height:10px;border-radius:4px;overflow:hidden">
+      <div style="width:{hw:.1f}%;background:#2196F3"></div>
+      <div style="width:{dw:.1f}%;background:#9E9E9E"></div>
+      <div style="width:{aw:.1f}%;background:#F44336"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:0.7em;color:#888;margin-top:2px">
+      <span>Home</span><span>Draw</span><span>Away</span>
+    </div>
+  </div>
+  <div style="text-align:right">
+    <strong>{r['Away']}</strong><br>
+    <span style="color:#888;font-size:0.8em">xG {xga:.2f}</span>
+  </div>
+</div>""")
+    st.markdown("\n".join(cards_html), unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
